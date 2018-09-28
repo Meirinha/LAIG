@@ -34,7 +34,7 @@ class MySceneGraph {
         this.axisCoords['y'] = [0, 1, 0];
         this.axisCoords['z'] = [0, 0, 1];
 
-        // File reading
+        // File reading 
         this.reader = new CGFXMLreader();
 
         /*
@@ -69,6 +69,8 @@ class MySceneGraph {
     }
 
     /**
+	DONE TODO APAGAR
+	
      * Parses the XML file, processing each block.
      * @param {XML root element} rootElement
      */
@@ -89,7 +91,7 @@ class MySceneGraph {
 
         // Processes each node, verifying errors.
 
-        // <INITIALS>
+        // <SCENE>
         var index;
         if ((index = nodeNames.indexOf("scene")) == -1)
             return "tag <scene> missing";
@@ -97,164 +99,125 @@ class MySceneGraph {
             if (index != SCENE_INDEX)
                 this.onXMLMinorError("tag <scene> out of order");
 
-            //Parse INITIAL block
+            //Parse SCENE block
             if ((error = this.parseScene(nodes[index])) != null)
                 return error;
         }
 
-        // <ILLUMINATION>
+        // <VIEWS>
         if ((index = nodeNames.indexOf("views")) == -1)
             return "tag <views> missing";
         else {
             if (index != VIEWS_INDEX)
                 this.onXMLMinorError("tag <views> out of order");
 
-            //Parse ILLUMINATION block
+            //Parse VIEWS\ block
             if ((error = this.parseViews(nodes[index])) != null)
                 return error;
         }
 
-        // <LIGHTS>
+        // <AMBIENT>
         if ((index = nodeNames.indexOf("ambient")) == -1)
             return "tag <ambient> missing";
         else {
             if (index != AMBIENT_INDEX)
                 this.onXMLMinorError("tag <ambient> out of order");
 
-            //Parse LIGHTS block
-            if ((error = this.parseLights(nodes[index])) != null)
+            //Parse AMBIENT block
+            if ((error = this.parseAmbient(nodes[index])) != null)
                 return error;
         }
 
-        // <TEXTURES>
+        // <LIGHTS>
         if ((index = nodeNames.indexOf("lights")) == -1)
             return "tag <lights> missing";
         else {
             if (index != LIGHTS_INDEX)
                 this.onXMLMinorError("tag <lights> out of order");
 
-            //Parse TEXTURES block
-            if ((error = this.parseLights(nodes[index])) != null)
+            //Parse LIGHTS block
+            if ((error = this.newparseLights(nodes[index])) != null)
                 return error;
         }
 
-        // <MATERIALS>
+        // <TEXTURES>
         if ((index = nodeNames.indexOf("textures")) == -1)
             return "tag <textures> missing";
         else {
             if (index != TEXTURES_INDEX)
                 this.onXMLMinorError("tag <textures> out of order");
 
-            //Parse MATERIALS block
-            if ((error = this.parseMaterials(nodes[index])) != null)
+            //Parse TEXTURES block
+            if ((error = this.newparseTextures(nodes[index])) != null)
                 return error;
         }
 
-        // <NODES>
+        // <MATERIALS>
         if ((index = nodeNames.indexOf("materials")) == -1)
             return "tag <materials> missing";
         else {
             if (index != MATERIALS_INDEX)
                 this.onXMLMinorError("tag <materials> out of order");
 
-            //Parse NODES block
-            if ((error = this.parseNodes(nodes[index])) != null)
+            //Parse MATERIALS block
+            if ((error = this.newparseMaterials(nodes[index])) != null)
                 return error;
         }
-
+		
+        // <TRANSFORMATIONS>
         if ((index = nodeNames.indexOf("transformations")) == -1)
             return "tag <transformations> missing";
         else {
             if (index != TRANSFORMATIONS_INDEX)
                 this.onXMLMinorError("tag <transformations> out of order");
 
-            //Parse NODES block
-            if ((error = this.parseInitials(nodes[index])) != null)
+            //Parse TRANSFORMATIONS block
+            if ((error = this.parseTransformations(nodes[index])) != null)
                 return error;
         }
-
+		
+		
+        // <PRIMITIVES>
         if ((index = nodeNames.indexOf("primitives")) == -1)
             return "tag <primitives> missing";
         else {
             if (index != PRIMITIVES_INDEX)
                 this.onXMLMinorError("tag <primitives> out of order");
 
-            //Parse NODES block
-            if ((error = this.parseNodes(nodes[index])) != null)
+            //Parse PRIMITIVES block
+            if ((error = this.parsePrimitives(nodes[index])) != null)
                 return error;
         }
-
+		
+		
+        // <COMPONENTS>
         if ((index = nodeNames.indexOf("components")) == -1)
             return "tag <components> missing";
         else {
             if (index != COMPONENTS_INDEX)
                 this.onXMLMinorError("tag <components> out of order");
 
-            //Parse NODES block
-            if ((error = this.parseNodes(nodes[index])) != null)
+            //Parse COMPONENTS block
+            if ((error = this.parseComponents(nodes[index])) != null)
                 return error;
         }
+		
     }
 
-    parseScene(sceneNode){
-      var children = initialsNode.children;
-
-      var nodeNames = [];
-
-      var root = "rootScene";
-
-      for (var i = 0; i < children.length; i++)
-          nodeNames.push(children[i].nodeName);
-
-          var indexRoot = nodeNames.indexOf("root");
-          if (indexRoot == -1) {
-              this.onXMLMinorError("Root missing; assuming 'root' = rootScene");
-          }
-          else {
-              this.root = this.reader.getString(children[indexRoot], 'root');
-              if (this.root == null) {
-                  this.root = "rootScene";
-                  this.onXMLMinorError("unable to parse string for root; assuming 'root = rootScene'");
-              }
-    }
-
-    var indexAxisLength = nodeNames.indexOf("axis_length");
-    if (indexAxisLength == -1) {
-        this.onXMLMinorError("Axis length missing; assuming length = 1");
-    }
-    else{
-      this.axis_length = this.reader.getFloat(children[indexAxisLength], 'axis_length');
-      if (this.axis_length == null) {
-          this.axis_length = 1;
-          this.onXMLMinorError("unable to parse value for axis_length; assuming 'axis_length = 1'");
-      }
-    }
-}
-
-parseViews(sceneNode){
-  var children = initialsNode.children;
-
-  var nodeNames = [];
-
-  var view = "viewScene";
-
-  for (var i = 0; i < children.length; i++)
-      nodeNames.push(children[i].nodeName);
-
-      var indexView = nodeNames.indexOf("view");
-      if (indexView == -1) {
-          this.onXMLMinorError("View missing; assuming 'view' = viewScene");
-      }
-      else {
-          this.view = this.reader.getString(children[indexRoot], 'view');
-          if (this.view == null) {
-              this.view = "viewScene";
-              this.onXMLMinorError("unable to parse string for view; assuming 'view = viewScene'");
-          }
-      }
-
-
-}
+	parseScene(sceneNodes){
+		
+		var rootNodeName = sceneNodes.getAttribute("root");
+		console.log(rootNodeName);
+		
+		if(rootNodeName == null){
+			 this.onXMLMinorError("Root does not have a name, using default");
+			 
+			return;
+		}
+		
+	}
+	
+	
     /**
      * Parses the <INITIALS> block.
      */
@@ -318,8 +281,6 @@ parseViews(sceneNode){
         // Translation.
         this.initialTransforms = mat4.create();
         mat4.identity(this.initialTransforms);
-        var transformations = [];
-        var i = 0;
 
         if (translationIndex == -1)
             this.onXMLMinorError("initial translation undefined; assuming T = (0, 0, 0)");
@@ -335,81 +296,14 @@ parseViews(sceneNode){
                 this.onXMLMinorError("failed to parse coordinates of initial translation; assuming zero");
             }
 
-            transformations[i] = translationIndex;
-            i++;
+            //TODO: Save translation data
         }
 
         //TODO: Parse Rotations
-        if (firstRotationIndex == -1)
-            this.onXMLMinorError("initial rotation undefined; assuming R = (x, 0)");
-        else {
-            var ax = this.reader.getString(children[firstRotationIndex], 'axis');
-            var angle = this.reader.getFloat(children[firstRotationIndex], 'angle');
-
-            if (ax == null || angle == null) {
-                ax = 'x';
-                angle = 0;
-                this.onXMLMinorError("failed to parse coordinates of initial rotation; assuming zero");
-            }
-
-            transformations[i] = firstRotationIndex;
-            i++;
-        }
-
-        if (secondRotationIndex == -1)
-            this.onXMLMinorError("second rotation undefined; assuming R = (x, 0)");
-        else {
-            var ax = this.reader.getString(children[secondRotationIndex], 'axis');
-            var angle = this.reader.getFloat(children[secondRotationIndex], 'angle');
-
-            if (ax == null || angle == null) {
-                ax = 'x';
-                angle = 0;
-                this.onXMLMinorError("failed to parse coordinates of second rotation; assuming zero");
-            }
-
-            transformations[i] = secondRotationIndex;
-            i++;
-        }
-
-        if (thirdRotationIndex == -1)
-            this.onXMLMinorError("third rotation undefined; assuming R = (x, 0)");
-        else {
-            var ax = this.reader.getString(children[thirdRotationIndex], 'axis');
-            var angle = this.reader.getFloat(children[thirdRotationIndex], 'angle');
-
-            if (ax == null || angle == null) {
-                ax = 'x';
-                angle = 0;
-                this.onXMLMinorError("failed to parse coordinates of third rotation; assuming zero");
-            }
-
-            transformations[i] = thirdRotationIndex;
-            i++;
-        }
 
         //TODO: Parse Scaling
-        if (scalingIndex == -1)
-            this.onXMLMinorError("initial scaling undefined; assuming S = (1, 1, 1)");
-        else {
-            var sx = this.reader.getFloat(children[scalingIndex], 'x');
-            var sy = this.reader.getFloat(children[scalingIndex], 'y');
-            var sz = this.reader.getFloat(children[scalingIndex], 'z');
-
-            if (tx == null || ty == null || tz == null) {
-                sx = 1;
-                sy = 1;
-                sz = 1;
-                this.onXMLMinorError("failed to parse coordinates of initial scaling; assuming zero");
-            }
-
-            transformations[i] = translationIndex;
-            i++;
-        }
 
         //TODO: Parse Reference length
-        var indexAxisLength = nodeNames.indexOf("axis_length");
-        this.reader.getFloat(children[indexAxisLength], 'axis_length')
 
         this.log("Parsed initials");
 
@@ -576,7 +470,7 @@ parseViews(sceneNode){
     }
 
     /**
-     * Parses the <TEXTURES> block.
+     * Parses the <TEXTURES> block. 
      * @param {textures block element} texturesNode
      */
     parseTextures(texturesNode) {
