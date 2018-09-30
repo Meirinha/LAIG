@@ -1,15 +1,19 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 
 // Order of the groups in the XML document.
-var SCENE_INDEX = 0;
-var VIEWS_INDEX = 1;
-var AMBIENT_INDEX = 2;
-var LIGHTS_INDEX = 3;
-var TEXTURES_INDEX = 4;
-var MATERIALS_INDEX = 5;
-var TRANSFORMATIONS_INDEX = 6;
-var PRIMITIVES_INDEX = 7;
-var COMPONENTS_INDEX = 8;
+var SCENE_INDEX = 1;
+var VIEWS_INDEX = 2;
+var AMBIENT_INDEX = 3;
+var LIGHTS_INDEX = 4;
+var TEXTURES_INDEX = 5;
+var MATERIALS_INDEX = 6;
+var TRANSFORMATIONS_INDEX = 7;
+var PRIMITIVES_INDEX = 8;
+var COMPONENTS_INDEX = 9;
+
+//Default Values
+var DEFAULT_ROOT_NAME = "rootScene";
+var DEFAULT_AXIS_LENGTH = 1.0;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -92,7 +96,7 @@ class MySceneGraph {
         // Processes each node, verifying errors.
 
         // <SCENE>
-        var index;
+        var index = 1;
         if ((index = nodeNames.indexOf("scene")) == -1)
             return "tag <scene> missing";
         else {
@@ -204,17 +208,27 @@ class MySceneGraph {
 		
     }
 
-	parseScene(sceneNodes){
-		
-		var rootNodeName = sceneNodes.getAttribute("root");
-		console.log(rootNodeName);
-		
-		if(rootNodeName == null){
-			 this.onXMLMinorError("Root does not have a name, using default");
-			 
-			return;
+	//SCENE DONE? TODO APAGAR
+    parseScene(sceneNodes) {
+        //ROOT
+        if(sceneNodes.getAttribute("root") == null){
+            this.onXMLMinorError("Root does not have a name, using default name " + DEFAULT_ROOT_NAME + ".");
+            sceneNodes.setAttribute("root", DEFAULT_ROOT_NAME);
+        }
+
+        //AXIS_LENGTH
+        var sceneAxisLength = parseFloat(sceneNodes.getAttribute("axis_length"));
+
+        if (sceneAxisLength == null) {
+            this.onXMLMinorError("Scene does not have a specified axis_length, using default value " + DEFAULT_AXIS_LENGTH + ".");
+            sceneNodes.setAttribute("axis_length", DEFAULT_AXIS_LENGTH);
+        }
+		else if (isNaN(sceneAxisLength) || sceneAxisLength < 0) {
+		    this.onXMLMinorError("Scene does not have a valid axis_length, using default value " + DEFAULT_AXIS_LENGTH + ".");
+		    sceneNodes.setAttribute("axis_length", DEFAULT_AXIS_LENGTH);
 		}
-		
+        console.log("Scene parsed: Root= " + sceneNodes.getAttribute("root") + " Axis_Length= " + sceneNodes.getAttribute("axis_length"));
+			return;
 	}
 	
 	
