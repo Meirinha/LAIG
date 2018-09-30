@@ -1,19 +1,27 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 
 // Order of the groups in the XML document.
-var SCENE_INDEX = 1;
-var VIEWS_INDEX = 2;
-var AMBIENT_INDEX = 3;
-var LIGHTS_INDEX = 4;
-var TEXTURES_INDEX = 5;
-var MATERIALS_INDEX = 6;
-var TRANSFORMATIONS_INDEX = 7;
-var PRIMITIVES_INDEX = 8;
-var COMPONENTS_INDEX = 9;
+var SCENE_INDEX = 0;
+var VIEWS_INDEX = 1;
+var AMBIENT_INDEX = 2;
+var LIGHTS_INDEX = 3;
+var TEXTURES_INDEX = 4;
+var MATERIALS_INDEX = 5;
+var TRANSFORMATIONS_INDEX = 6;
+var PRIMITIVES_INDEX = 7;
+var COMPONENTS_INDEX = 8;
 
 //Default Values
-var DEFAULT_ROOT_NAME = "rootScene";
-var DEFAULT_AXIS_LENGTH = 1.0;
+var DEFAULT_SCENE_ROOT = "rootScene";
+var DEFAULT_SCENE_AXIS_LENGTH = 1.0;
+
+var DEFAULT_VIEWS_DEFAULT = "defaultViews";
+var DEFAULT_PERSPECTIVE_NEAR = 0.1;
+var DEFAULT_PERSPECTIVE_FAR = 900;
+var DEFAULT_PERSPECTIVE_ANGLE = 0.0;
+var DEFAULT_PERSPECTIVE_FROM = 1.0;
+var DEFAULT_PERSPECTIVE_TO = 40.0;
+var DEFAULT_ORTHO_SIDE = 2;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -49,7 +57,6 @@ class MySceneGraph {
 
         this.reader.open('scenes/' + filename, this);
     }
-
 
     /*
      * Callback to be executed after successful reading
@@ -96,7 +103,7 @@ class MySceneGraph {
         // Processes each node, verifying errors.
 
         // <SCENE>
-        var index = 1;
+        var index;
         if ((index = nodeNames.indexOf("scene")) == -1)
             return "tag <scene> missing";
         else {
@@ -128,7 +135,7 @@ class MySceneGraph {
                 this.onXMLMinorError("tag <ambient> out of order");
 
             //Parse AMBIENT block
-            if ((error = this.parseAmbient(nodes[index])) != null)
+           if ((error = this.parseAmbient(nodes[index])) != null)
                 return error;
         }
 
@@ -210,27 +217,215 @@ class MySceneGraph {
 
 	//SCENE DONE? TODO APAGAR
     parseScene(sceneNodes) {
-        //ROOT
+        //Root
         if(sceneNodes.getAttribute("root") == null){
-            this.onXMLMinorError("Root does not have a name, using default name " + DEFAULT_ROOT_NAME + ".");
-            sceneNodes.setAttribute("root", DEFAULT_ROOT_NAME);
+            this.onXMLMinorError("Root does not have a name, using default name " + DEFAULT_SCENE_ROOT + ".");
+            sceneNodes.setAttribute("root", DEFAULT_SCENE_ROOT);
         }
 
-        //AXIS_LENGTH
+        //Axis Length
         var sceneAxisLength = parseFloat(sceneNodes.getAttribute("axis_length"));
 
-        if (sceneAxisLength == null) {
-            this.onXMLMinorError("Scene does not have a specified axis_length, using default value " + DEFAULT_AXIS_LENGTH + ".");
-            sceneNodes.setAttribute("axis_length", DEFAULT_AXIS_LENGTH);
-        }
-		else if (isNaN(sceneAxisLength) || sceneAxisLength < 0) {
-		    this.onXMLMinorError("Scene does not have a valid axis_length, using default value " + DEFAULT_AXIS_LENGTH + ".");
-		    sceneNodes.setAttribute("axis_length", DEFAULT_AXIS_LENGTH);
+        if(!this.isValidFloat(sceneAxisLength) || sceneAxisLength < 0) {
+		    this.onXMLMinorError("Scene does not have a valid axis_length, using default value " + DEFAULT_SCENE_AXIS_LENGTH + ".");
+		    sceneNodes.setAttribute("axis_length", DEFAULT_SCENE_AXIS_LENGTH);
 		}
-        console.log("Scene parsed: Root= " + sceneNodes.getAttribute("root") + " Axis_Length= " + sceneNodes.getAttribute("axis_length"));
+        console.log("Scene: Root= " + sceneNodes.getAttribute("root") + " Axis_Length= " + sceneNodes.getAttribute("axis_length"));
 			return;
 	}
 	
+    parseViews(viewsNodes){
+        
+        //Default
+        if (viewsNodes.getAttribute("default") == null) {
+            this.onXMLMinorError("Views does not have a default attribute, using value " + DEFAULT_VIEWS_DEFAULT + ".");
+            viewsNodes.setAttribute("default", DEFAULT_VIEWS_DEFAULT);
+        }
+        console.log("Views: default= " + viewsNodes.getAttribute("default"));
+
+        //Views children
+        
+        var children = viewsNodes.children;
+
+        this.views = [];
+        var numViews = 0;
+
+        var nodeNames = [];
+
+        //At least one view
+        var i = 0;
+        do {
+            var currChild = children[i];
+
+            //Check id
+            try{
+            if (currChild.getAttribute("id") == null) {
+                var newid = "view" + i;
+                this.onXMLMinorError("Views child number " + i + " does not have an id, using value id=" + newid + ".");
+                currChild.setAttribute("id", newid);
+            }
+            }catch(err)
+            {
+                throw "At least one View (perspective or ortho) must exist."
+
+
+            }
+            var near = parseFloat(currChild.getAttribute("near"));
+            var far = parseFloat(currChild.getAttribute("far"));
+
+            //Near
+            if (!this.isValidFloat(near) || near < 0) {
+                this.onXMLMinorError(currChild.getAttribute("id") + " does not have a near attribute, using default value near= " + DEFAULT_PERSPECTIVE_NEAR);
+                currChild.setAttribute("near", DEFAULT_PERSPECTIVE_NEAR);
+            }
+
+            //Far
+            if (!this.isValidFloat(far) || far < 0) {
+                this.onXMLMinorError(currChild.getAttribute("id") + " does not have a far attribute, using default value far= " + DEFAULT_PERSPECTIVE_FAR);
+                currChild.setAttribute("far", DEFAULT_PERSPECTIVE_FAR);
+            }            
+
+            //Type Specific Attributes
+            if (currChild.nodeName == "perspective") {
+                var angle = parseFloat(currChild.getAttribute("angle"));
+                if (!this.isValidFloat(angle)) {
+                    this.onXMLMinorError(currChild.getAttribute("id") + " does not have an angle attribute, using default value angle= " + DEFAULT_PERSPECTIVE_ANGLE);
+                    currChild.setAttribute("angle", DEFAULT_PERSPECTIVE_ANGLE);
+                }
+
+                //From Attribute
+                var currGrandchild = currChild.children[0];
+
+                var x = parseFloat(currGrandchild.getAttribute("x"));
+                var y = parseFloat(currGrandchild.getAttribute("y"));
+                var z = parseFloat(currGrandchild.getAttribute("z"));
+                if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)) {
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'from' xyz values, using default value x = y = z = " + DEFAULT_PERSPECTIVE_FROM);
+                    currGrandchild.setAttribute("x", DEFAULT_PERSPECTIVE_FROM);
+                    currGrandchild.setAttribute("y", DEFAULT_PERSPECTIVE_FROM);
+                    currGrandchild.setAttribute("z", DEFAULT_PERSPECTIVE_FROM);
+                }
+
+                //To Attribute
+                var currGrandchild = currChild.children[1];
+
+                x = parseFloat(currGrandchild.getAttribute("x"));
+                y = parseFloat(currGrandchild.getAttribute("y"));
+                z = parseFloat(currGrandchild.getAttribute("z"));
+                if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)) {
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'to' xyz values, using default value x = y = z = " + DEFAULT_PERSPECTIVE_TO);
+                    currGrandchild.setAttribute("x", DEFAULT_PERSPECTIVE_TO);
+                    currGrandchild.setAttribute("y", DEFAULT_PERSPECTIVE_TO);
+                    currGrandchild.setAttribute("z", DEFAULT_PERSPECTIVE_TO);
+                }
+            }
+            else if (currChild.nodeName == "ortho") {
+                var left = parseFloat(currChild.getAttribute("left"));
+                var right = parseFloat(currChild.getAttribute("right"));
+                if (!this.isValidFloat(left) || !this.isValidFloat(right) || right < left) {
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has the attribute left and/or right invalid, using value right = -left = " + DEFAULT_ORTHO_SIDE);
+                    currChild.setAttribute("left", DEFAULT_ORTHO_SIDE * -1);
+                    currChild.setAttribute("right", DEFAULT_ORTHO_SIDE);
+                }
+                var top = parseFloat(currChild.getAttribute("top"));
+                var bottom = parseFloat(currChild.getAttribute("bottom"));
+                if (!this.isValidFloat(bottom) || !this.isValidFloat(top) || top < bottom) {
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has the attribute left and/or right invalid, using value top = -bottom = " + DEFAULT_ORTHO_SIDE);
+                    currChild.setAttribute("bottom", DEFAULT_ORTHO_SIDE * -1);
+                    currChild.setAttribute("top", DEFAULT_ORTHO_SIDE);
+                }
+            }
+            else {
+                this.onXMLMinorError("unknown tag <" + currChild.nodeName + ">");
+                continue;
+            }
+           console.log(currChild.getAttribute("id") + " parsed");
+           i++;
+       } while (i < children.length);
+            /*
+
+
+
+        // Frustum planes
+        // (default values)
+        this.near = 0.1;
+        this.far = 500;
+        var indexFrustum = nodeNames.indexOf("frustum");
+        if (indexFrustum == -1) {
+            this.onXMLMinorError("frustum planes missing; assuming 'near = 0.1' and 'far = 500'");
+        }
+        else {
+            this.near = this.reader.getFloat(children[indexFrustum], 'near');
+            this.far = this.reader.getFloat(children[indexFrustum], 'far');
+
+            if (!(this.near != null && !isNaN(this.near))) {
+                this.near = 0.1;
+                this.onXMLMinorError("unable to parse value for near plane; assuming 'near = 0.1'");
+            }
+            else if (!(this.far != null && !isNaN(this.far))) {
+                this.far = 500;
+                this.onXMLMinorError("unable to parse value for far plane; assuming 'far = 500'");
+            }
+
+            if (this.near >= this.far)
+                return "'near' must be smaller than 'far'";
+        }
+
+        // Checks if at most one translation, three rotations, and one scaling are defined.
+        if (initialsNode.getElementsByTagName('translation').length > 1)
+            return "no more than one initial translation may be defined";
+
+        if (initialsNode.getElementsByTagName('rotation').length > 3)
+            return "no more than three initial rotations may be defined";
+
+        if (initialsNode.getElementsByTagName('scale').length > 1)
+            return "no more than one scaling may be defined";
+
+        // Initial transforms.
+        this.initialTranslate = [];
+        this.initialScaling = [];
+        this.initialRotations = [];
+
+        // Gets indices of each element.
+        var translationIndex = nodeNames.indexOf("translation");
+        var thirdRotationIndex = nodeNames.indexOf("rotation");
+        var secondRotationIndex = nodeNames.indexOf("rotation", thirdRotationIndex + 1);
+        var firstRotationIndex = nodeNames.lastIndexOf("rotation");
+        var scalingIndex = nodeNames.indexOf("scale");
+
+        // Checks if the indices are valid and in the expected order.
+        // Translation.
+        this.initialTransforms = mat4.create();
+        mat4.identity(this.initialTransforms);
+
+        if (translationIndex == -1)
+            this.onXMLMinorError("initial translation undefined; assuming T = (0, 0, 0)");
+        else {
+            var tx = this.reader.getFloat(children[translationIndex], 'x');
+            var ty = this.reader.getFloat(children[translationIndex], 'y');
+            var tz = this.reader.getFloat(children[translationIndex], 'z');
+
+            if (tx == null || ty == null || tz == null) {
+                tx = 0;
+                ty = 0;
+                tz = 0;
+                this.onXMLMinorError("failed to parse coordinates of initial translation; assuming zero");
+            }
+
+            //TODO: Save translation data
+        }
+
+        //TODO: Parse Rotations
+
+        //TODO: Parse Scaling
+
+        //TODO: Parse Reference length
+
+        this.log("Parsed initials");
+
+     */  return null;
+    
+    }
 	
     /**
      * Parses the <INITIALS> block.
@@ -548,5 +743,9 @@ class MySceneGraph {
     displayScene() {
         // entry point for graph rendering
         //TODO: Render loop starting at root of graph
+    }
+
+    isValidFloat(attribute) {
+        return !(attribute == null || isNaN(attribute));
     }
 }
