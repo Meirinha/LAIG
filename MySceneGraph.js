@@ -23,6 +23,11 @@ var DEFAULT_PERSPECTIVE_FROM = 1.0;
 var DEFAULT_PERSPECTIVE_TO = 40.0;
 var DEFAULT_ORTHO_SIDE = 2;
 
+var DEFAULT_AMBIENT_RGB = 1.0;
+var DEFAULT_AMBIENT_ALPHA = 1.0;
+var DEFAULT_BACKGROUND_RGB = 0.0;
+var DEFAULT_BACKGROUND_ALPHA = 1.0;
+
 /**
  * MySceneGraph class, representing the scene graph.
  */
@@ -234,6 +239,7 @@ class MySceneGraph {
 			return;
 	}
 	
+    //Views DONE TODO APAGAR
     parseViews(viewsNodes){
         
         //Default
@@ -247,13 +253,9 @@ class MySceneGraph {
         
         var children = viewsNodes.children;
 
-        this.views = [];
-        var numViews = 0;
-
-        var nodeNames = [];
-
         //At least one view
         var i = 0;
+        var idsUsed = [];
         do {
             var currChild = children[i];
 
@@ -267,9 +269,12 @@ class MySceneGraph {
             }catch(err)
             {
                 throw "At least one View (perspective or ortho) must exist."
-
-
             }
+            
+            if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
+                throw "Repeated id in Views, id= " + currChild.getAttribute("id");
+            
+            idsUsed.push(currChild.getAttribute("id"));
             var near = parseFloat(currChild.getAttribute("near"));
             var far = parseFloat(currChild.getAttribute("far"));
 
@@ -341,92 +346,94 @@ class MySceneGraph {
             }
            console.log(currChild.getAttribute("id") + " parsed");
            i++;
-       } while (i < children.length);
-            /*
-
-
-
-        // Frustum planes
-        // (default values)
-        this.near = 0.1;
-        this.far = 500;
-        var indexFrustum = nodeNames.indexOf("frustum");
-        if (indexFrustum == -1) {
-            this.onXMLMinorError("frustum planes missing; assuming 'near = 0.1' and 'far = 500'");
-        }
-        else {
-            this.near = this.reader.getFloat(children[indexFrustum], 'near');
-            this.far = this.reader.getFloat(children[indexFrustum], 'far');
-
-            if (!(this.near != null && !isNaN(this.near))) {
-                this.near = 0.1;
-                this.onXMLMinorError("unable to parse value for near plane; assuming 'near = 0.1'");
-            }
-            else if (!(this.far != null && !isNaN(this.far))) {
-                this.far = 500;
-                this.onXMLMinorError("unable to parse value for far plane; assuming 'far = 500'");
-            }
-
-            if (this.near >= this.far)
-                return "'near' must be smaller than 'far'";
-        }
-
-        // Checks if at most one translation, three rotations, and one scaling are defined.
-        if (initialsNode.getElementsByTagName('translation').length > 1)
-            return "no more than one initial translation may be defined";
-
-        if (initialsNode.getElementsByTagName('rotation').length > 3)
-            return "no more than three initial rotations may be defined";
-
-        if (initialsNode.getElementsByTagName('scale').length > 1)
-            return "no more than one scaling may be defined";
-
-        // Initial transforms.
-        this.initialTranslate = [];
-        this.initialScaling = [];
-        this.initialRotations = [];
-
-        // Gets indices of each element.
-        var translationIndex = nodeNames.indexOf("translation");
-        var thirdRotationIndex = nodeNames.indexOf("rotation");
-        var secondRotationIndex = nodeNames.indexOf("rotation", thirdRotationIndex + 1);
-        var firstRotationIndex = nodeNames.lastIndexOf("rotation");
-        var scalingIndex = nodeNames.indexOf("scale");
-
-        // Checks if the indices are valid and in the expected order.
-        // Translation.
-        this.initialTransforms = mat4.create();
-        mat4.identity(this.initialTransforms);
-
-        if (translationIndex == -1)
-            this.onXMLMinorError("initial translation undefined; assuming T = (0, 0, 0)");
-        else {
-            var tx = this.reader.getFloat(children[translationIndex], 'x');
-            var ty = this.reader.getFloat(children[translationIndex], 'y');
-            var tz = this.reader.getFloat(children[translationIndex], 'z');
-
-            if (tx == null || ty == null || tz == null) {
-                tx = 0;
-                ty = 0;
-                tz = 0;
-                this.onXMLMinorError("failed to parse coordinates of initial translation; assuming zero");
-            }
-
-            //TODO: Save translation data
-        }
-
-        //TODO: Parse Rotations
-
-        //TODO: Parse Scaling
-
-        //TODO: Parse Reference length
-
-        this.log("Parsed initials");
-
-     */  return null;
-    
+        } while (i < children.length);
+        return null;    
     }
-	
+
+    //Ambient
+    parseAmbient(ambientNodes) {
+        var children = ambientNodes.children;
+        //Ambient TODO Test this
+        var currChild = children[0];
+        if (currChild.nodeName == "ambient") {
+
+            var colorsArray = ["r","g","b"];
+            for(let i = 0; i < 3; i++)
+            {
+                let color = colorsArray[i];
+                let colorValue = parseFloat(currChild.getAttribute(color));
+                if(!this.isValidFloat(colorValue) || colorValue < 0 || colorValue > 1)
+                {
+                    this.onXMLMinorError("The value " + color + "of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_RGB);
+                    currChild.setAttribute(color, DEFAULT_AMBIENT_RGB);
+                }
+            }
+            var alpha = parseFloat(currChild.getAttribute("a"));
+            if (!this.isValidFloat(alpha) || alpha < 0 || alpha > 1) {
+                this.onXMLMinorError("The value alpha of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_ALPHA);
+                currChild.setAttribute("a", DEFAULT_AMBIENT_ALPHA);
+            }
+        }
+        else
+            throw "Ambient must have ambient and background children, in this order";
+        if (currChild.nodeName == "background") {
+            var colorsArray = ["r", "g", "b"];
+            for (let i = 0; i < 3; i++) {
+                let color = colorsArray[i];
+                let colorValue = parseFloat(currChild.getAttribute(color));
+                if (!this.isValidFloat(colorValue) || colorValue < 0 || colorValue > 1) {
+                    this.onXMLMinorError("The value " + color + "of the child ambient of Ambient is not valid, using default value " + DEFAULT_BACKGROUND_RGB);
+                    currChild.setAttribute(color, DEFAULT_BACKGROUND_RGB);
+                }
+            }
+            var alpha = parseFloat(currChild.getAttribute("a"));
+            if (!this.isValidFloat(alpha) || alpha < 0 || alpha > 1) {
+                this.onXMLMinorError("The value alpha of the child ambient of Ambient is not valid, using default value " + DEFAULT_BACKGROUND_ALPHA);
+                currChild.setAttribute("a", DEFAULT_BACKGROUND_ALPHA);
+            }
+        }
+        else
+            throw "Ambient must have ambient and background children, in this order";
+    }
+
+    //Lights TODO finish function
+    newparseLights(ligthsNodes) {
+        let children = ligthsNodes.children;
+
+        //At least one light
+        var i = 0;
+        var idsUsed = [];
+        do {
+            var currChild = children[i];
+
+            //Check id
+            try{
+                if (currChild.getAttribute("id") == null) {
+                    var newid = "light" + i;
+                    this.onXMLMinorError("Lights child number " + i + " does not have an id, using value id=" + newid + ".");
+                    currChild.setAttribute("id", newid);
+                }
+            }catch(err)
+            {
+                throw "At least one Light (omni or spot) must exist."
+            }
+            
+            if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
+                throw "Repeated id in Lights, id= " + currChild.getAttribute("id");
+            
+            idsUsed.push(currChild.getAttribute("id"));
+            var near = parseFloat(currChild.getAttribute("near"));
+            var far = parseFloat(currChild.getAttribute("far"));
+
+            //Enabled TODO confirmar se tt e true ou 1
+            let ena = currChild.getAttribute("enabled");
+            if(ena != 0 && ena != 1)
+                this.onXMLError("Lights child id= " + currChild.getAttribute("id") + " has not a valid 'enabled' value, using 1.");
+        }while(i < children.length)
+        return null;
+    }
+
+
     /**
      * Parses the <INITIALS> block.
      */
