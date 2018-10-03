@@ -1,762 +1,758 @@
-    var DEGREE_TO_RAD = Math.PI / 180;
+var DEGREE_TO_RAD = Math.PI / 180;
 
-    // Order of the groups in the XML document.
-    var SCENE_INDEX = 0;
-    var VIEWS_INDEX = 1;
-    var AMBIENT_INDEX = 2;
-    var LIGHTS_INDEX = 3;
-    var TEXTURES_INDEX = 4;
-    var MATERIALS_INDEX = 5;
-    var TRANSFORMATIONS_INDEX = 6;
-    var PRIMITIVES_INDEX = 7;
-    var COMPONENTS_INDEX = 8;
+// Order of the groups in the XML document.
+var SCENE_INDEX = 0;
+var VIEWS_INDEX = 1;
+var AMBIENT_INDEX = 2;
+var LIGHTS_INDEX = 3;
+var TEXTURES_INDEX = 4;
+var MATERIALS_INDEX = 5;
+var TRANSFORMATIONS_INDEX = 6;
+var PRIMITIVES_INDEX = 7;
+var COMPONENTS_INDEX = 8;
 
-    //Default Values
-    var DEFAULT_SCENE_ROOT = "rootScene";
-    var DEFAULT_SCENE_AXIS_LENGTH = 1.0;
+//Default Values
+var DEFAULT_SCENE_ROOT = "rootScene";
+var DEFAULT_SCENE_AXIS_LENGTH = 1.0;
 
-    var DEFAULT_VIEWS_DEFAULT = "defaultViews";
-    var DEFAULT_PERSPECTIVE_NEAR = 0.1;
-    var DEFAULT_PERSPECTIVE_FAR = 900;
-    var DEFAULT_PERSPECTIVE_ANGLE = 0.0;
-    var DEFAULT_PERSPECTIVE_FROM = 1.0;
-    var DEFAULT_PERSPECTIVE_TO = 40.0;
-    var DEFAULT_ORTHO_SIDE = 2;
+var DEFAULT_VIEWS_DEFAULT = "defaultViews";
+var DEFAULT_PERSPECTIVE_NEAR = 0.1;
+var DEFAULT_PERSPECTIVE_FAR = 900;
+var DEFAULT_PERSPECTIVE_ANGLE = 0.0;
+var DEFAULT_PERSPECTIVE_FROM = 1.0;
+var DEFAULT_PERSPECTIVE_TO = 40.0;
+var DEFAULT_ORTHO_SIDE = 2;
 
-    var DEFAULT_AMBIENT_RGB = 1.0;
-    var DEFAULT_AMBIENT_ALPHA = 1.0;
-    var DEFAULT_BACKGROUND_RGB = 0.0;
-    var DEFAULT_BACKGROUND_ALPHA = 1.0;
+var DEFAULT_AMBIENT_RGB = 1.0;
+var DEFAULT_AMBIENT_ALPHA = 1.0;
+var DEFAULT_BACKGROUND_RGB = 0.0;
+var DEFAULT_BACKGROUND_ALPHA = 1.0;
 
-    var DEFAULT_LIGHTS_LOCATION = 1.0;
-    var DEFAULT_LIGHT_VALUE = 1.0;
-    var DEFAULT_SPOT_TARGET = 5.0;
+var DEFAULT_LIGHTS_LOCATION = 1.0;
+var DEFAULT_LIGHT_VALUE = 1.0;
+var DEFAULT_SPOT_TARGET = 5.0;
 
-    var DEFAULT_TRANSLATION_VALUE = 0.0;
-    var DEFAULT_SCALE_VALUE = 1.0;
+var DEFAULT_TRANSLATION_VALUE = 0.0;
+var DEFAULT_SCALE_VALUE = 1.0;
 
-    var ID_MATRIX = [[1,0,0,0]
-                    [0,1,0,0]
-                    [0,0,1,0]
-                    [0,0,0,1]];
+/**
+ * MySceneGraph class, representing the scene graph.
+ */
+class MySceneGraph {
     /**
-     * MySceneGraph class, representing the scene graph.
+     * @constructor
      */
-    class MySceneGraph {
-        /**
-         * @constructor
-         */
-        constructor(filename, scene) {
-            this.loadedOk = null;
+    constructor(filename, scene) {
+        this.loadedOk = null;
 
-            // Establish bidirectional references between scene and graph.
-            this.scene = scene;
-            scene.graph = this;
+        // Establish bidirectional references between scene and graph.
+        this.scene = scene;
+        scene.graph = this;
 
-            this.nodes = [];
+        this.nodes = [];
 
-            this.idRoot = null;                    // The id of the root element.
+        this.idRoot = null;                    // The id of the root element.
 
-            this.axisCoords = [];
-            this.axisCoords['x'] = [1, 0, 0];
-            this.axisCoords['y'] = [0, 1, 0];
-            this.axisCoords['z'] = [0, 0, 1];
+        this.axisCoords = [];
+        this.axisCoords['x'] = [1, 0, 0];
+        this.axisCoords['y'] = [0, 1, 0];
+        this.axisCoords['z'] = [0, 0, 1];
 
-            // File reading
-            this.reader = new CGFXMLreader();
-
-            /*
-            * Read the contents of the xml file, and refer to this class for loading and error handlers.
-            * After the file is read, the reader calls onXMLReady on this object.
-            * If any error occurs, the reader calls onXMLError on this object, with an error message
-            */
-
-            this.reader.open('scenes/' + filename, this);
-        }
+        // File reading
+        this.reader = new CGFXMLreader();
 
         /*
-        * Callback to be executed after successful reading
+        * Read the contents of the xml file, and refer to this class for loading and error handlers.
+        * After the file is read, the reader calls onXMLReady on this object.
+        * If any error occurs, the reader calls onXMLError on this object, with an error message
         */
-        onXMLReady() {
-            this.log("XML Loading finished.");
-            var rootElement = this.reader.xmlDoc.documentElement;
 
-            // Here should go the calls for different functions to parse the various blocks
-            var error = this.parseXMLFile(rootElement);
-
-            if (error != null) {
-                this.onXMLError(error);
-                return;
-            }
-
-            this.loadedOk = true;
-
-            // As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
-            this.scene.onGraphLoaded();
-        }
-
-        /**
-        DONE TODO APAGAR
-
-        * Parses the XML file, processing each block.
-        * @param {XML root element} rootElement
-        */
-        parseXMLFile(rootElement) {
-            if (rootElement.nodeName != "yas")
-                return "root tag <yas> missing";
-
-            var nodes = rootElement.children;
-
-            // Reads the names of the nodes to an auxiliary buffer.
-            var nodeNames = [];
-
-            for (var i = 0; i < nodes.length; i++) {
-                nodeNames.push(nodes[i].nodeName);
-            }
-
-            var error;
-
-            // Processes each node, verifying errors.
-
-            // <SCENE>
-            var index;
-            if ((index = nodeNames.indexOf("scene")) == -1)
-                return "tag <scene> missing";
-            else {
-                if (index != SCENE_INDEX)
-                    this.onXMLMinorError("tag <scene> out of order");
-
-                //Parse SCENE block
-                if ((error = this.parseScene(nodes[index])) != null)
-                    return error;
-            }
-
-            // <VIEWS>
-            if ((index = nodeNames.indexOf("views")) == -1)
-                return "tag <views> missing";
-            else {
-                if (index != VIEWS_INDEX)
-                    this.onXMLMinorError("tag <views> out of order");
-
-                //Parse VIEWS\ block
-                if ((error = this.parseViews(nodes[index])) != null)
-                    return error;
-            }
-
-            // <AMBIENT>
-            if ((index = nodeNames.indexOf("ambient")) == -1)
-                return "tag <ambient> missing";
-            else {
-                if (index != AMBIENT_INDEX)
-                    this.onXMLMinorError("tag <ambient> out of order");
-
-                //Parse AMBIENT block
-            if ((error = this.parseAmbient(nodes[index])) != null)
-                    return error;
-            }
-
-            // <LIGHTS>
-            if ((index = nodeNames.indexOf("lights")) == -1)
-                return "tag <lights> missing";
-            else {
-                if (index != LIGHTS_INDEX)
-                    this.onXMLMinorError("tag <lights> out of order");
-
-                //Parse LIGHTS block
-                if ((error = this.newparseLights(nodes[index])) != null)
-                    return error;
-            }
-
-            // <TEXTURES>
-            if ((index = nodeNames.indexOf("textures")) == -1)
-                return "tag <textures> missing";
-            else {
-                if (index != TEXTURES_INDEX)
-                    this.onXMLMinorError("tag <textures> out of order");
-
-                //Parse TEXTURES block
-                if ((error = this.newparseTextures(nodes[index])) != null)
-                    return error;
-            }
-
-            // <MATERIALS>
-            if ((index = nodeNames.indexOf("materials")) == -1)
-                return "tag <materials> missing";
-            else {
-                if (index != MATERIALS_INDEX)
-                    this.onXMLMinorError("tag <materials> out of order");
-
-                //Parse MATERIALS block
-                if ((error = this.newparseMaterials(nodes[index])) != null)
-                    return error;
-            }
-
-            // <TRANSFORMATIONS>
-            if ((index = nodeNames.indexOf("transformations")) == -1)
-                return "tag <transformations> missing";
-            else {
-                if (index != TRANSFORMATIONS_INDEX)
-                    this.onXMLMinorError("tag <transformations> out of order");
-
-                //Parse TRANSFORMATIONS block
-                if ((error = this.parseTransformations(nodes[index])) != null)
-                    return error;
-            }
-
-
-            // <PRIMITIVES>
-            if ((index = nodeNames.indexOf("primitives")) == -1)
-                return "tag <primitives> missing";
-            else {
-                if (index != PRIMITIVES_INDEX)
-                    this.onXMLMinorError("tag <primitives> out of order");
-
-                //Parse PRIMITIVES block
-                if ((error = this.parsePrimitives(nodes[index])) != null)
-                    return error;
-            }
-
-
-            // <COMPONENTS>
-            if ((index = nodeNames.indexOf("components")) == -1)
-                return "tag <components> missing";
-            else {
-                if (index != COMPONENTS_INDEX)
-                    this.onXMLMinorError("tag <components> out of order");
-
-                //Parse COMPONENTS block
-                if ((error = this.parseComponents(nodes[index])) != null)
-                    return error;
-            }
-
-        }
-
-        //SCENE DONE? TODO APAGAR
-        parseScene(sceneNodes) {
-            //Root
-            if(sceneNodes.getAttribute("root") == null){
-                this.onXMLMinorError("Root does not have a name, using default name " + DEFAULT_SCENE_ROOT + ".");
-                sceneNodes.setAttribute("root", DEFAULT_SCENE_ROOT);
-            }
-
-            //Axis Length
-            var sceneAxisLength = parseFloat(sceneNodes.getAttribute("axis_length"));
-
-            if(!this.isValidFloat(sceneAxisLength) || sceneAxisLength < 0) {
-                this.onXMLMinorError("Scene does not have a valid axis_length, using default value " + DEFAULT_SCENE_AXIS_LENGTH + ".");
-                sceneNodes.setAttribute("axis_length", DEFAULT_SCENE_AXIS_LENGTH);
-            }
-            console.log("Scene: Root= " + sceneNodes.getAttribute("root") + " Axis_Length= " + sceneNodes.getAttribute("axis_length"));
-                return;
-        }
-
-        //Views DONE TODO GUARDAR INFO  APAGAR
-        parseViews(viewsNodes){
-
-            //Default
-            if (viewsNodes.getAttribute("default") == null) {
-                this.onXMLMinorError("Views does not have a default attribute, using value " + DEFAULT_VIEWS_DEFAULT + ".");
-                viewsNodes.setAttribute("default", DEFAULT_VIEWS_DEFAULT);
-            }
-            console.log("Views: default= " + viewsNodes.getAttribute("default"));
-
-            //Views children
-
-            var children = viewsNodes.children;
-
-            //At least one view
-            var i = 0;
-            var idsUsed = [];
-            do {
-                var currChild = children[i];
-
-                //Check id
-                try{
-                if (currChild.getAttribute("id") == null) {
-                    var newid = "view" + i;
-                    this.onXMLMinorError("Views child number " + i + " does not have an id, using value id=" + newid + ".");
-                    currChild.setAttribute("id", newid);
-                }
-                }catch(err)
-                {
-                    throw "At least one View (perspective or ortho) must exist."
-                }
-
-                if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
-                    throw "Repeated id in Views, id= " + currChild.getAttribute("id");
-
-                idsUsed.push(currChild.getAttribute("id"));
-                var near = parseFloat(currChild.getAttribute("near"));
-                var far = parseFloat(currChild.getAttribute("far"));
-
-                //Near
-                if (!this.isValidFloat(near) || near < 0) {
-                    this.onXMLMinorError(currChild.getAttribute("id") + " does not have a near attribute, using default value near= " + DEFAULT_PERSPECTIVE_NEAR);
-                    currChild.setAttribute("near", DEFAULT_PERSPECTIVE_NEAR);
-                }
-
-                //Far
-                if (!this.isValidFloat(far) || far < 0) {
-                    this.onXMLMinorError(currChild.getAttribute("id") + " does not have a far attribute, using default value far= " + DEFAULT_PERSPECTIVE_FAR);
-                    currChild.setAttribute("far", DEFAULT_PERSPECTIVE_FAR);
-                }
-
-                //Type Specific Attributes
-                if (currChild.nodeName == "perspective") {
-                    var angle = parseFloat(currChild.getAttribute("angle"));
-                    if (!this.isValidFloat(angle)) {
-                        this.onXMLMinorError(currChild.getAttribute("id") + " does not have an angle attribute, using default value angle= " + DEFAULT_PERSPECTIVE_ANGLE);
-                        currChild.setAttribute("angle", DEFAULT_PERSPECTIVE_ANGLE);
-                    }
-
-                    //From Attribute
-                    var currGrandchild = currChild.children[0];
-
-                    var x = parseFloat(currGrandchild.getAttribute("x"));
-                    var y = parseFloat(currGrandchild.getAttribute("y"));
-                    var z = parseFloat(currGrandchild.getAttribute("z"));
-                    if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)) {
-                        this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'from' xyz values, using default value x = y = z = " + DEFAULT_PERSPECTIVE_FROM);
-                        currGrandchild.setAttribute("x", DEFAULT_PERSPECTIVE_FROM);
-                        currGrandchild.setAttribute("y", DEFAULT_PERSPECTIVE_FROM);
-                        currGrandchild.setAttribute("z", DEFAULT_PERSPECTIVE_FROM);
-                    }
-
-                    //To Attribute
-                    var currGrandchild = currChild.children[1];
-
-                    x = parseFloat(currGrandchild.getAttribute("x"));
-                    y = parseFloat(currGrandchild.getAttribute("y"));
-                    z = parseFloat(currGrandchild.getAttribute("z"));
-                    if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)) {
-                        this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'to' xyz values, using default value x = y = z = " + DEFAULT_PERSPECTIVE_TO);
-                        currGrandchild.setAttribute("x", DEFAULT_PERSPECTIVE_TO);
-                        currGrandchild.setAttribute("y", DEFAULT_PERSPECTIVE_TO);
-                        currGrandchild.setAttribute("z", DEFAULT_PERSPECTIVE_TO);
-                    }
-                }
-                else if (currChild.nodeName == "ortho") {
-                    var left = parseFloat(currChild.getAttribute("left"));
-                    var right = parseFloat(currChild.getAttribute("right"));
-                    if (!this.isValidFloat(left) || !this.isValidFloat(right) || right < left) {
-                        this.onXMLMinorError(currChild.getAttribute("id") + " has the attribute left and/or right invalid, using value right = -left = " + DEFAULT_ORTHO_SIDE);
-                        currChild.setAttribute("left", DEFAULT_ORTHO_SIDE * -1);
-                        currChild.setAttribute("right", DEFAULT_ORTHO_SIDE);
-                    }
-                    var top = parseFloat(currChild.getAttribute("top"));
-                    var bottom = parseFloat(currChild.getAttribute("bottom"));
-                    if (!this.isValidFloat(bottom) || !this.isValidFloat(top) || top < bottom) {
-                        this.onXMLMinorError(currChild.getAttribute("id") + " has the attribute left and/or right invalid, using value top = -bottom = " + DEFAULT_ORTHO_SIDE);
-                        currChild.setAttribute("bottom", DEFAULT_ORTHO_SIDE * -1);
-                        currChild.setAttribute("top", DEFAULT_ORTHO_SIDE);
-                    }
-                }
-                else {
-                    this.onXMLMinorError("unknown tag <" + currChild.nodeName + ">");
-                    continue;
-                }
-            console.log(currChild.getAttribute("id") + " parsed");
-            i++;
-            } while (i < children.length);
-            return null;
-        }
-
-        //Ambient
-        parseAmbient(ambientNodes) {
-            var children = ambientNodes.children;
-            //Ambient TODO Test this GUARDAR INFO
-            var currChild = children[0];
-            if (currChild.nodeName == "ambient") {
-
-                var colorsArray = ["r","g","b"];
-                for(let i = 0; i < 3; i++)
-                {
-                    let color = colorsArray[i];
-                    let colorValue = parseFloat(currChild.getAttribute(color));
-                    if(!this.isValidFloat(colorValue) || colorValue < 0 || colorValue > 1)
-                    {
-                        this.onXMLMinorError("The value " + color + "of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_RGB);
-                        currChild.setAttribute(color, DEFAULT_AMBIENT_RGB);
-                    }
-                }
-                var alpha = parseFloat(currChild.getAttribute("a"));
-                if (!this.isValidFloat(alpha) || alpha < 0 || alpha > 1) {
-                    this.onXMLMinorError("The value alpha of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_ALPHA);
-                    currChild.setAttribute("a", DEFAULT_AMBIENT_ALPHA);
-                }
-            }
-            else
-                throw "Ambient must have ambient and background children, in this order";
-            if (currChild.nodeName == "background") {
-                var colorsArray = ["r", "g", "b"];
-                for (let i = 0; i < 3; i++) {
-                    let color = colorsArray[i];
-                    let colorValue = parseFloat(currChild.getAttribute(color));
-                    if (!this.isValidFloat(colorValue) || colorValue < 0 || colorValue > 1) {
-                        this.onXMLMinorError("The value " + color + "of the child ambient of Ambient is not valid, using default value " + DEFAULT_BACKGROUND_RGB);
-                        currChild.setAttribute(color, DEFAULT_BACKGROUND_RGB);
-                    }
-                }
-                var alpha = parseFloat(currChild.getAttribute("a"));
-                if (!this.isValidFloat(alpha) || alpha < 0 || alpha > 1) {
-                    this.onXMLMinorError("The value alpha of the child ambient of Ambient is not valid, using default value " + DEFAULT_BACKGROUND_ALPHA);
-                    currChild.setAttribute("a", DEFAULT_BACKGROUND_ALPHA);
-                }
-            }
-            else
-                throw "Ambient must have ambient and background children, in this order";
-        }
-
-        //Lights TODO GUARDAR INFO
-        newparseLights(ligthsNodes) {
-            let children = ligthsNodes.children;
-
-            //At least one light
-            var i = 0;
-            var idsUsed = [];
-            do {
-                var currChild = children[i];
-
-                //Check id
-                try{
-                    if (currChild.getAttribute("id") == null) {
-                        var newid = "light" + i;
-                        this.onXMLMinorError("Lights child number " + i + " does not have an id, using value id=" + newid + ".");
-                        currChild.setAttribute("id", newid);
-                    }
-                }catch(err)
-                {
-                    throw "At least one Light (omni or spot) must exist."
-                }
-
-                //No repeated id
-                if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
-                    throw "Repeated id in Lights, id= " + currChild.getAttribute("id");
-
-                idsUsed.push(currChild.getAttribute("id"));
-                var near = parseFloat(currChild.getAttribute("near"));
-                var far = parseFloat(currChild.getAttribute("far"));
-
-                //Enabled TODO confirmar se tt e true ou 1
-                let ena = currChild.getAttribute("enabled");
-                if(ena != 0 && ena != 1){
-                    this.onXMLError("Lights child id= " + currChild.getAttribute("id") + " has not a valid 'enabled' value, using 1.");
-                }
-                for( let j = 0; j < 3 ; j++)
-                {
-                let currGrandchild = currChild.children[j];
-                if(currGrandchild.nodeName == "location"){
-                let x = parseFloat(currGrandchild.getAttribute("x"));
-                let y = parseFloat(currGrandchild.getAttribute("y"));
-                let z = parseFloat(currGrandchild.getAttribute("z"));
-                let w = parseFloat(currGrandchild.getAttribute("w"));
-                if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z) || !this.isValidFloat(w)){
-                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'location' xyzw values, using default value x = y = z = w = " + DEFAULT_LIGHTS_LOCATION);
-                    currGrandchild.setAttribute("x", DEFAULT_LIGHTS_LOCATION);
-                    currGrandchild.setAttribute("y", DEFAULT_LIGHTS_LOCATION);
-                    currGrandchild.setAttribute("z", DEFAULT_LIGHTS_LOCATION);
-                    currGrandchild.setAttribute("w", DEFAULT_LIGHTS_LOCATION);
-                }
-                else if(currGrandchild.nodeName == "ambient" || currGrandchild.nodeName == "diffuse" || currGrandchild.nodeName == "specular"){
-                    let r = parseFloat(currGrandchild.getAttribute("r"));
-                    let g = parseFloat(currGrandchild.getAttribute("g"));
-                    let b = parseFloat(currGrandchild.getAttribute("b"));
-                    let a = parseFloat(currGrandchild.getAttribute("a"));
-                    if(!this.isValidFloat(r) || !this.isValidFloat(g) || !this.isValidFloat(b) || !this.isValidFloat(a)){
-                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
-                    currGrandchild.setAttribute("r", DEFAULT_LIGHTS_LOCATION);
-                    currGrandchild.setAttribute("g", DEFAULT_LIGHTS_LOCATION);
-                    currGrandchild.setAttribute("b", DEFAULT_LIGHTS_LOCATION);
-                    currGrandchild.setAttribute("a", DEFAULT_LIGHTS_LOCATION);
-                }
-                }
-                if(currChild.nodeName == "spot" && currGrandchild.nodeName == "target"){
-                let x = parseFloat(currGrandchild.getAttribute("x"));
-                let y = parseFloat(currGrandchild.getAttribute("y"));
-                let z = parseFloat(currGrandchild.getAttribute("z"));
-
-                if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)){
-                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_SPOT_TARGET);
-                    currGrandchild.setAttribute("x", DEFAULT_SPOT_TARGET);
-                    currGrandchild.setAttribute("y", DEFAULT_SPOT_TARGET);
-                    currGrandchild.setAttribute("z", DEFAULT_SPOT_TARGET);
-                }
-            }
-        }
-            if(currChild.nodeName == "spot"){
-            let a = currChild.getAttribute("angle");
-            if(!this.isValidFloat(a)){
-            let defAngle = 90.0 * DEGREE_TO_RAD;
-            this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
-            currChild.setAttribute("angle", defAngle);
-            }
-            a = currChild.getAttribute("exponent");
-            if(!this.isValidFloat(a)){
-            let defExponent = 1.0;
-            this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid exponent value, using default value exponent = " + defExponent);
-            currChild.setAttribute("exponent", defExponent);
-        }
+        this.reader.open('scenes/' + filename, this);
     }
 
-                
-        }
-            i++;
-            }while(i < children.length)
-            return null;
+    /*
+    * Callback to be executed after successful reading
+    */
+    onXMLReady() {
+        this.log("XML Loading finished.");
+        var rootElement = this.reader.xmlDoc.documentElement;
+
+        // Here should go the calls for different functions to parse the various blocks
+        var error = this.parseXMLFile(rootElement);
+
+        if (error != null) {
+            this.onXMLError(error);
+            return;
         }
 
-        //Transformations
-        parseTransformations(transformationsNodes)
-        {
-        this.transformations = [];
-        let children = transformationNodes.children;
+        this.loadedOk = true;
 
-        //At least one transformation
+        // As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
+        this.scene.onGraphLoaded();
+    }
+
+    /**
+    DONE TODO APAGAR
+
+    * Parses the XML file, processing each block.
+    * @param {XML root element} rootElement
+    */
+    parseXMLFile(rootElement) {
+        if (rootElement.nodeName != "yas")
+            return "root tag <yas> missing";
+
+        var nodes = rootElement.children;
+
+        // Reads the names of the nodes to an auxiliary buffer.
+        var nodeNames = [];
+
+        for (var i = 0; i < nodes.length; i++) {
+            nodeNames.push(nodes[i].nodeName);
+        }
+
+        var error;
+
+        // Processes each node, verifying errors.
+
+        // <SCENE>
+        var index;
+        if ((index = nodeNames.indexOf("scene")) == -1)
+            return "tag <scene> missing";
+        else {
+            if (index != SCENE_INDEX)
+                this.onXMLMinorError("tag <scene> out of order");
+
+            //Parse SCENE block
+            if ((error = this.parseScene(nodes[index])) != null)
+                return error;
+        }
+
+        // <VIEWS>
+        if ((index = nodeNames.indexOf("views")) == -1)
+            return "tag <views> missing";
+        else {
+            if (index != VIEWS_INDEX)
+                this.onXMLMinorError("tag <views> out of order");
+
+            //Parse VIEWS\ block
+            if ((error = this.parseViews(nodes[index])) != null)
+                return error;
+        }
+
+        // <AMBIENT>
+        if ((index = nodeNames.indexOf("ambient")) == -1)
+            return "tag <ambient> missing";
+        else {
+            if (index != AMBIENT_INDEX)
+                this.onXMLMinorError("tag <ambient> out of order");
+
+            //Parse AMBIENT block
+        if ((error = this.parseAmbient(nodes[index])) != null)
+                return error;
+        }
+
+        // <LIGHTS>
+        if ((index = nodeNames.indexOf("lights")) == -1)
+            return "tag <lights> missing";
+        else {
+            if (index != LIGHTS_INDEX)
+                this.onXMLMinorError("tag <lights> out of order");
+
+            //Parse LIGHTS block
+            if ((error = this.newparseLights(nodes[index])) != null)
+                return error;
+        }
+
+        // <TEXTURES>
+        if ((index = nodeNames.indexOf("textures")) == -1)
+            return "tag <textures> missing";
+        else {
+            if (index != TEXTURES_INDEX)
+                this.onXMLMinorError("tag <textures> out of order");
+
+            //Parse TEXTURES block
+            if ((error = this.newparseTextures(nodes[index])) != null)
+                return error;
+        }
+
+        // <MATERIALS>
+        if ((index = nodeNames.indexOf("materials")) == -1)
+            return "tag <materials> missing";
+        else {
+            if (index != MATERIALS_INDEX)
+                this.onXMLMinorError("tag <materials> out of order");
+
+            //Parse MATERIALS block
+            if ((error = this.newparseMaterials(nodes[index])) != null)
+                return error;
+        }
+
+        // <TRANSFORMATIONS>
+        if ((index = nodeNames.indexOf("transformations")) == -1)
+            return "tag <transformations> missing";
+        else {
+            if (index != TRANSFORMATIONS_INDEX)
+                this.onXMLMinorError("tag <transformations> out of order");
+
+            //Parse TRANSFORMATIONS block
+            if ((error = this.parseTransformations(nodes[index])) != null)
+                return error;
+        }
+
+
+        // <PRIMITIVES>
+        if ((index = nodeNames.indexOf("primitives")) == -1)
+            return "tag <primitives> missing";
+        else {
+            if (index != PRIMITIVES_INDEX)
+                this.onXMLMinorError("tag <primitives> out of order");
+
+            //Parse PRIMITIVES block
+            if ((error = this.parsePrimitives(nodes[index])) != null)
+                return error;
+        }
+
+
+        // <COMPONENTS>
+        if ((index = nodeNames.indexOf("components")) == -1)
+            return "tag <components> missing";
+        else {
+            if (index != COMPONENTS_INDEX)
+                this.onXMLMinorError("tag <components> out of order");
+
+            //Parse COMPONENTS block
+            if ((error = this.parseComponents(nodes[index])) != null)
+                return error;
+        }
+
+    }
+
+    //SCENE DONE? TODO APAGAR
+    parseScene(sceneNodes) {
+        //Root
+        if(sceneNodes.getAttribute("root") == null){
+            this.onXMLMinorError("Root does not have a name, using default name " + DEFAULT_SCENE_ROOT + ".");
+            sceneNodes.setAttribute("root", DEFAULT_SCENE_ROOT);
+        }
+
+        //Axis Length
+        var sceneAxisLength = parseFloat(sceneNodes.getAttribute("axis_length"));
+
+        if(!this.isValidFloat(sceneAxisLength) || sceneAxisLength < 0) {
+            this.onXMLMinorError("Scene does not have a valid axis_length, using default value " + DEFAULT_SCENE_AXIS_LENGTH + ".");
+            sceneNodes.setAttribute("axis_length", DEFAULT_SCENE_AXIS_LENGTH);
+        }
+        console.log("Scene: Root= " + sceneNodes.getAttribute("root") + " Axis_Length= " + sceneNodes.getAttribute("axis_length"));
+            return;
+    }
+
+    //Views DONE TODO GUARDAR INFO  APAGAR
+    parseViews(viewsNodes){
+
+        //Default
+        if (viewsNodes.getAttribute("default") == null) {
+            this.onXMLMinorError("Views does not have a default attribute, using value " + DEFAULT_VIEWS_DEFAULT + ".");
+            viewsNodes.setAttribute("default", DEFAULT_VIEWS_DEFAULT);
+        }
+        console.log("Views: default= " + viewsNodes.getAttribute("default"));
+
+        //Views children
+
+        var children = viewsNodes.children;
+
+        //At least one view
         var i = 0;
         var idsUsed = [];
         do {
-            var matrix = new Mat4();
             var currChild = children[i];
 
             //Check id
             try{
-                if (currChild.getAttribute("id") == null) {
-                    var newid = "transformation" + i;
-                    this.onXMLMinorError("Transformations child number " + i + " does not have an id, using value id=" + newid + ".");
-                    currChild.setAttribute("id", newid);
-                }
+            if (currChild.getAttribute("id") == null) {
+                var newid = "view" + i;
+                this.onXMLMinorError("Views child number " + i + " does not have an id, using value id=" + newid + ".");
+                currChild.setAttribute("id", newid);
+            }
             }catch(err)
             {
-                throw "At least one Transformation must exist."
+                throw "At least one View (perspective or ortho) must exist."
             }
 
-            //No repeated id
             if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
-                throw "Repeated id in Transformations, id= " + currChild.getAttribute("id");
+                throw "Repeated id in Views, id= " + currChild.getAttribute("id");
 
             idsUsed.push(currChild.getAttribute("id"));
+            var near = parseFloat(currChild.getAttribute("near"));
+            var far = parseFloat(currChild.getAttribute("far"));
 
-            let grandchildren = currChild.children;
-
-            //At least one transformation
-            let j = 0;
-            do{
-                currGrandchild = grandchildren[j];
-                if(currGrandchild.nodeName == "translate"){
-                let x = parseFloat(currGrandchild.getAttribute("x"));
-                let y = parseFloat(currGrandchild.getAttribute("y"));
-                let z = parseFloat(currGrandchild.getAttribute("z"));
-                if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)){
-
-                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_TRANSLATION_VALUE);
-                    currGrandchild.setAttribute("x", DEFAULT_TRANSLATION_VALUE);
-                    currGrandchild.setAttribute("y", DEFAULT_TRANSLATION_VALUE);
-                    currGrandchild.setAttribute("z", DEFAULT_TRANSLATION_VALUE);
-                }
-                let vector = new Vec3(currGrandchild.getAttribute("x"),
-                                    currGrandchild.getAttribute("y"),
-                                    currGrandchild.getAttribute("z"));
-                mat4.translate(matrix, matrix, vector);
+            //Near
+            if (!this.isValidFloat(near) || near < 0) {
+                this.onXMLMinorError(currChild.getAttribute("id") + " does not have a near attribute, using default value near= " + DEFAULT_PERSPECTIVE_NEAR);
+                currChild.setAttribute("near", DEFAULT_PERSPECTIVE_NEAR);
             }
-            else if(currGrandchild.nodeName == "rotate"){
-                let angle = parseFloat(currGrandchild.getAttribute("angle"));
-                let axis = currGrandchild.getAttribute("axis");
-                if(!this.isValidFloat(angle)){
-                    let defAngle = 0;
-                    this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
-                    currGrandchild.setAttribute("angle", defAngle);
+
+            //Far
+            if (!this.isValidFloat(far) || far < 0) {
+                this.onXMLMinorError(currChild.getAttribute("id") + " does not have a far attribute, using default value far= " + DEFAULT_PERSPECTIVE_FAR);
+                currChild.setAttribute("far", DEFAULT_PERSPECTIVE_FAR);
+            }
+
+            //Type Specific Attributes
+            if (currChild.nodeName == "perspective") {
+                var angle = parseFloat(currChild.getAttribute("angle"));
+                if (!this.isValidFloat(angle)) {
+                    this.onXMLMinorError(currChild.getAttribute("id") + " does not have an angle attribute, using default value angle= " + DEFAULT_PERSPECTIVE_ANGLE);
+                    currChild.setAttribute("angle", DEFAULT_PERSPECTIVE_ANGLE);
                 }
-                if(axis != "x" && axis != "y" && axis != "z")
+
+                //From Attribute
+                var currGrandchild = currChild.children[0];
+
+                var x = parseFloat(currGrandchild.getAttribute("x"));
+                var y = parseFloat(currGrandchild.getAttribute("y"));
+                var z = parseFloat(currGrandchild.getAttribute("z"));
+                if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)) {
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'from' xyz values, using default value x = y = z = " + DEFAULT_PERSPECTIVE_FROM);
+                    currGrandchild.setAttribute("x", DEFAULT_PERSPECTIVE_FROM);
+                    currGrandchild.setAttribute("y", DEFAULT_PERSPECTIVE_FROM);
+                    currGrandchild.setAttribute("z", DEFAULT_PERSPECTIVE_FROM);
+                }
+
+                //To Attribute
+                var currGrandchild = currChild.children[1];
+
+                x = parseFloat(currGrandchild.getAttribute("x"));
+                y = parseFloat(currGrandchild.getAttribute("y"));
+                z = parseFloat(currGrandchild.getAttribute("z"));
+                if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)) {
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'to' xyz values, using default value x = y = z = " + DEFAULT_PERSPECTIVE_TO);
+                    currGrandchild.setAttribute("x", DEFAULT_PERSPECTIVE_TO);
+                    currGrandchild.setAttribute("y", DEFAULT_PERSPECTIVE_TO);
+                    currGrandchild.setAttribute("z", DEFAULT_PERSPECTIVE_TO);
+                }
+            }
+            else if (currChild.nodeName == "ortho") {
+                var left = parseFloat(currChild.getAttribute("left"));
+                var right = parseFloat(currChild.getAttribute("right"));
+                if (!this.isValidFloat(left) || !this.isValidFloat(right) || right < left) {
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has the attribute left and/or right invalid, using value right = -left = " + DEFAULT_ORTHO_SIDE);
+                    currChild.setAttribute("left", DEFAULT_ORTHO_SIDE * -1);
+                    currChild.setAttribute("right", DEFAULT_ORTHO_SIDE);
+                }
+                var top = parseFloat(currChild.getAttribute("top"));
+                var bottom = parseFloat(currChild.getAttribute("bottom"));
+                if (!this.isValidFloat(bottom) || !this.isValidFloat(top) || top < bottom) {
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has the attribute left and/or right invalid, using value top = -bottom = " + DEFAULT_ORTHO_SIDE);
+                    currChild.setAttribute("bottom", DEFAULT_ORTHO_SIDE * -1);
+                    currChild.setAttribute("top", DEFAULT_ORTHO_SIDE);
+                }
+            }
+            else {
+                this.onXMLMinorError("unknown tag <" + currChild.nodeName + ">");
+                continue;
+            }
+        console.log(currChild.getAttribute("id") + " parsed");
+        i++;
+        } while (i < children.length);
+        return null;
+    }
+
+    //Ambient
+    parseAmbient(ambientNodes) {
+        var children = ambientNodes.children;
+        //Ambient TODO Test this GUARDAR INFO
+        var currChild = children[0];
+        if (currChild.nodeName == "ambient") {
+
+            var colorsArray = ["r","g","b"];
+            for(let i = 0; i < 3; i++)
+            {
+                let color = colorsArray[i];
+                let colorValue = parseFloat(currChild.getAttribute(color));
+                if(!this.isValidFloat(colorValue) || colorValue < 0 || colorValue > 1)
                 {
-                let defAxis = "x";
-                this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid axis value, using default value axis = " + defAxis);
-                currGrandchild.setAttribute("angle", defAngle);
+                    this.onXMLMinorError("The value " + color + "of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_RGB);
+                    currChild.setAttribute(color, DEFAULT_AMBIENT_RGB);
                 }
-
-                let vector = new Vec3();
-                switch(currGrandchild.getAttribute("axis"))
-                {
-                case "x": {
-                    vector.createFrom(1,0,0);
-                }
-                case "y": {
-                    vector.createFrom(0,1,0);
-                }
-                case "z": {
-                    vector.createFrom(0,0,1);
-                }
-                }
-                angle = parseFloat(currGrandchild.getAttribute("angle")) * DEGREE_TO_RAD;
-                mat4.rotate(matrix, matrix, angle, vector);
             }
-            else if(currGrandchild.nodeName == "scale"){
-                let x = parseFloat(currGrandchild.getAttribute("x"));
-                let y = parseFloat(currGrandchild.getAttribute("y"));
-                let z = parseFloat(currGrandchild.getAttribute("z"));
-                if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)){
-                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_SCALE_VALUE);
-                currGrandchild.setAttribute("x", DEFAULT_SCALE_VALUE);
-                currGrandchild.setAttribute("y", DEFAULT_SCALE_VALUE);
-                currGrandchild.setAttribute("z", DEFAULT_SCALE_VALUE);
+            var alpha = parseFloat(currChild.getAttribute("a"));
+            if (!this.isValidFloat(alpha) || alpha < 0 || alpha > 1) {
+                this.onXMLMinorError("The value alpha of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_ALPHA);
+                currChild.setAttribute("a", DEFAULT_AMBIENT_ALPHA);
             }
-            let vector = new Vec3(currGrandchild.getAttribute("x"),
-                                    currGrandchild.getAttribute("y"),
-                                    currGrandchild.getAttribute("z"));
-            mat4.rotate(matrix, matrix, vector);
-            }
-                else {
-                this.onXMLMinorError("Unknown node name in transformation id= " + currChild.getAttribute("id") + ".");
-                }
-                j++;
-                this.transformations[currChild.getAttribute("id")] = matrix;
-            }while(j < grandchildren.length)
-            i++;
-            }while(i < children.length)
-            return null;
         }
+        else
+            throw "Ambient must have ambient and background children, in this order";
+        if (currChild.nodeName == "background") {
+            var colorsArray = ["r", "g", "b"];
+            for (let i = 0; i < 3; i++) {
+                let color = colorsArray[i];
+                let colorValue = parseFloat(currChild.getAttribute(color));
+                if (!this.isValidFloat(colorValue) || colorValue < 0 || colorValue > 1) {
+                    this.onXMLMinorError("The value " + color + "of the child ambient of Ambient is not valid, using default value " + DEFAULT_BACKGROUND_RGB);
+                    currChild.setAttribute(color, DEFAULT_BACKGROUND_RGB);
+                }
+            }
+            var alpha = parseFloat(currChild.getAttribute("a"));
+            if (!this.isValidFloat(alpha) || alpha < 0 || alpha > 1) {
+                this.onXMLMinorError("The value alpha of the child ambient of Ambient is not valid, using default value " + DEFAULT_BACKGROUND_ALPHA);
+                currChild.setAttribute("a", DEFAULT_BACKGROUND_ALPHA);
+            }
+        }
+        else
+            throw "Ambient must have ambient and background children, in this order";
+    }
 
+    //Lights TODO GUARDAR INFO
+    newparseLights(ligthsNodes) {
+        let children = ligthsNodes.children;
 
-        parsePrimitives(primitiveNodes)
-        {
-
-        let children = primitiveNodes.children;
-        this.primitives = [];
-
+        //At least one light
         var i = 0;
         var idsUsed = [];
-        do{
-
+        do {
             var currChild = children[i];
 
             //Check id
             try{
                 if (currChild.getAttribute("id") == null) {
-                    var newid = "Primitive" + i;
-                    this.onXMLMinorError("Primitive child number " + i + " does not have an id, using value id=" + newid + ".");
+                    var newid = "light" + i;
+                    this.onXMLMinorError("Lights child number " + i + " does not have an id, using value id=" + newid + ".");
                     currChild.setAttribute("id", newid);
                 }
             }catch(err)
             {
-                throw "At least one Primitive must exist."
+                throw "At least one Light (omni or spot) must exist."
             }
 
             //No repeated id
             if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
-                throw "Repeated id in Primitives, id= " + currChild.getAttribute("id");
+                throw "Repeated id in Lights, id= " + currChild.getAttribute("id");
 
             idsUsed.push(currChild.getAttribute("id"));
+            var near = parseFloat(currChild.getAttribute("near"));
+            var far = parseFloat(currChild.getAttribute("far"));
 
-            let grandchildren = currChild.children;
+            //Enabled TODO confirmar se tt e true ou 1
+            let ena = currChild.getAttribute("enabled");
+            if(ena != 0 && ena != 1){
+                this.onXMLError("Lights child id= " + currChild.getAttribute("id") + " has not a valid 'enabled' value, using 1.");
+            }
+            for( let j = 0; j < 3 ; j++)
+            {
+            let currGrandchild = currChild.children[j];
+            if(currGrandchild.nodeName == "location"){
+            let x = parseFloat(currGrandchild.getAttribute("x"));
+            let y = parseFloat(currGrandchild.getAttribute("y"));
+            let z = parseFloat(currGrandchild.getAttribute("z"));
+            let w = parseFloat(currGrandchild.getAttribute("w"));
+            if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z) || !this.isValidFloat(w)){
+                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'location' xyzw values, using default value x = y = z = w = " + DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("x", DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("y", DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("z", DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("w", DEFAULT_LIGHTS_LOCATION);
+            }
+            else if(currGrandchild.nodeName == "ambient" || currGrandchild.nodeName == "diffuse" || currGrandchild.nodeName == "specular"){
+                let r = parseFloat(currGrandchild.getAttribute("r"));
+                let g = parseFloat(currGrandchild.getAttribute("g"));
+                let b = parseFloat(currGrandchild.getAttribute("b"));
+                let a = parseFloat(currGrandchild.getAttribute("a"));
+                if(!this.isValidFloat(r) || !this.isValidFloat(g) || !this.isValidFloat(b) || !this.isValidFloat(a)){
+                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
+                currGrandchild.setAttribute("r", DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("g", DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("b", DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("a", DEFAULT_LIGHTS_LOCATION);
+            }
+            }
+            if(currChild.nodeName == "spot" && currGrandchild.nodeName == "target"){
+            let x = parseFloat(currGrandchild.getAttribute("x"));
+            let y = parseFloat(currGrandchild.getAttribute("y"));
+            let z = parseFloat(currGrandchild.getAttribute("z"));
 
-            //At least one transformation
-            let j = 0;
-            do{
+            if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)){
+                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_SPOT_TARGET);
+                currGrandchild.setAttribute("x", DEFAULT_SPOT_TARGET);
+                currGrandchild.setAttribute("y", DEFAULT_SPOT_TARGET);
+                currGrandchild.setAttribute("z", DEFAULT_SPOT_TARGET);
+            }
+        }
+    }
+        if(currChild.nodeName == "spot"){
+        let a = currChild.getAttribute("angle");
+        if(!this.isValidFloat(a)){
+        let defAngle = 90.0 * DEGREE_TO_RAD;
+        this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
+        currChild.setAttribute("angle", defAngle);
+        }
+        a = currChild.getAttribute("exponent");
+        if(!this.isValidFloat(a)){
+        let defExponent = 1.0;
+        this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid exponent value, using default value exponent = " + defExponent);
+        currChild.setAttribute("exponent", defExponent);
+    }
+}
+
+
+    }
+        i++;
+        }while(i < children.length)
+        return null;
+    }
+
+    //Transformations
+    parseTransformations(transformationsNodes)
+    {
+    this.transformations = [];
+    let children = transformationNodes.children;
+
+    //At least one transformation
+    var i = 0;
+    var idsUsed = [];
+    do {
+        var matrix = new Mat4();
+        var currChild = children[i];
+
+        //Check id
+        try{
+            if (currChild.getAttribute("id") == null) {
+                var newid = "transformation" + i;
+                this.onXMLMinorError("Transformations child number " + i + " does not have an id, using value id=" + newid + ".");
+                currChild.setAttribute("id", newid);
+            }
+        }catch(err)
+        {
+            throw "At least one Transformation must exist."
+        }
+
+        //No repeated id
+        if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
+            throw "Repeated id in Transformations, id= " + currChild.getAttribute("id");
+
+        idsUsed.push(currChild.getAttribute("id"));
+
+        let grandchildren = currChild.children;
+
+        //At least one transformation
+        let j = 0;
+        do{
             currGrandchild = grandchildren[j];
-            if(currGrandchild.nodeName == "rectangle"){
-                let x1 = parseFloat(currGrandchild.getAttribute("x1"));
-                let y1 = parseFloat(currGrandchild.getAttribute("y1"));
-                let x2 = parseFloat(currGrandchild.getAttribute("x2"));
-                let y2 = parseFloat(currGrandchild.getAttribute("y2"));
-                if(!this.isValidFloat(x1) || !this.isValidFloat(y1) || !this.isValidFloat(x2) || !this.isValidFloat(y2)){
+            if(currGrandchild.nodeName == "translate"){
+            let x = parseFloat(currGrandchild.getAttribute("x"));
+            let y = parseFloat(currGrandchild.getAttribute("y"));
+            let z = parseFloat(currGrandchild.getAttribute("z"));
+            if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)){
 
-                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' x1y1x2y2 values, using default value x1 = y1 = z = " + DEFAULT_TRANSLATION_VALUE);
+                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_TRANSLATION_VALUE);
                 currGrandchild.setAttribute("x", DEFAULT_TRANSLATION_VALUE);
                 currGrandchild.setAttribute("y", DEFAULT_TRANSLATION_VALUE);
                 currGrandchild.setAttribute("z", DEFAULT_TRANSLATION_VALUE);
             }
-            this.primitives[id] = new MyQuad(this.scene, currChild.getAttribute("id"),
-                                    parseFloat(currGrandchild.getAttribute("x1")),
-                                    parseFloat(currGrandchild.getAttribute("y1")),
-                                    parseFloat(currGrandchild.getAttribute("x2")),
-                                    parseFloat(currGrandchild.getAttribute("y2")));
+            let vector = new Vec3(currGrandchild.getAttribute("x"),
+                                currGrandchild.getAttribute("y"),
+                                currGrandchild.getAttribute("z"));
+            mat4.translate(matrix, matrix, vector);
+        }
+        else if(currGrandchild.nodeName == "rotate"){
+            let angle = parseFloat(currGrandchild.getAttribute("angle"));
+            let axis = currGrandchild.getAttribute("axis");
+            if(!this.isValidFloat(angle)){
+                let defAngle = 0;
+                this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
+                currGrandchild.setAttribute("angle", defAngle);
+            }
+            if(axis != "x" && axis != "y" && axis != "z")
+            {
+            let defAxis = "x";
+            this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid axis value, using default value axis = " + defAxis);
+            currGrandchild.setAttribute("angle", defAngle);
+            }
+
+            let vector = new Vec3();
+            switch(currGrandchild.getAttribute("axis"))
+            {
+            case "x": {
+                vector.createFrom(1,0,0);
+            }
+            case "y": {
+                vector.createFrom(0,1,0);
+            }
+            case "z": {
+                vector.createFrom(0,0,1);
+            }
+            }
+            angle = parseFloat(currGrandchild.getAttribute("angle")) * DEGREE_TO_RAD;
+            mat4.rotate(matrix, matrix, angle, vector);
+        }
+        else if(currGrandchild.nodeName == "scale"){
+            let x = parseFloat(currGrandchild.getAttribute("x"));
+            let y = parseFloat(currGrandchild.getAttribute("y"));
+            let z = parseFloat(currGrandchild.getAttribute("z"));
+            if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)){
+            this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_SCALE_VALUE);
+            currGrandchild.setAttribute("x", DEFAULT_SCALE_VALUE);
+            currGrandchild.setAttribute("y", DEFAULT_SCALE_VALUE);
+            currGrandchild.setAttribute("z", DEFAULT_SCALE_VALUE);
+        }
+        let vector = new Vec3(currGrandchild.getAttribute("x"),
+                                currGrandchild.getAttribute("y"),
+                                currGrandchild.getAttribute("z"));
+        mat4.rotate(matrix, matrix, vector);
+        }
+            else {
+            this.onXMLMinorError("Unknown node name in transformation id= " + currChild.getAttribute("id") + ".");
             }
             j++;
+            this.transformations[currChild.getAttribute("id")] = matrix;
         }while(j < grandchildren.length)
         i++;
         }while(i < children.length)
+        return null;
+    }
+
+
+    parsePrimitives(primitiveNodes)
+    {
+
+    let children = primitiveNodes.children;
+    this.primitives = [];
+
+    var i = 0;
+    var idsUsed = [];
+    do{
+
+        var currChild = children[i];
+
+        //Check id
+        try{
+            if (currChild.getAttribute("id") == null) {
+                var newid = "Primitive" + i;
+                this.onXMLMinorError("Primitive child number " + i + " does not have an id, using value id=" + newid + ".");
+                currChild.setAttribute("id", newid);
+            }
+        }catch(err)
+        {
+            throw "At least one Primitive must exist."
         }
 
-        parseComponents(componentNodes)
-        {
+        //No repeated id
+        if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
+            throw "Repeated id in Primitives, id= " + currChild.getAttribute("id");
 
-        let children = componentNodes.children;
-        let i = 0;
+        idsUsed.push(currChild.getAttribute("id"));
+
+        let grandchildren = currChild.children;
+
+        //At least one transformation
+        let j = 0;
         do{
-            let currChild = children[i];
-            //TODO Check id
+        currGrandchild = grandchildren[j];
+        if(currGrandchild.nodeName == "rectangle"){
+            let x1 = parseFloat(currGrandchild.getAttribute("x1"));
+            let y1 = parseFloat(currGrandchild.getAttribute("y1"));
+            let x2 = parseFloat(currGrandchild.getAttribute("x2"));
+            let y2 = parseFloat(currGrandchild.getAttribute("y2"));
+            if(!this.isValidFloat(x1) || !this.isValidFloat(y1) || !this.isValidFloat(x2) || !this.isValidFloat(y2)){
 
-            let j = 0;
-            let grandchildren = currChild.children;
+            this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' x1y1x2y2 values, using default value x1 = y1 = z = " + DEFAULT_TRANSLATION_VALUE);
+            currGrandchild.setAttribute("x", DEFAULT_TRANSLATION_VALUE);
+            currGrandchild.setAttribute("y", DEFAULT_TRANSLATION_VALUE);
+            currGrandchild.setAttribute("z", DEFAULT_TRANSLATION_VALUE);
+        }
+        this.primitives[id] = new MyQuad(this.scene, currChild.getAttribute("id"),
+                                parseFloat(currGrandchild.getAttribute("x1")),
+                                parseFloat(currGrandchild.getAttribute("y1")),
+                                parseFloat(currGrandchild.getAttribute("x2")),
+                                parseFloat(currGrandchild.getAttribute("y2")));
+        }
+        j++;
+    }while(j < grandchildren.length)
+    i++;
+    }while(i < children.length)
+    }
+
+    parseComponents(componentNodes)
+    {
+
+    let children = componentNodes.children;
+    let i = 0;
+    do{
+        let currChild = children[i];
+        //TODO Check id
+
+        let j = 0;
+        let grandchildren = currChild.children;
+        do{
+        let currGrandchild = grandchildren[j];
+        if(currGrandchild.nodeName == "children")
+        {
+            let greatchildren = currGrandchild.children;
+            let k = 0;
             do{
-            let currGrandchild = grandchildren[j];
-            if(currGrandchild.nodeName == "children")
+            let currGreatchild = greatchildren[k];
+            if(currGreatchild.nodeName == "primitiveref")
             {
-                let greatchildren = currGrandchild.children;
-                let k = 0;
-                do{
-                let currGreatchild = greatchildren[k];
-                if(currGreatchild.nodeName == "primitiveref")
-                {
-                    let idPrimitive = currGreatchild.getAttribute("id");
-                    //TODO check if id is in list
+                let idPrimitive = currGreatchild.getAttribute("id");
+                //TODO check if id is in list
 
-                }
-
-                k++;
-                }while(k < greatchildren.length)
             }
 
-            j++;
-            }while(j < grandchildren.length)
-
-            i++;
-        }while(i < children.length)
+            k++;
+            }while(k < greatchildren.length)
         }
 
-        /**
-         * Parses the <INITIALS> block.
-         */
+        j++;
+        }while(j < grandchildren.length)
 
-
-        /*
-        * Callback to be executed on any read error, showing an error on the console.
-        * @param {string} message
-        */
-        onXMLError(message)
-        {
-            console.error("XML Loading Error: " + message);
-            this.loadedOk = false;
-        }
-
-        /**
-         * Callback to be executed on any minor error, showing a warning on the console.
-         * @param {string} message
-         */
-        onXMLMinorError(message)
-        {
-            console.warn("Warning: " + message);
-        }
-
-
-        /**
-         * Callback to be executed on any message.
-         * @param {string} message
-         */
-        log(message)
-        {
-            console.log("   " + message);
-        }
-
-        /**
-         * Displays the scene, processing each node, starting in the root node.
-         */
-        displayScene()
-        {
-            this.primitives["rec"].display();
-        }
-
-        isValidFloat(attribute)
-        {
-            return !(attribute == null || isNaN(attribute));
-        }
+        i++;
+    }while(i < children.length)
     }
+
+    /**
+     * Parses the <INITIALS> block.
+     */
+
+
+    /*
+    * Callback to be executed on any read error, showing an error on the console.
+    * @param {string} message
+    */
+    onXMLError(message)
+    {
+        console.error("XML Loading Error: " + message);
+        this.loadedOk = false;
+    }
+
+    /**
+     * Callback to be executed on any minor error, showing a warning on the console.
+     * @param {string} message
+     */
+    onXMLMinorError(message)
+    {
+        console.warn("Warning: " + message);
+    }
+
+
+    /**
+     * Callback to be executed on any message.
+     * @param {string} message
+     */
+    log(message)
+    {
+        console.log("   " + message);
+    }
+
+    /**
+     * Displays the scene, processing each node, starting in the root node.
+     */
+    displayScene()
+    {
+        this.primitives["rec"].display();
+    }
+
+    isValidFloat(attribute)
+    {
+        return !(attribute == null || isNaN(attribute));
+    }
+}
