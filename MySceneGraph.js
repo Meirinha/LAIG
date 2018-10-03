@@ -51,7 +51,8 @@ class MySceneGraph {
 
         this.nodes = [];
 
-        this.idRoot = null;                    // The id of the root element.
+        this.idRoot = null;
+        // The id of the root element.
 
         this.axisCoords = [];
         this.axisCoords['x'] = [1, 0, 0];
@@ -147,7 +148,7 @@ class MySceneGraph {
                 this.onXMLMinorError("tag <ambient> out of order");
 
             //Parse AMBIENT block
-        if ((error = this.parseAmbient(nodes[index])) != null)
+            if ((error = this.parseAmbient(nodes[index])) != null)
                 return error;
         }
 
@@ -199,7 +200,6 @@ class MySceneGraph {
                 return error;
         }
 
-
         // <PRIMITIVES>
         if ((index = nodeNames.indexOf("primitives")) == -1)
             return "tag <primitives> missing";
@@ -212,7 +212,6 @@ class MySceneGraph {
                 return error;
         }
 
-
         // <COMPONENTS>
         if ((index = nodeNames.indexOf("components")) == -1)
             return "tag <components> missing";
@@ -224,13 +223,12 @@ class MySceneGraph {
             if ((error = this.parseComponents(nodes[index])) != null)
                 return error;
         }
-
     }
 
     //SCENE DONE? TODO APAGAR
     parseScene(sceneNodes) {
         //Root
-        if(sceneNodes.getAttribute("root") == null){
+        if (sceneNodes.getAttribute("root") == null) {
             this.onXMLMinorError("Root does not have a name, using default name " + DEFAULT_SCENE_ROOT + ".");
             sceneNodes.setAttribute("root", DEFAULT_SCENE_ROOT);
         }
@@ -238,16 +236,16 @@ class MySceneGraph {
         //Axis Length
         var sceneAxisLength = parseFloat(sceneNodes.getAttribute("axis_length"));
 
-        if(!this.isValidFloat(sceneAxisLength) || sceneAxisLength < 0) {
+        if (!this.isValidFloat(sceneAxisLength) || sceneAxisLength < 0) {
             this.onXMLMinorError("Scene does not have a valid axis_length, using default value " + DEFAULT_SCENE_AXIS_LENGTH + ".");
             sceneNodes.setAttribute("axis_length", DEFAULT_SCENE_AXIS_LENGTH);
         }
         console.log("Scene: Root= " + sceneNodes.getAttribute("root") + " Axis_Length= " + sceneNodes.getAttribute("axis_length"));
-            return;
+        return;
     }
 
     //Views DONE TODO GUARDAR INFO  APAGAR
-    parseViews(viewsNodes){
+    parseViews(viewsNodes) {
 
         //Default
         if (viewsNodes.getAttribute("default") == null) {
@@ -267,14 +265,13 @@ class MySceneGraph {
             var currChild = children[i];
 
             //Check id
-            try{
-            if (currChild.getAttribute("id") == null) {
-                var newid = "view" + i;
-                this.onXMLMinorError("Views child number " + i + " does not have an id, using value id=" + newid + ".");
-                currChild.setAttribute("id", newid);
-            }
-            }catch(err)
-            {
+            try {
+                if (currChild.getAttribute("id") == null) {
+                    var newid = "view" + i;
+                    this.onXMLMinorError("Views child number " + i + " does not have an id, using value id=" + newid + ".");
+                    currChild.setAttribute("id", newid);
+                }
+            } catch (err) {
                 throw "At least one View (perspective or ortho) must exist."
             }
 
@@ -330,8 +327,7 @@ class MySceneGraph {
                     currGrandchild.setAttribute("y", DEFAULT_PERSPECTIVE_TO);
                     currGrandchild.setAttribute("z", DEFAULT_PERSPECTIVE_TO);
                 }
-            }
-            else if (currChild.nodeName == "ortho") {
+            } else if (currChild.nodeName == "ortho") {
                 var left = parseFloat(currChild.getAttribute("left"));
                 var right = parseFloat(currChild.getAttribute("right"));
                 if (!this.isValidFloat(left) || !this.isValidFloat(right) || right < left) {
@@ -346,15 +342,13 @@ class MySceneGraph {
                     currChild.setAttribute("bottom", DEFAULT_ORTHO_SIDE * -1);
                     currChild.setAttribute("top", DEFAULT_ORTHO_SIDE);
                 }
-            }
-            else {
+            } else {
                 this.onXMLMinorError("unknown tag <" + currChild.nodeName + ">");
                 continue;
             }
-        console.log(currChild.getAttribute("id") + " parsed");
-        i++;
-        } while (i < children.length);
-        return null;
+            console.log(currChild.getAttribute("id") + " parsed");
+            i++;
+        } while (i < children.length); return null;
     }
 
     //Ambient
@@ -364,14 +358,12 @@ class MySceneGraph {
         var currChild = children[0];
         if (currChild.nodeName == "ambient") {
 
-            var colorsArray = ["r","g","b"];
-            for(let i = 0; i < 3; i++)
-            {
+            var colorsArray = ["r", "g", "b"];
+            for (let i = 0; i < 3; i++) {
                 let color = colorsArray[i];
                 let colorValue = parseFloat(currChild.getAttribute(color));
-                if(!this.isValidFloat(colorValue) || colorValue < 0 || colorValue > 1)
-                {
-                    this.onXMLMinorError("The value " + color + "of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_RGB);
+                if (!this.isValidFloat(colorValue) || colorValue < 0 || colorValue > 1) {
+                    this.onXMLMinorError("The value " + color + " of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_RGB);
                     currChild.setAttribute(color, DEFAULT_AMBIENT_RGB);
                 }
             }
@@ -380,8 +372,7 @@ class MySceneGraph {
                 this.onXMLMinorError("The value alpha of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_ALPHA);
                 currChild.setAttribute("a", DEFAULT_AMBIENT_ALPHA);
             }
-        }
-        else{
+        } else {
             throw "Ambient must have ambient and background children, in this order";
         }
         currChild = children[1];
@@ -400,8 +391,7 @@ class MySceneGraph {
                 this.onXMLMinorError("The value alpha of the child ambient of Ambient is not valid, using default value " + DEFAULT_BACKGROUND_ALPHA);
                 currChild.setAttribute("a", DEFAULT_BACKGROUND_ALPHA);
             }
-        }
-        else
+        } else
             throw "Ambient must have ambient and background children, in this order";
     }
 
@@ -416,14 +406,13 @@ class MySceneGraph {
             var currChild = children[i];
 
             //Check id
-            try{
+            try {
                 if (currChild.getAttribute("id") == null) {
                     var newid = "light" + i;
                     this.onXMLMinorError("Lights child number " + i + " does not have an id, using value id=" + newid + ".");
                     currChild.setAttribute("id", newid);
                 }
-            }catch(err)
-            {
+            } catch (err) {
                 throw "At least one Light (omni or spot) must exist."
             }
 
@@ -437,301 +426,273 @@ class MySceneGraph {
 
             //Enabled TODO confirmar se tt e true ou 1
             let ena = currChild.getAttribute("enabled");
-            if(ena != 0 && ena != 1){
+            if (ena != 0 && ena != 1) {
                 this.onXMLMinorError("Lights child id= " + currChild.getAttribute("id") + " has not a valid 'enabled' value, using 1.");
             }
-            for( let j = 0; j < 3 ; j++)
-            {
-            let currGrandchild = currChild.children[j];
-            if(currGrandchild.nodeName == "location"){
-            let x = parseFloat(currGrandchild.getAttribute("x"));
-            let y = parseFloat(currGrandchild.getAttribute("y"));
-            let z = parseFloat(currGrandchild.getAttribute("z"));
-            let w = parseFloat(currGrandchild.getAttribute("w"));
-            if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z) || !this.isValidFloat(w)){
-                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'location' xyzw values, using default value x = y = z = w = " + DEFAULT_LIGHTS_LOCATION);
-                currGrandchild.setAttribute("x", DEFAULT_LIGHTS_LOCATION);
-                currGrandchild.setAttribute("y", DEFAULT_LIGHTS_LOCATION);
-                currGrandchild.setAttribute("z", DEFAULT_LIGHTS_LOCATION);
-                currGrandchild.setAttribute("w", DEFAULT_LIGHTS_LOCATION);
-            }
-            else if(currGrandchild.nodeName == "ambient" || currGrandchild.nodeName == "diffuse" || currGrandchild.nodeName == "specular"){
-                let r = parseFloat(currGrandchild.getAttribute("r"));
-                let g = parseFloat(currGrandchild.getAttribute("g"));
-                let b = parseFloat(currGrandchild.getAttribute("b"));
-                let a = parseFloat(currGrandchild.getAttribute("a"));
-                if(!this.isValidFloat(r) || !this.isValidFloat(g) || !this.isValidFloat(b) || !this.isValidFloat(a)){
-                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
-                currGrandchild.setAttribute("r", DEFAULT_LIGHTS_LOCATION);
-                currGrandchild.setAttribute("g", DEFAULT_LIGHTS_LOCATION);
-                currGrandchild.setAttribute("b", DEFAULT_LIGHTS_LOCATION);
-                currGrandchild.setAttribute("a", DEFAULT_LIGHTS_LOCATION);
-            }
-            }
-            if(currChild.nodeName == "spot" && currGrandchild.nodeName == "target"){
-            let x = parseFloat(currGrandchild.getAttribute("x"));
-            let y = parseFloat(currGrandchild.getAttribute("y"));
-            let z = parseFloat(currGrandchild.getAttribute("z"));
+            for (let j = 0; j < 3; j++) {
+                let currGrandchild = currChild.children[j];
+                if (currGrandchild.nodeName == "location") {
+                    let x = parseFloat(currGrandchild.getAttribute("x"));
+                    let y = parseFloat(currGrandchild.getAttribute("y"));
+                    let z = parseFloat(currGrandchild.getAttribute("z"));
+                    let w = parseFloat(currGrandchild.getAttribute("w"));
+                    if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z) || !this.isValidFloat(w)) {
+                        this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'location' xyzw values, using default value x = y = z = w = " + DEFAULT_LIGHTS_LOCATION);
+                        currGrandchild.setAttribute("x", DEFAULT_LIGHTS_LOCATION);
+                        currGrandchild.setAttribute("y", DEFAULT_LIGHTS_LOCATION);
+                        currGrandchild.setAttribute("z", DEFAULT_LIGHTS_LOCATION);
+                        currGrandchild.setAttribute("w", DEFAULT_LIGHTS_LOCATION);
+                    } else if (currGrandchild.nodeName == "ambient" || currGrandchild.nodeName == "diffuse" || currGrandchild.nodeName == "specular") {
+                        let r = parseFloat(currGrandchild.getAttribute("r"));
+                        let g = parseFloat(currGrandchild.getAttribute("g"));
+                        let b = parseFloat(currGrandchild.getAttribute("b"));
+                        let a = parseFloat(currGrandchild.getAttribute("a"));
+                        if (!this.isValidFloat(r) || !this.isValidFloat(g) || !this.isValidFloat(b) || !this.isValidFloat(a)) {
+                            this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
+                            currGrandchild.setAttribute("r", DEFAULT_LIGHTS_LOCATION);
+                            currGrandchild.setAttribute("g", DEFAULT_LIGHTS_LOCATION);
+                            currGrandchild.setAttribute("b", DEFAULT_LIGHTS_LOCATION);
+                            currGrandchild.setAttribute("a", DEFAULT_LIGHTS_LOCATION);
+                        }
+                    }
+                    if (currChild.nodeName == "spot" && currGrandchild.nodeName == "target") {
+                        let x = parseFloat(currGrandchild.getAttribute("x"));
+                        let y = parseFloat(currGrandchild.getAttribute("y"));
+                        let z = parseFloat(currGrandchild.getAttribute("z"));
 
-            if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)){
-                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_SPOT_TARGET);
-                currGrandchild.setAttribute("x", DEFAULT_SPOT_TARGET);
-                currGrandchild.setAttribute("y", DEFAULT_SPOT_TARGET);
-                currGrandchild.setAttribute("z", DEFAULT_SPOT_TARGET);
+                        if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)) {
+                            this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_SPOT_TARGET);
+                            currGrandchild.setAttribute("x", DEFAULT_SPOT_TARGET);
+                            currGrandchild.setAttribute("y", DEFAULT_SPOT_TARGET);
+                            currGrandchild.setAttribute("z", DEFAULT_SPOT_TARGET);
+                        }
+                    }
+                }
+                if (currChild.nodeName == "spot") {
+                    let a = currChild.getAttribute("angle");
+                    if (!this.isValidFloat(a)) {
+                        let defAngle = 90.0 * DEGREE_TO_RAD;
+                        this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
+                        currChild.setAttribute("angle", defAngle);
+                    }
+                    a = currChild.getAttribute("exponent");
+                    if (!this.isValidFloat(a)) {
+                        let defExponent = 1.0;
+                        this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid exponent value, using default value exponent = " + defExponent);
+                        currChild.setAttribute("exponent", defExponent);
+                    }
+                }
+
             }
-        }
-    }
-        if(currChild.nodeName == "spot"){
-        let a = currChild.getAttribute("angle");
-        if(!this.isValidFloat(a)){
-        let defAngle = 90.0 * DEGREE_TO_RAD;
-        this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
-        currChild.setAttribute("angle", defAngle);
-        }
-        a = currChild.getAttribute("exponent");
-        if(!this.isValidFloat(a)){
-        let defExponent = 1.0;
-        this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid exponent value, using default value exponent = " + defExponent);
-        currChild.setAttribute("exponent", defExponent);
-    }
-}
-
-
-    }
-        i++;
-        }while(i < children.length)
-        return null;
-    }
-    
-    parseTextures(texturesNodes)
-    {
-        //TODO
+            i++;
+        } while (i < children.length) return null;
     }
 
-    parseMaterials(materialsNodes)
-    {
-        
+    parseTextures(texturesNodes) {//TODO
+    }
+
+    parseMaterials(materialsNodes) {
     }
 
     //Transformations
-    parseTransformations(transformationsNodes)
-    {
-    this.transformations = [];
-    let children = transformationsNodes.children;
-
-    //At least one transformation
-    var i = 0;
-    var idsUsed = [];
-    do {
-        var matrix = mat4.create();
-        var currChild = children[i];
-
-        //Check id
-        try{
-            if (currChild.getAttribute("id") == null) {
-                var newid = "transformation" + i;
-                this.onXMLMinorError("Transformations child number " + i + " does not have an id, using value id=" + newid + ".");
-                currChild.setAttribute("id", newid);
-            }
-        }catch(err)
-        {
-            throw "At least one Transformation must exist."
-        }
-
-        //No repeated id
-        if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
-            throw "Repeated id in Transformations, id= " + currChild.getAttribute("id");
-
-        idsUsed.push(currChild.getAttribute("id"));
-
-        let grandchildren = currChild.children;
+    parseTransformations(transformationsNodes) {
+        this.transformations = [];
+        let children = transformationsNodes.children;
 
         //At least one transformation
-        let j = 0;
-        do{
-            let currGrandchild = grandchildren[j];
-            if(currGrandchild.nodeName == "translate"){
-            let x = parseFloat(currGrandchild.getAttribute("x"));
-            let y = parseFloat(currGrandchild.getAttribute("y"));
-            let z = parseFloat(currGrandchild.getAttribute("z"));
-            if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)){
+        var i = 0;
+        var idsUsed = [];
+        do {
+            var matrix = mat4.create();
+            var currChild = children[i];
 
-                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_TRANSLATION_VALUE);
-                currGrandchild.setAttribute("x", DEFAULT_TRANSLATION_VALUE);
-                currGrandchild.setAttribute("y", DEFAULT_TRANSLATION_VALUE);
-                currGrandchild.setAttribute("z", DEFAULT_TRANSLATION_VALUE);
-            }
-            let vector = vec3.create(currGrandchild.getAttribute("x"),
-                                currGrandchild.getAttribute("y"),
-                                currGrandchild.getAttribute("z"));
-            mat4.translate(matrix, matrix, vector);
-        }
-        else if(currGrandchild.nodeName == "rotate"){
-            let angle = parseFloat(currGrandchild.getAttribute("angle"));
-            let axis = currGrandchild.getAttribute("axis");
-            if(!this.isValidFloat(angle)){
-                let defAngle = 0;
-                this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
-                currGrandchild.setAttribute("angle", defAngle);
-            }
-            if(axis != "x" && axis != "y" && axis != "z")
-            {
-            let defAxis = "x";
-            this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid axis value, using default value axis = " + defAxis);
-            currGrandchild.setAttribute("angle", defAxis);
+            //Check id
+            try {
+                if (currChild.getAttribute("id") == null) {
+                    var newid = "transformation" + i;
+                    this.onXMLMinorError("Transformations child number " + i + " does not have an id, using value id=" + newid + ".");
+                    currChild.setAttribute("id", newid);
+                }
+            } catch (err) {
+                throw "At least one Transformation must exist."
             }
 
-            let vector = vec3.create();
-            switch(currGrandchild.getAttribute("axis"))
-            {
-            case "x": {
-                vector.createFrom(1,0,0);
+            //No repeated id
+            if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
+                throw "Repeated id in Transformations, id= " + currChild.getAttribute("id");
+
+            idsUsed.push(currChild.getAttribute("id"));
+
+            let grandchildren = currChild.children;
+
+            //At least one transformation
+            let j = 0;
+            do {
+                let currGrandchild = grandchildren[j];
+                if (currGrandchild.nodeName == "translate") {
+                    let x = parseFloat(currGrandchild.getAttribute("x"));
+                    let y = parseFloat(currGrandchild.getAttribute("y"));
+                    let z = parseFloat(currGrandchild.getAttribute("z"));
+                    if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)) {
+
+                        this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_TRANSLATION_VALUE);
+                        currGrandchild.setAttribute("x", DEFAULT_TRANSLATION_VALUE);
+                        currGrandchild.setAttribute("y", DEFAULT_TRANSLATION_VALUE);
+                        currGrandchild.setAttribute("z", DEFAULT_TRANSLATION_VALUE);
+                    }
+                    let vector = vec3.create(currGrandchild.getAttribute("x"), currGrandchild.getAttribute("y"), currGrandchild.getAttribute("z"));
+                    mat4.translate(matrix, matrix, vector);
+                } else if (currGrandchild.nodeName == "rotate") {
+                    let angle = parseFloat(currGrandchild.getAttribute("angle"));
+                    let axis = currGrandchild.getAttribute("axis");
+                    if (!this.isValidFloat(angle)) {
+                        let defAngle = 0;
+                        this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
+                        currGrandchild.setAttribute("angle", defAngle);
+                    }
+                    if (axis != "x" && axis != "y" && axis != "z") {
+                        let defAxis = "x";
+                        this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid axis value, using default value axis = " + defAxis);
+                        currGrandchild.setAttribute("angle", defAxis);
+                    }
+
+                    let vector = vec3.create();
+                    switch (currGrandchild.getAttribute("axis")) {
+                        case "x":
+                            {
+                                vector = vec3.fromValues(1, 0, 0);
+                            }
+                        case "y":
+                            {
+                                vector = vec3.fromValues(0, 1, 0);
+                            }
+                        case "z":
+                            {
+                                vector = vec3.fromValues(0, 0, 1);
+                            }
+                    }
+                    angle = parseFloat(currGrandchild.getAttribute("angle")) * DEGREE_TO_RAD;
+                    mat4.rotate(matrix, matrix, angle, vector);
+                } else if (currGrandchild.nodeName == "scale") {
+                    let x = parseFloat(currGrandchild.getAttribute("x"));
+                    let y = parseFloat(currGrandchild.getAttribute("y"));
+                    let z = parseFloat(currGrandchild.getAttribute("z"));
+                    if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)) {
+                        this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_SCALE_VALUE);
+                        currGrandchild.setAttribute("x", DEFAULT_SCALE_VALUE);
+                        currGrandchild.setAttribute("y", DEFAULT_SCALE_VALUE);
+                        currGrandchild.setAttribute("z", DEFAULT_SCALE_VALUE);
+                    }
+                    let vector = vec3.create(currGrandchild.getAttribute("x"), currGrandchild.getAttribute("y"), currGrandchild.getAttribute("z"));
+                    mat4.scale(matrix, matrix, vector);
+                } else {
+                    this.onXMLMinorError("Unknown node name in transformation id= " + currChild.getAttribute("id") + ".");
+                }
+                j++;
+                this.transformations[currChild.getAttribute("id")] = matrix;
+            } while (j < grandchildren.length) i++;
+        } while (i < children.length) return null;
+    }
+
+    parsePrimitives(primitiveNodes) {
+
+        let children = primitiveNodes.children;
+        this.primitives = [];
+
+        var i = 0;
+        var idsUsed = [];
+        do {
+
+            var currChild = children[i];
+
+            //Check id
+            try {
+                if (currChild.getAttribute("id") == null) {
+                    var newid = "Primitive" + i;
+                    this.onXMLMinorError("Primitive child number " + i + " does not have an id, using value id=" + newid + ".");
+                    currChild.setAttribute("id", newid);
+                }
+            } catch (err) {
+                throw "At least one Primitive must exist."
             }
-            case "y": {
-                vector.createFrom(0,1,0);
-            }
-            case "z": {
-                vector.createFrom(0,0,1);
-            }
-            }
-            angle = parseFloat(currGrandchild.getAttribute("angle")) * DEGREE_TO_RAD;
-            mat4.rotate(matrix, matrix, angle, vector);
-        }
-        else if(currGrandchild.nodeName == "scale"){
-            let x = parseFloat(currGrandchild.getAttribute("x"));
-            let y = parseFloat(currGrandchild.getAttribute("y"));
-            let z = parseFloat(currGrandchild.getAttribute("z"));
-            if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)){
-            this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_SCALE_VALUE);
-            currGrandchild.setAttribute("x", DEFAULT_SCALE_VALUE);
-            currGrandchild.setAttribute("y", DEFAULT_SCALE_VALUE);
-            currGrandchild.setAttribute("z", DEFAULT_SCALE_VALUE);
-        }
-        let vector = vec3.create(currGrandchild.getAttribute("x"),
-                                currGrandchild.getAttribute("y"),
-                                currGrandchild.getAttribute("z"));
-        mat4.scale(matrix, matrix, vector);
-        }
-            else {
-            this.onXMLMinorError("Unknown node name in transformation id= " + currChild.getAttribute("id") + ".");
-            }
-            j++;
-            this.transformations[currChild.getAttribute("id")] = matrix;
-        }while(j < grandchildren.length)
-        i++;
-        }while(i < children.length)
+
+            //No repeated id
+            if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
+                throw "Repeated id in Primitives, id= " + currChild.getAttribute("id");
+
+            idsUsed.push(currChild.getAttribute("id"));
+
+            let grandchildren = currChild.children;
+
+            //At least one transformation
+            let j = 0;
+            do {
+                let currGrandchild = grandchildren[j];
+                if (currGrandchild.nodeName == "rectangle") {
+                    let x1 = parseFloat(currGrandchild.getAttribute("x1"));
+                    let y1 = parseFloat(currGrandchild.getAttribute("y1"));
+                    let x2 = parseFloat(currGrandchild.getAttribute("x2"));
+                    let y2 = parseFloat(currGrandchild.getAttribute("y2"));
+                    if (!this.isValidFloat(x1) || !this.isValidFloat(y1) || !this.isValidFloat(x2) || !this.isValidFloat(y2)) {
+
+                        this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' x1y1x2y2 values, using default value x1 = y1 = z = " + DEFAULT_TRANSLATION_VALUE);
+                        currGrandchild.setAttribute("x1", 1.0);
+                        currGrandchild.setAttribute("y1", 1.0);
+                        currGrandchild.setAttribute("x2", 2.0);
+                        currGrandchild.setAttribute("y2", 2.0);
+                    }
+                    //let args = [parseFloat(currGrandchild.getAttribute("x1")),parseFloat(currGrandchild.getAttribute("y1")),parseFloat(currGrandchild.getAttribute("x2")),parseFloat(currGrandchild.getAttribute("y2"))];
+
+                    this.primitives[currChild.getAttribute("id")] = new MyQuad(this.scene, currChild.getAttribute("id"), parseFloat(currGrandchild.getAttribute("x1")), parseFloat(currGrandchild.getAttribute("y1")), parseFloat(currGrandchild.getAttribute("x2")), parseFloat(currGrandchild.getAttribute("y2")));
+                }
+                j++;
+            } while (j < grandchildren.length) i++;
+        } while (i < children.length)
+    }
+
+    parseComponents(componentNodes) {
+
+        let children = componentNodes.children;
+        let i = 0;
+        do {
+            let currChild = children[i];
+            //TODO Check id
+
+            let j = 0;
+            let grandchildren = currChild.children;
+            do {
+                let currGrandchild = grandchildren[j];
+                if (currGrandchild.nodeName == "children") {
+                    let greatchildren = currGrandchild.children;
+                    let k = 0;
+                    do {
+                        let currGreatchild = greatchildren[k];
+                        if (currGreatchild.nodeName == "primitiveref") {
+                            let idPrimitive = currGreatchild.getAttribute("id");
+                            //TODO check if id is in list
+
+                        }
+
+                        k++;
+                    } while (k < greatchildren.length)
+                }
+
+                j++;
+            } while (j < grandchildren.length)
+            i++;
+        } while (i < children.length)
         return null;
-    }
-
-
-    parsePrimitives(primitiveNodes)
-    {
-
-    let children = primitiveNodes.children;
-    this.primitives = [];
-
-    var i = 0;
-    var idsUsed = [];
-    do{
-
-        var currChild = children[i];
-
-        //Check id
-        try{
-            if (currChild.getAttribute("id") == null) {
-                var newid = "Primitive" + i;
-                this.onXMLMinorError("Primitive child number " + i + " does not have an id, using value id=" + newid + ".");
-                currChild.setAttribute("id", newid);
-            }
-        }catch(err)
-        {
-            throw "At least one Primitive must exist."
-        }
-
-        //No repeated id
-        if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
-            throw "Repeated id in Primitives, id= " + currChild.getAttribute("id");
-
-        idsUsed.push(currChild.getAttribute("id"));
-
-        let grandchildren = currChild.children;
-
-        //At least one transformation
-        let j = 0;
-        do{
-        let currGrandchild = grandchildren[j];
-        if(currGrandchild.nodeName == "rectangle"){
-            let x1 = parseFloat(currGrandchild.getAttribute("x1"));
-            let y1 = parseFloat(currGrandchild.getAttribute("y1"));
-            let x2 = parseFloat(currGrandchild.getAttribute("x2"));
-            let y2 = parseFloat(currGrandchild.getAttribute("y2"));
-            if(!this.isValidFloat(x1) || !this.isValidFloat(y1) || !this.isValidFloat(x2) || !this.isValidFloat(y2)){
-
-            this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' x1y1x2y2 values, using default value x1 = y1 = z = " + DEFAULT_TRANSLATION_VALUE);
-            currGrandchild.setAttribute("x", DEFAULT_TRANSLATION_VALUE);
-            currGrandchild.setAttribute("y", DEFAULT_TRANSLATION_VALUE);
-            currGrandchild.setAttribute("z", DEFAULT_TRANSLATION_VALUE);
-        }
-        this.primitives[currChild.getAttribute("id")] = new MyQuad(this.scene, currChild.getAttribute("id"),
-                                parseFloat(currGrandchild.getAttribute("x1")),
-                                parseFloat(currGrandchild.getAttribute("y1")),
-                                parseFloat(currGrandchild.getAttribute("x2")),
-                                parseFloat(currGrandchild.getAttribute("y2")));
-        }
-        j++;
-    }while(j < grandchildren.length)
-    i++;
-    }while(i < children.length)
-    }
-
-    parseComponents(componentNodes)
-    {
-
-    let children = componentNodes.children;
-    let i = 0;
-    do{
-        let currChild = children[i];
-        //TODO Check id
-
-        let j = 0;
-        let grandchildren = currChild.children;
-        do{
-        let currGrandchild = grandchildren[j];
-        if(currGrandchild.nodeName == "children")
-        {
-            let greatchildren = currGrandchild.children;
-            let k = 0;
-            do{
-            let currGreatchild = greatchildren[k];
-            if(currGreatchild.nodeName == "primitiveref")
-            {
-                let idPrimitive = currGreatchild.getAttribute("id");
-                //TODO check if id is in list
-
-            }
-
-            k++;
-            }while(k < greatchildren.length)
-        }
-
-        j++;
-        }while(j < grandchildren.length)
-
-        i++;
-    }while(i < children.length)
     }
 
     /**
      * Parses the <INITIALS> block.
      */
 
-
     /*
     * Callback to be executed on any read error, showing an error on the console.
     * @param {string} message
     */
-    onXMLError(message)
-    {
+    onXMLError(message) {
         console.error("XML Loading Error: " + message);
         this.loadedOk = false;
     }
@@ -740,31 +701,26 @@ class MySceneGraph {
      * Callback to be executed on any minor error, showing a warning on the console.
      * @param {string} message
      */
-    onXMLMinorError(message)
-    {
+    onXMLMinorError(message) {
         console.warn("Warning: " + message);
     }
-
 
     /**
      * Callback to be executed on any message.
      * @param {string} message
      */
-    log(message)
-    {
+    log(message) {
         console.log("   " + message);
     }
 
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
-    displayScene()
-    {
-        this.primitives["rec"].display();
+    displayScene() {
+        // this.primitives["rec"].display();
     }
 
-    isValidFloat(attribute)
-    {
+    isValidFloat(attribute) {
         return !(attribute == null || isNaN(attribute));
     }
 }

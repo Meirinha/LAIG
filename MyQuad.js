@@ -4,7 +4,7 @@
  */
 class MyQuad extends CGFobject
 {
-	constructor(scene, id, x1, y1, x2, y2, minS = 0, maxS = 1, minT = 0, maxT = 1)
+	constructor(scene, id, x1, y1, x2, y2)
 	{
 		super(scene);
 		this.id = id;
@@ -13,13 +13,13 @@ class MyQuad extends CGFobject
 		this.x2 = x2;
 		this.y2 = y2;
 
-
-		this.minS = minS;
-		this.maxS = maxS;
-		this.minT = minT;
-		this.maxT = maxT;
+		this.minS = 0;
+		this.maxS = 1;
+		this.minT = 0;
+		this.maxT = 1;
 
 		this.initBuffers();
+
 	};
 
 	initBuffers()
