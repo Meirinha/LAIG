@@ -28,6 +28,17 @@ var DEFAULT_AMBIENT_ALPHA = 1.0;
 var DEFAULT_BACKGROUND_RGB = 0.0;
 var DEFAULT_BACKGROUND_ALPHA = 1.0;
 
+var DEFAULT_LIGHTS_LOCATION = 1.0;
+var DEFAULT_LIGHT_VALUE = 1.0;
+var DEFAULT_SPOT_TARGET = 5.0;
+
+var DEFAULT_TRANSLATION_VALUE = 0.0;
+var DEFAULT_SCALE_VALUE = 1.0;
+
+var ID_MATRIX = [[1,0,0,0]
+                 [0,1,0,0]
+                 [0,0,1,0]
+                 [0,0,0,1]];
 /**
  * MySceneGraph class, representing the scene graph.
  */
@@ -51,7 +62,7 @@ class MySceneGraph {
         this.axisCoords['y'] = [0, 1, 0];
         this.axisCoords['z'] = [0, 0, 1];
 
-        // File reading 
+        // File reading
         this.reader = new CGFXMLreader();
 
         /*
@@ -86,7 +97,7 @@ class MySceneGraph {
 
     /**
 	DONE TODO APAGAR
-	
+
      * Parses the XML file, processing each block.
      * @param {XML root element} rootElement
      */
@@ -179,7 +190,7 @@ class MySceneGraph {
             if ((error = this.newparseMaterials(nodes[index])) != null)
                 return error;
         }
-		
+
         // <TRANSFORMATIONS>
         if ((index = nodeNames.indexOf("transformations")) == -1)
             return "tag <transformations> missing";
@@ -191,8 +202,8 @@ class MySceneGraph {
             if ((error = this.parseTransformations(nodes[index])) != null)
                 return error;
         }
-		
-		
+
+
         // <PRIMITIVES>
         if ((index = nodeNames.indexOf("primitives")) == -1)
             return "tag <primitives> missing";
@@ -204,8 +215,8 @@ class MySceneGraph {
             if ((error = this.parsePrimitives(nodes[index])) != null)
                 return error;
         }
-		
-		
+
+
         // <COMPONENTS>
         if ((index = nodeNames.indexOf("components")) == -1)
             return "tag <components> missing";
@@ -217,7 +228,7 @@ class MySceneGraph {
             if ((error = this.parseComponents(nodes[index])) != null)
                 return error;
         }
-		
+
     }
 
 	//SCENE DONE? TODO APAGAR
@@ -238,10 +249,10 @@ class MySceneGraph {
         console.log("Scene: Root= " + sceneNodes.getAttribute("root") + " Axis_Length= " + sceneNodes.getAttribute("axis_length"));
 			return;
 	}
-	
+
     //Views DONE TODO APAGAR
     parseViews(viewsNodes){
-        
+
         //Default
         if (viewsNodes.getAttribute("default") == null) {
             this.onXMLMinorError("Views does not have a default attribute, using value " + DEFAULT_VIEWS_DEFAULT + ".");
@@ -250,7 +261,7 @@ class MySceneGraph {
         console.log("Views: default= " + viewsNodes.getAttribute("default"));
 
         //Views children
-        
+
         var children = viewsNodes.children;
 
         //At least one view
@@ -270,10 +281,10 @@ class MySceneGraph {
             {
                 throw "At least one View (perspective or ortho) must exist."
             }
-            
+
             if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
                 throw "Repeated id in Views, id= " + currChild.getAttribute("id");
-            
+
             idsUsed.push(currChild.getAttribute("id"));
             var near = parseFloat(currChild.getAttribute("near"));
             var far = parseFloat(currChild.getAttribute("far"));
@@ -288,7 +299,7 @@ class MySceneGraph {
             if (!this.isValidFloat(far) || far < 0) {
                 this.onXMLMinorError(currChild.getAttribute("id") + " does not have a far attribute, using default value far= " + DEFAULT_PERSPECTIVE_FAR);
                 currChild.setAttribute("far", DEFAULT_PERSPECTIVE_FAR);
-            }            
+            }
 
             //Type Specific Attributes
             if (currChild.nodeName == "perspective") {
@@ -347,7 +358,7 @@ class MySceneGraph {
            console.log(currChild.getAttribute("id") + " parsed");
            i++;
         } while (i < children.length);
-        return null;    
+        return null;
     }
 
     //Ambient
@@ -417,18 +428,161 @@ class MySceneGraph {
             {
                 throw "At least one Light (omni or spot) must exist."
             }
-            
+
+            //No repeated id
             if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
                 throw "Repeated id in Lights, id= " + currChild.getAttribute("id");
-            
+
             idsUsed.push(currChild.getAttribute("id"));
             var near = parseFloat(currChild.getAttribute("near"));
             var far = parseFloat(currChild.getAttribute("far"));
 
             //Enabled TODO confirmar se tt e true ou 1
             let ena = currChild.getAttribute("enabled");
-            if(ena != 0 && ena != 1)
+            if(ena != 0 && ena != 1){
                 this.onXMLError("Lights child id= " + currChild.getAttribute("id") + " has not a valid 'enabled' value, using 1.");
+              }
+              for( let i = 0; i < 3 ; i++)
+              {
+              let currGrandchild = currChild.children[i];
+              if(currGrandchild.nodeName == "location"){
+              let x = parseFloat(currGrandchild.getAttribute("x"));
+              let y = parseFloat(currGrandchild.getAttribute("y"));
+              let z = parseFloat(currGrandchild.getAttribute("z"));
+              let w = parseFloat(currGrandchild.getAttribute("w"));
+              if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z) || !this.isValidFloat(w)){
+                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'location' xyzw values, using default value x = y = z = w = " + DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("x", DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("y", DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("z", DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("w", DEFAULT_LIGHTS_LOCATION);
+              }
+              else if(currGrandchild.nodeName == "ambient" || currGrandchild.nodeName == "diffuse" || currGrandchild.nodeName == "specular"){
+                let r = parseFloat(currGrandchild.getAttribute("r"));
+                let g = parseFloat(currGrandchild.getAttribute("g"));
+                let b = parseFloat(currGrandchild.getAttribute("b"));
+                let a = parseFloat(currGrandchild.getAttribute("a"));
+                if(!this.isValidFloat(r) || !this.isValidFloat(g) || !this.isValidFloat(b) || !this.isValidFloat(a)){
+                  this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
+                  currGrandchild.setAttribute("r", DEFAULT_LIGHTS_LOCATION);
+                  currGrandchild.setAttribute("g", DEFAULT_LIGHTS_LOCATION);
+                  currGrandchild.setAttribute("b", DEFAULT_LIGHTS_LOCATION);
+                  currGrandchild.setAttribute("a", DEFAULT_LIGHTS_LOCATION);
+              }
+            }
+            if(currChild.nodeName == "spot" && currGrandchild.nodeName == "target"){
+              let x = parseFloat(currGrandchild.getAttribute("x"));
+              let y = parseFloat(currGrandchild.getAttribute("y"));
+              let z = parseFloat(currGrandchild.getAttribute("z"));
+
+              if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z){
+                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName "' xyz values, using default value x = y = z = " + DEFAULT_SPOT_TARGET);
+                currGrandchild.setAttribute("x", DEFAULT_SPOT_TARGET);
+                currGrandchild.setAttribute("y", DEFAULT_SPOT_TARGET);
+                currGrandchild.setAttribute("z", DEFAULT_SPOT_TARGET);
+          }
+        }
+        if(currChild.nodeName == "spot"){
+          let a = currChild.getAttribute("angle");
+          if(!this.isValidFloat(a)){
+          let defAngle = 90.0 * DEGREE_TO_RAD;
+          this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
+          currChild.setAttribute("angle", defAngle);
+        }
+        a = currChild.getAttribute("exponent");
+        if(!this.isValidFloat(a)){
+        let defExponent = 1.0;
+        this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid exponent value, using default value exponent = " + defExponent);
+        currChild.setAttribute("exponent", defExponent);
+      }
+
+
+      }
+
+        }while(i < children.length)
+        return null;
+    }
+
+    parseTransformations(tranformationsNodes)
+    {
+      let children = transformationNodes.children;
+
+      //At least one transformation
+      var matrix = ID_MATRIX;
+      var i = 0;
+      var idsUsed = [];
+      do {
+          var currChild = children[i];
+
+          //Check id
+          try{
+              if (currChild.getAttribute("id") == null) {
+                  var newid = "tranformation" + i;
+                  this.onXMLMinorError("Transformations child number " + i + " does not have an id, using value id=" + newid + ".");
+                  currChild.setAttribute("id", newid);
+              }
+          }catch(err)
+          {
+              throw "At least one Transformation must exist."
+          }
+
+          //No repeated id
+          if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
+              throw "Repeated id in Transformations, id= " + currChild.getAttribute("id");
+
+          idsUsed.push(currChild.getAttribute("id"));
+
+          let grandchildren = currChild.children;
+
+          //At least one tranformation
+          let j = 0;
+          do{
+            currGrandchild = grandchildren[j];
+            if(currGrandchild.nodeName == "translate"){
+              let x = parseFloat(currGrandchild.getAttribute("x"));
+              let y = parseFloat(currGrandchild.getAttribute("y"));
+              let z = parseFloat(currGrandchild.getAttribute("z"));
+              if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)){
+
+                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName "' xyz values, using default value x = y = z = " + DEFAULT_TRANSLATION_VALUE);
+                currGrandchild.setAttribute("x", DEFAULT_TRANSLATION_VALUE);
+                currGrandchild.setAttribute("y", DEFAULT_TRANSLATION_VALUE);
+                currGrandchild.setAttribute("z", DEFAULT_TRANSLATION_VALUE);
+                
+            }
+          }
+          else if(currGrandchild.nodeName == "rotate"){
+              let angle = parseFloat(currGrandchild.getAttribute("angle"));
+              let axis = currGrandchild.getAttribute("axis");
+              if(!this.isValidFloat(angle)){
+                let defAngle = 0;
+                this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
+                currGrandchild.setAttribute("angle", defAngle);
+            }
+            if(axis != "x" && axis != "y" && axis != "z")
+            {
+              let defAxis = "x";
+              this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid axis value, using default value axis = " + defAxis);
+              currGrandchild.setAttribute("angle", defAngle);
+            }
+          }
+          else if(currGrandchild.nodeName == "scale"){
+            let x = parseFloat(currGrandchild.getAttribute("x"));
+            let y = parseFloat(currGrandchild.getAttribute("y"));
+            let z = parseFloat(currGrandchild.getAttribute("z"));
+            if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)){
+              this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName "' xyz values, using default value x = y = z = " + DEFAULT_SCALE_VALUE);
+              currGrandchild.setAttribute("x", DEFAULT_SCALE_VALUE);
+              currGrandchild.setAttribute("y", DEFAULT_SCALE_VALUE);
+              currGrandchild.setAttribute("z", DEFAULT_SCALE_VALUE);
+          }
+        }
+            else {
+              this.onXMLMinorError("Unknown node name in tranformation id= " + currChild.getAttribute("id") + ".");
+            }
+            j++;
+          }while(j < grandchildren.length)
+
         }while(i < children.length)
         return null;
     }
@@ -538,155 +692,8 @@ class MySceneGraph {
         return null;
     }
 
-
     /**
-     * Parses the <LIGHTS> node.
-     * @param {lights block element} lightsNode
-     */
-    parseLights(lightsNode) {
-
-        var children = lightsNode.children;
-
-        this.lights = [];
-        var numLights = 0;
-
-        var grandChildren = [];
-        var nodeNames = [];
-
-        // Any number of lights.
-        for (var i = 0; i < children.length; i++) {
-
-            if (children[i].nodeName != "LIGHT") {
-                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
-                continue;
-            }
-
-            // Get id of the current light.
-            var lightId = this.reader.getString(children[i], 'id');
-            if (lightId == null)
-                return "no ID defined for light";
-
-            // Checks for repeated IDs.
-            if (this.lights[lightId] != null)
-                return "ID must be unique for each light (conflict: ID = " + lightId + ")";
-
-            grandChildren = children[i].children;
-            // Specifications for the current light.
-
-            nodeNames = [];
-            for (var j = 0; j < grandChildren.length; j++) {
-                nodeNames.push(grandChildren[j].nodeName);
-            }
-
-            // Gets indices of each element.
-            var enableIndex = nodeNames.indexOf("enable");
-            var positionIndex = nodeNames.indexOf("position");
-            var ambientIndex = nodeNames.indexOf("ambient");
-            var diffuseIndex = nodeNames.indexOf("diffuse");
-            var specularIndex = nodeNames.indexOf("specular");
-
-            // Light enable/disable
-            var enableLight = true;
-            if (enableIndex == -1) {
-                this.onXMLMinorError("enable value missing for ID = " + lightId + "; assuming 'value = 1'");
-            }
-            else {
-                var aux = this.reader.getFloat(grandChildren[enableIndex], 'value');
-                if (!(aux != null && !isNaN(aux) && (aux == 0 || aux == 1)))
-                    this.onXMLMinorError("unable to parse value component of the 'enable light' field for ID = " + lightId + "; assuming 'value = 1'");
-                else
-                    enableLight = aux == 0 ? false : true;
-            }
-
-            // Retrieves the light position.
-            var positionLight = [];
-            if (positionIndex != -1) {
-                // x
-                var x = this.reader.getFloat(grandChildren[positionIndex], 'x');
-                if (!(x != null && !isNaN(x)))
-                    return "unable to parse x-coordinate of the light position for ID = " + lightId;
-                else
-                    positionLight.push(x);
-
-                // y
-                var y = this.reader.getFloat(grandChildren[positionIndex], 'y');
-                if (!(y != null && !isNaN(y)))
-                    return "unable to parse y-coordinate of the light position for ID = " + lightId;
-                else
-                    positionLight.push(y);
-
-                // z
-                var z = this.reader.getFloat(grandChildren[positionIndex], 'z');
-                if (!(z != null && !isNaN(z)))
-                    return "unable to parse z-coordinate of the light position for ID = " + lightId;
-                else
-                    positionLight.push(z);
-
-                // w
-                var w = this.reader.getFloat(grandChildren[positionIndex], 'w');
-                if (!(w != null && !isNaN(w) && w >= 0 && w <= 1))
-                    return "unable to parse x-coordinate of the light position for ID = " + lightId;
-                else
-                    positionLight.push(w);
-            }
-            else
-                return "light position undefined for ID = " + lightId;
-
-            // Retrieves the ambient component.
-            var ambientIllumination = [];
-            if (ambientIndex != -1) {
-                // R
-                var r = this.reader.getFloat(grandChildren[ambientIndex], 'r');
-                if (!(r != null && !isNaN(r) && r >= 0 && r <= 1))
-                    return "unable to parse R component of the ambient illumination for ID = " + lightId;
-                else
-                    ambientIllumination.push(r);
-
-                // G
-                var g = this.reader.getFloat(grandChildren[ambientIndex], 'g');
-                if (!(g != null && !isNaN(g) && g >= 0 && g <= 1))
-                    return "unable to parse G component of the ambient illumination for ID = " + lightId;
-                else
-                    ambientIllumination.push(g);
-
-                // B
-                var b = this.reader.getFloat(grandChildren[ambientIndex], 'b');
-                if (!(b != null && !isNaN(b) && b >= 0 && b <= 1))
-                    return "unable to parse B component of the ambient illumination for ID = " + lightId;
-                else
-                    ambientIllumination.push(b);
-
-                // A
-                var a = this.reader.getFloat(grandChildren[ambientIndex], 'a');
-                if (!(a != null && !isNaN(a) && a >= 0 && a <= 1))
-                    return "unable to parse A component of the ambient illumination for ID = " + lightId;
-                else
-                    ambientIllumination.push(a);
-            }
-            else
-                return "ambient component undefined for ID = " + lightId;
-
-            // TODO: Retrieve the diffuse component
-
-            // TODO: Retrieve the specular component
-
-            // TODO: Store Light global information.
-            //this.lights[lightId] = ...;
-            numLights++;
-        }
-
-        if (numLights == 0)
-            return "at least one light must be defined";
-        else if (numLights > 8)
-            this.onXMLMinorError("too many lights defined; WebGL imposes a limit of 8 lights");
-
-        this.log("Parsed lights");
-
-        return null;
-    }
-
-    /**
-     * Parses the <TEXTURES> block. 
+     * Parses the <TEXTURES> block.
      * @param {textures block element} texturesNode
      */
     parseTextures(texturesNode) {
