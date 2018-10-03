@@ -159,7 +159,7 @@ class MySceneGraph {
                 this.onXMLMinorError("tag <lights> out of order");
 
             //Parse LIGHTS block
-            if ((error = this.newparseLights(nodes[index])) != null)
+            if ((error = this.parseLights(nodes[index])) != null)
                 return error;
         }
 
@@ -171,7 +171,7 @@ class MySceneGraph {
                 this.onXMLMinorError("tag <textures> out of order");
 
             //Parse TEXTURES block
-            if ((error = this.newparseTextures(nodes[index])) != null)
+            if ((error = this.parseTextures(nodes[index])) != null)
                 return error;
         }
 
@@ -183,7 +183,7 @@ class MySceneGraph {
                 this.onXMLMinorError("tag <materials> out of order");
 
             //Parse MATERIALS block
-            if ((error = this.newparseMaterials(nodes[index])) != null)
+            if ((error = this.parseMaterials(nodes[index])) != null)
                 return error;
         }
 
@@ -381,8 +381,10 @@ class MySceneGraph {
                 currChild.setAttribute("a", DEFAULT_AMBIENT_ALPHA);
             }
         }
-        else
+        else{
             throw "Ambient must have ambient and background children, in this order";
+        }
+        currChild = children[1];
         if (currChild.nodeName == "background") {
             var colorsArray = ["r", "g", "b"];
             for (let i = 0; i < 3; i++) {
@@ -404,7 +406,7 @@ class MySceneGraph {
     }
 
     //Lights TODO GUARDAR INFO
-    newparseLights(ligthsNodes) {
+    parseLights(ligthsNodes) {
         let children = ligthsNodes.children;
 
         //At least one light
@@ -436,7 +438,7 @@ class MySceneGraph {
             //Enabled TODO confirmar se tt e true ou 1
             let ena = currChild.getAttribute("enabled");
             if(ena != 0 && ena != 1){
-                this.onXMLError("Lights child id= " + currChild.getAttribute("id") + " has not a valid 'enabled' value, using 1.");
+                this.onXMLMinorError("Lights child id= " + currChild.getAttribute("id") + " has not a valid 'enabled' value, using 1.");
             }
             for( let j = 0; j < 3 ; j++)
             {
@@ -500,18 +502,28 @@ class MySceneGraph {
         }while(i < children.length)
         return null;
     }
+    
+    parseTextures(texturesNodes)
+    {
+        //TODO
+    }
+
+    parseMaterials(materialsNodes)
+    {
+        
+    }
 
     //Transformations
     parseTransformations(transformationsNodes)
     {
     this.transformations = [];
-    let children = transformationNodes.children;
+    let children = transformationsNodes.children;
 
     //At least one transformation
     var i = 0;
     var idsUsed = [];
     do {
-        var matrix = new Mat4();
+        var matrix = mat4.create();
         var currChild = children[i];
 
         //Check id
@@ -537,7 +549,7 @@ class MySceneGraph {
         //At least one transformation
         let j = 0;
         do{
-            currGrandchild = grandchildren[j];
+            let currGrandchild = grandchildren[j];
             if(currGrandchild.nodeName == "translate"){
             let x = parseFloat(currGrandchild.getAttribute("x"));
             let y = parseFloat(currGrandchild.getAttribute("y"));
@@ -549,7 +561,7 @@ class MySceneGraph {
                 currGrandchild.setAttribute("y", DEFAULT_TRANSLATION_VALUE);
                 currGrandchild.setAttribute("z", DEFAULT_TRANSLATION_VALUE);
             }
-            let vector = new Vec3(currGrandchild.getAttribute("x"),
+            let vector = vec3.create(currGrandchild.getAttribute("x"),
                                 currGrandchild.getAttribute("y"),
                                 currGrandchild.getAttribute("z"));
             mat4.translate(matrix, matrix, vector);
@@ -566,10 +578,10 @@ class MySceneGraph {
             {
             let defAxis = "x";
             this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid axis value, using default value axis = " + defAxis);
-            currGrandchild.setAttribute("angle", defAngle);
+            currGrandchild.setAttribute("angle", defAxis);
             }
 
-            let vector = new Vec3();
+            let vector = vec3.create();
             switch(currGrandchild.getAttribute("axis"))
             {
             case "x": {
@@ -595,10 +607,10 @@ class MySceneGraph {
             currGrandchild.setAttribute("y", DEFAULT_SCALE_VALUE);
             currGrandchild.setAttribute("z", DEFAULT_SCALE_VALUE);
         }
-        let vector = new Vec3(currGrandchild.getAttribute("x"),
+        let vector = vec3.create(currGrandchild.getAttribute("x"),
                                 currGrandchild.getAttribute("y"),
                                 currGrandchild.getAttribute("z"));
-        mat4.rotate(matrix, matrix, vector);
+        mat4.scale(matrix, matrix, vector);
         }
             else {
             this.onXMLMinorError("Unknown node name in transformation id= " + currChild.getAttribute("id") + ".");
@@ -647,7 +659,7 @@ class MySceneGraph {
         //At least one transformation
         let j = 0;
         do{
-        currGrandchild = grandchildren[j];
+        let currGrandchild = grandchildren[j];
         if(currGrandchild.nodeName == "rectangle"){
             let x1 = parseFloat(currGrandchild.getAttribute("x1"));
             let y1 = parseFloat(currGrandchild.getAttribute("y1"));
@@ -660,7 +672,7 @@ class MySceneGraph {
             currGrandchild.setAttribute("y", DEFAULT_TRANSLATION_VALUE);
             currGrandchild.setAttribute("z", DEFAULT_TRANSLATION_VALUE);
         }
-        this.primitives[id] = new MyQuad(this.scene, currChild.getAttribute("id"),
+        this.primitives[currChild.getAttribute("id")] = new MyQuad(this.scene, currChild.getAttribute("id"),
                                 parseFloat(currGrandchild.getAttribute("x1")),
                                 parseFloat(currGrandchild.getAttribute("y1")),
                                 parseFloat(currGrandchild.getAttribute("x2")),
