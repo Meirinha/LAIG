@@ -250,7 +250,7 @@ class MySceneGraph {
 			return;
 	}
 
-    //Views DONE TODO APAGAR
+    //Views DONE TODO GUARDAR INFO  APAGAR
     parseViews(viewsNodes){
 
         //Default
@@ -364,7 +364,7 @@ class MySceneGraph {
     //Ambient
     parseAmbient(ambientNodes) {
         var children = ambientNodes.children;
-        //Ambient TODO Test this
+        //Ambient TODO Test this GUARDAR INFO
         var currChild = children[0];
         if (currChild.nodeName == "ambient") {
 
@@ -407,7 +407,7 @@ class MySceneGraph {
             throw "Ambient must have ambient and background children, in this order";
     }
 
-    //Lights TODO finish function
+    //Lights TODO GUARDAR INFO
     newparseLights(ligthsNodes) {
         let children = ligthsNodes.children;
 
@@ -503,21 +503,23 @@ class MySceneGraph {
         return null;
     }
 
-    parseTransformations(tranformationsNodes)
+    //Transformations
+    parseTransformations(transformationsNodes)
     {
+      this.transformations = [];
       let children = transformationNodes.children;
 
       //At least one transformation
-      var matrix = ID_MATRIX;
       var i = 0;
       var idsUsed = [];
       do {
-          var currChild = children[i];
+        var matrix = new Mat4();
+        var currChild = children[i];
 
           //Check id
           try{
               if (currChild.getAttribute("id") == null) {
-                  var newid = "tranformation" + i;
+                  var newid = "transformation" + i;
                   this.onXMLMinorError("Transformations child number " + i + " does not have an id, using value id=" + newid + ".");
                   currChild.setAttribute("id", newid);
               }
@@ -534,7 +536,7 @@ class MySceneGraph {
 
           let grandchildren = currChild.children;
 
-          //At least one tranformation
+          //At least one transformation
           let j = 0;
           do{
             currGrandchild = grandchildren[j];
@@ -548,8 +550,11 @@ class MySceneGraph {
                 currGrandchild.setAttribute("x", DEFAULT_TRANSLATION_VALUE);
                 currGrandchild.setAttribute("y", DEFAULT_TRANSLATION_VALUE);
                 currGrandchild.setAttribute("z", DEFAULT_TRANSLATION_VALUE);
-                
             }
+            let vector = new Vec3(currGrandchild.getAttribute("x"),
+                                  currGrandchild.getAttribute("y"),
+                                  currGrandchild.getAttribute("z"));
+            mat4.translate(matrix, matrix, vector);
           }
           else if(currGrandchild.nodeName == "rotate"){
               let angle = parseFloat(currGrandchild.getAttribute("angle"));
@@ -565,6 +570,22 @@ class MySceneGraph {
               this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid axis value, using default value axis = " + defAxis);
               currGrandchild.setAttribute("angle", defAngle);
             }
+
+            let vector = new Vec3();
+            switch(currGrandchild.getAttribute("axis"))
+            {
+              case "x": {
+                vector.createFrom(1,0,0);
+              }
+              case "y": {
+                vector.createFrom(0,1,0);
+              }
+              case "z": {
+                vector.createFrom(0,0,1);
+              }
+            }
+            angle = parseFloat(currGrandchild.getAttribute("angle")) * DEGREE_TO_RAD;
+            mat4.rotate(matrix, matrix, angle, vector);
           }
           else if(currGrandchild.nodeName == "scale"){
             let x = parseFloat(currGrandchild.getAttribute("x"));
@@ -576,11 +597,16 @@ class MySceneGraph {
               currGrandchild.setAttribute("y", DEFAULT_SCALE_VALUE);
               currGrandchild.setAttribute("z", DEFAULT_SCALE_VALUE);
           }
+          let vector = new Vec3(currGrandchild.getAttribute("x"),
+                                currGrandchild.getAttribute("y"),
+                                currGrandchild.getAttribute("z"));
+          mat4.rotate(matrix, matrix, vector);
         }
             else {
-              this.onXMLMinorError("Unknown node name in tranformation id= " + currChild.getAttribute("id") + ".");
+              this.onXMLMinorError("Unknown node name in transformation id= " + currChild.getAttribute("id") + ".");
             }
             j++;
+            this.transformations[currChild.getAttribute("id")] = matrix;
           }while(j < grandchildren.length)
 
         }while(i < children.length)
