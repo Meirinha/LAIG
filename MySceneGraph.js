@@ -463,7 +463,7 @@ class MySceneGraph {
                 let b = parseFloat(currGrandchild.getAttribute("b"));
                 let a = parseFloat(currGrandchild.getAttribute("a"));
                 if(!this.isValidFloat(r) || !this.isValidFloat(g) || !this.isValidFloat(b) || !this.isValidFloat(a)){
-                  this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
+                  this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
                   currGrandchild.setAttribute("r", DEFAULT_LIGHTS_LOCATION);
                   currGrandchild.setAttribute("g", DEFAULT_LIGHTS_LOCATION);
                   currGrandchild.setAttribute("b", DEFAULT_LIGHTS_LOCATION);
@@ -475,8 +475,8 @@ class MySceneGraph {
               let y = parseFloat(currGrandchild.getAttribute("y"));
               let z = parseFloat(currGrandchild.getAttribute("z"));
 
-              if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z){
-                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName "' xyz values, using default value x = y = z = " + DEFAULT_SPOT_TARGET);
+              if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)){
+                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_SPOT_TARGET);
                 currGrandchild.setAttribute("x", DEFAULT_SPOT_TARGET);
                 currGrandchild.setAttribute("y", DEFAULT_SPOT_TARGET);
                 currGrandchild.setAttribute("z", DEFAULT_SPOT_TARGET);
@@ -546,7 +546,7 @@ class MySceneGraph {
               let z = parseFloat(currGrandchild.getAttribute("z"));
               if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)){
 
-                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName "' xyz values, using default value x = y = z = " + DEFAULT_TRANSLATION_VALUE);
+                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_TRANSLATION_VALUE);
                 currGrandchild.setAttribute("x", DEFAULT_TRANSLATION_VALUE);
                 currGrandchild.setAttribute("y", DEFAULT_TRANSLATION_VALUE);
                 currGrandchild.setAttribute("z", DEFAULT_TRANSLATION_VALUE);
@@ -592,7 +592,7 @@ class MySceneGraph {
             let y = parseFloat(currGrandchild.getAttribute("y"));
             let z = parseFloat(currGrandchild.getAttribute("z"));
             if(!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)){
-              this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName "' xyz values, using default value x = y = z = " + DEFAULT_SCALE_VALUE);
+              this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_SCALE_VALUE);
               currGrandchild.setAttribute("x", DEFAULT_SCALE_VALUE);
               currGrandchild.setAttribute("y", DEFAULT_SCALE_VALUE);
               currGrandchild.setAttribute("z", DEFAULT_SCALE_VALUE);
@@ -608,154 +608,120 @@ class MySceneGraph {
             j++;
             this.transformations[currChild.getAttribute("id")] = matrix;
           }while(j < grandchildren.length)
-
+          i++;
         }while(i < children.length)
         return null;
     }
 
 
+    parsePrimitives(primitiveNodes)
+    {
+
+      let children = primitiveNodes.children;
+      this.primitives = [];
+
+      var i = 0;
+      var idsUsed = [];
+      do{
+
+        var currChild = children[i];
+
+        //Check id
+        try{
+            if (currChild.getAttribute("id") == null) {
+                var newid = "Primitive" + i;
+                this.onXMLMinorError("Primitive child number " + i + " does not have an id, using value id=" + newid + ".");
+                currChild.setAttribute("id", newid);
+            }
+        }catch(err)
+        {
+            throw "At least one Primitive must exist."
+        }
+
+        //No repeated id
+        if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
+            throw "Repeated id in Primitives, id= " + currChild.getAttribute("id");
+
+        idsUsed.push(currChild.getAttribute("id"));
+
+        let grandchildren = currChild.children;
+
+        //At least one transformation
+        let j = 0;
+        do{
+          currGrandchild = grandchildren[j];
+          if(currGrandchild.nodeName == "rectangle"){
+            let x1 = parseFloat(currGrandchild.getAttribute("x1"));
+            let y1 = parseFloat(currGrandchild.getAttribute("y1"));
+            let x2 = parseFloat(currGrandchild.getAttribute("x2"));
+            let y2 = parseFloat(currGrandchild.getAttribute("y2"));
+            if(!this.isValidFloat(x1) || !this.isValidFloat(y1) || !this.isValidFloat(x2) || !this.isValidFloat(y2)){
+
+              this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' x1y1x2y2 values, using default value x1 = y1 = z = " + DEFAULT_TRANSLATION_VALUE);
+              currGrandchild.setAttribute("x", DEFAULT_TRANSLATION_VALUE);
+              currGrandchild.setAttribute("y", DEFAULT_TRANSLATION_VALUE);
+              currGrandchild.setAttribute("z", DEFAULT_TRANSLATION_VALUE);
+          }
+          this.primitives[id] = new MyQuad(this.scene, currChild.getAttribute("id"),
+                                parseFloat(currGrandchild.getAttribute("x1")),
+                                parseFloat(currGrandchild.getAttribute("y1")),
+                                parseFloat(currGrandchild.getAttribute("x2")),
+                                parseFloat(currGrandchild.getAttribute("y2")));
+        }
+        j++;
+      }while(j < grandchildren.length)
+      i++;
+    }while(i < children.length)
+    }
+
+    parseComponents(componentNodes)
+    {
+
+      let children = componentNodes.children;
+      let i = 0;
+      do{
+        let currChild = children[i];
+        //TODO Check id
+
+        let j = 0;
+        let grandchildren = currChild.children;
+        do{
+          let currGrandchild = grandchildren[j];
+          if(currGrandchild.nodeName == "children")
+          {
+            let greatchildren = currGrandchild.children;
+            let k = 0;
+            do{
+              let currGreatchild = greatchildren[k];
+              if(currGreatchild.nodeName == "primitiveref")
+              {
+                let idPrimitive = currGreatchild.getAttribute("id");
+                //TODO check if id is in list
+
+              }
+
+              k++;
+            }while(k < greatchildren.length)
+          }
+
+          j++;
+        }while(j < grandchildren.length)
+
+        i++;
+      }while(i < children.length)
+    }
+
     /**
      * Parses the <INITIALS> block.
      */
-    parseInitials(initialsNode) {
 
-        var children = initialsNode.children;
-
-        var nodeNames = [];
-
-        for (var i = 0; i < children.length; i++)
-            nodeNames.push(children[i].nodeName);
-
-        // Frustum planes
-        // (default values)
-        this.near = 0.1;
-        this.far = 500;
-        var indexFrustum = nodeNames.indexOf("frustum");
-        if (indexFrustum == -1) {
-            this.onXMLMinorError("frustum planes missing; assuming 'near = 0.1' and 'far = 500'");
-        }
-        else {
-            this.near = this.reader.getFloat(children[indexFrustum], 'near');
-            this.far = this.reader.getFloat(children[indexFrustum], 'far');
-
-            if (!(this.near != null && !isNaN(this.near))) {
-                this.near = 0.1;
-                this.onXMLMinorError("unable to parse value for near plane; assuming 'near = 0.1'");
-            }
-            else if (!(this.far != null && !isNaN(this.far))) {
-                this.far = 500;
-                this.onXMLMinorError("unable to parse value for far plane; assuming 'far = 500'");
-            }
-
-            if (this.near >= this.far)
-                return "'near' must be smaller than 'far'";
-        }
-
-        // Checks if at most one translation, three rotations, and one scaling are defined.
-        if (initialsNode.getElementsByTagName('translation').length > 1)
-            return "no more than one initial translation may be defined";
-
-        if (initialsNode.getElementsByTagName('rotation').length > 3)
-            return "no more than three initial rotations may be defined";
-
-        if (initialsNode.getElementsByTagName('scale').length > 1)
-            return "no more than one scaling may be defined";
-
-        // Initial transforms.
-        this.initialTranslate = [];
-        this.initialScaling = [];
-        this.initialRotations = [];
-
-        // Gets indices of each element.
-        var translationIndex = nodeNames.indexOf("translation");
-        var thirdRotationIndex = nodeNames.indexOf("rotation");
-        var secondRotationIndex = nodeNames.indexOf("rotation", thirdRotationIndex + 1);
-        var firstRotationIndex = nodeNames.lastIndexOf("rotation");
-        var scalingIndex = nodeNames.indexOf("scale");
-
-        // Checks if the indices are valid and in the expected order.
-        // Translation.
-        this.initialTransforms = mat4.create();
-        mat4.identity(this.initialTransforms);
-
-        if (translationIndex == -1)
-            this.onXMLMinorError("initial translation undefined; assuming T = (0, 0, 0)");
-        else {
-            var tx = this.reader.getFloat(children[translationIndex], 'x');
-            var ty = this.reader.getFloat(children[translationIndex], 'y');
-            var tz = this.reader.getFloat(children[translationIndex], 'z');
-
-            if (tx == null || ty == null || tz == null) {
-                tx = 0;
-                ty = 0;
-                tz = 0;
-                this.onXMLMinorError("failed to parse coordinates of initial translation; assuming zero");
-            }
-
-            //TODO: Save translation data
-        }
-
-        //TODO: Parse Rotations
-
-        //TODO: Parse Scaling
-
-        //TODO: Parse Reference length
-
-        this.log("Parsed initials");
-
-        return null;
-    }
-
-    /**
-     * Parses the <ILLUMINATION> block.
-     * @param {illumination block element} illuminationNode
-     */
-    parseIllumination(illuminationNode) {
-        // TODO: Parse Illumination node
-
-        this.log("Parsed illumination");
-
-        return null;
-    }
-
-    /**
-     * Parses the <TEXTURES> block.
-     * @param {textures block element} texturesNode
-     */
-    parseTextures(texturesNode) {
-        // TODO: Parse block
-
-        console.log("Parsed textures");
-
-        return null;
-    }
-
-    /**
-     * Parses the <MATERIALS> node.
-     * @param {materials block element} materialsNode
-     */
-    parseMaterials(materialsNode) {
-        // TODO: Parse block
-        this.log("Parsed materials");
-        return null;
-
-    }
-
-    /**
-     * Parses the <NODES> block.
-     * @param {nodes block element} nodesNode
-     */
-    parseNodes(nodesNode) {
-        // TODO: Parse block
-        this.log("Parsed nodes");
-        return null;
-    }
 
     /*
      * Callback to be executed on any read error, showing an error on the console.
      * @param {string} message
      */
-    onXMLError(message) {
+    onXMLError(message)
+    {
         console.error("XML Loading Error: " + message);
         this.loadedOk = false;
     }
@@ -764,7 +730,8 @@ class MySceneGraph {
      * Callback to be executed on any minor error, showing a warning on the console.
      * @param {string} message
      */
-    onXMLMinorError(message) {
+    onXMLMinorError(message)
+    {
         console.warn("Warning: " + message);
     }
 
@@ -773,19 +740,21 @@ class MySceneGraph {
      * Callback to be executed on any message.
      * @param {string} message
      */
-    log(message) {
+    log(message)
+    {
         console.log("   " + message);
     }
 
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
-    displayScene() {
-        // entry point for graph rendering
-        //TODO: Render loop starting at root of graph
+    displayScene()
+    {
+        this.primitives["rec"].display();
     }
 
-    isValidFloat(attribute) {
+    isValidFloat(attribute)
+    {
         return !(attribute == null || isNaN(attribute));
     }
-}
+  }
