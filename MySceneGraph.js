@@ -358,7 +358,7 @@ class MySceneGraph {
         //Ambient TODO Test this GUARDAR INFO
         var currChild = children[0];
         if (currChild.nodeName == "ambient") {
-
+            this.ambient = [];
             var colorsArray = ["r", "g", "b"];
             for (let i = 0; i < 3; i++) {
                 let color = colorsArray[i];
@@ -367,17 +367,20 @@ class MySceneGraph {
                     this.onXMLMinorError("The value " + color + " of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_RGB);
                     currChild.setAttribute(color, DEFAULT_AMBIENT_RGB);
                 }
+                this.ambient[color] = parseFloat(currChild.getAttribute(color)); 
             }
             var alpha = parseFloat(currChild.getAttribute("a"));
             if (!this.isValidNumber(alpha) || alpha < 0 || alpha > 1) {
                 this.onXMLMinorError("The value alpha of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_ALPHA);
                 currChild.setAttribute("a", DEFAULT_AMBIENT_ALPHA);
             }
+            this.ambient["a"] = parseFloat(currChild.getAttribute("a")); 
         } else {
             this.onXMLError("Ambient must have ambient and background children, in this order");
         }
         currChild = children[1];
         if (currChild.nodeName == "background") {
+            this.background = [];
             var colorsArray = ["r", "g", "b"];
             for (let i = 0; i < 3; i++) {
                 let color = colorsArray[i];
@@ -386,12 +389,14 @@ class MySceneGraph {
                     this.onXMLMinorError("The value " + color + "of the child ambient of Ambient is not valid, using default value " + DEFAULT_BACKGROUND_RGB);
                     currChild.setAttribute(color, DEFAULT_BACKGROUND_RGB);
                 }
+                this.background[color] = parseFloat(currChild.getAttribute(color)); 
             }
             var alpha = parseFloat(currChild.getAttribute("a"));
             if (!this.isValidNumber(alpha) || alpha < 0 || alpha > 1) {
                 this.onXMLMinorError("The value alpha of the child ambient of Ambient is not valid, using default value " + DEFAULT_BACKGROUND_ALPHA);
                 currChild.setAttribute("a", DEFAULT_BACKGROUND_ALPHA);
             }
+            this.background["a"] = parseFloat(currChild.getAttribute("a"));
         } else
             this.onXMLError("Ambient must have ambient and background children, in this order");
     }
@@ -699,7 +704,6 @@ class MySceneGraph {
         let i = 0;
         do {
             let currChild = children[i];
-            //TODO Check id
             let currID = currChild.getAttribute("id");
             if (currID == null) //id not defined
             {
@@ -724,13 +728,11 @@ class MySceneGraph {
                         if (currGreatchild.nodeName == "primitiveref") {
                             let idPrimitive = currGreatchild.getAttribute("id");
                             //TODO check if id is in list
-                            if(this.primitives[idPrimitive] < 0){
+                            if (this.primitives[idPrimitive] < 0) {
                                 this.onXMLError("Component id primitve not found");
                             }
                             //TODO
-                        }
-                        else if(currGreatchild.nodeName == "componentref")
-                        {
+                        } else if (currGreatchild.nodeName == "componentref") {
                             //TODO
                         }
 
