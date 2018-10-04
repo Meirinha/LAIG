@@ -70,7 +70,7 @@
             <!-- rectangle, triangle, cylinder, sphere, torus -->
             <!-- os parametros devem ser interpretados, genericamente, -->
             <!-- como em WebGL; o cilindro deve adicionalmente ter tampas -->
-            <rectangle x1="1.0" y1="1.0" x2="2.0" y2="2.0" />
+            <rectangle x1="1.0" y1="1.0" x2="3.0" y2="2.0" />
         </primitive >
     </primitives >
     <components>

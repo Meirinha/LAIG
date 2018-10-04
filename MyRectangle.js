@@ -30,6 +30,7 @@ class MyQuad extends CGFobject
 		this.minS,this.minT,
 		this.maxS,this.minT,
 		]
+
 		this.vertices = [
 		this.x1, this.y1, 0,
 		this.x2, this.y1, 0,
@@ -39,7 +40,7 @@ class MyQuad extends CGFobject
 
 		this.indices = [
 		0, 1, 2,
-		3, 2, 1
+		3, 0, 2
 		];
 
 		this.normals = [

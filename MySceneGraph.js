@@ -717,7 +717,7 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        // this.primitives["rec"].display();
+         this.primitives["rec"].display();
     }
 
     isValidFloat(attribute) {
