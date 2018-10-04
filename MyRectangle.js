@@ -1,8 +1,8 @@
 /**
- * MyQuad
+ * MyRectangle
  * @constructor
  */
-class MyQuad extends CGFobject
+class MyRectangle extends CGFobject
 {
 	constructor(scene, id, x1, y1, x2, y2)
 	{

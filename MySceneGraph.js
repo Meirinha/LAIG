@@ -63,17 +63,17 @@ class MySceneGraph {
         this.reader = new CGFXMLreader();
 
         /*
-        * Read the contents of the xml file, and refer to this class for loading and error handlers.
-        * After the file is read, the reader calls onXMLReady on this object.
-        * If any error occurs, the reader calls onXMLError on this object, with an error message
-        */
+         * Read the contents of the xml file, and refer to this class for loading and error handlers.
+         * After the file is read, the reader calls onXMLReady on this object.
+         * If any error occurs, the reader calls onXMLError on this object, with an error message
+         */
 
         this.reader.open('scenes/' + filename, this);
     }
 
     /*
-    * Callback to be executed after successful reading
-    */
+     * Callback to be executed after successful reading
+     */
     onXMLReady() {
         this.log("XML Loading finished.");
         var rootElement = this.reader.xmlDoc.documentElement;
@@ -348,7 +348,8 @@ class MySceneGraph {
             }
             console.log(currChild.getAttribute("id") + " parsed");
             i++;
-        } while (i < children.length); return null;
+        } while (i < children.length);
+        return null;
     }
 
     //Ambient
@@ -488,11 +489,10 @@ class MySceneGraph {
         } while (i < children.length) return null;
     }
 
-    parseTextures(texturesNodes) {//TODO
+    parseTextures(texturesNodes) { //TODO
     }
 
-    parseMaterials(materialsNodes) {
-    }
+    parseMaterials(materialsNodes) {}
 
     //Transformations
     parseTransformations(transformationsNodes) {
@@ -651,12 +651,24 @@ class MySceneGraph {
     }
 
     parseComponents(componentNodes) {
+        this.components = [];
 
         let children = componentNodes.children;
         let i = 0;
         do {
             let currChild = children[i];
             //TODO Check id
+            let currID = currChild.getAttribute("id");
+            if(currid == null) //id not defined
+            {
+                let newid = "component" + i;
+                this.onXMLMinorError("Component nº " + i + " does not have a defined id, setting id to" + newid);
+                currChild.setAttribute("id", newid);
+            }
+            if(this.components[currid] > -1) //repeated ID
+            {
+                this.onXMLError("Component nº " + i + "has the repeated id" + currID);
+            }
 
             let j = 0;
             let grandchildren = currChild.children;
@@ -689,9 +701,9 @@ class MySceneGraph {
      */
 
     /*
-    * Callback to be executed on any read error, showing an error on the console.
-    * @param {string} message
-    */
+     * Callback to be executed on any read error, showing an error on the console.
+     * @param {string} message
+     */
     onXMLError(message) {
         console.error("XML Loading Error: " + message);
         this.loadedOk = false;
@@ -717,7 +729,7 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-         this.primitives["rec"].display();
+        this.primitives["rec"].display();
     }
 
     isValidFloat(attribute) {
