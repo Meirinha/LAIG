@@ -75,6 +75,9 @@
         <primitive id="tri">
             <triangle x1="1.0" y1="1.0" z1="0.0" x2="1.0" y2="1.0" z2="3.0" x3="5.0" y3="1.0" z3="0.0"/>
         </primitive >
+        <primitive id="cyl">
+            <cylinder base="1.0" top="1.0" height="2.0" slices="20" stacks="5"/>
+        </primitive>
     </primitives >
     <components>
         <component id="rec">

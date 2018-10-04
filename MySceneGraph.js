@@ -236,7 +236,7 @@ class MySceneGraph {
         //Axis Length
         var sceneAxisLength = parseFloat(sceneNodes.getAttribute("axis_length"));
 
-        if (!this.isValidFloat(sceneAxisLength) || sceneAxisLength < 0) {
+        if (!this.isValidNumber(sceneAxisLength) || sceneAxisLength < 0) {
             this.onXMLMinorError("Scene does not have a valid axis_length, using default value " + DEFAULT_SCENE_AXIS_LENGTH + ".");
             sceneNodes.setAttribute("axis_length", DEFAULT_SCENE_AXIS_LENGTH);
         }
@@ -283,13 +283,13 @@ class MySceneGraph {
             var far = parseFloat(currChild.getAttribute("far"));
 
             //Near
-            if (!this.isValidFloat(near) || near < 0) {
+            if (!this.isValidNumber(near) || near < 0) {
                 this.onXMLMinorError(currChild.getAttribute("id") + " does not have a near attribute, using default value near= " + DEFAULT_PERSPECTIVE_NEAR);
                 currChild.setAttribute("near", DEFAULT_PERSPECTIVE_NEAR);
             }
 
             //Far
-            if (!this.isValidFloat(far) || far < 0) {
+            if (!this.isValidNumber(far) || far < 0) {
                 this.onXMLMinorError(currChild.getAttribute("id") + " does not have a far attribute, using default value far= " + DEFAULT_PERSPECTIVE_FAR);
                 currChild.setAttribute("far", DEFAULT_PERSPECTIVE_FAR);
             }
@@ -297,7 +297,7 @@ class MySceneGraph {
             //Type Specific Attributes
             if (currChild.nodeName == "perspective") {
                 var angle = parseFloat(currChild.getAttribute("angle"));
-                if (!this.isValidFloat(angle)) {
+                if (!this.isValidNumber(angle)) {
                     this.onXMLMinorError(currChild.getAttribute("id") + " does not have an angle attribute, using default value angle= " + DEFAULT_PERSPECTIVE_ANGLE);
                     currChild.setAttribute("angle", DEFAULT_PERSPECTIVE_ANGLE);
                 }
@@ -308,7 +308,7 @@ class MySceneGraph {
                 var x = parseFloat(currGrandchild.getAttribute("x"));
                 var y = parseFloat(currGrandchild.getAttribute("y"));
                 var z = parseFloat(currGrandchild.getAttribute("z"));
-                if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)) {
+                if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
                     this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'from' xyz values, using default value x = y = z = " + DEFAULT_PERSPECTIVE_FROM);
                     currGrandchild.setAttribute("x", DEFAULT_PERSPECTIVE_FROM);
                     currGrandchild.setAttribute("y", DEFAULT_PERSPECTIVE_FROM);
@@ -321,7 +321,7 @@ class MySceneGraph {
                 x = parseFloat(currGrandchild.getAttribute("x"));
                 y = parseFloat(currGrandchild.getAttribute("y"));
                 z = parseFloat(currGrandchild.getAttribute("z"));
-                if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)) {
+                if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
                     this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'to' xyz values, using default value x = y = z = " + DEFAULT_PERSPECTIVE_TO);
                     currGrandchild.setAttribute("x", DEFAULT_PERSPECTIVE_TO);
                     currGrandchild.setAttribute("y", DEFAULT_PERSPECTIVE_TO);
@@ -330,14 +330,14 @@ class MySceneGraph {
             } else if (currChild.nodeName == "ortho") {
                 var left = parseFloat(currChild.getAttribute("left"));
                 var right = parseFloat(currChild.getAttribute("right"));
-                if (!this.isValidFloat(left) || !this.isValidFloat(right) || right < left) {
+                if (!this.isValidNumber(left) || !this.isValidNumber(right) || right < left) {
                     this.onXMLMinorError(currChild.getAttribute("id") + " has the attribute left and/or right invalid, using value right = -left = " + DEFAULT_ORTHO_SIDE);
                     currChild.setAttribute("left", DEFAULT_ORTHO_SIDE * -1);
                     currChild.setAttribute("right", DEFAULT_ORTHO_SIDE);
                 }
                 var top = parseFloat(currChild.getAttribute("top"));
                 var bottom = parseFloat(currChild.getAttribute("bottom"));
-                if (!this.isValidFloat(bottom) || !this.isValidFloat(top) || top < bottom) {
+                if (!this.isValidNumber(bottom) || !this.isValidNumber(top) || top < bottom) {
                     this.onXMLMinorError(currChild.getAttribute("id") + " has the attribute left and/or right invalid, using value top = -bottom = " + DEFAULT_ORTHO_SIDE);
                     currChild.setAttribute("bottom", DEFAULT_ORTHO_SIDE * -1);
                     currChild.setAttribute("top", DEFAULT_ORTHO_SIDE);
@@ -363,13 +363,13 @@ class MySceneGraph {
             for (let i = 0; i < 3; i++) {
                 let color = colorsArray[i];
                 let colorValue = parseFloat(currChild.getAttribute(color));
-                if (!this.isValidFloat(colorValue) || colorValue < 0 || colorValue > 1) {
+                if (!this.isValidNumber(colorValue) || colorValue < 0 || colorValue > 1) {
                     this.onXMLMinorError("The value " + color + " of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_RGB);
                     currChild.setAttribute(color, DEFAULT_AMBIENT_RGB);
                 }
             }
             var alpha = parseFloat(currChild.getAttribute("a"));
-            if (!this.isValidFloat(alpha) || alpha < 0 || alpha > 1) {
+            if (!this.isValidNumber(alpha) || alpha < 0 || alpha > 1) {
                 this.onXMLMinorError("The value alpha of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_ALPHA);
                 currChild.setAttribute("a", DEFAULT_AMBIENT_ALPHA);
             }
@@ -382,13 +382,13 @@ class MySceneGraph {
             for (let i = 0; i < 3; i++) {
                 let color = colorsArray[i];
                 let colorValue = parseFloat(currChild.getAttribute(color));
-                if (!this.isValidFloat(colorValue) || colorValue < 0 || colorValue > 1) {
+                if (!this.isValidNumber(colorValue) || colorValue < 0 || colorValue > 1) {
                     this.onXMLMinorError("The value " + color + "of the child ambient of Ambient is not valid, using default value " + DEFAULT_BACKGROUND_RGB);
                     currChild.setAttribute(color, DEFAULT_BACKGROUND_RGB);
                 }
             }
             var alpha = parseFloat(currChild.getAttribute("a"));
-            if (!this.isValidFloat(alpha) || alpha < 0 || alpha > 1) {
+            if (!this.isValidNumber(alpha) || alpha < 0 || alpha > 1) {
                 this.onXMLMinorError("The value alpha of the child ambient of Ambient is not valid, using default value " + DEFAULT_BACKGROUND_ALPHA);
                 currChild.setAttribute("a", DEFAULT_BACKGROUND_ALPHA);
             }
@@ -437,7 +437,7 @@ class MySceneGraph {
                     let y = parseFloat(currGrandchild.getAttribute("y"));
                     let z = parseFloat(currGrandchild.getAttribute("z"));
                     let w = parseFloat(currGrandchild.getAttribute("w"));
-                    if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z) || !this.isValidFloat(w)) {
+                    if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z) || !this.isValidNumber(w)) {
                         this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'location' xyzw values, using default value x = y = z = w = " + DEFAULT_LIGHTS_LOCATION);
                         currGrandchild.setAttribute("x", DEFAULT_LIGHTS_LOCATION);
                         currGrandchild.setAttribute("y", DEFAULT_LIGHTS_LOCATION);
@@ -448,7 +448,7 @@ class MySceneGraph {
                         let g = parseFloat(currGrandchild.getAttribute("g"));
                         let b = parseFloat(currGrandchild.getAttribute("b"));
                         let a = parseFloat(currGrandchild.getAttribute("a"));
-                        if (!this.isValidFloat(r) || !this.isValidFloat(g) || !this.isValidFloat(b) || !this.isValidFloat(a)) {
+                        if (!this.isValidNumber(r) || !this.isValidNumber(g) || !this.isValidNumber(b) || !this.isValidNumber(a)) {
                             this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
                             currGrandchild.setAttribute("r", DEFAULT_LIGHTS_LOCATION);
                             currGrandchild.setAttribute("g", DEFAULT_LIGHTS_LOCATION);
@@ -461,7 +461,7 @@ class MySceneGraph {
                         let y = parseFloat(currGrandchild.getAttribute("y"));
                         let z = parseFloat(currGrandchild.getAttribute("z"));
 
-                        if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)) {
+                        if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
                             this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_SPOT_TARGET);
                             currGrandchild.setAttribute("x", DEFAULT_SPOT_TARGET);
                             currGrandchild.setAttribute("y", DEFAULT_SPOT_TARGET);
@@ -471,13 +471,13 @@ class MySceneGraph {
                 }
                 if (currChild.nodeName == "spot") {
                     let a = currChild.getAttribute("angle");
-                    if (!this.isValidFloat(a)) {
+                    if (!this.isValidNumber(a)) {
                         let defAngle = 90.0 * DEGREE_TO_RAD;
                         this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
                         currChild.setAttribute("angle", defAngle);
                     }
                     a = currChild.getAttribute("exponent");
-                    if (!this.isValidFloat(a)) {
+                    if (!this.isValidNumber(a)) {
                         let defExponent = 1.0;
                         this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid exponent value, using default value exponent = " + defExponent);
                         currChild.setAttribute("exponent", defExponent);
@@ -533,7 +533,7 @@ class MySceneGraph {
                     let x = parseFloat(currGrandchild.getAttribute("x"));
                     let y = parseFloat(currGrandchild.getAttribute("y"));
                     let z = parseFloat(currGrandchild.getAttribute("z"));
-                    if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)) {
+                    if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
 
                         this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_TRANSLATION_VALUE);
                         currGrandchild.setAttribute("x", DEFAULT_TRANSLATION_VALUE);
@@ -545,7 +545,7 @@ class MySceneGraph {
                 } else if (currGrandchild.nodeName == "rotate") {
                     let angle = parseFloat(currGrandchild.getAttribute("angle"));
                     let axis = currGrandchild.getAttribute("axis");
-                    if (!this.isValidFloat(angle)) {
+                    if (!this.isValidNumber(angle)) {
                         let defAngle = 0;
                         this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
                         currGrandchild.setAttribute("angle", defAngle);
@@ -577,7 +577,7 @@ class MySceneGraph {
                     let x = parseFloat(currGrandchild.getAttribute("x"));
                     let y = parseFloat(currGrandchild.getAttribute("y"));
                     let z = parseFloat(currGrandchild.getAttribute("z"));
-                    if (!this.isValidFloat(x) || !this.isValidFloat(y) || !this.isValidFloat(z)) {
+                    if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
                         this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_SCALE_VALUE);
                         currGrandchild.setAttribute("x", DEFAULT_SCALE_VALUE);
                         currGrandchild.setAttribute("y", DEFAULT_SCALE_VALUE);
@@ -627,7 +627,7 @@ class MySceneGraph {
                 let y1 = parseFloat(currGrandchild.getAttribute("y1"));
                 let x2 = parseFloat(currGrandchild.getAttribute("x2"));
                 let y2 = parseFloat(currGrandchild.getAttribute("y2"));
-                if (!this.isValidFloat(x1) || !this.isValidFloat(y1) || !this.isValidFloat(x2) || !this.isValidFloat(y2)) {
+                if (!this.isValidNumber(x1) || !this.isValidNumber(y1) || !this.isValidNumber(x2) || !this.isValidNumber(y2)) {
 
                     this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' x1y1x2y2 values, using default value x1 = y1 = z = " + DEFAULT_TRANSLATION_VALUE);
                     currGrandchild.setAttribute("x1", 1.0);
@@ -646,11 +646,11 @@ class MySceneGraph {
                 let x3 = parseFloat(currGrandchild.getAttribute("x3"));
                 let y3 = parseFloat(currGrandchild.getAttribute("y3"));
                 let z3 = parseFloat(currGrandchild.getAttribute("z3"));
-                if (!this.isValidFloat(x1) || !this.isValidFloat(y1) || !this.isValidFloat(z1) ||
-                    !this.isValidFloat(x2) || !this.isValidFloat(y2) || !this.isValidFloat(z2) ||
-                    !this.isValidFloat(x3) || !this.isValidFloat(y3) || !this.isValidFloat(z3)) {
+                if (!this.isValidNumber(x1) || !this.isValidNumber(y1) || !this.isValidNumber(z1) ||
+                    !this.isValidNumber(x2) || !this.isValidNumber(y2) || !this.isValidNumber(z2) ||
+                    !this.isValidNumber(x3) || !this.isValidNumber(y3) || !this.isValidNumber(z3)) {
 
-                    this.onXMLMinorError("Primitive nº " + i + " section " + j + " has one or more invalid 'triangle' x1y1z1x2y2z2x3y3z3 values, using default values");
+                    this.onXMLMinorError("Primitive nº " + i + " has one or more invalid 'triangle' x1y1z1x2y2z2x3y3z3 values, using default values");
                     currGrandchild.setAttribute("x1", 1.0);
                     currGrandchild.setAttribute("y1", 1.0);
                     currGrandchild.setAttribute("z1", 1.0);
@@ -665,6 +665,28 @@ class MySceneGraph {
                     parseFloat(currGrandchild.getAttribute("x1")), parseFloat(currGrandchild.getAttribute("y1")), parseFloat(currGrandchild.getAttribute("z1")),
                     parseFloat(currGrandchild.getAttribute("x2")), parseFloat(currGrandchild.getAttribute("y2")), parseFloat(currGrandchild.getAttribute("z2")),
                     parseFloat(currGrandchild.getAttribute("x3")), parseFloat(currGrandchild.getAttribute("y3")), parseFloat(currGrandchild.getAttribute("z3")));
+            } else if (currGrandchild.nodeName == "cylinder") {
+                let base = parseFloat(currGrandchild.getAttribute("base"));
+                let top = parseFloat(currGrandchild.getAttribute("top"));
+                let height = parseFloat(currGrandchild.getAttribute("height"));
+                let slices = parseInt(currGrandchild.getAttribute("slices"));
+                let stacks = parseInt(currGrandchild.getAttribute("stacks"));
+                console.log(base + " " + top + " " + height);
+                if (!this.isValidNumber(base) || !this.isValidNumber(top) || !this.isValidNumber(height)) {
+                    this.onXMLMinorError("Primitive nº " + i + " has one or more invalid 'cylinder' base/top/height values, using default 1.0")
+                    currGrandchild.setAttribute("base", 1.0);
+                    currGrandchild.setAttribute("top", 1.0);
+                    currGrandchild.setAttribute("height", 1.0);
+
+                }
+                if (!this.isValidNumber(slices) || !this.isValidNumber(stacks)) {
+                    this.onXMLMinorError("Primitive nº " + i + " has one or more invalid 'cylinder' slices/stacks values, using default values slices = 5, stacks = 2");
+                    currGrandchild.setAttribute("slices", 5);
+                    currGrandchild.setAttribute("stacks", 2);
+                }
+                this.primitives[currChild.getAttribute("id")] = new MyCylinder(this.scene, currChild.getAttribute("id"),
+                    parseFloat(currGrandchild.getAttribute("base")), parseFloat(currGrandchild.getAttribute("top")), parseFloat(currGrandchild.getAttribute("height")),
+                    parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
             }
             i++;
         } while (i < children.length)
@@ -751,9 +773,10 @@ class MySceneGraph {
     displayScene() {
         this.primitives["rec"].display();
         this.primitives["tri"].display();
+        this.primitives["cyl"].display();
     }
 
-    isValidFloat(attribute) {
+    isValidNumber(attribute) {
         return !(attribute == null || isNaN(attribute));
     }
 }
