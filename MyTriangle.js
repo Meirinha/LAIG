@@ -2,10 +2,8 @@
  * MyTriangle
  * @constructor
  */
-class MyTriangle extends CGFobject
-{
-	constructor(scene, id, x1, y1, z1, x2, y2, z2, x3, y3, z3, minS = 0, maxS = 1, minT = 0, maxT = 1)
-	{
+class MyTriangle extends CGFobject {
+	constructor(scene, id, x1, y1, z1, x2, y2, z2, x3, y3, z3, minS = 0, maxS = 1, minT = 0, maxT = 1) {
 		super(scene);
 
 		this.id = id;
@@ -30,22 +28,21 @@ class MyTriangle extends CGFobject
 		this.initBuffers();
 	};
 
-	initBuffers()
-	{
+	initBuffers() {
 		this.texCoords = [
-		this.minS,this.maxT,
-		this.maxS,this.maxT,
-		this.minS,this.minT,
-		this.maxS,this.minT,
+			this.minS, this.maxT,
+			this.maxS, this.maxT,
+			this.minS, this.minT,
+			this.maxS, this.minT,
 		]
 		this.vertices = [
-		this.x1, this.y1, this.z1,
-		this.x2, this.y2, this.z2,
-		this.x3, this.y3, this.z3,
+			this.x1, this.y1, this.z1,
+			this.x2, this.y2, this.z2,
+			this.x3, this.y3, this.z3,
 		];
 
 		this.indices = [
-		0, 1, 2,
+			0, 1, 2,
 		];
 
 		this.normals = [

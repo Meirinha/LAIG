@@ -34,7 +34,6 @@ class MyCylinder extends CGFobject {
 		var deltaT = 1 / this.stacks;
 		var deltaS = 1 / this.slices;
 
-
 		for (var i = 0; i <= this.stacks; i++)
 			for (var j = 0; j <= this.slices; j++) {
 				this.vertices.push(Math.cos(j * ang) * ((i * (this.diff / this.stacks)) + 1), Math.sin(j * ang) * ((i * (this.diff / this.stacks)) + 1), i * levels);
