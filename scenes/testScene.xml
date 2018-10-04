@@ -1,7 +1,7 @@
 <yas>
     <!-- deve definir-se um objeto para raiz da arvore, assim -->
     <!-- como o comprimento dos tres eixos (cilindros) -->
-    <scene root="rootScene" axis_length="1" />
+    <scene root="rootScene" axis_length="5.0" />
     <views default="viewsDef" >
         <!-- tem de existir, pelo menos, uma vista de -->
         <!-- entre as seguintes (perspective ou ortho) -->
@@ -13,8 +13,8 @@
  left="-2" right="2" top="2" bottom="-2" />
     </views>
     <ambient>
-        <ambient r="0.5" g="1.0" b="1.0" a="1.0" />
-        <background r="0.5" g="1.0" b="1.0" a="1.0" />
+        <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+        <background r="0.0" g="0.0" b="0.0" a="1.0" />
     </ambient>
     <lights>
         <!-- Deve existir um ou mais blocos "omni" ou "spot" -->

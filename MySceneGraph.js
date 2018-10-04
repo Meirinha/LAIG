@@ -13,7 +13,7 @@ var COMPONENTS_INDEX = 8;
 
 //Default Values
 var DEFAULT_SCENE_ROOT = "rootScene";
-var DEFAULT_SCENE_AXIS_LENGTH = 1.0;
+var DEFAULT_SCENE_AXIS_LENGTH = 5.0;
 
 var DEFAULT_VIEWS_DEFAULT = "defaultViews";
 var DEFAULT_PERSPECTIVE_NEAR = 0.1;
@@ -240,6 +240,7 @@ class MySceneGraph {
             this.onXMLMinorError("Scene does not have a valid axis_length, using default value " + DEFAULT_SCENE_AXIS_LENGTH + ".");
             sceneNodes.setAttribute("axis_length", DEFAULT_SCENE_AXIS_LENGTH);
         }
+        this.referenceLength = parseFloat(sceneNodes.getAttribute("axis_length"));
         console.log("Scene: Root= " + sceneNodes.getAttribute("root") + " Axis_Length= " + sceneNodes.getAttribute("axis_length"));
         return;
     }
