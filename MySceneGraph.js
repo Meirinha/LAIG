@@ -724,7 +724,14 @@ class MySceneGraph {
                         if (currGreatchild.nodeName == "primitiveref") {
                             let idPrimitive = currGreatchild.getAttribute("id");
                             //TODO check if id is in list
-
+                            if(this.primitives[idPrimitive] < 0){
+                                this.onXMLError("Component id primitve not found");
+                            }
+                            //TODO
+                        }
+                        else if(currGreatchild.nodeName == "componentref")
+                        {
+                            //TODO
                         }
 
                         k++;

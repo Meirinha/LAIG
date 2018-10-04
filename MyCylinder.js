@@ -22,7 +22,7 @@ class MyCylinder extends CGFobject {
 	initBuffers() {
 
 		var ang = Math.PI * 2 / this.slices; //step between slices in radians
-		var levels = 1.0 / this.stacks;
+		var levels = this.height / this.stacks;
 		this.vertices = new Array();
 
 		this.indices = new Array();
