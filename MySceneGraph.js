@@ -368,14 +368,14 @@ class MySceneGraph {
                     this.onXMLMinorError("The value " + color + " of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_RGB);
                     currChild.setAttribute(color, DEFAULT_AMBIENT_RGB);
                 }
-                this.ambient[color] = parseFloat(currChild.getAttribute(color)); 
+                this.ambient[color] = parseFloat(currChild.getAttribute(color));
             }
             var alpha = parseFloat(currChild.getAttribute("a"));
             if (!this.isValidNumber(alpha) || alpha < 0 || alpha > 1) {
                 this.onXMLMinorError("The value alpha of the child ambient of Ambient is not valid, using default value " + DEFAULT_AMBIENT_ALPHA);
                 currChild.setAttribute("a", DEFAULT_AMBIENT_ALPHA);
             }
-            this.ambient["a"] = parseFloat(currChild.getAttribute("a")); 
+            this.ambient["a"] = parseFloat(currChild.getAttribute("a"));
         } else {
             this.onXMLError("Ambient must have ambient and background children, in this order");
         }
@@ -390,7 +390,7 @@ class MySceneGraph {
                     this.onXMLMinorError("The value " + color + "of the child ambient of Ambient is not valid, using default value " + DEFAULT_BACKGROUND_RGB);
                     currChild.setAttribute(color, DEFAULT_BACKGROUND_RGB);
                 }
-                this.background[color] = parseFloat(currChild.getAttribute(color)); 
+                this.background[color] = parseFloat(currChild.getAttribute(color));
             }
             var alpha = parseFloat(currChild.getAttribute("a"));
             if (!this.isValidNumber(alpha) || alpha < 0 || alpha > 1) {
@@ -495,7 +495,47 @@ class MySceneGraph {
         } while (i < children.length) return null;
     }
 
-    parseTextures(texturesNodes) { //TODO
+    parseTextures(texturesNodes) {
+
+      this.textures = [];
+      let children = texturesNodes.children;
+
+      var i = 0;
+      var idsUsed = [];
+      do {
+          var currChild = children[i];
+
+          //Check id
+          try {
+              if (currChild.getAttribute("id") == null) {
+                  var newid = "texture" + i;
+                  this.onXMLMinorError("Texture child number " + i + " does not have an id, using value id=" + newid + ".");
+                  currChild.setAttribute("id", newid);
+              }
+          } catch (err) {
+              throw "At least one Texture must exist."
+          }
+
+          //No repeated id
+          if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
+              throw "Repeated id in Textures, id= " + currChild.getAttribute("id");
+
+          idsUsed.push(currChild.getAttribute("id"));
+
+          try {
+              if (currChild.getAttribute("file") == null)
+          } catch (err) {
+              throw "A File must exist."
+          }
+
+          this.id = currChild.getAttribute("id");
+          this.filepath = currChild.getAttribute("file");
+          this.textures[this.id] = this.filepath;
+
+          i++;
+        }while(i < children.length)
+        return null;
+
     }
 
     parseMaterials(materialsNodes) {}
