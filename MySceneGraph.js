@@ -374,7 +374,7 @@ class MySceneGraph {
                 currChild.setAttribute("a", DEFAULT_AMBIENT_ALPHA);
             }
         } else {
-            throw "Ambient must have ambient and background children, in this order";
+            this.onXMLError("Ambient must have ambient and background children, in this order");
         }
         currChild = children[1];
         if (currChild.nodeName == "background") {
@@ -393,7 +393,7 @@ class MySceneGraph {
                 currChild.setAttribute("a", DEFAULT_BACKGROUND_ALPHA);
             }
         } else
-            throw "Ambient must have ambient and background children, in this order";
+            this.onXMLError("Ambient must have ambient and background children, in this order");
     }
 
     //Lights TODO GUARDAR INFO
@@ -414,7 +414,7 @@ class MySceneGraph {
                     currChild.setAttribute("id", newid);
                 }
             } catch (err) {
-                throw "At least one Light (omni or spot) must exist."
+                this.onXMLError("At least one Light (omni or spot) must exist.");
             }
 
             //No repeated id
@@ -600,9 +600,7 @@ class MySceneGraph {
         this.primitives = [];
 
         var i = 0;
-        var idsUsed = [];
         do {
-
             var currChild = children[i];
 
             //Check id
@@ -613,40 +611,62 @@ class MySceneGraph {
                     currChild.setAttribute("id", newid);
                 }
             } catch (err) {
-                throw "At least one Primitive must exist."
+                this.onXMLError("At least one Primitive must exist.");
             }
 
             //No repeated id
-            if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
-                throw "Repeated id in Primitives, id= " + currChild.getAttribute("id");
-
-            idsUsed.push(currChild.getAttribute("id"));
+            if (this.primitives[currChild.getAttribute("id")] > -1)
+                this.onXMLError("Repeated id in Primitives, id= " + currChild.getAttribute("id"));
 
             let grandchildren = currChild.children;
 
             //At least one transformation
-            let j = 0;
-            do {
-                let currGrandchild = grandchildren[j];
-                if (currGrandchild.nodeName == "rectangle") {
-                    let x1 = parseFloat(currGrandchild.getAttribute("x1"));
-                    let y1 = parseFloat(currGrandchild.getAttribute("y1"));
-                    let x2 = parseFloat(currGrandchild.getAttribute("x2"));
-                    let y2 = parseFloat(currGrandchild.getAttribute("y2"));
-                    if (!this.isValidFloat(x1) || !this.isValidFloat(y1) || !this.isValidFloat(x2) || !this.isValidFloat(y2)) {
+            let currGrandchild = grandchildren[0];
+            if (currGrandchild.nodeName == "rectangle") {
+                let x1 = parseFloat(currGrandchild.getAttribute("x1"));
+                let y1 = parseFloat(currGrandchild.getAttribute("y1"));
+                let x2 = parseFloat(currGrandchild.getAttribute("x2"));
+                let y2 = parseFloat(currGrandchild.getAttribute("y2"));
+                if (!this.isValidFloat(x1) || !this.isValidFloat(y1) || !this.isValidFloat(x2) || !this.isValidFloat(y2)) {
 
-                        this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' x1y1x2y2 values, using default value x1 = y1 = z = " + DEFAULT_TRANSLATION_VALUE);
-                        currGrandchild.setAttribute("x1", 1.0);
-                        currGrandchild.setAttribute("y1", 1.0);
-                        currGrandchild.setAttribute("x2", 2.0);
-                        currGrandchild.setAttribute("y2", 2.0);
-                    }
-                    //let args = [parseFloat(currGrandchild.getAttribute("x1")),parseFloat(currGrandchild.getAttribute("y1")),parseFloat(currGrandchild.getAttribute("x2")),parseFloat(currGrandchild.getAttribute("y2"))];
-
-                    this.primitives[currChild.getAttribute("id")] = new MyQuad(this.scene, currChild.getAttribute("id"), parseFloat(currGrandchild.getAttribute("x1")), parseFloat(currGrandchild.getAttribute("y1")), parseFloat(currGrandchild.getAttribute("x2")), parseFloat(currGrandchild.getAttribute("y2")));
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' x1y1x2y2 values, using default value x1 = y1 = z = " + DEFAULT_TRANSLATION_VALUE);
+                    currGrandchild.setAttribute("x1", 1.0);
+                    currGrandchild.setAttribute("y1", 1.0);
+                    currGrandchild.setAttribute("x2", 2.0);
+                    currGrandchild.setAttribute("y2", 2.0);
                 }
-                j++;
-            } while (j < grandchildren.length) i++;
+                this.primitives[currChild.getAttribute("id")] = new MyRectangle(this.scene, currChild.getAttribute("id"), parseFloat(currGrandchild.getAttribute("x1")), parseFloat(currGrandchild.getAttribute("y1")), parseFloat(currGrandchild.getAttribute("x2")), parseFloat(currGrandchild.getAttribute("y2")));
+            } else if (currGrandchild.nodeName == "triangle") {
+                let x1 = parseFloat(currGrandchild.getAttribute("x1"));
+                let y1 = parseFloat(currGrandchild.getAttribute("y1"));
+                let z1 = parseFloat(currGrandchild.getAttribute("z1"));
+                let x2 = parseFloat(currGrandchild.getAttribute("x2"));
+                let y2 = parseFloat(currGrandchild.getAttribute("y2"));
+                let z2 = parseFloat(currGrandchild.getAttribute("z2"));
+                let x3 = parseFloat(currGrandchild.getAttribute("x3"));
+                let y3 = parseFloat(currGrandchild.getAttribute("y3"));
+                let z3 = parseFloat(currGrandchild.getAttribute("z3"));
+                if (!this.isValidFloat(x1) || !this.isValidFloat(y1) || !this.isValidFloat(z1) ||
+                    !this.isValidFloat(x2) || !this.isValidFloat(y2) || !this.isValidFloat(z2) ||
+                    !this.isValidFloat(x3) || !this.isValidFloat(y3) || !this.isValidFloat(z3)) {
+
+                    this.onXMLMinorError("Primitive nº " + i + " section " + j + " has one or more invalid 'triangle' x1y1z1x2y2z2x3y3z3 values, using default values");
+                    currGrandchild.setAttribute("x1", 1.0);
+                    currGrandchild.setAttribute("y1", 1.0);
+                    currGrandchild.setAttribute("z1", 1.0);
+                    currGrandchild.setAttribute("x2", 2.0);
+                    currGrandchild.setAttribute("y2", 2.0);
+                    currGrandchild.setAttribute("z2", 2.0);
+                    currGrandchild.setAttribute("x3", 2.0);
+                    currGrandchild.setAttribute("y3", 3.0);
+                    currGrandchild.setAttribute("z3", 4.0);
+                }
+                this.primitives[currChild.getAttribute("id")] = new MyTriangle(this.scene, currChild.getAttribute("id"),
+                    parseFloat(currGrandchild.getAttribute("x1")), parseFloat(currGrandchild.getAttribute("y1")), parseFloat(currGrandchild.getAttribute("z1")),
+                    parseFloat(currGrandchild.getAttribute("x2")), parseFloat(currGrandchild.getAttribute("y2")), parseFloat(currGrandchild.getAttribute("z2")),
+                    parseFloat(currGrandchild.getAttribute("x3")), parseFloat(currGrandchild.getAttribute("y3")), parseFloat(currGrandchild.getAttribute("z3")));
+            }
+            i++;
         } while (i < children.length)
     }
 
@@ -659,13 +679,13 @@ class MySceneGraph {
             let currChild = children[i];
             //TODO Check id
             let currID = currChild.getAttribute("id");
-            if(currid == null) //id not defined
+            if (currID == null) //id not defined
             {
                 let newid = "component" + i;
                 this.onXMLMinorError("Component nº " + i + " does not have a defined id, setting id to" + newid);
                 currChild.setAttribute("id", newid);
             }
-            if(this.components[currid] > -1) //repeated ID
+            if (this.components[currID] > -1) //repeated ID
             {
                 this.onXMLError("Component nº " + i + "has the repeated id" + currID);
             }
@@ -730,6 +750,7 @@ class MySceneGraph {
      */
     displayScene() {
         this.primitives["rec"].display();
+        this.primitives["tri"].display();
     }
 
     isValidFloat(attribute) {

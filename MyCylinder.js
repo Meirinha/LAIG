@@ -2,7 +2,7 @@
  * MyCylinder
  * @constructor
  */
-class MyCone extends CGFobject
+class MyCylinder extends CGFobject
 {
 	constructor(scene, id, base, top, height, slices, stacks)
 {

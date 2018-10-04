@@ -1,8 +1,8 @@
 /**
- * MyUnitCubeQuad
+ * MyTriangle
  * @constructor
  */
-class MyTriangular extends CGFobject
+class MyTriangle extends CGFobject
 {
 	constructor(scene, id, x1, y1, z1, x2, y2, z2, x3, y3, z3, minS = 0, maxS = 1, minT = 0, maxT = 1)
 	{
