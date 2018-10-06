@@ -52,7 +52,7 @@ class XMLscene extends CGFscene {
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
             if (i >= 8)
-                break;              // Only eight lights allowed by WebGL.
+                break; // Only eight lights allowed by WebGL.
 
             if (this.graph.lights.hasOwnProperty(key)) {
                 var light = this.graph.lights[key];
@@ -81,14 +81,14 @@ class XMLscene extends CGFscene {
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
-        
-       // this.camera.near = this.graph.near;
-       // this.camera.far = this.graph.far;
+
+        // this.camera.near = this.graph.near;
+        // this.camera.far = this.graph.far;
 
         this.axis = new CGFaxis(this, this.graph.referenceLength);
-        
+
         this.setGlobalAmbientLight(this.graph.ambient["r"], this.graph.ambient["g"], this.graph.ambient["b"], this.graph.ambient["a"]);
-        
+
         this.gl.clearColor(this.graph.background["r"], this.graph.background["r"], this.graph.background["r"], this.graph.background["a"]);
 
         this.initLights();
@@ -129,8 +129,7 @@ class XMLscene extends CGFscene {
                     if (this.lightValues[key]) {
                         this.lights[i].setVisible(true);
                         this.lights[i].enable();
-                    }
-                    else {
+                    } else {
                         this.lights[i].setVisible(false);
                         this.lights[i].disable();
                     }
@@ -141,8 +140,7 @@ class XMLscene extends CGFscene {
 
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
-        }
-        else {
+        } else {
             // Draw axis
             this.axis.display();
         }

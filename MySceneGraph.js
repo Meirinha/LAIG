@@ -93,8 +93,6 @@ class MySceneGraph {
     }
 
     /**
-    DONE TODO APAGAR
-
     * Parses the XML file, processing each block.
     * @param {XML root element} rootElement
     */
@@ -532,14 +530,13 @@ class MySceneGraph {
             i++;
         } while (i < children.length)
         return null;
-
     }
 
     parseMaterials(materialsNodes) {
         this.materials = [];
         let children = materialsNodes.children;
 
-        //At least one light
+        //At least one material
         var i = 0;
         var idsUsed = [];
         do {
@@ -567,8 +564,12 @@ class MySceneGraph {
             for (let j = 0; j < 4; j++) {
                 let currGrandchild = currChild.children[j];
                 this.materialCheckError(currGrandchild);
-                if (currGrandchild.nodeName == "emission")
-                this.materials[currID].setAmbient(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a"));
+                switch(currGrandchild.nodeName){
+                    case "emission": this.materials[currID].setEmission(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a")); break;
+                    case "ambient" : this.materials[currID].setAmbient(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a")); break;
+                    case "diffuse" : this.materials[currID].setDiffuse(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a")); break;
+                    case "specular": this.materials[currID].setSpecular(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a")); break;
+                }
             }
             i++;
         } while (i < children.length) return null;
@@ -871,15 +872,25 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        this.defaultMaterial = new CGFappearance(this.scene);
-        this.materials["materialID"].apply();
+        this.defaultAppearance = new CGFappearance(this.scene);
+        this.setDefaultAppearance();
+        this.defaultAppearance.apply();
+
         this.primitives["rec"].display();
         this.primitives["tri"].display();
-        this.defaultMaterial.apply();
+
+        this.materials["materialID"].apply();
         this.primitives["cyl"].display();
     }
 
     isValidNumber(attribute) {
         return !(attribute == null || isNaN(attribute));
+    }
+
+    setDefaultAppearance() {
+        this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
+        this.defaultAppearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
+        this.defaultAppearance.setSpecular(0.2, 0.4, 0.8, 1.0);
+        this.defaultAppearance.setShininess(10.0);
     }
 }

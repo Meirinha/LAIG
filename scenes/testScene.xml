@@ -43,10 +43,10 @@
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <material id="materialID" shininess = "1.0" >
-            <emission r="0.5" g="1.0" b="1.0" a="1.0" />
-            <ambient r="0.5" g="1.0" b="1.0" a="1.0" />
-            <diffuse r="0.5" g="1.0" b="1.0" a="1.0" />
-            <specular r="0.5" g="1.0" b="1.0" a="1.0" />
+            <emission r="0.5" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.5" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.5" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.5" g="0.0" b="0.0" a="1.0" />
         </material>
     </materials>
     <transformations>
