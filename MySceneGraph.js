@@ -497,93 +497,97 @@ class MySceneGraph {
 
     parseTextures(texturesNodes) {
 
-      this.textures = [];
-      let children = texturesNodes.children;
+        this.textures = [];
+        let children = texturesNodes.children;
 
-      var i = 0;
-      var idsUsed = [];
-      do {
-          var currChild = children[i];
+        var i = 0;
+        var idsUsed = [];
+        do {
+            var currChild = children[i];
 
-          //Check id
-          try {
-              if (currChild.getAttribute("id") == null) {
-                  var newid = "texture" + i;
-                  this.onXMLMinorError("Texture child number " + i + " does not have an id, using value id=" + newid + ".");
-                  currChild.setAttribute("id", newid);
-              }
-          } catch (err) {
-              throw "At least one Texture must exist."
-          }
+            //Check id
+            try {
+                if (currChild.getAttribute("id") == null) {
+                    var newid = "texture" + i;
+                    this.onXMLMinorError("Texture child number " + i + " does not have an id, using value id=" + newid + ".");
+                    currChild.setAttribute("id", newid);
+                }
+            } catch (err) {
+                throw "At least one Texture must exist."
+            }
 
-          //No repeated id
-          if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
-              throw "Repeated id in Textures, id= " + currChild.getAttribute("id");
+            //No repeated id
+            if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
+                throw "Repeated id in Textures, id= " + currChild.getAttribute("id");
 
-          idsUsed.push(currChild.getAttribute("id"));
+            idsUsed.push(currChild.getAttribute("id"));
 
-          try {
-              if (currChild.getAttribute("file") == null)
-          } catch (err) {
-              throw "A File must exist."
-          }
+            if (currChild.getAttribute("file") == null)
+                throw "A File must exist."
 
-          this.id = currChild.getAttribute("id");
-          this.filepath = currChild.getAttribute("file");
-          this.textures[this.id] = this.filepath;
+            this.id = currChild.getAttribute("id");
+            this.filepath = currChild.getAttribute("file");
+            this.textures[this.id] = this.filepath;
 
-          i++;
-        }while(i < children.length)
+            i++;
+        } while (i < children.length)
         return null;
 
     }
 
     parseMaterials(materialsNodes) {
+        this.materials = [];
+        let children = materialsNodes.children;
 
-      let children = materialNodes.children;
+        //At least one light
+        var i = 0;
+        var idsUsed = [];
+        do {
+            var currChild = children[i];
 
-      //At least one light
-      var i = 0;
-      var idsUsed = [];
-      do {
-          var currChild = children[i];
-
-          //Check id
-          try {
-              if (currChild.getAttribute("id") == null) {
-                  var newid = "material" + i;
-                  this.onXMLMinorError("Materials child number " + i + " does not have an id, using value id=" + newid + ".");
-                  currChild.setAttribute("id", newid);
-              }
-          } catch (err) {
-              this.onXMLError("At least one Material must exist.");
-          }
-
-          //No repeated id
-          if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
-              throw "Repeated id in Materials, id= " + currChild.getAttribute("id");
-
-          idsUsed.push(currChild.getAttribute("id"));
-          var shininess= parseFloat(currChild.getAttribute("shininess"));
-
-          for (let j = 0; j < 4; j++) {
-              let currGrandchild = currChild.children[j];
-              if (currGrandchild.nodeName == "emission" || currGrandchild.nodeName == "ambient" || currGrandchild.nodeName == "diffuse" || currGrandchild.nodeName == "specular") {
-                      let r = parseFloat(currGrandchild.getAttribute("r"));
-                      let g = parseFloat(currGrandchild.getAttribute("g"));
-                      let b = parseFloat(currGrandchild.getAttribute("b"));
-                      let a = parseFloat(currGrandchild.getAttribute("a"));
-                      if (!this.isValidNumber(r) || !this.isValidNumber(g) || !this.isValidNumber(b) || !this.isValidNumber(a)) {
-                          this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
-                          currGrandchild.setAttribute("r", DEFAULT_LIGHTS_LOCATION);
-                          currGrandchild.setAttribute("g", DEFAULT_LIGHTS_LOCATION);
-                          currGrandchild.setAttribute("b", DEFAULT_LIGHTS_LOCATION);
-                          currGrandchild.setAttribute("a", DEFAULT_LIGHTS_LOCATION);
-                      }
-                  }
+            //Check id
+            try {
+                if (currChild.getAttribute("id") == null) {
+                    var newid = "material" + i;
+                    this.onXMLMinorError("Materials child number " + i + " does not have an id, using value id=" + newid + ".");
+                    currChild.setAttribute("id", newid);
                 }
-          i++;
-      } while (i < children.length) return null;
+            } catch (err) {
+                this.onXMLError("At least one Material must exist.");
+            }
+            let currID = currChild.getAttribute("id");
+            this.materials[currID] = new CGFappearance(this.scene);
+            //No repeated id
+            if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
+                throw "Repeated id in Materials, id= " + currChild.getAttribute("id");
+
+            idsUsed.push(currChild.getAttribute("id"));
+            var shininess = parseFloat(currChild.getAttribute("shininess"));
+
+            for (let j = 0; j < 4; j++) {
+                let currGrandchild = currChild.children[j];
+                this.materialCheckError(currGrandchild);
+                if (currGrandchild.nodeName == "emission")
+                this.materials[currID].setAmbient(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a"));
+            }
+            i++;
+        } while (i < children.length) return null;
+    }
+
+    materialCheckError(currGrandchild) {
+        if (currGrandchild.nodeName == "emission" || currGrandchild.nodeName == "ambient" || currGrandchild.nodeName == "diffuse" || currGrandchild.nodeName == "specular") {
+            let r = parseFloat(currGrandchild.getAttribute("r"));
+            let g = parseFloat(currGrandchild.getAttribute("g"));
+            let b = parseFloat(currGrandchild.getAttribute("b"));
+            let a = parseFloat(currGrandchild.getAttribute("a"));
+            if (!this.isValidNumber(r) || !this.isValidNumber(g) || !this.isValidNumber(b) || !this.isValidNumber(a)) {
+                this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
+                currGrandchild.setAttribute("r", DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("g", DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("b", DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("a", DEFAULT_LIGHTS_LOCATION);
+            }
+        }
     }
 
     //Transformations
@@ -867,8 +871,11 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
+        this.defaultMaterial = new CGFappearance(this.scene);
+        this.materials["materialID"].apply();
         this.primitives["rec"].display();
         this.primitives["tri"].display();
+        this.defaultMaterial.apply();
         this.primitives["cyl"].display();
     }
 
