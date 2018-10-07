@@ -405,7 +405,7 @@ class MySceneGraph {
     //Lights TODO GUARDAR INFO
     parseLights(ligthsNodes) {
         let children = ligthsNodes.children;
-        this.lightsScene = [];
+        this.lights = [];
 
         //At least one light
         var i = 0;
@@ -425,10 +425,10 @@ class MySceneGraph {
             }
 
             //No repeated id
-            if (this.lightsScene[currChild.getAttribute("id")] != null)
+            if (this.lights[currChild.getAttribute("id")] != null)
                 throw "Repeated id in Lights, id= " + currChild.getAttribute("id");
 
-            this.lightsScene[currChild.getAttribute("id")] = new CGFlight(this.scene, currChild.getAttribute("id"));
+            this.lights[currChild.getAttribute("id")] = new CGFlight(this.scene, currChild.getAttribute("id"));
 
             //Enabled TODO confirmar se tt e true ou 1
             let ena = currChild.getAttribute("enabled");
@@ -449,20 +449,20 @@ class MySceneGraph {
                         currGrandchild.setAttribute("z", DEFAULT_LIGHTS_LOCATION);
                         currGrandchild.setAttribute("w", DEFAULT_LIGHTS_LOCATION);
                     }
-                    this.lightsScene[currChild.getAttribute("id")].setPosition(parseFloat(currGrandchild.getAttribute("x")), parseFloat(currGrandchild.getAttribute("x")), parseFloat(currGrandchild.getAttribute("x")), parseFloat(currGrandchild.getAttribute("x")));
-                } else if (currGrandchild.nodeName == "ambient" || currGrandchild.nodeName == "diffuse" || currGrandchild.nodeName == "specular") {
-                    let r = parseFloat(currGrandchild.getAttribute("r"));
-                    let g = parseFloat(currGrandchild.getAttribute("g"));
-                    let b = parseFloat(currGrandchild.getAttribute("b"));
-                    let a = parseFloat(currGrandchild.getAttribute("a"));
-                    if (!this.isValidNumber(r) || !this.isValidNumber(g) || !this.isValidNumber(b) || !this.isValidNumber(a)) {
-                        this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
-                        currGrandchild.setAttribute("r", DEFAULT_LIGHTS_LOCATION);
-                        currGrandchild.setAttribute("g", DEFAULT_LIGHTS_LOCATION);
-                        currGrandchild.setAttribute("b", DEFAULT_LIGHTS_LOCATION);
-                        currGrandchild.setAttribute("a", DEFAULT_LIGHTS_LOCATION);
-                    }
-                } else if (currChild.nodeName == "spot" && currGrandchild.nodeName == "target") {
+                    this.lights[currChild.getAttribute("id")].setPosition(parseFloat(currGrandchild.getAttribute("x")), parseFloat(currGrandchild.getAttribute("y")), parseFloat(currGrandchild.getAttribute("z")), parseFloat(currGrandchild.getAttribute("w")));
+                } else if (currGrandchild.nodeName == "ambient"){
+                    this.checkLightRGB(currGrandchild);
+                    this.lights[currChild.getAttribute("id")].setAmbient(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("g"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a"));
+                }
+                else if(currGrandchild.nodeName == "diffuse")
+                {
+                    this.checkLightRGB(currGrandchild);
+                }
+                else if( currGrandchild.nodeName == "specular")
+                {
+                    this.checkLightRGB(currGrandchild);
+                }
+                else if (currChild.nodeName == "spot" && currGrandchild.nodeName == "target") {
                     let x = parseFloat(currGrandchild.getAttribute("x"));
                     let y = parseFloat(currGrandchild.getAttribute("y"));
                     let z = parseFloat(currGrandchild.getAttribute("z"));
@@ -494,7 +494,20 @@ class MySceneGraph {
         }
         while (i < children.length) return null;
     }
-
+checkLightRGB(currGrandchild)
+{
+    let r = parseFloat(currGrandchild.getAttribute("r"));
+    let g = parseFloat(currGrandchild.getAttribute("g"));
+    let b = parseFloat(currGrandchild.getAttribute("b"));
+    let a = parseFloat(currGrandchild.getAttribute("a"));
+    if (!this.isValidNumber(r) || !this.isValidNumber(g) || !this.isValidNumber(b) || !this.isValidNumber(a)) {
+        this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
+        currGrandchild.setAttribute("r", DEFAULT_LIGHTS_LOCATION);
+        currGrandchild.setAttribute("g", DEFAULT_LIGHTS_LOCATION);
+        currGrandchild.setAttribute("b", DEFAULT_LIGHTS_LOCATION);
+        currGrandchild.setAttribute("a", DEFAULT_LIGHTS_LOCATION);
+    }
+}
     parseTextures(texturesNodes) {
 
         this.textures = [];
