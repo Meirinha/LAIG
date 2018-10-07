@@ -47,15 +47,25 @@
     </materials>
     <transformations>
         <transformation id="transID">
-            <translate x="1.0" y="1.0" z="1.0" />
-            <rotate axis="x" angle="90.0" />
-            <scale x="1.0" y="-1.0" z="10.0" />
+            <scale x="1.0" y="1.0" z="1.0" />
+        </transformation>
+        <transformation id="wall1">
+          <translate x="0.0" y="0.0" z="10" />
+          <rotate axis="y" angle="90.0" />
+        </transformation>
+        <transformation id="floor">
+          <translate x="10.0" y="0.0" z="10" />
+          <rotate axis="z" angle="90.0" />
+          <rotate axis="y" angle="90.0" />
         </transformation>
     </transformations>
     <primitives>
         <primitive id="rec">
-            <rectangle x1="1.0" y1="1.0" x2="3.0" y2="2.0" />
+            <rectangle x1="10.0" y1="5.0" x2="0.0" y2="0.0" />
         </primitive >
+            <primitive id="rec1">
+                <rectangle x1="10.0" y1="10.0" x2="0.0" y2="0.0" />
+            </primitive >
         <primitive id="tri">
             <triangle x1="1.0" y1="1.0" z1="0.0" x2="1.0" y2="1.0" z2="3.0" x3="5.0" y3="1.0" z3="0.0"/>
         </primitive >
@@ -64,16 +74,28 @@
         </primitive>
     </primitives >
     <components>
-        <component id="tri">
+        <component id="wall">
             <transformation>
-                <transformationref id="transID" />
+                <transformationref id="wall1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="rec" />
+            </children>
+        </component>
+        <component id="floor">
+            <transformation>
+                <transformationref id="floor" />
             </transformation>
             <materials>
                 <material id="inherit" />
             </materials>
             <texture id="none" length_s="1.0" length_t="1.0" />
             <children>
-                <primitiveref id="tri" />
+                <primitiveref id="rec1" />
             </children>
         </component>
         <component id="rootScene">
@@ -85,7 +107,8 @@
             </materials>
             <texture id="textureRocks" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="tri" />
+                <componentref id="wall" />
+                <componentref id="floor" />
                 <primitiveref id="rec" />
             </children>
         </component>

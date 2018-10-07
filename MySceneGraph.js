@@ -405,7 +405,7 @@ class MySceneGraph {
     //Lights TODO GUARDAR INFO
     parseLights(ligthsNodes) {
         let children = ligthsNodes.children;
-        this.lights = [];
+        this.lightsScene = [];
 
         //At least one light
         var i = 0;
@@ -425,10 +425,10 @@ class MySceneGraph {
             }
 
             //No repeated id
-            if (this.lights[currChild.getAttribute("id")] != null)
+            if (this.lightsScene[currChild.getAttribute("id")] != null)
                 throw "Repeated id in Lights, id= " + currChild.getAttribute("id");
 
-            this.lights[currChild.getAttribute("id")] = new CGFlight(this.scene, currChild.getAttribute("id"));
+            this.lightsScene[currChild.getAttribute("id")] = new CGFlight(this.scene, currChild.getAttribute("id"));
 
             //Enabled TODO confirmar se tt e true ou 1
             let ena = currChild.getAttribute("enabled");
@@ -449,10 +449,10 @@ class MySceneGraph {
                         currGrandchild.setAttribute("z", DEFAULT_LIGHTS_LOCATION);
                         currGrandchild.setAttribute("w", DEFAULT_LIGHTS_LOCATION);
                     }
-                    this.lights[currChild.getAttribute("id")].setPosition(parseFloat(currGrandchild.getAttribute("x")), parseFloat(currGrandchild.getAttribute("y")), parseFloat(currGrandchild.getAttribute("z")), parseFloat(currGrandchild.getAttribute("w")));
+                    this.lightsScene[currChild.getAttribute("id")].setPosition(parseFloat(currGrandchild.getAttribute("x")), parseFloat(currGrandchild.getAttribute("y")), parseFloat(currGrandchild.getAttribute("z")), parseFloat(currGrandchild.getAttribute("w")));
                 } else if (currGrandchild.nodeName == "ambient"){
                     this.checkLightRGB(currGrandchild);
-                    this.lights[currChild.getAttribute("id")].setAmbient(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("g"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a"));
+                    this.lightsScene[currChild.getAttribute("id")].setAmbient(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("g"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a"));
                 }
                 else if(currGrandchild.nodeName == "diffuse")
                 {
@@ -681,15 +681,15 @@ checkLightRGB(currGrandchild)
                         case "x":
                             {
                                 vector = vec3.fromValues(1, 0, 0);
-                            }
+                            }break;
                         case "y":
                             {
                                 vector = vec3.fromValues(0, 1, 0);
-                            }
+                            }break;
                         case "z":
                             {
                                 vector = vec3.fromValues(0, 0, 1);
-                            }
+                            }break;
                     }
                     angle = parseFloat(currGrandchild.getAttribute("angle")) * DEGREE_TO_RAD;
                     mat4.rotate(matrix, matrix, angle, vector);
@@ -703,7 +703,7 @@ checkLightRGB(currGrandchild)
                         currGrandchild.setAttribute("y", DEFAULT_SCALE_VALUE);
                         currGrandchild.setAttribute("z", DEFAULT_SCALE_VALUE);
                     }
-                    let vector = vec3.fromValues(currGrandchild.getAttribute("x"), currGrandchild.getAttribute("y"), currGrandchild.getAttribute("z"));
+                    let vector = vec3.fromValues(parseFloat(currGrandchild.getAttribute("x")), parseFloat(currGrandchild.getAttribute("y")), parseFloat(currGrandchild.getAttribute("z")));
                     mat4.scale(matrix, matrix, vector);
                 } else {
                     this.onXMLMinorError("Unknown node name in transformation id= " + currChild.getAttribute("id") + ".");
