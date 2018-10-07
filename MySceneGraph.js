@@ -242,7 +242,6 @@ class MySceneGraph {
         this.referenceLength = parseFloat(sceneNodes.getAttribute("axis_length"));
         console.log("Scene: Root= " + sceneNodes.getAttribute("root") + " Axis_Length= " + sceneNodes.getAttribute("axis_length"));
 
-        this.components[this.rootID] = new MyNode(this, this.rootID);
         return;
     }
 
@@ -836,7 +835,7 @@ class MySceneGraph {
                     let currGreatchildren = currGrandchild.children;
                     let currGreatchild = currGreatchildren[0];
 
-                    this.components[currID].transformationMatrix = this.transformations[currGreatchild.getAttribute("id")];
+                  mat4.copy(this.components[currID].transformationMatrix, this.transformations[currGreatchild.getAttribute("id")]);
 
                 } else if (currGrandchild.nodeName == "materials") {
                     let currGreatchildren = currGrandchild.children;
@@ -934,7 +933,6 @@ class MySceneGraph {
 
     processComponent(component, tex, mat) {
 
-
         var textura = tex;
         var material = mat;
 
@@ -942,7 +940,7 @@ class MySceneGraph {
         var texT = component.texT;
 
         this.scene.pushMatrix();
-        this.scene.multMatrix(component.transformMatrix);
+        //this.scene.multMatrix(component.transformMatrix);
 
         if (component.textureref != "inherit") {
             if (component.textureref == 'none')

@@ -76,7 +76,7 @@
         </primitive>
     </primitives >
     <components>
-        <component id="rec">
+        <component id="rootScene">
             <transformation>
                 <transformationref id="transID" />
             </transformation>
@@ -85,7 +85,7 @@
             </materials>
             <texture id="textureID" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="componentID" />
+                <componentref id="tri" />
                 <primitiveref id="rec" />
             </children>
         </component>
