@@ -30,6 +30,8 @@
     <textures>
         <texture id="textureID" file="vidral.jpg" />
         <texture id="textureRocks" file="rocks.jpg" />
+        <texture id="textureWall" file="bank.jpg" />
+        <texture id="textureFloor" file="trunk-image.jpg" />
     </textures>
     <materials>
         <material id="materialID" shininess = "1.0" >
@@ -83,6 +85,18 @@
                 <translate x="1.5" y="0.0" z="0.0" />
                 <rotate axis="y" angle="-180.0" />
                 </transformation>
+
+                <transformation id="cyl">
+                <scale x="0.5" y="0.5" z="0.5" />
+                <translate x="1.5" y="5.0" z="1.5" />
+                <rotate axis="x" angle="90.0" />
+                </transformation>
+
+
+                                <transformation id="tri">
+                                <translate x="0.1" y="2.5" z="0.2" />
+                                <rotate axis="x" angle="90.0" />
+                                </transformation>
     </transformations>
     <primitives>
         <primitive id="rec">
@@ -99,14 +113,11 @@
                         <rectangle x1="1.5" y1="1.5.0" x2="0.0" y2="0.0" />
                     </primitive >
         <primitive id="tri">
-            <triangle x1="0.0" y1="0.0" z1="0.0" x2="0.0" y2="1.0" z2="0.0" x3="2.0" y3="0.0" z3="0.0"/>
+            <triangle x1="0.0" y1="0.0" z1="0.0" x2="0.0" y2="2.0" z2="0.0" x3="3.0" y3="0.0" z3="0.0"/>
         </primitive >
         <primitive id="cyl">
             <cylinder base="1.0" top="0.5" height="1.5" slices="20" stacks="5"/>
         </primitive>
-        <primitive id="sphere">
-              <sphere radius="1.0" slices="20" stacks="10" />
-        </primitive >
     </primitives >
     <components>
         <component id="wall">
@@ -116,7 +127,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="textureWall" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="rec" />
             </children>
@@ -128,7 +139,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="textureRocks" length_s="1.0" length_t="1.0" />
+            <texture id="textureWall" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="rec1" />
             </children>
@@ -141,7 +152,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
             <children>
               <primitiveref id="quad" />
             </children>
@@ -153,7 +164,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
             <children>
               <primitiveref id="quad" />
             </children>
@@ -165,7 +176,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
             <children>
               <primitiveref id="quad" />
             </children>
@@ -177,7 +188,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
             <children>
               <primitiveref id="quadtop" />
             </children>
@@ -189,7 +200,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
             <children>
               <primitiveref id="quad" />
             </children>
@@ -201,7 +212,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" length_s="1.0" length_t="1.0" />
+            <texture id="textureFloor" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="quad1" />
                 <componentref id="quad2" />
@@ -213,38 +224,26 @@
 
         <component id="tri">
             <transformation>
-                <transformationref id="transID" />
+                <transformationref id="tri" />
             </transformation>
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" length_s="1.0" length_t="1.0" />
+            <texture id="textureID" length_s="1.0" length_t="1.0" />
             <children>
               <primitiveref id="tri" />
             </children>
         </component>
         <component id="cil">
             <transformation>
-                <transformationref id="transID" />
+                <transformationref id="cyl" />
             </transformation>
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" length_s="1.0" length_t="1.0" />
+            <texture id="textureRocks" length_s="1.0" length_t="1.0" />
             <children>
               <primitiveref id="cyl" />
-            </children>
-        </component>
-        <component id="sphere">
-            <transformation>
-                <transformationref id="transID" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="none" length_s="1.0" length_t="1.0" />
-            <children>
-              <primitiveref id="sphere" />
             </children>
         </component>
         <component id="art">
@@ -256,7 +255,6 @@
             </materials>
             <texture id="none" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="sphere" />
                 <componentref id="cil" />
                 <componentref id="tri" />
             </children>
@@ -269,7 +267,7 @@
             <materials>
                 <material id="materialID2" />
             </materials>
-            <texture id="textureRocks" length_s="1.0" length_t="1.0" />
+            <texture id="textureWall" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="wall" />
                 <componentref id="floor" />
