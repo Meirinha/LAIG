@@ -3,13 +3,13 @@
  * @constructor
  */
 class MyRectangle extends CGFobject {
-	constructor(scene, id, x1, y1, x2, y2) {
+	constructor(scene, id, args) {
 		super(scene);
 		this.id = id;
-		this.x1 = x1;
-		this.y1 = y1;
-		this.x2 = x2;
-		this.y2 = y2;
+		this.x1 = args[0];
+		this.y1 = args[1];
+		this.x2 = args[2];
+		this.y2 = args[3];
 
 		this.minS = 0;
 		this.maxS = 1;
@@ -21,12 +21,12 @@ class MyRectangle extends CGFobject {
 	};
 
 	initBuffers() {
-		this.texCoords = [
+		/*this.texCoords = [
 			this.minS, this.maxT,
 			this.maxS, this.maxT,
 			this.minS, this.minT,
 			this.maxS, this.minT,
-		]
+		];*/
 
 		this.vertices = [
 			this.x1, this.y1, 0,
@@ -45,9 +45,30 @@ class MyRectangle extends CGFobject {
 			0, 0, 1,
 			0, 0, 1,
 			0, 0, 1,
-		]
+		];
+
+		this.baseTexCoords = [
+			this.minS, this.minT,
+			this.minS, this.maxT,
+			this.maxS, this.minT,
+			this.maxS, this.maxT,
+		];
+		this.texCoords = new Array(this.baseTexCoords.length);
+
+
+		this.updateTexCoords(1, 1);
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
+	};
+	updateTexCoords(sFactor, tFactor) {
+
+		for (let i = 0; i < this.baseTexCoords.length; i++) {
+			if (i % 2 == 0)
+				this.texCoords[i] = this.baseTexCoords[i] / sFactor;
+			else
+				this.texCoords[i] = this.baseTexCoords[i] / tFactor;
+		}
+		this.updateTexCoordsGLBuffers();
 	};
 };

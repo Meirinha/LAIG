@@ -1,31 +1,36 @@
+class MyNode {
+    constructor(graph, nodeID) {
+        this.graph = graph;
 
-function MyGraphNode(graph, nodeID) {
-    this.graph = graph;
+        this.nodeID = nodeID;
 
-    this.nodeID = nodeID;
+        this.children = [];
 
-    this.children = [];
+        this.leaves = [];
 
-    this.leaves = [];
+        this.materialref = null;
 
-    this.materialref = null ;
+        this.textureref = null;
 
-    this.textureref = null ;
+        this.texS = 1.0;
+        this.texT = 1.0;
 
-    this.transformationMatrix = mat4.create();
-    mat4.identity(this.transformationMatrix);
-}
+        this.transformationMatrix = mat4.create();
+        mat4.identity(this.transformationMatrix);
+    }
 
-/**
- * Adds the reference (ID) of another node
- */
-MyGraphNode.addChild = function(nodeID) {
-    this.children.push(nodeID);
-}
+    /**
+     * Adds the reference (ID) of another node
+     */
+    addChild(nodeID) {
+        this.children.push(nodeID);
+    }
 
-/**
- * Adds a leaf
- */
-MyGraphNode.addLeaf = function(leaf) {
-    this.leaves.push(leaf);
+    /**
+     * Adds a leaf
+     */
+    addLeaf(leaf) {
+        this.leaves.push(leaf);
+    }
+
 }

@@ -1,57 +1,107 @@
 /**
  * MyTriangle
  * @constructor
+ * @args coordinates of each vertex(x,y,z)
  */
-class MyTriangle extends CGFobject {
-	constructor(scene, id, x1, y1, z1, x2, y2, z2, x3, y3, z3, minS = 0, maxS = 1, minT = 0, maxT = 1) {
+
+class MyTriangle extends CGFobject{
+	constructor(scene, id, args) {
 		super(scene);
-
-		this.id = id;
-
-		this.x1 = x1;
-		this.y1 = y1;
-		this.z1 = z1;
-
-		this.x2 = x2;
-		this.y2 = y2;
-		this.z2 = z2;
-
-		this.x3 = x3;
-		this.y3 = y3;
-		this.z3 = z3;
-
-		this.minS = minS;
-		this.maxS = maxS;
-		this.minT = minT;
-		this.maxT = maxT;
-
-		this.initBuffers();
+		this.args = args;
+		this.initBuffers(args);
 	};
 
-	initBuffers() {
-		this.texCoords = [
-			this.minS, this.maxT,
-			this.maxS, this.maxT,
-			this.minS, this.minT,
-			this.maxS, this.minT,
-		]
-		this.vertices = [
-			this.x1, this.y1, this.z1,
-			this.x2, this.y2, this.z2,
-			this.x3, this.y3, this.z3,
+	initBuffers(args) {
+
+		this.vertices = new Array();
+		this.indices = new Array();
+		this.normals = new Array();
+		this.baseTexCoords = new Array();
+
+
+
+		this.vertices.push(this.args[0], this.args[1], this.args[2]); //P0
+		this.vertices.push(this.args[3], this.args[4], this.args[5]); //P1
+		this.vertices.push(this.args[6], this.args[7], this.args[8]); //P2
+
+
+		//CROSS PRODUCT AxB = -BxA
+		var A = [this.args[0], this.args[1], this.args[2]];
+		var B = [this.args[3], this.args[4], this.args[5]];
+		var C = [this.args[6], this.args[7], this.args[8]];
+
+		var vecAC = [C[0] - A[0], C[1] - A[1], C[2] - A[2]];
+		var vecAB = [B[0] - A[0], B[1] - A[1], B[2] - A[2]];
+
+		// //Neg AB
+		// var vecAB = [-B[0] + A[0], -B[1] + A[1], -B[3] + A[2]];
+
+		//x = 0, y = 1, z= 2
+		var normalVec = [
+			vecAB[1] * vecAC[2] - vecAC[1] * vecAB[2],
+			-1 * (vecAB[0] * vecAC[2] - vecAC[0] * vecAB[2]),
+			vecAB[0] * vecAC[1] - vecAC[0] * vecAB[1],
 		];
 
-		this.indices = [
-			0, 1, 2,
-		];
+		for (let i = 0; i < 3; i++)
+			this.normals.push(normalVec[0], normalVec[1], normalVec[2]);
+		// this.normals.push(0, 1, 0);
+		// this.normals.push(0, 1, 0);
+		// this.normals.push(0, 1, 0);
 
-		this.normals = [
-			0, 0, 1,
-			0, 0, 1,
-			0, 0, 1,
-		]
+
+		//a -> dist(P0, P2)
+		var a = Math.sqrt((this.args[0] - this.args[6]) * (this.args[0] - this.args[6]) +
+			(this.args[1] - this.args[7]) * (this.args[1] - this.args[7]) +
+			(this.args[2] - this.args[8]) * (this.args[2] - this.args[8]));
+
+
+		//b -> dist(P0, P1)
+		var b = Math.sqrt((this.args[3] - this.args[0]) * (this.args[3] - this.args[0]) +
+			(this.args[4] - this.args[1]) * (this.args[4] - this.args[1]) +
+			(this.args[5] - this.args[2]) * (this.args[5] - this.args[2]));
+
+		//c -> dist(P1, P2)
+		var c = Math.sqrt((this.args[6] - this.args[3]) * (this.args[6] - this.args[3]) +
+			(this.args[7] - this.args[4]) * (this.args[7] - this.args[4]) +
+			(this.args[8] - this.args[5]) * (this.args[8] - this.args[5]));
+
+
+
+		var cosBeta = (a * a - b * b + c * c) / (2 * a * c);
+
+		var beta = Math.acos(cosBeta);
+
+		var a_sinBeta = a * Math.sin(beta);
+
+		var a_cosBeta = a * cosBeta;
+
+		this.baseTexCoords.push(c - a * cosBeta, a_sinBeta); //for P0
+
+		this.baseTexCoords.push(0, 0); //for P1
+
+		this.baseTexCoords.push(c, 0); //for P2
+
+
+		this.texCoords = new Array(this.baseTexCoords.length);
+
+
+		this.updateTexCoords(1, 1);
+
+
+		this.indices.push(0, 1, 2);
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
-	};
-};
+	}
+
+	updateTexCoords(sFactor, tFactor) {
+		for (let i = 0; i < this.baseTexCoords.length; i++) {
+			if (i % 2 == 0)
+				this.texCoords[i] = this.baseTexCoords[i] / sFactor;
+			else
+				this.texCoords[i] = (tFactor - this.baseTexCoords[i]) / tFactor;
+		}
+		//this.updateTexCoordsGLBuffers();
+	}
+}
