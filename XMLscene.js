@@ -40,6 +40,7 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
+
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
     /**
@@ -85,6 +86,11 @@ class XMLscene extends CGFscene {
         // this.camera.near = this.graph.near;
         // this.camera.far = this.graph.far;
 
+        /*for(var key in this.graph.views){
+               this.camera = this.graph.views[key];
+               break;
+               }
+        */
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
         this.setGlobalAmbientLight(this.graph.ambient["r"], this.graph.ambient["g"], this.graph.ambient["b"], this.graph.ambient["a"]);
@@ -92,6 +98,8 @@ class XMLscene extends CGFscene {
         this.gl.clearColor(this.graph.background["r"], this.graph.background["r"], this.graph.background["r"], this.graph.background["a"]);
 
         this.initLights();
+
+
 
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
