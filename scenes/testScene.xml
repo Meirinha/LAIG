@@ -80,7 +80,7 @@
         </transformation>
 
                 <transformation id="quad5">
-                    <translate x="1.5" y="0.0" z="0.0" />
+                <translate x="1.5" y="0.0" z="0.0" />
                 <rotate axis="y" angle="-180.0" />
                 </transformation>
     </transformations>
@@ -99,11 +99,14 @@
                         <rectangle x1="1.5" y1="1.5.0" x2="0.0" y2="0.0" />
                     </primitive >
         <primitive id="tri">
-            <triangle x1="1.0" y1="1.0" z1="0.0" x2="1.0" y2="1.0" z2="3.0" x3="5.0" y3="1.0" z3="0.0"/>
+            <triangle x1="0.0" y1="0.0" z1="0.0" x2="0.0" y2="1.0" z2="0.0" x3="2.0" y3="0.0" z3="0.0"/>
         </primitive >
         <primitive id="cyl">
-            <cylinder base="1.0" top="1.0" height="2.0" slices="20" stacks="5"/>
+            <cylinder base="1.0" top="0.5" height="1.5" slices="20" stacks="5"/>
         </primitive>
+        <primitive id="sphere">
+              <sphere radius="1.0" slices="20" stacks="10" />
+        </primitive >
     </primitives >
     <components>
         <component id="wall">
@@ -208,6 +211,57 @@
             </children>
         </component>
 
+        <component id="tri">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0" />
+            <children>
+              <primitiveref id="tri" />
+            </children>
+        </component>
+        <component id="cil">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0" />
+            <children>
+              <primitiveref id="cyl" />
+            </children>
+        </component>
+        <component id="sphere">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0" />
+            <children>
+              <primitiveref id="sphere" />
+            </children>
+        </component>
+        <component id="art">
+            <transformation>
+                <transformationref id="cube" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="sphere" />
+                <componentref id="cil" />
+                <componentref id="tri" />
+            </children>
+        </component>
+
         <component id="rootScene">
             <transformation>
                 <transformationref id="transID" />
@@ -221,6 +275,7 @@
                 <componentref id="floor" />
                 <primitiveref id="rec" />
                 <componentref id="cube" />
+                <componentref id="art" />
             </children>
         </component>
     </components>
