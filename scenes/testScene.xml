@@ -58,6 +58,31 @@
           <rotate axis="z" angle="90.0" />
           <rotate axis="y" angle="90.0" />
         </transformation>
+
+        <transformation id="cube">
+          <translate x="4" y="0.0" z="4" />
+        </transformation>
+
+        <transformation id="quad1">
+          <translate x="1.5" y="0.0" z="1.5" />
+          <rotate axis="y" angle="90.0" />
+        </transformation>
+        <transformation id="quad2">
+          <translate x="0.0" y="0.0" z="1.5" />
+        </transformation>
+        <transformation id="quad3">
+        <rotate axis="y" angle="-90.0" />
+        </transformation>
+
+        <transformation id="quad4">
+          <translate x="0.0" y="2.0" z="1.5" />
+        <rotate axis="x" angle="-90.0" />
+        </transformation>
+
+                <transformation id="quad5">
+                    <translate x="1.5" y="0.0" z="0.0" />
+                <rotate axis="y" angle="-180.0" />
+                </transformation>
     </transformations>
     <primitives>
         <primitive id="rec">
@@ -66,6 +91,13 @@
             <primitive id="rec1">
                 <rectangle x1="10.0" y1="10.0" x2="0.0" y2="0.0" />
             </primitive >
+                <primitive id="quad">
+                    <rectangle x1="1.5" y1="2.0" x2="0.0" y2="0.0" />
+                </primitive >
+
+                    <primitive id="quadtop">
+                        <rectangle x1="1.5" y1="1.5.0" x2="0.0" y2="0.0" />
+                    </primitive >
         <primitive id="tri">
             <triangle x1="1.0" y1="1.0" z1="0.0" x2="1.0" y2="1.0" z2="3.0" x3="5.0" y3="1.0" z3="0.0"/>
         </primitive >
@@ -93,11 +125,89 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" length_s="1.0" length_t="1.0" />
+            <texture id="textureRocks" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="rec1" />
             </children>
         </component>
+
+        <component id="quad1">
+            <transformation>
+                <transformationref id="quad1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0" />
+            <children>
+              <primitiveref id="quad" />
+            </children>
+        </component>
+        <component id="quad2">
+            <transformation>
+                <transformationref id="quad2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0" />
+            <children>
+              <primitiveref id="quad" />
+            </children>
+        </component>
+        <component id="quad3">
+            <transformation>
+                <transformationref id="quad3" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0" />
+            <children>
+              <primitiveref id="quad" />
+            </children>
+        </component>
+        <component id="quad4">
+            <transformation>
+                <transformationref id="quad4" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0" />
+            <children>
+              <primitiveref id="quadtop" />
+            </children>
+        </component>
+        <component id="quad5">
+            <transformation>
+                <transformationref id="quad5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0" />
+            <children>
+              <primitiveref id="quad" />
+            </children>
+        </component>
+        <component id="cube">
+            <transformation>
+                <transformationref id="cube" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="quad1" />
+                <componentref id="quad2" />
+                <componentref id="quad3" />
+                <componentref id="quad4" />
+                <componentref id="quad5" />
+            </children>
+        </component>
+
         <component id="rootScene">
             <transformation>
                 <transformationref id="transID" />
@@ -110,6 +220,7 @@
                 <componentref id="wall" />
                 <componentref id="floor" />
                 <primitiveref id="rec" />
+                <componentref id="cube" />
             </children>
         </component>
     </components>
