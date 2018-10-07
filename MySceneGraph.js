@@ -93,9 +93,9 @@ class MySceneGraph {
     }
 
     /**
-    * Parses the XML file, processing each block.
-    * @param {XML root element} rootElement
-    */
+     * Parses the XML file, processing each block.
+     * @param {XML root element} rootElement
+     */
     parseXMLFile(rootElement) {
         if (rootElement.nodeName != "yas")
             return "root tag <yas> missing";
@@ -403,6 +403,7 @@ class MySceneGraph {
     //Lights TODO GUARDAR INFO
     parseLights(ligthsNodes) {
         let children = ligthsNodes.children;
+        this.lights = [];
 
         //At least one light
         var i = 0;
@@ -422,12 +423,10 @@ class MySceneGraph {
             }
 
             //No repeated id
-            if (idsUsed.indexOf(currChild.getAttribute("id")) > -1)
+            if (this.lights[currChild.getAttribute("id")] != null)
                 throw "Repeated id in Lights, id= " + currChild.getAttribute("id");
 
-            idsUsed.push(currChild.getAttribute("id"));
-            var near = parseFloat(currChild.getAttribute("near"));
-            var far = parseFloat(currChild.getAttribute("far"));
+            this.lights[currChild.getAttribute("id")] = new CGFlight(this.scene, currChild.getAttribute("id")); 
 
             //Enabled TODO confirmar se tt e true ou 1
             let ena = currChild.getAttribute("enabled");
@@ -447,30 +446,29 @@ class MySceneGraph {
                         currGrandchild.setAttribute("y", DEFAULT_LIGHTS_LOCATION);
                         currGrandchild.setAttribute("z", DEFAULT_LIGHTS_LOCATION);
                         currGrandchild.setAttribute("w", DEFAULT_LIGHTS_LOCATION);
-                    } else if (currGrandchild.nodeName == "ambient" || currGrandchild.nodeName == "diffuse" || currGrandchild.nodeName == "specular") {
-                        let r = parseFloat(currGrandchild.getAttribute("r"));
-                        let g = parseFloat(currGrandchild.getAttribute("g"));
-                        let b = parseFloat(currGrandchild.getAttribute("b"));
-                        let a = parseFloat(currGrandchild.getAttribute("a"));
-                        if (!this.isValidNumber(r) || !this.isValidNumber(g) || !this.isValidNumber(b) || !this.isValidNumber(a)) {
-                            this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
-                            currGrandchild.setAttribute("r", DEFAULT_LIGHTS_LOCATION);
-                            currGrandchild.setAttribute("g", DEFAULT_LIGHTS_LOCATION);
-                            currGrandchild.setAttribute("b", DEFAULT_LIGHTS_LOCATION);
-                            currGrandchild.setAttribute("a", DEFAULT_LIGHTS_LOCATION);
-                        }
                     }
-                    if (currChild.nodeName == "spot" && currGrandchild.nodeName == "target") {
-                        let x = parseFloat(currGrandchild.getAttribute("x"));
-                        let y = parseFloat(currGrandchild.getAttribute("y"));
-                        let z = parseFloat(currGrandchild.getAttribute("z"));
+                } else if (currGrandchild.nodeName == "ambient" || currGrandchild.nodeName == "diffuse" || currGrandchild.nodeName == "specular") {
+                    let r = parseFloat(currGrandchild.getAttribute("r"));
+                    let g = parseFloat(currGrandchild.getAttribute("g"));
+                    let b = parseFloat(currGrandchild.getAttribute("b"));
+                    let a = parseFloat(currGrandchild.getAttribute("a"));
+                    if (!this.isValidNumber(r) || !this.isValidNumber(g) || !this.isValidNumber(b) || !this.isValidNumber(a)) {
+                        this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
+                        currGrandchild.setAttribute("r", DEFAULT_LIGHTS_LOCATION);
+                        currGrandchild.setAttribute("g", DEFAULT_LIGHTS_LOCATION);
+                        currGrandchild.setAttribute("b", DEFAULT_LIGHTS_LOCATION);
+                        currGrandchild.setAttribute("a", DEFAULT_LIGHTS_LOCATION);
+                    }
+                } else if (currChild.nodeName == "spot" && currGrandchild.nodeName == "target") {
+                    let x = parseFloat(currGrandchild.getAttribute("x"));
+                    let y = parseFloat(currGrandchild.getAttribute("y"));
+                    let z = parseFloat(currGrandchild.getAttribute("z"));
 
-                        if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
-                            this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_SPOT_TARGET);
-                            currGrandchild.setAttribute("x", DEFAULT_SPOT_TARGET);
-                            currGrandchild.setAttribute("y", DEFAULT_SPOT_TARGET);
-                            currGrandchild.setAttribute("z", DEFAULT_SPOT_TARGET);
-                        }
+                    if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
+                        this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' xyz values, using default value x = y = z = " + DEFAULT_SPOT_TARGET);
+                        currGrandchild.setAttribute("x", DEFAULT_SPOT_TARGET);
+                        currGrandchild.setAttribute("y", DEFAULT_SPOT_TARGET);
+                        currGrandchild.setAttribute("z", DEFAULT_SPOT_TARGET);
                     }
                 }
                 if (currChild.nodeName == "spot") {
@@ -490,7 +488,8 @@ class MySceneGraph {
 
             }
             i++;
-        } while (i < children.length) return null;
+        }
+        while (i < children.length) return null;
     }
 
     parseTextures(texturesNodes) {
@@ -564,11 +563,19 @@ class MySceneGraph {
             for (let j = 0; j < 4; j++) {
                 let currGrandchild = currChild.children[j];
                 this.materialCheckError(currGrandchild);
-                switch(currGrandchild.nodeName){
-                    case "emission": this.materials[currID].setEmission(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a")); break;
-                    case "ambient" : this.materials[currID].setAmbient(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a")); break;
-                    case "diffuse" : this.materials[currID].setDiffuse(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a")); break;
-                    case "specular": this.materials[currID].setSpecular(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a")); break;
+                switch (currGrandchild.nodeName) {
+                    case "emission":
+                        this.materials[currID].setEmission(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a"));
+                        break;
+                    case "ambient":
+                        this.materials[currID].setAmbient(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a"));
+                        break;
+                    case "diffuse":
+                        this.materials[currID].setDiffuse(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a"));
+                        break;
+                    case "specular":
+                        this.materials[currID].setSpecular(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a"));
+                        break;
                 }
             }
             i++;
