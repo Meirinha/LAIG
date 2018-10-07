@@ -53,6 +53,6 @@ class MyCylinder extends CGFobject {
 		this.initGLBuffers();
 	};
 	updateTexCoords(sFactor, tFactor) {
-		
+
 	};
 };

@@ -1,10 +1,6 @@
 <yas>
-    <!-- deve definir-se um objeto para raiz da arvore, assim -->
-    <!-- como o comprimento dos tres eixos (cilindros) -->
     <scene root="rootScene" axis_length="5.0" />
     <views default="viewsDef" >
-        <!-- tem de existir, pelo menos, uma vista de -->
-        <!-- entre as seguintes (perspective ou ortho) -->
         <perspective id="perp" near="0.1" far="900" angle="0.0">
             <from x="-1" y="-1" z="-1" />
             <to x="2" y="2" z="2" />
@@ -17,8 +13,6 @@
         <background r="0.0" g="0.0" b="0.0" a="1.0" />
     </ambient>
     <lights>
-        <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
         <omni id="lightOmni" enabled="1" >
             <location x="0" y="0" z="0" w="0" />
             <ambient r="1" g="1" b="1" a="1" />
@@ -26,7 +20,6 @@
             <specular r="1" g="1" b="1" a="1" />
         </omni>
         <spot id="lightSpot" enabled="1" angle="90.0" exponent="90.0">
-            <!-- atencao, "target" e' diferente de "direction" -->
             <location x="0" y="0" z="0" w="0" />
             <target x="0" y="0.0" z="0.0" />
             <ambient r="0.5" g="0.0" b="0.0" a="0.0" />
@@ -36,6 +29,7 @@
     </lights>
     <textures>
         <texture id="textureID" file="vidral.jpg" />
+        <texture id="textureRocks" file="rocks.jpg" />
     </textures>
     <materials>
         <material id="materialID" shininess = "1.0" >
@@ -44,28 +38,22 @@
             <diffuse r="0.5" g="0.0" b="0.0" a="1.0" />
             <specular r="0.5" g="0.0" b="0.0" a="1.0" />
         </material>
+        <material id="materialID2" shininess = "1.0" >
+            <emission r="0.5" g="1.0" b="1.0" a="1.0" />
+            <ambient r="0.5" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="0.5" g="1.0" b="1.0" a="1.0" />
+            <specular r="0.5" g="1.0" b="0.0" a="1.0" />
+        </material>
     </materials>
     <transformations>
-        <!-- Deve existir um ou mais blocos "transformation" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
-        <!-- Os angulos sao expressos em graus -->
         <transformation id="transID">
-            <!-- instrucoes a usar sem limite nem ordem -->
-            <!-- deve existir pelo menos uma transformacao -->
             <translate x="1.0" y="1.0" z="1.0" />
-            <rotate axis="x" angle="0.0" />
-            <scale x="1.0" y="1.0" z="1.0" />
+            <rotate axis="x" angle="90.0" />
+            <scale x="1.0" y="-1.0" z="10.0" />
         </transformation>
     </transformations>
     <primitives>
-        <!-- Uma "primitive" e' uma primitiva e pode ser usada em nos folha -->
-        <!-- Deve existir um ou mais blocos "primitive" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
         <primitive id="rec">
-            <!-- apenas pode existir UMA das seguintes tags: -->
-            <!-- rectangle, triangle, cylinder, sphere, torus -->
-            <!-- os parametros devem ser interpretados, genericamente, -->
-            <!-- como em WebGL; o cilindro deve adicionalmente ter tampas -->
             <rectangle x1="1.0" y1="1.0" x2="3.0" y2="2.0" />
         </primitive >
         <primitive id="tri">
@@ -76,29 +64,29 @@
         </primitive>
     </primitives >
     <components>
-        <component id="rootScene">
-            <transformation>
-                <transformationref id="transID" />
-            </transformation>
-            <materials>
-                <material id="materialID" />
-            </materials>
-            <texture id="textureID" length_s="1.0" length_t="1.0" />
-            <children>
-                <componentref id="tri" />
-                <primitiveref id="rec" />
-            </children>
-        </component>
         <component id="tri">
             <transformation>
                 <transformationref id="transID" />
             </transformation>
             <materials>
-                <material id="materialID" />
+                <material id="inherit" />
             </materials>
-            <texture id="textureID" length_s="1.0" length_t="1.0" />
+            <texture id="none" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="tri" />
+            </children>
+        </component>
+        <component id="rootScene">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="materialID2" />
+            </materials>
+            <texture id="textureRocks" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="tri" />
+                <primitiveref id="rec" />
             </children>
         </component>
     </components>

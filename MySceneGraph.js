@@ -647,7 +647,7 @@ class MySceneGraph {
                         currGrandchild.setAttribute("y", DEFAULT_TRANSLATION_VALUE);
                         currGrandchild.setAttribute("z", DEFAULT_TRANSLATION_VALUE);
                     }
-                    let vector = vec3.create(currGrandchild.getAttribute("x"), currGrandchild.getAttribute("y"), currGrandchild.getAttribute("z"));
+                    let vector = vec3.fromValues(currGrandchild.getAttribute("x"), currGrandchild.getAttribute("y"), currGrandchild.getAttribute("z"));
                     mat4.translate(matrix, matrix, vector);
                 } else if (currGrandchild.nodeName == "rotate") {
                     let angle = parseFloat(currGrandchild.getAttribute("angle"));
@@ -690,14 +690,15 @@ class MySceneGraph {
                         currGrandchild.setAttribute("y", DEFAULT_SCALE_VALUE);
                         currGrandchild.setAttribute("z", DEFAULT_SCALE_VALUE);
                     }
-                    let vector = vec3.create(currGrandchild.getAttribute("x"), currGrandchild.getAttribute("y"), currGrandchild.getAttribute("z"));
+                    let vector = vec3.fromValues(currGrandchild.getAttribute("x"), currGrandchild.getAttribute("y"), currGrandchild.getAttribute("z"));
                     mat4.scale(matrix, matrix, vector);
                 } else {
                     this.onXMLMinorError("Unknown node name in transformation id= " + currChild.getAttribute("id") + ".");
                 }
                 j++;
-                this.transformations[currChild.getAttribute("id")] = matrix;
+
             } while (j < grandchildren.length) i++;
+            this.transformations[currChild.getAttribute("id")] = matrix;
         } while (i < children.length) return null;
     }
 
@@ -743,7 +744,7 @@ class MySceneGraph {
                     currGrandchild.setAttribute("y2", 2.0);
                 }
 
-                let args =  [parseFloat(currGrandchild.getAttribute("x1")), parseFloat(currGrandchild.getAttribute("y1")), parseFloat(currGrandchild.getAttribute("x2")), parseFloat(currGrandchild.getAttribute("y2"))];
+                let args = [parseFloat(currGrandchild.getAttribute("x1")), parseFloat(currGrandchild.getAttribute("y1")), parseFloat(currGrandchild.getAttribute("x2")), parseFloat(currGrandchild.getAttribute("y2"))];
                 this.primitives[currChild.getAttribute("id")] = new MyRectangle(this.scene, currChild.getAttribute("id"), args);
             } else if (currGrandchild.nodeName == "triangle") {
                 let x1 = parseFloat(currGrandchild.getAttribute("x1"));
@@ -772,10 +773,11 @@ class MySceneGraph {
                 }
 
                 let args = [parseFloat(currGrandchild.getAttribute("x1")), parseFloat(currGrandchild.getAttribute("y1")), parseFloat(currGrandchild.getAttribute("z1")),
-                parseFloat(currGrandchild.getAttribute("x2")), parseFloat(currGrandchild.getAttribute("y2")), parseFloat(currGrandchild.getAttribute("z2")),
-                parseFloat(currGrandchild.getAttribute("x3")), parseFloat(currGrandchild.getAttribute("y3")), parseFloat(currGrandchild.getAttribute("z3"))];
+                    parseFloat(currGrandchild.getAttribute("x2")), parseFloat(currGrandchild.getAttribute("y2")), parseFloat(currGrandchild.getAttribute("z2")),
+                    parseFloat(currGrandchild.getAttribute("x3")), parseFloat(currGrandchild.getAttribute("y3")), parseFloat(currGrandchild.getAttribute("z3"))
+                ];
 
-                this.primitives[currChild.getAttribute("id")] = new MyTriangle(this.scene, currChild.getAttribute("id"),args);
+                this.primitives[currChild.getAttribute("id")] = new MyTriangle(this.scene, currChild.getAttribute("id"), args);
 
             } else if (currGrandchild.nodeName == "cylinder") {
                 let base = parseFloat(currGrandchild.getAttribute("base"));
@@ -835,7 +837,7 @@ class MySceneGraph {
                     let currGreatchildren = currGrandchild.children;
                     let currGreatchild = currGreatchildren[0];
 
-                  mat4.copy(this.components[currID].transformationMatrix, this.transformations[currGreatchild.getAttribute("id")]);
+                    mat4.copy(this.components[currID].transformationMatrix, this.transformations[currGreatchild.getAttribute("id")]);
 
                 } else if (currGrandchild.nodeName == "materials") {
                     let currGreatchildren = currGrandchild.children;
@@ -844,24 +846,19 @@ class MySceneGraph {
                     if (currGreatchild.getAttribute("id") == "inherit") {
                         this.components[currID].materialref = "inherit";
                     } else
-                        this.components[currID].materialref = this.materials[currGreatchild.getAttribute("id")];
-                } else if (currGrandchild.nodeName == "textures") {
+                        this.components[currID].materialref = currGreatchild.getAttribute("id");
+                } else if (currGrandchild.nodeName == "texture") {
 
-                    let currGreatchildren = currGrandchild.children;
-                    let currGreatchild = currGreatchildren[0];
-
-                    if (currGreatchild.getAttribute("id") == "inherit") {
+                    if (currGrandchild.getAttribute("id") == "inherit") {
                         this.components[currID].textureref = "inherit";
-                    } else if (currGreatchild.getAttribute("id") == "none") {
+                    } else if (currGrandchild.getAttribute("id") == "none") {
                         this.components[currID].textureref = "none";
                     } else {
-                        this.components[currID].textureref = this.textures[currGreatchild.getAttribute("id")];
+                        this.components[currID].textureref = currGrandchild.getAttribute("id");
                     }
-                    currGreatchild = currGrandchild[1]; //length_s
-                    this.components[currID].texS = currGreatchild.getAttribute("length_s");
+                    this.components[currID].texS = currGrandchild.getAttribute("length_s");
 
-                    currGreatchild = currGrandchild[2]; //length_t
-                    this.components[currID].texT = currGreatchild.getAttribute("length_t");
+                    this.components[currID].texT = currGrandchild.getAttribute("length_t");
 
                 } else if (currGrandchild.nodeName == "children") {
                     let greatchildren = currGrandchild.children;
@@ -873,8 +870,7 @@ class MySceneGraph {
                             //TODO check if id is in list
                             if (this.primitives[idPrimitive] < 0) {
                                 this.onXMLError("Component id primitve not found");
-                            }
-                            else{
+                            } else {
                                 this.components[currID].addLeaf(this.primitives[idPrimitive]);
                             }
                         } else if (currGreatchild.nodeName == "componentref") {
@@ -883,8 +879,7 @@ class MySceneGraph {
                         }
                         k++;
                     } while (k < greatchildren.length)
-                }
-
+                } else this.onXMLMinorError("Unknown tag");
                 j++;
             }
             while (j < grandchildren.length)
@@ -919,12 +914,8 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        this.defaultAppearance = new CGFappearance(this.scene);
-        this.setDefaultAppearance();
-        this.defaultAppearance.apply();
 
         var rootComponent = this.components[this.rootID];
-
         if (this.textures[rootComponent.textureref] != null)
             this.processComponent(rootComponent, this.textures[rootComponent.textureref], this.materials[rootComponent.materialref]);
         else
@@ -935,12 +926,11 @@ class MySceneGraph {
 
         var textura = tex;
         var material = mat;
-
         var texS = component.texS;
         var texT = component.texT;
 
         this.scene.pushMatrix();
-        //this.scene.multMatrix(component.transformMatrix);
+        this.scene.multMatrix(component.transformationMatrix);
 
         if (component.textureref != "inherit") {
             if (component.textureref == 'none')
@@ -958,7 +948,7 @@ class MySceneGraph {
         }
 
         for (var i = 0; i < component.children.length; i++) {
-            this.processComponent(this.components[component.children[i]], textura, material);
+            this.processComponent(this.components[component.children[i].nodeID], textura, material);
         }
 
         if (material != null) {
@@ -970,22 +960,15 @@ class MySceneGraph {
         }
 
         for (var j = 0; j < component.leaves.length; j++) {
-            component.leaves[j].updateTexCoords(ampS, ampT);
+            component.leaves[j].updateTexCoords(texS, texT);
             component.leaves[j].display();
         }
         this.scene.popMatrix();
     }
 
-
-
     isValidNumber(attribute) {
         return !(attribute == null || isNaN(attribute));
     }
 
-    setDefaultAppearance() {
-        this.defaultAppearance.setAmbient(0.2, 0.4, 0.8, 1.0);
-        this.defaultAppearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
-        this.defaultAppearance.setSpecular(0.2, 0.4, 0.8, 1.0);
-        this.defaultAppearance.setShininess(10.0);
-    }
+
 }
