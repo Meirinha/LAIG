@@ -19,8 +19,8 @@ var DEFAULT_VIEWS_DEFAULT = "defaultViews";
 var DEFAULT_PERSPECTIVE_NEAR = 0.1;
 var DEFAULT_PERSPECTIVE_FAR = 900;
 var DEFAULT_PERSPECTIVE_ANGLE = 0.0;
-var DEFAULT_PERSPECTIVE_FROM = 1.0;
-var DEFAULT_PERSPECTIVE_TO = 40.0;
+var DEFAULT_VIEW_FROM = 1.0;
+var DEFAULT_VIEW_TO = 40.0;
 var DEFAULT_ORTHO_SIDE = 2;
 
 var DEFAULT_AMBIENT_RGB = 1.0;
@@ -253,7 +253,7 @@ class MySceneGraph {
             viewsNodes.setAttribute("default", DEFAULT_VIEWS_DEFAULT);
         }
         console.log("Views: default= " + viewsNodes.getAttribute("default"));
-
+        this.defaultView = viewsNodes.getAttribute("default");
         //Views children
 
         var children = viewsNodes.children;
@@ -313,10 +313,10 @@ class MySceneGraph {
                 var y = parseFloat(currGrandchild.getAttribute("y"));
                 var z = parseFloat(currGrandchild.getAttribute("z"));
                 if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
-                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'from' xyz values, using default value x = y = z = " + DEFAULT_PERSPECTIVE_FROM);
-                    currGrandchild.setAttribute("x", DEFAULT_PERSPECTIVE_FROM);
-                    currGrandchild.setAttribute("y", DEFAULT_PERSPECTIVE_FROM);
-                    currGrandchild.setAttribute("z", DEFAULT_PERSPECTIVE_FROM);
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'from' xyz values, using default value x = y = z = " + DEFAULT_VIEW_FROM);
+                    currGrandchild.setAttribute("x", DEFAULT_VIEW_FROM);
+                    currGrandchild.setAttribute("y", DEFAULT_VIEW_FROM);
+                    currGrandchild.setAttribute("z", DEFAULT_VIEW_FROM);
                 }
 
                 var fromX = parseFloat(currGrandchild.getAttribute("x"));
@@ -332,10 +332,10 @@ class MySceneGraph {
                 y = parseFloat(currGrandchild.getAttribute("y"));
                 z = parseFloat(currGrandchild.getAttribute("z"));
                 if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
-                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'to' xyz values, using default value x = y = z = " + DEFAULT_PERSPECTIVE_TO);
-                    currGrandchild.setAttribute("x", DEFAULT_PERSPECTIVE_TO);
-                    currGrandchild.setAttribute("y", DEFAULT_PERSPECTIVE_TO);
-                    currGrandchild.setAttribute("z", DEFAULT_PERSPECTIVE_TO);
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'to' xyz values, using default value x = y = z = " + DEFAULT_VIEW_TO);
+                    currGrandchild.setAttribute("x", DEFAULT_VIEW_TO);
+                    currGrandchild.setAttribute("y", DEFAULT_VIEW_TO);
+                    currGrandchild.setAttribute("z", DEFAULT_VIEW_TO);
                 }
 
                 var toX = parseFloat(currGrandchild.getAttribute("x"));
@@ -343,28 +343,73 @@ class MySceneGraph {
                 var toZ = parseFloat(currGrandchild.getAttribute("z"));
 
                 var toVector = vec3.fromValues(toX, toY, toZ);
+                this.views[currChild.getAttribute("id")] = new CGFcamera(parseFloat(currChild.getAttribute("angle") * DEGREE_TO_RAD), parseFloat(currChild.getAttribute("near")), parseFloat(currChild.getAttribute("far")), fromVector, toVector);
 
             } else if (currChild.nodeName == "ortho") {
-                var left = parseFloat(currChild.getAttribute("left"));
-                var right = parseFloat(currChild.getAttribute("right"));
+                let left = parseFloat(currChild.getAttribute("left"));
+                let right = parseFloat(currChild.getAttribute("right"));
                 if (!this.isValidNumber(left) || !this.isValidNumber(right) || right < left) {
                     this.onXMLMinorError(currChild.getAttribute("id") + " has the attribute left and/or right invalid, using value right = -left = " + DEFAULT_ORTHO_SIDE);
                     currChild.setAttribute("left", DEFAULT_ORTHO_SIDE * -1);
                     currChild.setAttribute("right", DEFAULT_ORTHO_SIDE);
                 }
-                var top = parseFloat(currChild.getAttribute("top"));
-                var bottom = parseFloat(currChild.getAttribute("bottom"));
+                let top = parseFloat(currChild.getAttribute("top"));
+                let bottom = parseFloat(currChild.getAttribute("bottom"));
                 if (!this.isValidNumber(bottom) || !this.isValidNumber(top) || top < bottom) {
                     this.onXMLMinorError(currChild.getAttribute("id") + " has the attribute left and/or right invalid, using value top = -bottom = " + DEFAULT_ORTHO_SIDE);
                     currChild.setAttribute("bottom", DEFAULT_ORTHO_SIDE * -1);
                     currChild.setAttribute("top", DEFAULT_ORTHO_SIDE);
                 }
+
+                 //From Attribute
+                 var currGrandchild = currChild.children[0];
+
+                 var x = parseFloat(currGrandchild.getAttribute("x"));
+                 var y = parseFloat(currGrandchild.getAttribute("y"));
+                 var z = parseFloat(currGrandchild.getAttribute("z"));
+                 if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
+                     this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'from' xyz values, using default value x = y = z = " + DEFAULT_VIEW_FROM);
+                     currGrandchild.setAttribute("x", DEFAULT_VIEW_FROM);
+                     currGrandchild.setAttribute("y", DEFAULT_VIEW_FROM);
+                     currGrandchild.setAttribute("z", DEFAULT_VIEW_FROM);
+                 }
+ 
+                 var fromX = parseFloat(currGrandchild.getAttribute("x"));
+                 var fromY = parseFloat(currGrandchild.getAttribute("y"));
+                 var fromZ = parseFloat(currGrandchild.getAttribute("z"));
+ 
+                 var fromVector = vec3.fromValues(fromX, fromY, fromZ);
+ 
+                 //To Attribute
+                 var currGrandchild = currChild.children[1];
+ 
+                 x = parseFloat(currGrandchild.getAttribute("x"));
+                 y = parseFloat(currGrandchild.getAttribute("y"));
+                 z = parseFloat(currGrandchild.getAttribute("z"));
+                 if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
+                     this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'to' xyz values, using default value x = y = z = " + DEFAULT_VIEW_TO);
+                     currGrandchild.setAttribute("x", DEFAULT_VIEW_TO);
+                     currGrandchild.setAttribute("y", DEFAULT_VIEW_TO);
+                     currGrandchild.setAttribute("z", DEFAULT_VIEW_TO);
+                 }
+ 
+                 var toX = parseFloat(currGrandchild.getAttribute("x"));
+                 var toY = parseFloat(currGrandchild.getAttribute("y"));
+                 var toZ = parseFloat(currGrandchild.getAttribute("z"));
+ 
+                 var toVector = vec3.fromValues(toX, toY, toZ);
+
+                left = parseFloat(currChild.getAttribute("left"));
+                right = parseFloat(currChild.getAttribute("right"));
+
+                top = parseFloat(currChild.getAttribute("top"));
+                bottom = parseFloat(currChild.getAttribute("bottom"));
+
+                this.views[currChild.getAttribute("id")] = new CGFcameraOrtho(left, right, bottom, top, near, far, fromVector, toVector, vec3.fromValues(0,1,0));
             } else {
                 this.onXMLMinorError("unknown tag <" + currChild.nodeName + ">");
                 continue;
             }
-
-            this.views[currChild.getAttribute("id")] = new CGFcamera(parseFloat(currChild.getAttribute("angle") * DEGREE_TO_RAD), parseFloat(currChild.getAttribute("near")), parseFloat(currChild.getAttribute("far")), fromVector, toVector);
             console.log(currChild.getAttribute("id") + " parsed");
             i++;
         } while (i < children.length);
@@ -452,8 +497,8 @@ class MySceneGraph {
                 this.onXMLMinorError("Lights child id= " + currChild.getAttribute("id") + " has not a valid 'enabled' value, using 0.");
                 currChild.setAttribute("enabled", 1);
             }
-            var lightEnabled = [];
-            lightEnabled[0] = currChild.getAttribute("enabled");
+            
+            var lightEnabled = this.reader.getBoolean(currChild, "enabled");
             for (let j = 0; j < currChild.children.length; j++) {
                 let currGrandchild = currChild.children[j];
                 if (currGrandchild.nodeName == "location") {

@@ -86,11 +86,11 @@ class XMLscene extends CGFscene {
         // this.camera.near = this.graph.near;
         // this.camera.far = this.graph.far;
 
-        /*for(var key in this.graph.views){
-               this.camera = this.graph.views[key];
-               break;
-               }
-        */
+        this.camera = this.graph.views[this.graph.defaultView];
+        this.interface.setActiveCamera(this.camera);
+        this.currCamera = this.graph.defaultView;
+        this.changeCamera = this.currCamera;
+
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
         this.setGlobalAmbientLight(this.graph.ambient["r"], this.graph.ambient["g"], this.graph.ambient["b"], this.graph.ambient["a"]);
@@ -99,10 +99,9 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
-
-
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
+        this.interface.addViewsGroup(this.graph.views)
 
         this.sceneInited = true;
     }
@@ -130,22 +129,8 @@ class XMLscene extends CGFscene {
         if (this.sceneInited) {
             // Draw axis
             this.axis.display();
-
-            var i = 0;
-            for (var key in this.lightValues) {
-                if (this.lightValues.hasOwnProperty(key)) {
-                    if (this.lightValues[key]) {
-                        this.lights[i].setVisible(true);
-                        this.lights[i].enable();
-                    } else {
-                        this.lights[i].setVisible(false);
-                        this.lights[i].disable();
-                    }
-                    this.lights[i].update();
-                    i++;
-                }
-            }
-
+            this.updateLightsDisplay();
+            this.setCameraUsed();
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
         } else {
@@ -155,5 +140,32 @@ class XMLscene extends CGFscene {
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
+    }
+
+    updateLightsDisplay() {
+        var i = 0;
+        for (var key in this.lightValues) {
+            if (this.lightValues.hasOwnProperty(key)) {
+                if (this.lightValues[key]) {
+                    this.lights[i].setVisible(true);
+                    this.lights[i].enable();
+                } else {
+                    this.lights[i].setVisible(false);
+                    this.lights[i].disable();
+                }
+                this.lights[i].update();
+                i++;
+            }
+        }
+    }
+
+    setCameraUsed() {
+        if (this.currCamera != this.changeCamera) {
+            this.camera = this.graph.views[this.changeCamera];
+            this.currCamera = this.changeCamera;
+            this.interface.setActiveCamera(this.camera);
+
+        }
+
     }
 }

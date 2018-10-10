@@ -1,6 +1,6 @@
 /**
-* MyInterface class, creating a GUI interface.
-*/
+ * MyInterface class, creating a GUI interface.
+ */
 class MyInterface extends CGFinterface {
     /**
      * @constructor
@@ -39,9 +39,23 @@ class MyInterface extends CGFinterface {
 
         for (var key in lights) {
             if (lights.hasOwnProperty(key)) {
+
                 this.scene.lightValues[key] = lights[key][0];
-               // group.add(this.scene.lightValues, key);
+                group.add(this.scene.lightValues, key);
             }
         }
+    }
+
+    addViewsGroup(views) {
+        // var group = this.gui.addFolder("Camera");
+        //group.close();
+
+        this.cameraArray = [];
+
+        for (var key in views) {
+            this.cameraArray.push(key);
+        }
+
+        this.gui.add(this.scene, 'changeCamera', this.cameraArray);
     }
 }
