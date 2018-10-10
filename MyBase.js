@@ -4,10 +4,11 @@
  */
 class MyBase extends CGFobject
 {
-	constructor(scene, slices)
+	constructor(scene, id, slices)
 	{
 		super(scene);
 		this.slices = slices;
+		this.id = id;
 		this.initBuffers();
 	};
 
