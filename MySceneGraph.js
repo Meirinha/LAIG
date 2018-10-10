@@ -848,13 +848,29 @@ class MySceneGraph {
                     parseFloat(currGrandchild.getAttribute("base")), parseFloat(currGrandchild.getAttribute("top")), parseFloat(currGrandchild.getAttribute("height")),
                     parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
             }
+            else if (currGrandchild.nodeName == "sphere") {
+                let height = parseFloat(currGrandchild.getAttribute("radius"));
+                let slices = parseInt(currGrandchild.getAttribute("slices"));
+                let stacks = parseInt(currGrandchild.getAttribute("stacks"));
+                if (!this.isValidNumber(radius)) {
+                    this.onXMLMinorError("Primitive nº " + i + " has invalid 'sphere' radius value, using default 1.0")
+                    currGrandchild.setAttribute("radius", 1.0);
 
-
+                }
+                if (!this.isValidNumber(slices) || !this.isValidNumber(stacks)) {
+                    this.onXMLMinorError("Primitive nº " + i + " has one or more invalid 'sphere' slices/stacks values, using default values slices = 5, stacks = 2");
+                    currGrandchild.setAttribute("slices", 5);
+                    currGrandchild.setAttribute("stacks", 2);
+                }
+                this.primitives[currChild.getAttribute("id")] = new MySphere(this.scene, currChild.getAttribute("id"),
+                    parseFloat(currGrandchild.getAttribute("radius")),
+                    parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
+            }
             else if (currGrandchild.nodeName == "SemiSphere") {
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
                 let stacks = parseInt(currGrandchild.getAttribute("stacks"));
                 if (!this.isValidNumber(slices) || !this.isValidNumber(stacks)) {
-                    this.onXMLMinorError("Primitive nº " + i + " has one or more invalid 'cylinder' slices/stacks values, using default values slices = 5, stacks = 2");
+                    this.onXMLMinorError("Primitive nº " + i + " has one or more invalid 'SemiSphere' slices/stacks values, using default values slices = 5, stacks = 2");
                     currGrandchild.setAttribute("slices", 5);
                     currGrandchild.setAttribute("stacks", 2);
                 }
@@ -865,7 +881,7 @@ class MySceneGraph {
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
                 let stacks = parseInt(currGrandchild.getAttribute("stacks"));
                 if (!this.isValidNumber(slices) || !this.isValidNumber(stacks)) {
-                    this.onXMLMinorError("Primitive nº " + i + " has one or more invalid 'cylinder' slices/stacks values, using default values slices = 5, stacks = 2");
+                    this.onXMLMinorError("Primitive nº " + i + " has one or more invalid 'Dome' slices/stacks values, using default values slices = 5, stacks = 2");
                     currGrandchild.setAttribute("slices", 5);
                     currGrandchild.setAttribute("stacks", 2);
                 }
@@ -875,7 +891,7 @@ class MySceneGraph {
             else if (currGrandchild.nodeName == "Circle") {
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
                 if (!this.isValidNumber(slices)) {
-                    this.onXMLMinorError("Primitive nº " + i + " has one or more invalid 'cylinder' slices values, using default values slices = 5");
+                    this.onXMLMinorError("Primitive nº " + i + " has one or more invalid 'Circle' slices values, using default values slices = 5");
                     currGrandchild.setAttribute("slices", 5);
                 }
                 this.primitives[currChild.getAttribute("id")] = new MyBase(this.scene, currChild.getAttribute("id"),

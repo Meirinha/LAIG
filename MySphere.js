@@ -1,16 +1,13 @@
 
-function MySphere extends CGFobject(scene, id, args) {
+function MySphere extends CGFobject(scene, id, radius, slices stacks) {
 constructor(scene, id, args){
 	super(scene);
-	this.radius = args[0];
-	this.stacks = args[1];
-	this.slices = args[2];
+	this.radius = radius;
+	this.stacks = stacks;
+	this.slices = slices;
 	this.id = id;
 	this.initBuffers();
 };
-
-
-
 
 initBuffers {
 
