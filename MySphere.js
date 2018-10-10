@@ -1,22 +1,18 @@
-/**
- * MySphere
- * @constructor
- * @args radius, sections along radius(stacks), parts per section(slices)
- */
-function MySphere(scene, args) {
-	CGFobject.call(this, scene);
 
+function MySphere extends CGFobject(scene, id, args) {
+constructor(scene, id, args){
+	super(scene);
 	this.radius = args[0];
 	this.stacks = args[1];
 	this.slices = args[2];
-
+	this.id = id;
 	this.initBuffers();
 };
 
-MySphere.prototype = Object.create(CGFobject.prototype);
-MySphere.prototype.constructor = MySphere;
 
-MySphere.prototype.initBuffers = function () {
+
+
+initBuffers {
 
 	var stepAng = 2 * Math.PI / this.slices; //step in radians
 	this.vertices = new Array();
@@ -64,4 +60,5 @@ MySphere.prototype.initBuffers = function () {
 	this.initGLBuffers();
 };
 
-MySphere.prototype.updateTexCoords = function (sFactor, tFactor) {};
+MySphere.updateTexCoords = function (sFactor, tFactor) {};
+};
