@@ -4,12 +4,13 @@
  */
  class MyDome extends CGFobject
  {
- 	constructor(scene, slices, stacks)
+ 	constructor(scene, id, slices, stacks)
  {
  	super(scene);
 
 	this.slices = slices;
 	this.stacks = stacks;
+  this.id = id;
 
  	this.initBuffers();
  };
