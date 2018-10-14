@@ -57,5 +57,7 @@ class Torus extends CGFobject {
     };
 
     //TODO function to update texCoords if needed
+    updateTexCoords(sFactor, tFactor) {
 
+  	};
 };

@@ -943,10 +943,10 @@ class MySceneGraph {
                     parseInt(currGrandchild.getAttribute("slices")));
             }
             else if (currGrandchild.nodeName == "torus") {
-                let height = parseFloat(currGrandchild.getAttribute("inner"));
-                let height = parseFloat(currGrandchild.getAttribute("outer"));
+                let inner = parseFloat(currGrandchild.getAttribute("inner"));
+                let outer = parseFloat(currGrandchild.getAttribute("outer"));
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
-                let stacks = parseInt(currGrandchild.getAttribute("loops"));
+                let loops = parseInt(currGrandchild.getAttribute("loops"));
                 if (!this.isValidNumber(inner)) {
                     this.onXMLMinorError("Primitive nº " + i + " has invalid 'torus' inner value, using default 1.0")
                     currGrandchild.setAttribute("inner", 1.0);

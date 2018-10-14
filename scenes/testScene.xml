@@ -112,6 +112,9 @@
         <primitive id="cyl">
             <cylinder base="1.0" top="0.5" height="1.5" slices="20" stacks="5"/>
         </primitive>
+        <primitive id="torus">
+            <torus inner="1.0" outer="3.5" slices="20" loops="5"/>
+        </primitive>
     </primitives >
     <components>
         <component id="wall">
@@ -228,14 +231,14 @@
         </component>
         <component id="cil">
             <transformation>
-                <transformationref id="cyl" />
+                <transformationref id="transID" />
             </transformation>
             <materials>
                 <material id="inherit" />
             </materials>
             <texture id="textureRocks" length_s="1.0" length_t="1.0" />
             <children>
-                <primitiveref id="cyl" />
+                <primitiveref id="torus" />
             </children>
         </component>
         <component id="art">
