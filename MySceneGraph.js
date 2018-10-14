@@ -373,16 +373,16 @@ class MySceneGraph {
                      currGrandchild.setAttribute("y", DEFAULT_VIEW_FROM);
                      currGrandchild.setAttribute("z", DEFAULT_VIEW_FROM);
                  }
- 
+
                  var fromX = parseFloat(currGrandchild.getAttribute("x"));
                  var fromY = parseFloat(currGrandchild.getAttribute("y"));
                  var fromZ = parseFloat(currGrandchild.getAttribute("z"));
- 
+
                  var fromVector = vec3.fromValues(fromX, fromY, fromZ);
- 
+
                  //To Attribute
                  var currGrandchild = currChild.children[1];
- 
+
                  x = parseFloat(currGrandchild.getAttribute("x"));
                  y = parseFloat(currGrandchild.getAttribute("y"));
                  z = parseFloat(currGrandchild.getAttribute("z"));
@@ -392,11 +392,11 @@ class MySceneGraph {
                      currGrandchild.setAttribute("y", DEFAULT_VIEW_TO);
                      currGrandchild.setAttribute("z", DEFAULT_VIEW_TO);
                  }
- 
+
                  var toX = parseFloat(currGrandchild.getAttribute("x"));
                  var toY = parseFloat(currGrandchild.getAttribute("y"));
                  var toZ = parseFloat(currGrandchild.getAttribute("z"));
- 
+
                  var toVector = vec3.fromValues(toX, toY, toZ);
 
                 left = parseFloat(currChild.getAttribute("left"));
@@ -497,7 +497,7 @@ class MySceneGraph {
                 this.onXMLMinorError("Lights child id= " + currChild.getAttribute("id") + " has not a valid 'enabled' value, using 0.");
                 currChild.setAttribute("enabled", 1);
             }
-            
+
             var lightEnabled = this.reader.getBoolean(currChild, "enabled");
             for (let j = 0; j < currChild.children.length; j++) {
                 let currGrandchild = currChild.children[j];
@@ -941,6 +941,28 @@ class MySceneGraph {
                 }
                 this.primitives[currChild.getAttribute("id")] = new MyBase(this.scene, currChild.getAttribute("id"),
                     parseInt(currGrandchild.getAttribute("slices")));
+            }
+            else if (currGrandchild.nodeName == "torus") {
+                let height = parseFloat(currGrandchild.getAttribute("inner"));
+                let height = parseFloat(currGrandchild.getAttribute("outer"));
+                let slices = parseInt(currGrandchild.getAttribute("slices"));
+                let stacks = parseInt(currGrandchild.getAttribute("loops"));
+                if (!this.isValidNumber(inner)) {
+                    this.onXMLMinorError("Primitive nº " + i + " has invalid 'torus' inner value, using default 1.0")
+                    currGrandchild.setAttribute("inner", 1.0);
+                }
+                if (!this.isValidNumber(outer)) {
+                    this.onXMLMinorError("Primitive nº " + i + " has invalid 'torus' outer value, using default 2.0")
+                    currGrandchild.setAttribute("outer", 2.0);
+                }
+                if (!this.isValidNumber(slices) || !this.isValidNumber(loops)) {
+                    this.onXMLMinorError("Primitive nº " + i + " has one or more invalid 'torus' slices/loops values, using default values slices = 5, loops = 2");
+                    currGrandchild.setAttribute("slices", 5);
+                    currGrandchild.setAttribute("loops", 2);
+                }
+                this.primitives[currChild.getAttribute("id")] = new Torus(this.scene, currChild.getAttribute("id"),
+                    parseFloat(currGrandchild.getAttribute("inner")),parseFloat(currGrandchild.getAttribute("outer")),
+                    parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("loops")));
             }
             i++;
         } while (i < children.length)
