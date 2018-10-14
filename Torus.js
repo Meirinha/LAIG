@@ -2,6 +2,7 @@ class Torus extends CGFobject {
     constructor(scene, id, inner, outter, slices, loops) {
         super(scene);
 
+        this.id = id;
         this.r = (outter - inner) / 2;
         this.R = inner + this.r;
         this.slices = slices;
