@@ -1,7 +1,4 @@
-/**
- * MyBubbleHalf
- * @constructor
- */
+
  class MyDome extends CGFobject
  {
  	constructor(scene, id, slices, stacks)
@@ -50,8 +47,10 @@
 		}
  	}
 
-
 	 	this.primitiveType = this.scene.gl.TRIANGLES;
 	 	this.initGLBuffers();
+};
+updateTexCoords(sFactor, tFactor) {
+
 };
  };

@@ -54,9 +54,12 @@ initBuffers () {
         height = 0;
         coord_x = Math.cos(ang);
         coord_y = Math.sin(ang);
-    }
-
+    };
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
+ };
+
+ updateTexCoords(sFactor, tFactor) {
+
  };
 };

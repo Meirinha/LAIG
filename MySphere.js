@@ -57,5 +57,7 @@ initBuffers {
 	this.initGLBuffers();
 };
 
-MySphere.updateTexCoords = function (sFactor, tFactor) {};
+updateTexCoords(sFactor, tFactor) {
+
+};
 };

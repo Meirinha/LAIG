@@ -115,6 +115,9 @@
         <primitive id="torus">
             <torus inner="1.0" outer="3.0" slices="20" loops="5"/>
         </primitive>
+        <primitive id="Dome">
+            <Dome slices="20" stacks="5"/>
+        </primitive>
     </primitives >
     <components>
         <component id="wall">
@@ -238,7 +241,7 @@
             </materials>
             <texture id="textureWall" length_s="1.0" length_t="1.0" />
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="Dome" />
             </children>
         </component>
         <component id="art">
@@ -270,6 +273,6 @@
                 <componentref id="art" />
             </children>
         </component>
-    </components>undefinedundefined
+    </components>
 
 </yas>
