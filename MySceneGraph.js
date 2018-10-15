@@ -361,43 +361,43 @@ class MySceneGraph {
                     currChild.setAttribute("top", DEFAULT_ORTHO_SIDE);
                 }
 
-                 //From Attribute
-                 var currGrandchild = currChild.children[0];
+                //From Attribute
+                var currGrandchild = currChild.children[0];
 
-                 var x = parseFloat(currGrandchild.getAttribute("x"));
-                 var y = parseFloat(currGrandchild.getAttribute("y"));
-                 var z = parseFloat(currGrandchild.getAttribute("z"));
-                 if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
-                     this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'from' xyz values, using default value x = y = z = " + DEFAULT_VIEW_FROM);
-                     currGrandchild.setAttribute("x", DEFAULT_VIEW_FROM);
-                     currGrandchild.setAttribute("y", DEFAULT_VIEW_FROM);
-                     currGrandchild.setAttribute("z", DEFAULT_VIEW_FROM);
-                 }
+                var x = parseFloat(currGrandchild.getAttribute("x"));
+                var y = parseFloat(currGrandchild.getAttribute("y"));
+                var z = parseFloat(currGrandchild.getAttribute("z"));
+                if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'from' xyz values, using default value x = y = z = " + DEFAULT_VIEW_FROM);
+                    currGrandchild.setAttribute("x", DEFAULT_VIEW_FROM);
+                    currGrandchild.setAttribute("y", DEFAULT_VIEW_FROM);
+                    currGrandchild.setAttribute("z", DEFAULT_VIEW_FROM);
+                }
 
-                 var fromX = parseFloat(currGrandchild.getAttribute("x"));
-                 var fromY = parseFloat(currGrandchild.getAttribute("y"));
-                 var fromZ = parseFloat(currGrandchild.getAttribute("z"));
+                var fromX = parseFloat(currGrandchild.getAttribute("x"));
+                var fromY = parseFloat(currGrandchild.getAttribute("y"));
+                var fromZ = parseFloat(currGrandchild.getAttribute("z"));
 
-                 var fromVector = vec3.fromValues(fromX, fromY, fromZ);
+                var fromVector = vec3.fromValues(fromX, fromY, fromZ);
 
-                 //To Attribute
-                 var currGrandchild = currChild.children[1];
+                //To Attribute
+                var currGrandchild = currChild.children[1];
 
-                 x = parseFloat(currGrandchild.getAttribute("x"));
-                 y = parseFloat(currGrandchild.getAttribute("y"));
-                 z = parseFloat(currGrandchild.getAttribute("z"));
-                 if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
-                     this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'to' xyz values, using default value x = y = z = " + DEFAULT_VIEW_TO);
-                     currGrandchild.setAttribute("x", DEFAULT_VIEW_TO);
-                     currGrandchild.setAttribute("y", DEFAULT_VIEW_TO);
-                     currGrandchild.setAttribute("z", DEFAULT_VIEW_TO);
-                 }
+                x = parseFloat(currGrandchild.getAttribute("x"));
+                y = parseFloat(currGrandchild.getAttribute("y"));
+                z = parseFloat(currGrandchild.getAttribute("z"));
+                if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid 'to' xyz values, using default value x = y = z = " + DEFAULT_VIEW_TO);
+                    currGrandchild.setAttribute("x", DEFAULT_VIEW_TO);
+                    currGrandchild.setAttribute("y", DEFAULT_VIEW_TO);
+                    currGrandchild.setAttribute("z", DEFAULT_VIEW_TO);
+                }
 
-                 var toX = parseFloat(currGrandchild.getAttribute("x"));
-                 var toY = parseFloat(currGrandchild.getAttribute("y"));
-                 var toZ = parseFloat(currGrandchild.getAttribute("z"));
+                var toX = parseFloat(currGrandchild.getAttribute("x"));
+                var toY = parseFloat(currGrandchild.getAttribute("y"));
+                var toZ = parseFloat(currGrandchild.getAttribute("z"));
 
-                 var toVector = vec3.fromValues(toX, toY, toZ);
+                var toVector = vec3.fromValues(toX, toY, toZ);
 
                 left = parseFloat(currChild.getAttribute("left"));
                 right = parseFloat(currChild.getAttribute("right"));
@@ -405,7 +405,7 @@ class MySceneGraph {
                 top = parseFloat(currChild.getAttribute("top"));
                 bottom = parseFloat(currChild.getAttribute("bottom"));
 
-                this.views[currChild.getAttribute("id")] = new CGFcameraOrtho(left, right, bottom, top, near, far, fromVector, toVector, vec3.fromValues(0,1,0));
+                this.views[currChild.getAttribute("id")] = new CGFcameraOrtho(left, right, bottom, top, near, far, fromVector, toVector, vec3.fromValues(0, 1, 0));
             } else {
                 this.onXMLMinorError("unknown tag <" + currChild.nodeName + ">");
                 continue;
@@ -892,8 +892,7 @@ class MySceneGraph {
                 this.primitives[currChild.getAttribute("id")] = new MyCylinder(this.scene, currChild.getAttribute("id"),
                     parseFloat(currGrandchild.getAttribute("base")), parseFloat(currGrandchild.getAttribute("top")), parseFloat(currGrandchild.getAttribute("height")),
                     parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
-            }
-            else if (currGrandchild.nodeName == "sphere") {
+            } else if (currGrandchild.nodeName == "sphere") {
                 let height = parseFloat(currGrandchild.getAttribute("radius"));
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
                 let stacks = parseInt(currGrandchild.getAttribute("stacks"));
@@ -910,8 +909,7 @@ class MySceneGraph {
                 this.primitives[currChild.getAttribute("id")] = new MySphere(this.scene, currChild.getAttribute("id"),
                     parseFloat(currGrandchild.getAttribute("radius")),
                     parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
-            }
-            else if (currGrandchild.nodeName == "SemiSphere") {
+            } else if (currGrandchild.nodeName == "SemiSphere") {
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
                 let stacks = parseInt(currGrandchild.getAttribute("stacks"));
                 if (!this.isValidNumber(slices) || !this.isValidNumber(stacks)) {
@@ -921,8 +919,7 @@ class MySceneGraph {
                 }
                 this.primitives[currChild.getAttribute("id")] = new MySemiSphere(this.scene, currChild.getAttribute("id"),
                     parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
-            }
-            else if (currGrandchild.nodeName == "Dome") {
+            } else if (currGrandchild.nodeName == "Dome") {
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
                 let stacks = parseInt(currGrandchild.getAttribute("stacks"));
                 if (!this.isValidNumber(slices) || !this.isValidNumber(stacks)) {
@@ -932,8 +929,7 @@ class MySceneGraph {
                 }
                 this.primitives[currChild.getAttribute("id")] = new MyDome(this.scene, currChild.getAttribute("id"),
                     parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
-            }
-            else if (currGrandchild.nodeName == "Circle") {
+            } else if (currGrandchild.nodeName == "Circle") {
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
                 if (!this.isValidNumber(slices)) {
                     this.onXMLMinorError("Primitive nº " + i + " has one or more invalid 'Circle' slices values, using default values slices = 5");
@@ -941,8 +937,7 @@ class MySceneGraph {
                 }
                 this.primitives[currChild.getAttribute("id")] = new MyBase(this.scene, currChild.getAttribute("id"),
                     parseInt(currGrandchild.getAttribute("slices")));
-            }
-            else if (currGrandchild.nodeName == "torus") {
+            } else if (currGrandchild.nodeName == "torus") {
                 let inner = parseFloat(currGrandchild.getAttribute("inner"));
                 let outer = parseFloat(currGrandchild.getAttribute("outer"));
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
@@ -961,7 +956,7 @@ class MySceneGraph {
                     currGrandchild.setAttribute("loops", 2);
                 }
                 this.primitives[currChild.getAttribute("id")] = new Torus(this.scene, currChild.getAttribute("id"),
-                    parseFloat(currGrandchild.getAttribute("inner")),parseFloat(currGrandchild.getAttribute("outer")),
+                    parseFloat(currGrandchild.getAttribute("inner")), parseFloat(currGrandchild.getAttribute("outer")),
                     parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("loops")));
             }
             i++;
@@ -1036,6 +1031,7 @@ class MySceneGraph {
                             }
                         } else if (currGreatchild.nodeName == "componentref") {
                             let idChild = currGreatchild.getAttribute("id");
+                            console.log(idChild);
                             this.components[currID].addChild(this.components[idChild]);
                         }
                         k++;
@@ -1046,8 +1042,111 @@ class MySceneGraph {
             while (j < grandchildren.length)
             i++;
         } while (i < children.length)
+
+        children = componentNodes.children;
+        i = 0;
+        do {
+            let currChild = children[i];
+            let currID = currChild.getAttribute("id");
+            if (currID == null) //id not defined
+            {
+                let newid = "component" + i;
+                this.onXMLMinorError("Component nº " + i + " does not have a defined id, setting id to" + newid);
+                currChild.setAttribute("id", newid);
+            }
+            if (this.components[currID] > -1) //repeated ID
+            {
+                this.onXMLError("Component nº " + i + "has the repeated id" + currID);
+            }
+
+            let j = 0;
+            let grandchildren = currChild.children;
+
+            currID = currChild.getAttribute("id");
+            this.components[currID] = new MyNode(this, currID);
+            do {
+                let currGrandchild = grandchildren[j];
+
+                if (currGrandchild.nodeName == "transformation") { // TODO outra parte de implementação
+
+                    let currGreatchildren = currGrandchild.children;
+                    let currGreatchild = currGreatchildren[0];
+
+                    mat4.copy(this.components[currID].transformationMatrix, this.transformations[currGreatchild.getAttribute("id")]);
+
+                } else if (currGrandchild.nodeName == "materials") {
+                    let currGreatchildren = currGrandchild.children;
+                    let currGreatchild = currGreatchildren[0];
+
+                    if (currGreatchild.getAttribute("id") == "inherit") {
+                        this.components[currID].materialref = "inherit";
+                    } else
+                        this.components[currID].materialref = currGreatchild.getAttribute("id");
+                } else if (currGrandchild.nodeName == "texture") {
+
+                    if (currGrandchild.getAttribute("id") == "inherit") {
+                        this.components[currID].textureref = "inherit";
+                    } else if (currGrandchild.getAttribute("id") == "none") {
+                        this.components[currID].textureref = "none";
+                    } else {
+                        this.components[currID].textureref = currGrandchild.getAttribute("id");
+                    }
+                    this.components[currID].texS = currGrandchild.getAttribute("length_s");
+
+                    this.components[currID].texT = currGrandchild.getAttribute("length_t");
+
+                }
+                j++;
+            }
+            while (j < grandchildren.length)
+            i++;
+        } while (i < children.length)
+
+        this.processNodesAux(componentNodes);
         return null;
     }
+
+
+    processNodesAux(componentNodes) {
+        //CHILDREN
+
+        let children = componentNodes.children;
+        let i = 0;
+        do {
+            let currChild = children[i];
+            let j = 0;
+            let grandchildren = currChild.children;
+
+            let currID = currChild.getAttribute("id");
+            do {
+                let currGrandchild = grandchildren[j];
+                if (currGrandchild.nodeName == "children") {
+                    let greatchildren = currGrandchild.children;
+                    let k = 0;
+                    do {
+                        let currGreatchild = greatchildren[k];
+                        if (currGreatchild.nodeName == "primitiveref") {
+                            let idPrimitive = currGreatchild.getAttribute("id");
+                            if (this.primitives[idPrimitive] < 0) {
+                                this.onXMLError("Component id primitve not found");
+                            } else {
+                                this.components[currID].addLeaf(this.primitives[idPrimitive]);
+                            }
+                        } else if (currGreatchild.nodeName == "componentref") {
+                            let idChild = currGreatchild.getAttribute("id");
+                            console.log(idChild);
+                            this.components[currID].addChild(this.components[idChild]);
+                        }
+                        k++;
+                    } while (k < greatchildren.length)
+                }
+                j++;
+            }
+            while (j < grandchildren.length)
+            i++;
+        } while (i < children.length)
+    }
+
 
 
     onXMLError(message) {
@@ -1107,6 +1206,8 @@ class MySceneGraph {
         if (component.materialref != "inherit") {
             material = this.materials[component.materialref];
         }
+
+
 
         for (var i = 0; i < component.children.length; i++) {
             this.processComponent(this.components[component.children[i].nodeID], textura, material);
