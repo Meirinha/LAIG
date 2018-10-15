@@ -325,6 +325,7 @@
                 <componentref id="lakemargin" />
                 <componentref id="lake" />
                 <componentref id="Circle" />
+                <primitiveref id="cyl" />
             </children>
         </component>
     </components>

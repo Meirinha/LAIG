@@ -1,6 +1,6 @@
 
-function MySphere extends CGFobject(scene, id, radius, slices stacks) {
-constructor(scene, id, args){
+class MySphere extends CGFobject{
+constructor(scene, id, radius, slices, stacks){
 	super(scene);
 	this.radius = radius;
 	this.stacks = stacks;
@@ -9,7 +9,7 @@ constructor(scene, id, args){
 	this.initBuffers();
 };
 
-initBuffers {
+initBuffers (){
 
 	var stepAng = 2 * Math.PI / this.slices; //step in radians
 	this.vertices = new Array();
