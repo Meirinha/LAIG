@@ -92,12 +92,17 @@
             <scale x="80.0" y="80.0" z="80.0" />
         </transformation>
         <transformation id="torus">
-          <scale x="1.0" y="0.1" z="1.0" />
+          <scale x="1.0" y="0.3" z="1.0" />
             <rotate axis="x" angle="90.0" />
         </transformation>
         <transformation id="lake">
-          <scale x="56.0" y="50.0" z="56.0" />
+          <scale x="62.0" y="60.0" z="62.0" />
             <rotate axis="x" angle="90.0" />
+        </transformation>
+        <transformation id="circle">
+          <translate x="0.0" y="-5.0" z="0.0" />
+          <scale x="60.0" y="1.0" z="60.0" />
+            <rotate axis="x" angle="-90.0" />
         </transformation>
     </transformations>
     <primitives>
@@ -120,7 +125,7 @@
             <cylinder base="1.0" top="0.5" height="1.5" slices="20" stacks="5"/>
         </primitive>
         <primitive id="torus">
-            <torus inner="55.0" outer="80.0" slices="80" loops="80"/>
+            <torus inner="60.0" outer="80.0" slices="80" loops="80"/>
         </primitive>
         <primitive id="Lake">
             <Dome slices="50" stacks="50"/>
@@ -132,7 +137,7 @@
             <SemiSphere slices="50" stacks="50"/>
         </primitive>
         <primitive id="Circle">
-            <Circle slices="20"/>
+            <Circle slices="50"/>
         </primitive>
     </primitives >
     <components>
@@ -289,6 +294,19 @@
                     </children>
                 </component>
 
+                <component id="Circle">
+                    <transformation>
+                        <transformationref id="circle" />
+                    </transformation>
+                    <materials>
+                        <material id="inherit" />
+                    </materials>
+                    <texture id="none" />
+                    <children>
+                        <primitiveref id="Circle" />
+                    </children>
+                </component>
+
         <component id="rootScene">
             <transformation>
                 <transformationref id="transID" />
@@ -306,6 +324,7 @@
                 <componentref id="domebot" />
                 <componentref id="lakemargin" />
                 <componentref id="lake" />
+                <componentref id="Circle" />
             </children>
         </component>
     </components>
