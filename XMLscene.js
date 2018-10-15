@@ -92,10 +92,10 @@ class XMLscene extends CGFscene {
         this.changeCamera = this.currCamera;
 
         this.axis = new CGFaxis(this, this.graph.referenceLength);
-
+        
         this.setGlobalAmbientLight(this.graph.ambient["r"], this.graph.ambient["g"], this.graph.ambient["b"], this.graph.ambient["a"]);
 
-        this.gl.clearColor(this.graph.background["r"], this.graph.background["r"], this.graph.background["r"], this.graph.background["a"]);
+        this.gl.clearColor(this.graph.background["r"], this.graph.background["g"], this.graph.background["b"], this.graph.background["a"]);
 
         this.initLights();
 
