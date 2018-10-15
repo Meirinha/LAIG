@@ -105,7 +105,11 @@
 			<rotate axis="x" angle="-90.0" />
 		</transformation>
 		<transformation id="island">
-			<translate x="0.0" y="0.0" z="0.0" />
+			<translate x="0.0" y="-2.0" z="0.0" />
+			<rotate axis="x" angle="90.0" />
+		</transformation>
+		<transformation id="island2">
+			<translate x="0.0" y="-1.0" z="0.0" />
 			<rotate axis="x" angle="90.0" />
 		</transformation>
 	</transformations>
@@ -126,7 +130,10 @@
 			<triangle x1="0.0" y1="0.0" z1="0.0" x2="0.0" y2="2.0" z2="0.0" x3="3.0" y3="0.0" z3="0.0"/>
 		</primitive >
 		<primitive id="cyl">
-			<cylinder base="30.0" top="0.0" height="10" slices="10" stacks="5"/>
+			<cylinder base="40.0" top="0.0" height="15" slices="20" stacks="5"/>
+		</primitive>
+		<primitive id="cyl2">
+			<cylinder base="38.0" top="40.0" height="1" slices="20" stacks="5"/>
 		</primitive>
 		<primitive id="torus">
 			<torus inner="60.0" outer="80.0" slices="80" loops="80"/>
@@ -305,7 +312,8 @@
 				<primitiveref id="Circle" />
 			</children>
 		</component>
-		<component id="island">
+
+		<component id="cyl">
 			<transformation>
 				<transformationref id="island" />
 			</transformation>
@@ -315,6 +323,31 @@
 			<texture id="inherit" />
 			<children>
 				<primitiveref id="cyl" />
+			</children>
+		</component>
+		<component id="cyl2">
+			<transformation>
+				<transformationref id="island2" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<primitiveref id="cyl2" />
+			</children>
+		</component>
+		<component id="island">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="cyl" />
+				<componentref id="cyl2" />
 			</children>
 		</component>
 		<component id="rootScene">
