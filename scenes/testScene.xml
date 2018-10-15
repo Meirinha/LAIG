@@ -104,6 +104,10 @@
           <scale x="60.0" y="1.0" z="60.0" />
             <rotate axis="x" angle="-90.0" />
         </transformation>
+        <transformation id="island">
+          <translate x="0.0" y="0.0" z="0.0" />
+            <rotate axis="x" angle="90.0" />
+        </transformation>
     </transformations>
     <primitives>
         <primitive id="rec">
@@ -122,7 +126,7 @@
             <triangle x1="0.0" y1="0.0" z1="0.0" x2="0.0" y2="2.0" z2="0.0" x3="3.0" y3="0.0" z3="0.0"/>
         </primitive >
         <primitive id="cyl">
-            <cylinder base="1.0" top="0.5" height="1.5" slices="20" stacks="5"/>
+            <cylinder base="30.0" top="0.0" height="10" slices="10" stacks="5"/>
         </primitive>
         <primitive id="torus">
             <torus inner="60.0" outer="80.0" slices="80" loops="80"/>
@@ -307,6 +311,19 @@
                     </children>
                 </component>
 
+                <component id="island">
+                    <transformation>
+                        <transformationref id="island" />
+                    </transformation>
+                    <materials>
+                        <material id="inherit" />
+                    </materials>
+                    <texture id="inherit" />
+                    <children>
+                        <primitiveref id="cyl" />
+                    </children>
+                </component>
+
         <component id="rootScene">
             <transformation>
                 <transformationref id="transID" />
@@ -325,7 +342,7 @@
                 <componentref id="lakemargin" />
                 <componentref id="lake" />
                 <componentref id="Circle" />
-                <primitiveref id="cyl" />
+                <componentref id="island" />
             </children>
         </component>
     </components>
