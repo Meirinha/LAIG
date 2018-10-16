@@ -25,7 +25,6 @@ class XMLscene extends CGFscene {
         this.sceneInited = false;
 
         this.initCameras();
-
         this.enableTextures(true);
 
         this.gl.clearDepth(100.0);
@@ -34,6 +33,7 @@ class XMLscene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis = new CGFaxis(this);
+        this.displayAxis = true;
     }
 
     /**
@@ -92,7 +92,7 @@ class XMLscene extends CGFscene {
         this.changeCamera = this.currCamera;
 
         this.axis = new CGFaxis(this, this.graph.referenceLength);
-        
+
         this.setGlobalAmbientLight(this.graph.ambient["r"], this.graph.ambient["g"], this.graph.ambient["b"], this.graph.ambient["a"]);
 
         this.gl.clearColor(this.graph.background["r"], this.graph.background["g"], this.graph.background["b"], this.graph.background["a"]);
@@ -100,10 +100,12 @@ class XMLscene extends CGFscene {
         this.initLights();
 
         // Adds lights group.
+        this.interface.addAxis();
         this.interface.addLightsGroup(this.graph.lights);
-        this.interface.addViewsGroup(this.graph.views)
+        this.interface.addViewsGroup(this.graph.views);
 
         this.sceneInited = true;
+
     }
 
 
@@ -128,14 +130,16 @@ class XMLscene extends CGFscene {
 
         if (this.sceneInited) {
             // Draw axis
-            this.axis.display();
+            if (this.displayAxis)
+                this.axis.display();
             this.updateLightsDisplay();
             this.setCameraUsed();
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
         } else {
             // Draw axis
-            this.axis.display();
+            if (this.displayAxis)
+                this.axis.display();
         }
 
         this.popMatrix();
