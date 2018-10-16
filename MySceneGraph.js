@@ -893,7 +893,7 @@ class MySceneGraph {
                     parseFloat(currGrandchild.getAttribute("base")), parseFloat(currGrandchild.getAttribute("top")), parseFloat(currGrandchild.getAttribute("height")),
                     parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
             } else if (currGrandchild.nodeName == "sphere") {
-                let height = parseFloat(currGrandchild.getAttribute("radius"));
+                let radius = parseFloat(currGrandchild.getAttribute("radius"));
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
                 let stacks = parseInt(currGrandchild.getAttribute("stacks"));
                 if (!this.isValidNumber(radius)) {

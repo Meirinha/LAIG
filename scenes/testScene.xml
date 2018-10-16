@@ -69,6 +69,10 @@
 		<transformation id="cake">
 			<rotate axis="x" angle="-90.0" />
 		</transformation>
+		<transformation id="topping">
+			<translate x="0.0" y="2.0" z="0.0" />
+			<rotate axis="x" angle="90.0" />
+		</transformation>
 		<transformation id="trianglerightback">
 		<translate x="23.0" y="14.5" z="27.0" />
 			<rotate axis="y" angle="180.0" />
@@ -154,6 +158,12 @@
 		</primitive>
 		<primitive id="cake">
 			<cylinder base="2.0" top="2.0" height="2" slices="20" stacks="5"/>
+		</primitive>
+		<primitive id="cherry">
+			<sphere radius="0.2" slices="50" stacks="50"/>
+		</primitive>
+		<primitive id="chantily">
+			<torus inner="0.3" outer="0.2" slices="80" loops="80"/>
 		</primitive>
 		<primitive id="cyl2">
 			<cylinder base="38.0" top="40.0" height="1" slices="20" stacks="5"/>
@@ -481,6 +491,7 @@
 			<texture id="inherit" />
 			<children>
 				<componentref id="cake" />
+				<componentref id="topping" />
 			</children>
 		</component>
 		<component id="cake">
@@ -493,6 +504,19 @@
 			<texture id="inherit" />
 			<children>
 				<primitiveref id="cake" />
+			</children>
+		</component>
+		<component id="topping">
+			<transformation>
+				<transformationref id="topping" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="cherry" />
+				<primitiveref id="chantily" />
 			</children>
 		</component>
 
