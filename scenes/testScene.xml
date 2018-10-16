@@ -58,7 +58,7 @@
 			<rotate axis="y" angle="90.0" />
 		</transformation>
 		<transformation id="floor">
-			<translate x="10.0" y="0.0" z="10" />
+			<translate x="23.0" y="0.0" z="27.0" />
 			<rotate axis="z" angle="90.0" />
 			<rotate axis="y" angle="90.0" />
 		</transformation>
@@ -118,7 +118,7 @@
 			<rectangle x1="10.0" y1="5.0" x2="0.0" y2="0.0" />
 		</primitive >
 		<primitive id="rec1">
-			<rectangle x1="10.0" y1="10.0" x2="0.0" y2="0.0" />
+			<rectangle x1="55.0" y1="45.0" x2="0.0" y2="0.0" />
 		</primitive >
 		<primitive id="quad">
 			<rectangle x1="1.5" y1="2.0" x2="0.0" y2="0.0" />
@@ -152,30 +152,7 @@
 		</primitive>
 	</primitives >
 	<components>
-		<component id="wall">
-			<transformation>
-				<transformationref id="wall1" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="textureWall" length_s="1.0" length_t="1.0" />
-			<children>
-				<primitiveref id="rec" />
-			</children>
-		</component>
-		<component id="floor">
-			<transformation>
-				<transformationref id="floor" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="textureWall" length_s="1.0" length_t="1.0" />
-			<children>
-				<primitiveref id="rec1" />
-			</children>
-		</component>
+
 		<component id="quad1">
 			<transformation>
 				<transformationref id="quad1" />
@@ -350,6 +327,44 @@
 				<componentref id="cyl2" />
 			</children>
 		</component>
+		<component id="house">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="wall" />
+				<componentref id="floor" />
+				<primitiveref id="rec" />
+			</children>
+		</component>
+		<component id="wall">
+			<transformation>
+				<transformationref id="wall1" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="textureWall" length_s="1.0" length_t="1.0" />
+			<children>
+				<primitiveref id="rec" />
+			</children>
+		</component>
+		<component id="floor">
+			<transformation>
+				<transformationref id="floor" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="textureRocks" length_s="1.0" length_t="1.0" />
+			<children>
+				<primitiveref id="rec1" />
+			</children>
+		</component>
 		<component id="rootScene">
 			<transformation>
 				<transformationref id="transID" />
@@ -359,9 +374,7 @@
 			</materials>
 			<texture id="textureWall" length_s="1.0" length_t="1.0" />
 			<children>
-				<componentref id="wall" />
-				<componentref id="floor" />
-				<primitiveref id="rec" />
+				<componentref id="house" />
 				<componentref id="cube" />
 				<componentref id="dome" />
 				<componentref id="domebot" />
