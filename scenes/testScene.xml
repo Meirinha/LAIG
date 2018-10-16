@@ -54,11 +54,31 @@
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
 		<transformation id="wall1">
-			<translate x="0.0" y="0.0" z="10" />
-			<rotate axis="y" angle="90.0" />
+			<translate x="-22.0" y="-0.5" z="27.0" />
+		</transformation>
+		<transformation id="triangleleft">
+			<translate x="-22.0" y="14.5" z="27.0" />
+		</transformation>
+		<transformation id="triangleleftback">
+		<translate x="-4.0" y="14.5" z="27.0" />
+			<rotate axis="y" angle="180.0" />
+		</transformation>
+		<transformation id="triangleright">
+			<translate x="5.0" y="14.5" z="27.0" />
+		</transformation>
+		<transformation id="cake">
+			<rotate axis="x" angle="-90.0" />
+		</transformation>
+		<transformation id="trianglerightback">
+		<translate x="23.0" y="14.5" z="27.0" />
+			<rotate axis="y" angle="180.0" />
+		</transformation>
+		<transformation id="wallback">
+			<translate x="23.0" y="-0.5" z="27.0" />
+			<rotate axis="y" angle="180.0" />
 		</transformation>
 		<transformation id="floor">
-			<translate x="23.0" y="0.0" z="27.0" />
+			<translate x="23.0" y="-0.5" z="27.0" />
 			<rotate axis="z" angle="90.0" />
 			<rotate axis="y" angle="90.0" />
 		</transformation>
@@ -115,7 +135,7 @@
 	</transformations>
 	<primitives>
 		<primitive id="rec">
-			<rectangle x1="10.0" y1="5.0" x2="0.0" y2="0.0" />
+			<rectangle x1="45.0" y1="15.0" x2="0.0" y2="0.0" />
 		</primitive >
 		<primitive id="rec1">
 			<rectangle x1="55.0" y1="45.0" x2="0.0" y2="0.0" />
@@ -127,10 +147,13 @@
 			<rectangle x1="1.5" y1="1.5.0" x2="0.0" y2="0.0" />
 		</primitive >
 		<primitive id="tri">
-			<triangle x1="0.0" y1="0.0" z1="0.0" x2="0.0" y2="2.0" z2="0.0" x3="3.0" y3="0.0" z3="0.0"/>
+			<triangle x1="0.0" y1="0.0" z1="0.0" x2="18.0" y2="0.0" z2="0.0" x3="9.0" y3="7.0" z3="0.0"/>
 		</primitive >
 		<primitive id="cyl">
 			<cylinder base="40.0" top="0.0" height="15" slices="20" stacks="5"/>
+		</primitive>
+		<primitive id="cake">
+			<cylinder base="2.0" top="2.0" height="2" slices="20" stacks="5"/>
 		</primitive>
 		<primitive id="cyl2">
 			<cylinder base="38.0" top="40.0" height="1" slices="20" stacks="5"/>
@@ -290,6 +313,8 @@
 			</children>
 		</component>
 
+
+
 		<component id="cyl">
 			<transformation>
 				<transformationref id="island" />
@@ -327,6 +352,8 @@
 				<componentref id="cyl2" />
 			</children>
 		</component>
+
+
 		<component id="house">
 			<transformation>
 				<transformationref id="transID" />
@@ -337,8 +364,25 @@
 			<texture id="inherit" />
 			<children>
 				<componentref id="wall" />
+				<componentref id="front" />
 				<componentref id="floor" />
-				<primitiveref id="rec" />
+			</children>
+		</component>
+		<component id="front">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="wall" />
+				<componentref id="wallback" />
+				<componentref id="triangleleft" />
+				<componentref id="triangleleftback" />
+				<componentref id="triangleright" />
+				<componentref id="trianglerightback" />
 			</children>
 		</component>
 		<component id="wall">
@@ -348,9 +392,69 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="textureWall" length_s="1.0" length_t="1.0" />
+			<texture id="inherit" />
 			<children>
 				<primitiveref id="rec" />
+			</children>
+		</component>
+		<component id="wallback">
+			<transformation>
+				<transformationref id="wallback" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<primitiveref id="rec" />
+			</children>
+		</component>
+		<component id="triangleleft">
+			<transformation>
+				<transformationref id="triangleleft" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<primitiveref id="tri" />
+			</children>
+		</component>
+		<component id="triangleleftback">
+			<transformation>
+				<transformationref id="triangleleftback" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<primitiveref id="tri" />
+			</children>
+		</component>
+		<component id="triangleright">
+			<transformation>
+				<transformationref id="triangleright" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<primitiveref id="tri" />
+			</children>
+		</component>
+		<component id="trianglerightback">
+			<transformation>
+				<transformationref id="trianglerightback" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<primitiveref id="tri" />
 			</children>
 		</component>
 		<component id="floor">
@@ -365,6 +469,35 @@
 				<primitiveref id="rec1" />
 			</children>
 		</component>
+
+
+		<component id="portalcake">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="cake" />
+			</children>
+		</component>
+		<component id="cake">
+			<transformation>
+				<transformationref id="cake" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<primitiveref id="cake" />
+			</children>
+		</component>
+
+
+
 		<component id="rootScene">
 			<transformation>
 				<transformationref id="transID" />
@@ -382,6 +515,7 @@
 				<componentref id="lake" />
 				<componentref id="Circle" />
 				<componentref id="island" />
+				<componentref id="portalcake" />
 			</children>
 		</component>
 	</components>
