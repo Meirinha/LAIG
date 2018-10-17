@@ -83,9 +83,6 @@ class XMLscene extends CGFscene {
      */
     onGraphLoaded() {
 
-        // this.camera.near = this.graph.near;
-        // this.camera.far = this.graph.far;
-
         this.camera = this.graph.views[this.graph.defaultView];
         this.interface.setActiveCamera(this.camera);
         this.currCamera = this.graph.defaultView;
@@ -105,6 +102,7 @@ class XMLscene extends CGFscene {
         this.interface.addViewsGroup(this.graph.views);
 
         this.sceneInited = true;
+        console.log(this);
 
     }
 
@@ -170,6 +168,12 @@ class XMLscene extends CGFscene {
             this.interface.setActiveCamera(this.camera);
 
         }
+    }
 
+    setDefaultAppearance() {
+        this.setAmbient(0.2, 0.4, 0.8, 1.0);
+        this.setDiffuse(0.2, 0.4, 0.8, 1.0);
+        this.setSpecular(0.2, 0.4, 0.8, 1.0);
+        this.setShininess(10.0);
     }
 }

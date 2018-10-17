@@ -69,6 +69,8 @@ class MySceneGraph {
          */
 
         this.reader.open('scenes/' + filename, this);
+
+        this.scene.defaultAppearance = new CGFappearance(this.scene);
     }
 
     /*
@@ -497,10 +499,13 @@ class MySceneGraph {
                 this.onXMLMinorError("Lights child id= " + currChild.getAttribute("id") + " has not a valid 'enabled' value, using 0.");
                 currChild.setAttribute("enabled", 1);
             }
-
+            let angle = 0.0;
+            let exponent = 0.0;
+            let target = [];
             var lightEnabled = this.reader.getBoolean(currChild, "enabled");
             for (let j = 0; j < currChild.children.length; j++) {
                 let currGrandchild = currChild.children[j];
+
                 if (currGrandchild.nodeName == "location") {
                     let x = parseFloat(currGrandchild.getAttribute("x"));
                     let y = parseFloat(currGrandchild.getAttribute("y"));
@@ -545,27 +550,34 @@ class MySceneGraph {
                         currGrandchild.setAttribute("y", DEFAULT_SPOT_TARGET);
                         currGrandchild.setAttribute("z", DEFAULT_SPOT_TARGET);
                     }
-                    //TODO this.lights[currChild.getAttribute("id")].setSpotDirection(currGrandchild.getAttribute("x"), currGrandchild.getAttribute("y"), currGrandchild.getAttribute("z"));
+                    x = parseFloat(currGrandchild.getAttribute("x"));
+                    y = parseFloat(currGrandchild.getAttribute("y"));
+                    z = parseFloat(currGrandchild.getAttribute("z"));
+                    target = [x, y, z];
                 } else if (currChild.nodeName == "spot") {
-                    let a = currChild.getAttribute("angle");
-                    if (!this.isValidNumber(a)) {
+                    angle = parseFloat(currChild.getAttribute("angle"));
+                    if (!this.isValidNumber(angle)) {
                         let defAngle = 90.0 * DEGREE_TO_RAD;
                         this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
                         currChild.setAttribute("angle", defAngle);
                     }
-                    // TODO this.lights[currChild.getAttribute("id")].setSpotCutOff(currGrandchild.getAttribute("angle"));
+                    angle = parseFloat(currGrandchild.getAttribute("angle"));
 
-                    a = currChild.getAttribute("exponent");
-                    if (!this.isValidNumber(a)) {
+                    exponent = parseFloat(currChild.getAttribute("exponent"));
+                    if (!this.isValidNumber(exponent)) {
                         let defExponent = 1.0;
                         this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid exponent value, using default value exponent = " + defExponent);
                         currChild.setAttribute("exponent", defExponent);
                     }
-                    //TODO this.lights[currChild.getAttribute("id")].setSpotExponent(currGrandchild.getAttribute("exponent"));
+                    exponent = parseFloat(currGrandchild.getAttribute("exponent"));
                 }
 
             }
-            this.lights[currChild.getAttribute("id")] = [lightEnabled, positionArray, ambientArray, diffuseArray, specularArray];
+            if (currChild.nodeName == "omni") {
+                this.lights[currChild.getAttribute("id")] = [lightEnabled, positionArray, ambientArray, diffuseArray, specularArray, false /*not spot*/ ];
+            } else if (currChild.nodeName == "spot") {
+                this.lights[currChild.getAttribute("id")] = [lightEnabled, positionArray, ambientArray, diffuseArray, specularArray, true /*spot*/ , angle, exponent, target];
+            }
             i++;
         }
         while (i < children.length) return null;
@@ -650,24 +662,25 @@ class MySceneGraph {
 
             idsUsed.push(currChild.getAttribute("id"));
             var shininess = parseFloat(currChild.getAttribute("shininess"));
-
+            this.materials[currID].setShininess(shininess);
             for (let j = 0; j < 4; j++) {
                 let currGrandchild = currChild.children[j];
                 this.materialCheckError(currGrandchild);
                 switch (currGrandchild.nodeName) {
                     case "emission":
-                        this.materials[currID].setEmission(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a"));
+                        this.materials[currID].setEmission(parseFloat(currGrandchild.getAttribute("r")), parseFloat(currGrandchild.getAttribute("g")), parseFloat(currGrandchild.getAttribute("b")), parseFloat(currGrandchild.getAttribute("a")));
                         break;
                     case "ambient":
-                        this.materials[currID].setAmbient(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a"));
+                        this.materials[currID].setAmbient(parseFloat(currGrandchild.getAttribute("r")), parseFloat(currGrandchild.getAttribute("g")), parseFloat(currGrandchild.getAttribute("b")), parseFloat(currGrandchild.getAttribute("a")));
                         break;
                     case "diffuse":
-                        this.materials[currID].setDiffuse(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a"));
+                        this.materials[currID].setDiffuse(parseFloat(currGrandchild.getAttribute("r")), parseFloat(currGrandchild.getAttribute("g")), parseFloat(currGrandchild.getAttribute("b")), parseFloat(currGrandchild.getAttribute("a")));
                         break;
                     case "specular":
-                        this.materials[currID].setSpecular(currGrandchild.getAttribute("r"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("b"), currGrandchild.getAttribute("a"));
+                        this.materials[currID].setSpecular(parseFloat(currGrandchild.getAttribute("r")), parseFloat(currGrandchild.getAttribute("g")), parseFloat(currGrandchild.getAttribute("b")), parseFloat(currGrandchild.getAttribute("a")));
                         break;
                 }
+                console.log(this.materials[currID]);
             }
             i++;
         } while (i < children.length) return null;
@@ -681,10 +694,10 @@ class MySceneGraph {
             let a = parseFloat(currGrandchild.getAttribute("a"));
             if (!this.isValidNumber(r) || !this.isValidNumber(g) || !this.isValidNumber(b) || !this.isValidNumber(a)) {
                 this.onXMLMinorError(currChild.getAttribute("id") + " has one or more invalid '" + currGrandchild.nodeName + "' rgba values, using default value r = g = b = a = " + DEFAULT_LIGHT_VALUE);
-                currGrandchild.setAttribute("r", DEFAULT_LIGHTS_LOCATION);
-                currGrandchild.setAttribute("g", DEFAULT_LIGHTS_LOCATION);
-                currGrandchild.setAttribute("b", DEFAULT_LIGHTS_LOCATION);
-                currGrandchild.setAttribute("a", DEFAULT_LIGHTS_LOCATION);
+                currGrandchild.setAttribute("r", DEFAULT_LIGHT_VALUE);
+                currGrandchild.setAttribute("g", DEFAULT_LIGHT_VALUE);
+                currGrandchild.setAttribute("b", DEFAULT_LIGHT_VALUE);
+                currGrandchild.setAttribute("a", DEFAULT_LIGHT_VALUE);
             }
         }
     }
@@ -793,6 +806,7 @@ class MySceneGraph {
         } while (i < children.length) return null;
     }
 
+    //Primitives
     parsePrimitives(primitiveNodes) {
 
         let children = primitiveNodes.children;
@@ -963,6 +977,7 @@ class MySceneGraph {
         } while (i < children.length)
     }
 
+    //Components
     parseComponents(componentNodes) {
 
         let children = componentNodes.children;
@@ -1176,18 +1191,22 @@ class MySceneGraph {
     displayScene() {
 
         var rootComponent = this.components[this.rootID];
+        console.log(rootComponent.materialref);
         if (this.textures[rootComponent.textureref] != null)
-            this.processComponent(rootComponent, this.textures[rootComponent.textureref], this.materials[rootComponent.materialref]);
+            this.processComponent(rootComponent, rootComponent.textureref, rootComponent.materialref);
         else
-            this.processComponent(rootComponent, null, this.materials[rootComponent.materialref]);
+            this.processComponent(rootComponent, null, rootComponent.materialref);
     }
 
     processComponent(component, tex, mat) {
 
-        var textura = tex;
-        var material = mat;
-        var texS = component.texS;
-        var texT = component.texT;
+        let textura = tex;
+        let material = mat;
+        /*         let texS = component.texS;
+                let texT = component.texT; */
+        console.log("Textura:" + textura + "\n Material:" + material);
+        this.scene.setDefaultAppearance();
+        this.scene.defaultAppearance.apply();
 
         this.scene.pushMatrix();
         this.scene.multMatrix(component.transformationMatrix);
@@ -1196,33 +1215,34 @@ class MySceneGraph {
             if (component.textureref == 'none')
                 textura = null;
             else {
-                textura = this.textures[component.textureref];
+                textura = component.textureref;
                 //ampS = this.textures[component.textureref];
                 //ampT = this.textures[component.textureref];
             }
-
         }
 
         if (component.materialref != "inherit") {
-            material = this.materials[component.materialref];
+            material = component.materialref;
         }
-
-
 
         for (var i = 0; i < component.children.length; i++) {
             this.processComponent(this.components[component.children[i].nodeID], textura, material);
         }
 
         if (material != null) {
-            material.apply();
-        }
+            this.materials[material].setTexture(null);
+            if (textura != null) {
+                this.materials[material].setTexture(this.textures[textura]);
+            }
+            this.materials[material].apply();
 
-        if (textura != null) {
-            textura.bind();
+
         }
+        console.log(textura);
+
 
         for (var j = 0; j < component.leaves.length; j++) {
-            component.leaves[j].updateTexCoords(texS, texT);
+            //component.leaves[j].updateTexCoords(texS, texT);
             component.leaves[j].display();
         }
         this.scene.popMatrix();
@@ -1231,6 +1251,4 @@ class MySceneGraph {
     isValidNumber(attribute) {
         return !(attribute == null || isNaN(attribute));
     }
-
-
 }
