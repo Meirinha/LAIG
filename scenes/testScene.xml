@@ -53,8 +53,39 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="headtop">
+			<scale x="2.2" y="1.8" z="1.8" />
+			<translate x="0.0" y="5.0" z="0.0" />
+			<rotate axis="x" angle="-90.0" />
+		</transformation>
+		<transformation id="headbot">
+			<scale x="2.2" y="1.0" z="1.8" />
+			<translate x="0.0" y="9.0" z="0.0" />
+			<rotate axis="x" angle="90.0" />
+		</transformation>
+		<transformation id="nose">
+			<scale x="0.7" y="0.6" z="0.7" />
+			<translate x="0.0" y="16.0" z="2.2" />
+			<rotate axis="x" angle="-13.0" />
+		</transformation>
 		<transformation id="wall1">
 			<translate x="-22.0" y="-0.5" z="27.0" />
+		</transformation>
+		<transformation id="frontbottom">
+			<translate x="0.0" y="40.5" z="16.1" />
+			<scale x="1.0" y="1.0" z="0.75" />
+			<rotate axis="x" angle="90.0" />
+		</transformation>
+		<transformation id="fronttop">
+			<translate x="0.0" y="13.8" z="-11.3" />
+			<scale x="1.0" y="0.6" z="1.0" />
+		</transformation>
+		<transformation id="fronttriangle">
+			<translate x="-34.5" y="8.0" z="-11.3" />
+			<scale x="2.5" y="1.0" z="1.0" />
+		</transformation>
+		<transformation id="backtriangle">
+			<translate x="0.0" y="0.0" z="-44.0" />
 		</transformation>
 		<transformation id="rightpart">
 			<translate x="-10.0" y="38.8" z="-16.0" />
@@ -72,6 +103,10 @@
 		<transformation id="leftroof">
 			<translate x="-27.0" y="0.0" z="0.0" />
 		</transformation>
+		<transformation id="toproof">
+			<translate x="33.0" y="8.0" z="-95.0" />
+			<scale x="2.5" y="1.0" z="4.1" />
+		</transformation>
 		<transformation id="midleroof">
 			<translate x="-85.0" y="43.0" z="-13.4" />
 			<rotate axis="x" angle="36.0" />
@@ -79,7 +114,7 @@
 		</transformation>
 		<transformation id="housewallback">
 			<translate x="-142.0" y="-0.5" z="-29.5" />
-			<scale x="30.0" y="11.0" z="0.3" />
+			<scale x="30.0" y="11.5" z="0.3" />
 		</transformation>
 		<transformation id="triangleleft">
 			<translate x="-22.0" y="14.5" z="27.0" />
@@ -93,6 +128,9 @@
 		</transformation>
 		<transformation id="cake">
 			<rotate axis="x" angle="-90.0" />
+		</transformation>
+		<transformation id="portalcake">
+			<translate x="0.0" y="0.0" z="10.0" />
 		</transformation>
 		<transformation id="topping">
 			<translate x="0.0" y="2.05" z="0.0" />
@@ -236,6 +274,9 @@
 		</primitive>
 		<primitive id="Circle">
 			<Circle slices="50"/>
+		</primitive>
+		<primitive id="headtop">
+			<SemiSphere slices="50" stacks="50"/>
 		</primitive>
 	</primitives >
 
@@ -441,11 +482,36 @@
 			</materials>
 			<texture id="inherit" />
 			<children>
-				<componentref id="wall" />
 				<componentref id="front" />
 				<componentref id="floor" />
 				<componentref id="housewallback" />
+				<componentref id="backtriangle" />
 				<componentref id="roof" />
+				<componentref id="frontbottom" />
+			</children>
+		</component>
+		<component id="backtriangle">
+			<transformation>
+				<transformationref id="backtriangle" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="fronttriangle" />
+			</children>
+		</component>
+		<component id="frontbottom">
+			<transformation>
+				<transformationref id="frontbottom" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="wall" />
 			</children>
 		</component>
 		<component id="roof">
@@ -460,6 +526,19 @@
 				<componentref id="rightroof" />
 				<componentref id="leftroof" />
 				<componentref id="midleroof" />
+				<componentref id="toproof" />
+			</children>
+		</component>
+		<component id="toproof">
+			<transformation>
+				<transformationref id="toproof" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="leftroof" />
 			</children>
 		</component>
 		<component id="midleroof">
@@ -547,10 +626,38 @@
 			<children>
 				<componentref id="wall" />
 				<componentref id="wallback" />
+				<componentref id="fronttop" />
 				<componentref id="triangleleft" />
 				<componentref id="triangleleftback" />
 				<componentref id="triangleright" />
 				<componentref id="trianglerightback" />
+				<componentref id="fronttriangle" />
+			</children>
+		</component>
+		<component id="fronttriangle">
+			<transformation>
+				<transformationref id="fronttriangle" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="triangleright" />
+				<componentref id="trianglerightback" />
+			</children>
+		</component>
+		<component id="fronttop">
+			<transformation>
+				<transformationref id="fronttop" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="wall" />
+				<componentref id="wallback" />
 			</children>
 		</component>
 		<component id="wall">
@@ -653,7 +760,7 @@
 
 		<component id="portalcake">
 			<transformation>
-				<transformationref id="transID" />
+				<transformationref id="portalcake" />
 			</transformation>
 			<materials>
 				<material id="inherit" />
@@ -786,6 +893,73 @@
 
 
 
+
+		<component id="moogle">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="head" />
+			</children>
+		</component>
+		<component id="head">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="headtop" />
+				<componentref id="headbot" />
+				<componentref id="nose" />
+			</children>
+		</component>
+		<component id="nose">
+			<transformation>
+				<transformationref id="nose" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="headtop" />
+			</children>
+		</component>
+		<component id="headtop">
+			<transformation>
+				<transformationref id="headtop" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="headtop" />
+			</children>
+		</component>
+		<component id="headbot">
+			<transformation>
+				<transformationref id="headbot" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="headtop" />
+			</children>
+		</component>
+
+
+
+
 		<component id="rootScene">
 			<transformation>
 				<transformationref id="transID" />
@@ -804,6 +978,7 @@
 				<componentref id="Circle" />
 				<componentref id="island" />
 				<componentref id="portalcake" />
+				<componentref id="moogle" />
 			</children>
 		</component>
 	</components>
