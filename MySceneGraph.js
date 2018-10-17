@@ -1191,7 +1191,6 @@ class MySceneGraph {
     displayScene() {
 
         var rootComponent = this.components[this.rootID];
-        console.log(rootComponent.materialref);
         if (this.textures[rootComponent.textureref] != null)
             this.processComponent(rootComponent, rootComponent.textureref, rootComponent.materialref);
         else
@@ -1204,7 +1203,6 @@ class MySceneGraph {
         let material = mat;
         /*         let texS = component.texS;
                 let texT = component.texT; */
-        console.log("Textura:" + textura + "\n Material:" + material);
         this.scene.setDefaultAppearance();
         this.scene.defaultAppearance.apply();
 
@@ -1238,9 +1236,6 @@ class MySceneGraph {
 
 
         }
-        console.log(textura);
-
-
         for (var j = 0; j < component.leaves.length; j++) {
             //component.leaves[j].updateTexCoords(texS, texT);
             component.leaves[j].display();
