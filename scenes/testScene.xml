@@ -70,9 +70,30 @@
 			<rotate axis="x" angle="-90.0" />
 		</transformation>
 		<transformation id="topping">
-			<translate x="0.0" y="2.0" z="0.0" />
+			<translate x="0.0" y="2.05" z="0.0" />
 			<rotate axis="x" angle="90.0" />
 		</transformation>
+		<transformation id="cherry">
+			<translate x="0.0" y="0.0" z="0.02" />
+		</transformation>
+		<transformation id="decoration1">
+			<translate x="0.0" y="1.5" z="0.0" />
+		</transformation>
+		<transformation id="decoration2">
+			<translate x="0.0" y="-1.5" z="0.0" />
+		</transformation>
+	<transformation id="decoration3">
+		<translate x="1.25" y="0.7" z="0.0" />
+	</transformation>
+	<transformation id="decoration4">
+		<translate x="1.25" y="-0.7" z="0.0" />
+	</transformation>
+	<transformation id="decoration5">
+		<translate x="-1.3" y="0.7" z="0.0" />
+	</transformation>
+	<transformation id="decoration6">
+		<translate x="-1.3" y="-0.7" z="0.0" />
+	</transformation>
 		<transformation id="trianglerightback">
 		<translate x="23.0" y="14.5" z="27.0" />
 			<rotate axis="y" angle="180.0" />
@@ -137,6 +158,7 @@
 			<rotate axis="x" angle="90.0" />
 		</transformation>
 	</transformations>
+
 	<primitives>
 		<primitive id="rec">
 			<rectangle x1="45.0" y1="15.0" x2="0.0" y2="0.0" />
@@ -184,6 +206,7 @@
 			<Circle slices="50"/>
 		</primitive>
 	</primitives >
+
 	<components>
 
 		<component id="quad1">
@@ -515,8 +538,102 @@
 			</materials>
 			<texture id="none" />
 			<children>
-				<primitiveref id="cherry" />
+				<componentref id="decoration1" />
+				<componentref id="decoration2" />
+				<componentref id="decoration3" />
+				<componentref id="decoration4" />
+				<componentref id="decoration5" />
+				<componentref id="decoration6" />
+			</children>
+		</component>
+		<component id="decoration1">
+			<transformation>
+				<transformationref id="decoration1" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cherry" />
 				<primitiveref id="chantily" />
+			</children>
+		</component>
+		<component id="decoration2">
+			<transformation>
+				<transformationref id="decoration2" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cherry" />
+				<primitiveref id="chantily" />
+			</children>
+		</component>
+		<component id="decoration3">
+			<transformation>
+				<transformationref id="decoration3" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cherry" />
+				<primitiveref id="chantily" />
+			</children>
+		</component>
+		<component id="decoration4">
+			<transformation>
+				<transformationref id="decoration4" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cherry" />
+				<primitiveref id="chantily" />
+			</children>
+		</component>
+		<component id="decoration5">
+			<transformation>
+				<transformationref id="decoration5" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cherry" />
+				<primitiveref id="chantily" />
+			</children>
+		</component>
+		<component id="decoration6">
+			<transformation>
+				<transformationref id="decoration6" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cherry" />
+				<primitiveref id="chantily" />
+			</children>
+		</component>
+		<component id="cherry">
+			<transformation>
+				<transformationref id="cherry" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="cherry" />
 			</children>
 		</component>
 
