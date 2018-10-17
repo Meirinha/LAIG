@@ -56,6 +56,31 @@
 		<transformation id="wall1">
 			<translate x="-22.0" y="-0.5" z="27.0" />
 		</transformation>
+		<transformation id="rightpart">
+			<translate x="-10.0" y="38.8" z="-16.0" />
+			<rotate axis="z" angle="-36.5" />
+			<scale x="7.5" y="0.3" z="8.0" />
+		</transformation>
+		<transformation id="midcyl">
+			<translate x="14.0" y="21.3" z="15.8" />
+		</transformation>
+		<transformation id="leftpart">
+			<translate x="-19.0" y="-3.8" z="-16.0" />
+			<rotate axis="z" angle="37.0" />
+			<scale x="7.5" y="0.3" z="8.0" />
+		</transformation>
+		<transformation id="leftroof">
+			<translate x="-27.0" y="0.0" z="0.0" />
+		</transformation>
+		<transformation id="midleroof">
+			<translate x="-85.0" y="43.0" z="-13.4" />
+			<rotate axis="x" angle="36.0" />
+			<scale x="18.0" y="0.3" z="9.0" />
+		</transformation>
+		<transformation id="housewallback">
+			<translate x="-142.0" y="-0.5" z="-29.5" />
+			<scale x="30.0" y="11.0" z="0.3" />
+		</transformation>
 		<transformation id="triangleleft">
 			<translate x="-22.0" y="14.5" z="27.0" />
 		</transformation>
@@ -124,6 +149,10 @@
 			<translate x="0.0" y="2.0" z="1.5" />
 			<rotate axis="x" angle="-90.0" />
 		</transformation>
+		<transformation id="quad6">
+			<translate x="0.0" y="0.0" z="0.0" />
+			<rotate axis="x" angle="90.0" />
+		</transformation>
 		<transformation id="quad5">
 			<translate x="1.5" y="0.0" z="0.0" />
 			<rotate axis="y" angle="-180.0" />
@@ -177,6 +206,9 @@
 		</primitive >
 		<primitive id="cyl">
 			<cylinder base="40.0" top="0.0" height="15" slices="20" stacks="5"/>
+		</primitive>
+		<primitive id="midcyl">
+			<cylinder base="0.7" top="0.7" height="12.5" slices="20" stacks="5"/>
 		</primitive>
 		<primitive id="cake">
 			<cylinder base="2.0" top="2.0" height="2" slices="20" stacks="5"/>
@@ -269,6 +301,18 @@
 				<primitiveref id="quad" />
 			</children>
 		</component>
+		<component id="quad6">
+			<transformation>
+				<transformationref id="quad6" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" length_s="1.0" length_t="1.0" />
+			<children>
+				<primitiveref id="quadtop" />
+			</children>
+		</component>
 		<component id="cube">
 			<transformation>
 				<transformationref id="cube" />
@@ -283,6 +327,7 @@
 				<componentref id="quad3" />
 				<componentref id="quad4" />
 				<componentref id="quad5" />
+				<componentref id="quad6" />
 			</children>
 		</component>
 		<component id="dome">
@@ -399,6 +444,96 @@
 				<componentref id="wall" />
 				<componentref id="front" />
 				<componentref id="floor" />
+				<componentref id="housewallback" />
+				<componentref id="roof" />
+			</children>
+		</component>
+		<component id="roof">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="rightroof" />
+				<componentref id="leftroof" />
+				<componentref id="midleroof" />
+			</children>
+		</component>
+		<component id="midleroof">
+			<transformation>
+				<transformationref id="midleroof" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="leftroof">
+			<transformation>
+				<transformationref id="leftroof" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="rightroof" />
+			</children>
+		</component>
+		<component id="rightroof">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="rightpart" />
+				<componentref id="leftpart" />
+				<componentref id="midcyl" />
+			</children>
+		</component>
+		<component id="midcyl">
+			<transformation>
+				<transformationref id="midcyl" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<primitiveref id="midcyl" />
+			</children>
+		</component>
+		<component id="rightpart">
+			<transformation>
+				<transformationref id="rightpart" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="leftpart">
+			<transformation>
+				<transformationref id="leftpart" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="cube" />
 			</children>
 		</component>
 		<component id="front">
@@ -428,6 +563,18 @@
 			<texture id="inherit" />
 			<children>
 				<primitiveref id="rec" />
+			</children>
+		</component>
+		<component id="housewallback">
+			<transformation>
+				<transformationref id="housewallback" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="cube" />
 			</children>
 		</component>
 		<component id="wallback">
