@@ -68,6 +68,14 @@
 			<translate x="0.0" y="16.0" z="2.2" />
 			<rotate axis="x" angle="-13.0" />
 		</transformation>
+		<transformation id="bodytop">
+			<translate x="0.0" y="7.5" z="0.0" />
+			<rotate axis="x" angle="-90.0" />
+		</transformation>
+		<transformation id="bodybot">
+			<translate x="0.0" y="6.8" z="0.0" />
+			<scale x="1.2" y="1.0" z="1.3" />
+		</transformation>
 		<transformation id="wall1">
 			<translate x="-22.0" y="-0.5" z="27.0" />
 		</transformation>
@@ -246,7 +254,10 @@
 			<cylinder base="40.0" top="0.0" height="15" slices="20" stacks="5"/>
 		</primitive>
 		<primitive id="bodytop">
-			<cylinder base="3.0" top="1.0" height="3" slices="20" stacks="5"/>
+			<cylinder base="1.3" top="0.2" height="1" slices="20" stacks="5"/>
+		</primitive>
+		<primitive id="bodybot">
+			<sphere radius="1.3" slices="50" stacks="50"/>
 		</primitive>
 		<primitive id="midcyl">
 			<cylinder base="0.7" top="0.7" height="12.5" slices="20" stacks="5"/>
@@ -919,9 +930,32 @@
 			</materials>
 			<texture id="none" />
 			<children>
-				<componentref id="headtop" />
-				<componentref id="headbot" />
-				<componentref id="nose" />
+				<componentref id="bodytop" />
+				<componentref id="bodybot" />
+			</children>
+		</component>
+		<component id="bodybot">
+			<transformation>
+				<transformationref id="bodybot" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="bodybot" />
+			</children>
+		</component>
+		<component id="bodytop">
+			<transformation>
+				<transformationref id="bodytop" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="bodytop" />
 			</children>
 		</component>
 		<component id="head">
