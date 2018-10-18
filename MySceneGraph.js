@@ -499,8 +499,8 @@ class MySceneGraph {
                 this.onXMLMinorError("Lights child id= " + currChild.getAttribute("id") + " has not a valid 'enabled' value, using 0.");
                 currChild.setAttribute("enabled", 1);
             }
-            let angle = 0.0;
-            let exponent = 0.0;
+            var angle = 0.0;
+            var exponent = 0.0;
             let target = [];
             var lightEnabled = this.reader.getBoolean(currChild, "enabled");
             for (let j = 0; j < currChild.children.length; j++) {
@@ -554,23 +554,26 @@ class MySceneGraph {
                     y = parseFloat(currGrandchild.getAttribute("y"));
                     z = parseFloat(currGrandchild.getAttribute("z"));
                     target = [x, y, z];
-                } else if (currChild.nodeName == "spot") {
-                    angle = parseFloat(currChild.getAttribute("angle"));
-                    if (!this.isValidNumber(angle)) {
-                        let defAngle = 90.0 * DEGREE_TO_RAD;
-                        this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
-                        currChild.setAttribute("angle", defAngle);
-                    }
-                    angle = parseFloat(currGrandchild.getAttribute("angle"));
 
-                    exponent = parseFloat(currChild.getAttribute("exponent"));
-                    if (!this.isValidNumber(exponent)) {
-                        let defExponent = 1.0;
-                        this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid exponent value, using default value exponent = " + defExponent);
-                        currChild.setAttribute("exponent", defExponent);
-                    }
-                    exponent = parseFloat(currGrandchild.getAttribute("exponent"));
                 }
+            }
+            if (currChild.nodeName == "spot") {
+                angle = parseFloat(currChild.getAttribute("angle"));
+                if (!this.isValidNumber(angle)) {
+                    let defAngle = 90.0 * DEGREE_TO_RAD;
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid angle value, using default value angle = " + defAngle);
+                    currChild.setAttribute("angle", defAngle);
+                }
+                angle = parseFloat(currChild.getAttribute("angle"));
+
+                exponent = parseFloat(currChild.getAttribute("exponent"));
+                if (!this.isValidNumber(exponent)) {
+                    let defExponent = 1.0;
+                    this.onXMLMinorError(currChild.getAttribute("id") + " has an invalid exponent value, using default value exponent = " + defExponent);
+                    currChild.setAttribute("exponent", defExponent);
+                }
+                exponent = parseFloat(currChild.getAttribute("exponent"));
+
 
             }
             if (currChild.nodeName == "omni") {
