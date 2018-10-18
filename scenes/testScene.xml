@@ -251,6 +251,9 @@
 		<primitive id="cyl">
 			<cylinder base="40.0" top="0.0" height="15" slices="20" stacks="5"/>
 		</primitive>
+		<primitive id="bodytop">
+			<cylinder base="3.0" top="1.0" height="3" slices="20" stacks="5"/>
+		</primitive>
 		<primitive id="midcyl">
 			<cylinder base="0.7" top="0.7" height="12.5" slices="20" stacks="5"/>
 		</primitive>
@@ -897,6 +900,21 @@
 			<texture id="none" />
 			<children>
 				<componentref id="head" />
+				<componentref id="body" />
+			</children>
+		</component>
+		<component id="body">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="headtop" />
+				<componentref id="headbot" />
+				<componentref id="nose" />
 			</children>
 		</component>
 		<component id="head">
