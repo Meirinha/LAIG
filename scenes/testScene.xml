@@ -60,12 +60,33 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="flowerright">
+			<translate x="0.0" y="0.0" z="0.1" />
+			<rotate axis="y" angle="180.0" />
+		</transformation>
+		<transformation id="petalleft">
+			<translate x="0.0" y="4.9" z="0.5" />
+			<rotate axis="x" angle="30.0" />
+		</transformation>
+		<transformation id="lipleft">
+			<translate x="0.0" y="4.9" z="0.5" />
+			<scale x="4.0" y="4.0" z="4.0" />
+			<rotate axis="x" angle="33.0" />
+		</transformation>
 		<transformation id="vasebot">
 			<scale x="0.5" y="0.5" z="1.0" />
 		</transformation>
 		<transformation id="vasetop">
 			<translate x="0.0" y="0.0" z="1.8" />
-			<scale x="0.7" y="0.7" z="0.4" />
+			<scale x="0.6" y="0.6" z="0.3" />
+		</transformation>
+		<transformation id="stalkbot">
+			<translate x="0.0" y="0.0" z="2.0" />
+			<scale x="0.06" y="0.06" z="0.9" />
+		</transformation>
+		<transformation id="stalktop">
+			<translate x="0.0" y="0.0" z="3.8" />
+			<scale x="0.1" y="0.1" z="0.08" />
 		</transformation>
 		<transformation id="moogle">
 			<translate x="-10.0" y="-5.0" z="1.0" />
@@ -361,6 +382,9 @@
 		</primitive>
 		<primitive id="headtop">
 			<SemiSphere slices="50" stacks="50"/>
+		</primitive>
+		<primitive id="petalinterior">
+			<Dome slices="50" stacks="50"/>
 		</primitive>
 	</primitives >
 	<components>
@@ -1231,6 +1255,185 @@
 			<texture id="none" />
 			<children>
 				<componentref id="vase" />
+				<componentref id="stalk" />
+				<componentref id="flower" />
+			</children>
+		</component>
+		<component id="flower">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="flowerleft" />
+				<componentref id="flowerright" />
+			</children>
+		</component>
+		<component id="flowerright">
+			<transformation>
+				<transformationref id="flowerright" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="flowerleft" />
+			</children>
+		</component>
+		<component id="flowerleft">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="petalleft" />
+				<componentref id="lipleft" />
+				<componentref id="teeth" />
+			</children>
+		</component>
+		<component id="teeth">
+			<transformation>
+				<transformationref id="lipleft" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="teeth1" />
+				<componentref id="teeth2" />
+				<componentref id="teeth3" />
+				<componentref id="teeth4" />
+				<componentref id="teeth5" />
+			</children>
+		</component>
+		<component id="teeth1">
+			<transformation>
+				<transformationref id="lipleft" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="leg" />
+			</children>
+		</component>
+		<component id="teeth2">
+			<transformation>
+				<transformationref id="lipleft" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="leg" />
+			</children>
+		</component>
+		<component id="teeth3">
+			<transformation>
+				<transformationref id="lipleft" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="leg" />
+			</children>
+		</component>
+		<component id="teeth4">
+			<transformation>
+				<transformationref id="lipleft" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="leg" />
+			</children>
+		</component>
+		<component id="teeth5">
+			<transformation>
+				<transformationref id="lipleft" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="leg" />
+			</children>
+		</component>
+		<component id="lipleft">
+			<transformation>
+				<transformationref id="lipleft" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="chantily" />
+			</children>
+		</component>
+		<component id="petalleft">
+			<transformation>
+				<transformationref id="petalleft" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="headtop" />
+				<primitiveref id="petalinterior" />
+			</children>
+		</component>
+		<component id="stalk">
+			<transformation>
+				<transformationref id="cake" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="stalkbot" />
+				<componentref id="stalktop" />
+			</children>
+		</component>
+		<component id="stalkbot">
+			<transformation>
+				<transformationref id="stalkbot" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="cake" />
+			</children>
+		</component>
+		<component id="stalktop">
+			<transformation>
+				<transformationref id="stalktop" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="cake" />
 			</children>
 		</component>
 		<component id="vase">
