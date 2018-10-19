@@ -60,6 +60,14 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="bottombox">
+			<translate x="-5.0" y="0.0" z="-5.0" />
+			<scale x="1.2" y="0.4" z="1.2" />
+		</transformation>
+		<transformation id="topbox">
+			<translate x="-5.95" y="0.8" z="-5.95" />
+			<scale x="1.4" y="0.1" z="1.4" />
+		</transformation>
 		<transformation id="marioplant">
 			<translate x="0.0" y="0.0" z="20.0" />
 		</transformation>
@@ -83,10 +91,10 @@
 			<translate x="-1.0" y="12.3" z="-6.3" />
 		</transformation>
 		<transformation id="teeth4">
-			<translate x="1.2" y="11.5" z="-6.3" />
+			<translate x="1.3" y="11.3" z="-6.3" />
 		</transformation>
 		<transformation id="teeth5">
-			<translate x="-1.2" y="11.5" z="-6.3" />
+			<translate x="-1.3" y="11.3" z="-6.3" />
 		</transformation>
 		<transformation id="flowerright">
 			<translate x="0.0" y="0.0" z="0.1" />
@@ -1541,6 +1549,45 @@
 		</component>
 
 
+		<component id="gramophone">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="bottombox" />
+				<componentref id="topbox" />
+			</children>
+		</component>
+		<component id="topbox">
+			<transformation>
+				<transformationref id="topbox" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="bottombox">
+			<transformation>
+				<transformationref id="bottombox" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+
+
 
 		<component id="rootScene">
 			<transformation>
@@ -1562,6 +1609,7 @@
 				<componentref id="portalcake" />
 				<componentref id="moogle" />
 				<componentref id="marioplant" />
+				<componentref id="gramophone" />
 			</children>
 		</component>
 	</components>
