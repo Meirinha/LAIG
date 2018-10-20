@@ -60,8 +60,59 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="thumb">
+			<rotate axis="y" angle="-110.0" />
+			<rotate axis="x" angle="-50.0" />
+			<scale x="1.2" y="1.2" z="1.0" />
+			<translate x="0.3" y="-0.3" z="-1.0" />
+		</transformation>
+		<transformation id="leftfinger">
+			<rotate axis="y" angle="-23.0" />
+			<translate x="-0.45" y="0.0" z="0.15" />
+		</transformation>
+		<transformation id="middlefinger">
+			<rotate axis="y" angle="-13.0" />
+			<scale x="1.0" y="1.0" z="1.1" />
+			<translate x="-0.2" y="0.0" z="-0.1" />
+		</transformation>
+		<transformation id="fingerbot">
+			<scale x="0.3" y="0.4" z="0.35" />
+			<translate x="1.8" y="0.0" z="4.0" />
+			<rotate axis="y" angle="10.0" />
+			<rotate axis="x" angle="-10.0" />
+		</transformation>
+		<transformation id="fingermiddle">
+			<rotate axis="y" angle="10.0" />
+			<scale x="0.1" y="0.06" z="0.05" />
+			<translate x="3.0" y="1.5" z="41.0" />
+			<rotate axis="x" angle="-20.0" />
+		</transformation>
+		<transformation id="fingertop">
+			<rotate axis="y" angle="15.0" />
+			<scale x="0.35" y="0.45" z="0.15" />
+			<translate x="0.3" y="0.25" z="13.8" />
+			<rotate axis="x" angle="-20.0" />
+		</transformation>
+		<transformation id="frontfinger">
+			<rotate axis="x" angle="90.0" />
+			<scale x="4.4" y="4.4" z="1.4" />
+			<translate x="0.0" y="0.35" z="0.01" />
+		</transformation>
+		<transformation id="backfinger">
+			<rotate axis="x" angle="90.0" />
+			<scale x="4.4" y="4.4" z="1.4" />
+			<translate x="0.0" y="0.35" z="-0.1" />
+		</transformation>
+		<transformation id="fronthand">
+			<scale x="0.9" y="0.3" z="1.0" />
+		</transformation>
+		<transformation id="backhand">
+			<scale x="0.9" y="0.3" z="1.0" />
+			<translate x="0.0" y="0.4" z="0.0" />
+		</transformation>
 		<transformation id="cactuar">
 			<rotate axis="x" angle="-20.0" />
+			<translate x="0.0" y="4.0" z="-10.0" />
 		</transformation>
 		<transformation id="hair1">
 			<scale x="0.08" y="0.15" z="0.08" />
@@ -454,6 +505,9 @@
 		<primitive id="tri">
 			<triangle x1="0.0" y1="0.0" z1="0.0" x2="18.0" y2="0.0" z2="0.0" x3="9.0" y3="7.0" z3="0.0"/>
 		</primitive >
+		<primitive id="hand">
+			<cylinder base="0.8" top="1.0" height="1.5" slices="40" stacks="5"/>
+		</primitive>
 		<primitive id="thin">
 			<cylinder base="0.08" top="0.3" height="1.5" slices="10" stacks="5"/>
 		</primitive>
@@ -2024,6 +2078,174 @@
 		</component>
 
 
+		<component id="veigarhand">
+			<transformation>
+				<transformationref id="leg" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="handcenter" />
+				<componentref id="rightfinger" />
+				<componentref id="middlefinger" />
+				<componentref id="leftfinger" />
+				<componentref id="thumb" />
+			</children>
+		</component>
+		<component id="thumb">
+			<transformation>
+				<transformationref id="thumb" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="rightfinger" />
+			</children>
+		</component>
+		<component id="leftfinger">
+			<transformation>
+				<transformationref id="leftfinger" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="rightfinger" />
+			</children>
+		</component>
+		<component id="middlefinger">
+			<transformation>
+				<transformationref id="middlefinger" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="rightfinger" />
+			</children>
+		</component>
+		<component id="rightfinger">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="fingerbot" />
+				<componentref id="fingermiddle" />
+				<componentref id="fingertop" />
+			</children>
+		</component>
+		<component id="fingertop">
+			<transformation>
+				<transformationref id="fingertop" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="fronthand" />
+				<componentref id="frontfinger" />
+				<componentref id="backhand" />
+				<componentref id="backfinger" />
+			</children>
+		</component>
+			<component id="frontfinger">
+				<transformation>
+					<transformationref id="frontfinger" />
+				</transformation>
+				<materials>
+					<material id="inherit" />
+				</materials>
+				<texture id="none" />
+				<children>
+					<primitiveref id="cherry" />
+				</children>
+			</component>
+			<component id="backfinger">
+				<transformation>
+					<transformationref id="backfinger" />
+				</transformation>
+				<materials>
+					<material id="inherit" />
+				</materials>
+				<texture id="none" />
+				<children>
+					<primitiveref id="cherry" />
+				</children>
+			</component>
+		<component id="fingermiddle">
+			<transformation>
+				<transformationref id="fingermiddle" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cake" />
+			</children>
+		</component>
+		<component id="fingerbot">
+			<transformation>
+				<transformationref id="fingerbot" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="handcenter" />
+			</children>
+		</component>
+		<component id="handcenter">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="fronthand" />
+				<componentref id="backhand" />
+			</children>
+		</component>
+		<component id="fronthand">
+			<transformation>
+				<transformationref id="fronthand" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="hand" />
+			</children>
+		</component>
+		<component id="backhand">
+			<transformation>
+				<transformationref id="backhand" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="hand" />
+			</children>
+		</component>
+
+
 
 
 
@@ -2049,6 +2271,7 @@
 				<componentref id="marioplant" />
 				<componentref id="gramophone" />
 				<componentref id="cactuar" />
+				<componentref id="veigarhand" />
 			</children>
 		</component>
 	</components>
