@@ -102,6 +102,6 @@ class MyTriangle extends CGFobject{
 			else
 				this.texCoords[i] = (tFactor - this.baseTexCoords[i]) / tFactor;
 		}
-		//this.updateTexCoordsGLBuffers();
+		this.updateTexCoordsGLBuffers();
 	}
 }

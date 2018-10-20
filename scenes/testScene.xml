@@ -1025,7 +1025,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="textureID" length_s="100.0" length_t="22.0"/>
+			<texture id="textureID" length_s="1.0" length_t="1.0"/>
 			<children>
 				<componentref id="cube" />
 			</children>
