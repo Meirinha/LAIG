@@ -60,6 +60,20 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="frontsupleft">
+			<rotate axis="x" angle="-90.0" />
+			<translate x="-4.0" y="-33.0" z="-0.5" />
+			<scale x="0.4" y="0.4" z="1.1" />
+		</transformation>
+		<transformation id="frontsupright">
+			<rotate axis="x" angle="-90.0" />
+			<translate x="4.0" y="-33.0" z="-0.5" />
+			<scale x="0.4" y="0.4" z="1.1" />
+		</transformation>
+		<transformation id="frontroof">
+			<translate x="8.0" y="7.0" z="17.3" />
+			<scale x="0.6" y="0.4" z="0.6" />
+		</transformation>
 		<transformation id="frontwallleft">
 			<translate x="-70.0" y="-0.5" z="25.5" />
 			<scale x="12.0" y="7.5" z="0.3" />
@@ -67,6 +81,10 @@
 		<transformation id="frontwallright">
 			<translate x="-43.0" y="-0.5" z="25.5" />
 			<scale x="12.0" y="7.5" z="0.3" />
+		</transformation>
+		<transformation id="frontdoor">
+			<translate x="-39.0" y="-0.5" z="25.3" />
+			<scale x="8.0" y="7.3" z="0.3" />
 		</transformation>
 		<transformation id="veigarhand">
 			<rotate axis="x" angle="-90.0" />
@@ -844,6 +862,19 @@
 				<componentref id="leftroof" />
 				<componentref id="midleroof" />
 				<componentref id="toproof" />
+				<componentref id="frontroof" />
+			</children>
+		</component>
+		<component id="frontroof">
+			<transformation>
+				<transformationref id="frontroof" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="leftroof" />
 			</children>
 		</component>
 		<component id="toproof">
@@ -948,6 +979,32 @@
 				<componentref id="triangleright" />
 				<componentref id="trianglerightback" />
 				<componentref id="fronttriangle" />
+				<componentref id="frontsupleft" />
+				<componentref id="frontsupright" />
+			</children>
+		</component>
+		<component id="frontsupleft">
+			<transformation>
+				<transformationref id="frontsupleft" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<primitiveref id="midcyl" />
+			</children>
+		</component>
+		<component id="frontsupright">
+			<transformation>
+				<transformationref id="frontsupright" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<primitiveref id="midcyl" />
 			</children>
 		</component>
 		<component id="frontwall">
@@ -961,6 +1018,19 @@
 			<children>
 				<componentref id="frontwallleft" />
 				<componentref id="frontwallright" />
+				<componentref id="frontdoor" />
+			</children>
+		</component>
+		<component id="frontdoor">
+			<transformation>
+				<transformationref id="frontdoor" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="cube" />
 			</children>
 		</component>
 		<component id="frontwallright">
