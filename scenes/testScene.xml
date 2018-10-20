@@ -60,11 +60,6 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
-		<transformation id="carmleftbot">
-			<rotate axis="x" angle="90.0" />
-			<scale x="0.3" y="0.3" z="0.3" />
-			<translate x="0.0" y="-0.8" z="-10.0" />
-		</transformation>
 		<transformation id="carmrighttop">
 			<scale x="0.33" y="0.3" z="0.33" />
 			<translate x="0.0" y="6.63" z="-2.6" />
@@ -73,6 +68,20 @@
 			<rotate axis="x" angle="90.0" />
 			<scale x="0.3" y="0.3" z="0.3" />
 			<translate x="0.0" y="-4.7" z="-10.0" />
+		</transformation>
+		<transformation id="clegrighttop">
+			<scale x="0.33" y="0.3" z="0.33" />
+			<translate x="0.0" y="6.63" z="-2.6" />
+		</transformation>
+		<transformation id="clegrightbot">
+			<rotate axis="x" angle="90.0" />
+			<scale x="0.3" y="0.3" z="0.3" />
+			<translate x="0.0" y="-4.7" z="-10.0" />
+		</transformation>
+		<transformation id="carmleftbot">
+			<rotate axis="x" angle="90.0" />
+			<scale x="0.3" y="0.3" z="0.3" />
+			<translate x="0.0" y="-0.8" z="-10.0" />
 		</transformation>
 		<transformation id="carmlefttop">
 			<scale x="0.33" y="0.3" z="0.33" />
@@ -91,7 +100,7 @@
 		<transformation id="cbodybot">
 			<rotate axis="x" angle="90.0" />
 			<scale x="0.4" y="0.4" z="0.3" />
-			<translate x="0.0" y="0.0" z="-7.0" />
+			<translate x="0.0" y="0.0" z="-7.1" />
 		</transformation>
 		<transformation id="gramophone">
 			<translate x="10.0" y="0.0" z="0.0" />
@@ -1736,6 +1745,44 @@
 				<componentref id="cbody" />
 				<componentref id="carmleft" />
 				<componentref id="carmright" />
+				<componentref id="clegright" />
+			</children>
+		</component>
+		<component id="clegright">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="clegrightbot" />
+				<componentref id="clegrighttop" />
+			</children>
+		</component>
+		<component id="clegrightbot">
+			<transformation>
+				<transformationref id="clegrightbot" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cbody" />
+			</children>
+		</component>
+		<component id="clegrighttop">
+			<transformation>
+				<transformationref id="clegrighttop" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cbody" />
 			</children>
 		</component>
 		<component id="carmright">
