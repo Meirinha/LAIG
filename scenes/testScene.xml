@@ -60,6 +60,23 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="support">
+			<rotate axis="x" angle="-100.0" />
+			<scale x="0.04" y="0.04" z="0.5" />
+			<translate x="17.8" y="2.0" z="2.1" />
+		</transformation>
+		<transformation id="thin">
+			<rotate axis="x" angle="-33.0" />
+			<translate x="0.7" y="1.9" z="0.5" />
+		</transformation>
+		<transformation id="large">
+				<rotate axis="x" angle="-33.0" />
+				<translate x="0.7" y="1.9" z="2.0" />
+		</transformation>
+		<transformation id="disk">
+			<translate x="0.7" y="1.0" z="0.7" />
+			<scale x="0.4" y="0.03" z="0.4" />
+		</transformation>
 		<transformation id="bottombox">
 			<translate x="-5.0" y="0.0" z="-5.0" />
 			<scale x="1.2" y="0.4" z="1.2" />
@@ -368,6 +385,12 @@
 		<primitive id="tri">
 			<triangle x1="0.0" y1="0.0" z1="0.0" x2="18.0" y2="0.0" z2="0.0" x3="9.0" y3="7.0" z3="0.0"/>
 		</primitive >
+		<primitive id="thin">
+			<cylinder base="0.08" top="0.3" height="1.5" slices="10" stacks="5"/>
+		</primitive>
+		<primitive id="large">
+			<cylinder base="0.3" top="1.1" height="0.8" slices="10" stacks="5"/>
+		</primitive>
 		<primitive id="cyl">
 			<cylinder base="40.0" top="0.0" height="15" slices="20" stacks="5"/>
 		</primitive>
@@ -1550,6 +1573,82 @@
 
 
 		<component id="gramophone">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="box" />
+				<componentref id="disk" />
+				<componentref id="horn" />
+			</children>
+		</component>
+		<component id="horn">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="thin" />
+				<componentref id="large" />
+				<componentref id="support" />
+			</children>
+		</component>
+		<component id="support">
+			<transformation>
+				<transformationref id="support" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="cake" />
+			</children>
+		</component>
+		<component id="thin">
+			<transformation>
+				<transformationref id="thin" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="thin" />
+			</children>
+		</component>
+		<component id="large">
+			<transformation>
+				<transformationref id="large" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="large" />
+			</children>
+		</component>
+		<component id="disk">
+			<transformation>
+				<transformationref id="disk" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cake" />
+			</children>
+		</component>
+		<component id="box">
 			<transformation>
 				<transformationref id="transID" />
 			</transformation>
