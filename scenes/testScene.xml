@@ -60,6 +60,14 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="frontwallleft">
+			<translate x="-70.0" y="-0.5" z="25.5" />
+			<scale x="12.0" y="7.5" z="0.3" />
+		</transformation>
+		<transformation id="frontwallright">
+			<translate x="-43.0" y="-0.5" z="25.5" />
+			<scale x="12.0" y="7.5" z="0.3" />
+		</transformation>
 		<transformation id="veigarhand">
 			<rotate axis="x" angle="-90.0" />
 			<rotate axis="x" angle="30.0" />
@@ -933,14 +941,50 @@
 			</materials>
 			<texture id="inherit" />
 			<children>
-				<componentref id="wall" />
-				<componentref id="wallback" />
+				<componentref id="frontwall" />
 				<componentref id="fronttop" />
 				<componentref id="triangleleft" />
 				<componentref id="triangleleftback" />
 				<componentref id="triangleright" />
 				<componentref id="trianglerightback" />
 				<componentref id="fronttriangle" />
+			</children>
+		</component>
+		<component id="frontwall">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="frontwallleft" />
+				<componentref id="frontwallright" />
+			</children>
+		</component>
+		<component id="frontwallright">
+			<transformation>
+				<transformationref id="frontwallright" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="frontwallleft">
+			<transformation>
+				<transformationref id="frontwallleft" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="cube" />
 			</children>
 		</component>
 		<component id="fronttriangle">
