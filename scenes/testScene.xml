@@ -41,6 +41,8 @@
 		<texture id="textureRocks" file="rocks.jpg" />
 		<texture id="textureWall" file="bank.jpg" />
 		<texture id="textureFloor" file="trunk-image.jpg" />
+		<texture id="dometop" file="dometop.jpg" />
+		<texture id="domebot" file="domebot.png" />
 	</textures>
 	<materials>
 		<material id="materialID" shininess = "1.0" >
@@ -48,6 +50,12 @@
 			<ambient r="0.3" g="0.3" b="0.3" a="1.0" />
 			<diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
 			<specular r="0.3" g="0.3" b="0.3" a="1.0" />
+		</material>
+		<material id="transparent" shininess = "0.8" >
+			<emission r="0.4" g="0.4" b="0.4" a="0.0" />
+			<ambient r="0.3" g="0.3" b="0.3" a="0.0" />
+			<diffuse r="0.3" g="0.3" b="0.3" a="0.0" />
+			<specular r="0.3" g="0.3" b="0.3" a="0.0" />
 		</material>
 		<material id="materialID2" shininess = "1.0" >
 			<emission r="0.4" g="0.4" b="0.4" a="1.0" />
@@ -731,7 +739,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="dometop" length_s="1.0" length_t="1.0" />
 			<children>
 				<primitiveref id="Dome" />
 			</children>
@@ -743,7 +751,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="inherit" length_s="1.0" length_t="1.0" />
 			<children>
 				<primitiveref id="DomeBot" />
 			</children>
@@ -765,9 +773,9 @@
 				<transformationref id="lake" />
 			</transformation>
 			<materials>
-				<material id="inherit" />
+				<material id="transparent" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="domebot" length_s="1.0" length_t="1.0" />
 			<children>
 				<primitiveref id="Lake" />
 			</children>
