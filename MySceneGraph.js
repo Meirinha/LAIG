@@ -1148,8 +1148,6 @@ class MySceneGraph {
 
         let textura = tex;
         let material = mat;
-        /*         let texS = component.texS;
-                let texT = component.texT; */
         this.scene.setDefaultAppearance();
         this.scene.defaultAppearance.apply();
 
@@ -1161,8 +1159,8 @@ class MySceneGraph {
                 textura = null;
             else {
                 textura = component.textureref;
-                //ampS = this.textures[component.textureref];
-                //ampT = this.textures[component.textureref];
+                var texS = component.texS;
+                var texT = component.texT;
             }
         }
 
@@ -1187,7 +1185,7 @@ class MySceneGraph {
 
         }
         for (var j = 0; j < component.leaves.length; j++) {
-            //component.leaves[j].updateTexCoords(texS, texT);
+            component.leaves[j].updateTexCoords(texS, texT);
             component.leaves[j].display();
         }
         this.scene.popMatrix();

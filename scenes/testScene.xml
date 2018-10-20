@@ -44,6 +44,7 @@
 		<texture id="dometop" file="dometop.jpg" />
 		<texture id="domebot" file="domebot.png" />
 		<texture id="grass" file="grass.jpg" />
+		<texture id="roof" file="roof.jpg" />
 	</textures>
 	<materials>
 		<material id="materialID" shininess = "1.0" >
@@ -723,7 +724,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="textureFloor" length_s="1.0" length_t="1.0" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="quad1" />
 				<componentref id="quad2" />
@@ -916,7 +917,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="roof" length_s="1.0" length_t="1.0"/>
 			<children>
 				<componentref id="rightroof" />
 				<componentref id="leftroof" />
