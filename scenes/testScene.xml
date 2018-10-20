@@ -60,6 +60,21 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="cactuar">
+			<rotate axis="x" angle="-20.0" />
+		</transformation>
+		<transformation id="hair1">
+			<scale x="0.08" y="0.15" z="0.08" />
+			<translate x="0.0" y="22.5" z="-2.3" />
+		</transformation>
+		<transformation id="hair2">
+			<scale x="0.08" y="0.15" z="0.08" />
+			<translate x="0.0" y="23.0" z="0.0" />
+		</transformation>
+		<transformation id="hair3">
+			<scale x="0.08" y="0.15" z="0.08" />
+			<translate x="0.0" y="22.5" z="2.3" />
+		</transformation>
 		<transformation id="carmrighttop">
 			<scale x="0.33" y="0.3" z="0.33" />
 			<translate x="0.0" y="6.63" z="-2.6" />
@@ -70,13 +85,22 @@
 			<translate x="0.0" y="-4.7" z="-10.0" />
 		</transformation>
 		<transformation id="clegrighttop">
-			<scale x="0.33" y="0.3" z="0.33" />
-			<translate x="0.0" y="6.63" z="-2.6" />
+			<scale x="0.35" y="0.35" z="0.35" />
+			<translate x="0.0" y="2.1" z="-2.3" />
 		</transformation>
 		<transformation id="clegrightbot">
 			<rotate axis="x" angle="90.0" />
-			<scale x="0.3" y="0.3" z="0.3" />
-			<translate x="0.0" y="-4.7" z="-10.0" />
+			<scale x="0.3" y="0.5" z="0.3" />
+			<translate x="0.0" y="-3.7" z="-6.5" />
+		</transformation>
+		<transformation id="cleglefttop">
+			<rotate axis="x" angle="90.0" />
+			<scale x="0.35" y="0.35" z="0.35" />
+			<translate x="0.0" y="-1.3" z="-4.4" />
+		</transformation>
+		<transformation id="clegleftbot">
+			<scale x="0.3" y="0.4" z="0.3" />
+			<translate x="0.0" y="1.7" z="0.95" />
 		</transformation>
 		<transformation id="carmleftbot">
 			<rotate axis="x" angle="90.0" />
@@ -1735,7 +1759,7 @@
 
 		<component id="cactuar">
 			<transformation>
-				<transformationref id="transID" />
+				<transformationref id="cactuar" />
 			</transformation>
 			<materials>
 				<material id="inherit" />
@@ -1746,6 +1770,95 @@
 				<componentref id="carmleft" />
 				<componentref id="carmright" />
 				<componentref id="clegright" />
+				<componentref id="clegleft" />
+				<componentref id="hair" />
+			</children>
+		</component>
+		<component id="hair">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="hair1" />
+				<componentref id="hair2" />
+				<componentref id="hair3" />
+			</children>
+		</component>
+		<component id="hair1">
+			<transformation>
+				<transformationref id="hair1" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cbody" />
+			</children>
+		</component>
+		<component id="hair2">
+			<transformation>
+				<transformationref id="hair2" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cbody" />
+			</children>
+		</component>
+		<component id="hair3">
+			<transformation>
+				<transformationref id="hair3" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cbody" />
+			</children>
+		</component>
+		<component id="clegleft">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="clegleftbot" />
+				<componentref id="cleglefttop" />
+			</children>
+		</component>
+		<component id="clegleftbot">
+			<transformation>
+				<transformationref id="clegleftbot" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cbody" />
+			</children>
+		</component>
+		<component id="cleglefttop">
+			<transformation>
+				<transformationref id="cleglefttop" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cbody" />
 			</children>
 		</component>
 		<component id="clegright">
