@@ -60,6 +60,16 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="leftwallsmall">
+			<rotate axis="y" angle="-90.0" />
+			<scale x="0.6" y="1.0" z="1.0" />
+			<translate x="48.5" y="0.0" z="-5.1" />
+		</transformation>
+		<transformation id="leftwalllarge">
+			<rotate axis="y" angle="-90.0" />
+			<scale x="2.5" y="1.55" z="1.0" />
+			<translate x="10.8" y="0.0" z="-5.1" />
+		</transformation>
 		<transformation id="frontsupleft">
 			<rotate axis="x" angle="-90.0" />
 			<translate x="-4.0" y="-33.0" z="-0.5" />
@@ -823,6 +833,44 @@
 				<componentref id="backtriangle" />
 				<componentref id="roof" />
 				<componentref id="frontbottom" />
+				<componentref id="leftwall" />
+			</children>
+		</component>
+		<component id="leftwall">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="leftwallsmall" />
+				<componentref id="leftwalllarge" />
+			</children>
+		</component>
+		<component id="leftwalllarge">
+			<transformation>
+				<transformationref id="leftwalllarge" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="frontwallleft" />
+			</children>
+		</component>
+		<component id="leftwallsmall">
+			<transformation>
+				<transformationref id="leftwallsmall" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="frontwallleft" />
 			</children>
 		</component>
 		<component id="backtriangle">
