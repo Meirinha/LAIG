@@ -9,7 +9,7 @@ class MyNode {
         this.leaves = [];
 
         this.materialref = null;
-
+        this.materialRefList = [];
         this.textureref = null;
 
         this.texS = 1.0;
@@ -33,4 +33,26 @@ class MyNode {
         this.leaves.push(leaf);
     }
 
+    assignFirstMat() { //Assigns first material in array
+        for (var mat in this.materialRefList) {
+            this.materialref = this.materialRefList[mat];
+            break;
+        }
+    }
+
+    nextMaterial() {
+        let flag = false;
+        for (var mate in this.materialRefList) {
+            console.log("HERE");
+            if (this.materialref == this.materialRefList[mate])
+                flag = true;
+            else if (flag) {
+                this.materialref = this.materialRefList[mate];
+                flag = false;
+                break;
+            }
+        }
+        if (flag)
+            this.assignFirstMat();
+    }
 }

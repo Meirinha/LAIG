@@ -683,7 +683,6 @@ class MySceneGraph {
                         this.materials[currID].setSpecular(parseFloat(currGrandchild.getAttribute("r")), parseFloat(currGrandchild.getAttribute("g")), parseFloat(currGrandchild.getAttribute("b")), parseFloat(currGrandchild.getAttribute("a")));
                         break;
                 }
-                console.log(this.materials[currID]);
             }
             i++;
         } while (i < children.length) return null;
@@ -1028,12 +1027,10 @@ class MySceneGraph {
 
                 } else if (currGrandchild.nodeName == "materials") {
                     let currGreatchildren = currGrandchild.children;
-                    let currGreatchild = currGreatchildren[0];
-
-                    if (currGreatchild.getAttribute("id") == "inherit") {
-                        this.components[currID].materialref = "inherit";
-                    } else
-                        this.components[currID].materialref = currGreatchild.getAttribute("id");
+                    for (let z = 0; z < currGreatchildren.length; z++) {
+                        let currGreatchild = currGreatchildren[z];
+                        this.components[currID].materialRefList.push(currGreatchild.getAttribute("id"));
+                    }
                 } else if (currGrandchild.nodeName == "texture") {
 
                     if (currGrandchild.getAttribute("id") == "inherit") {
@@ -1058,9 +1055,21 @@ class MySceneGraph {
         } while (i < children.length)
 
         this.processNodesAux(componentNodes);
+        this.assignFirstMaterial();
         return null;
     }
 
+    assignFirstMaterial() {
+        for (var comp in this.components) {
+            this.components[comp].assignFirstMat();
+        }
+    }
+
+    componentsNextMaterial() {
+        for (var comp in this.components) {
+            this.components[comp].nextMaterial();
+        }
+    }
 
     processNodesAux(componentNodes) {
         //CHILDREN
@@ -1088,7 +1097,6 @@ class MySceneGraph {
                             }
                         } else if (currGreatchild.nodeName == "componentref") {
                             let idChild = currGreatchild.getAttribute("id");
-                            console.log(idChild);
                             this.components[currID].addChild(this.components[idChild]);
                         }
                         k++;
@@ -1166,6 +1174,9 @@ class MySceneGraph {
             this.processComponent(this.components[component.children[i].nodeID], textura, material);
         }
 
+        if (this.scene.changeMaterial) {
+            component.nextMaterial();
+        }
         if (material != null) {
             this.materials[material].setTexture(null);
             if (textura != null) {

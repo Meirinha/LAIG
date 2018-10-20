@@ -60,4 +60,12 @@ class MyInterface extends CGFinterface {
 
         this.gui.add(this.scene, 'changeCamera', this.cameraArray);
     }
+
+    processKeyUp(event) {
+        let graph = this.scene.graph;
+        if (event.code == "KeyM") {
+            console.log("Pressed M");
+            graph.componentsNextMaterial();
+        }
+    }
 }
