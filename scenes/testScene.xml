@@ -60,6 +60,42 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="carmleftbot">
+			<rotate axis="x" angle="90.0" />
+			<scale x="0.3" y="0.3" z="0.3" />
+			<translate x="0.0" y="-0.8" z="-10.0" />
+		</transformation>
+		<transformation id="carmrighttop">
+			<scale x="0.33" y="0.3" z="0.33" />
+			<translate x="0.0" y="6.63" z="-2.6" />
+		</transformation>
+		<transformation id="carmrightbot">
+			<rotate axis="x" angle="90.0" />
+			<scale x="0.3" y="0.3" z="0.3" />
+			<translate x="0.0" y="-4.7" z="-10.0" />
+		</transformation>
+		<transformation id="carmlefttop">
+			<scale x="0.33" y="0.3" z="0.33" />
+			<translate x="0.0" y="7.8" z="2.6" />
+		</transformation>
+		<transformation id="cbodymidle">
+			<rotate axis="x" angle="90.0" />
+			<scale x="0.2" y="0.2" z="0.7" />
+			<translate x="0.0" y="0.0" z="-5.0" />
+		</transformation>
+		<transformation id="cbodytop">
+			<rotate axis="x" angle="-90.0" />
+			<scale x="0.4" y="0.4" z="0.3" />
+			<translate x="0.0" y="0.0" z="11.6" />
+		</transformation>
+		<transformation id="cbodybot">
+			<rotate axis="x" angle="90.0" />
+			<scale x="0.4" y="0.4" z="0.3" />
+			<translate x="0.0" y="0.0" z="-7.0" />
+		</transformation>
+		<transformation id="gramophone">
+			<translate x="10.0" y="0.0" z="0.0" />
+		</transformation>
 		<transformation id="support">
 			<rotate axis="x" angle="-100.0" />
 			<scale x="0.04" y="0.04" z="0.5" />
@@ -395,7 +431,7 @@
 			<cylinder base="40.0" top="0.0" height="15" slices="20" stacks="5"/>
 		</primitive>
 		<primitive id="bodytop">
-			<cylinder base="1.35" top="0.4" height="1" slices="20" stacks="5"/>
+			<cylinder base="1.35" top="0.4" height="1" slices="80" stacks="5"/>
 		</primitive>
 		<primitive id="bodybot">
 			<sphere radius="1.3" slices="50" stacks="50"/>
@@ -1574,7 +1610,7 @@
 
 		<component id="gramophone">
 			<transformation>
-				<transformationref id="transID" />
+				<transformationref id="gramophone" />
 			</transformation>
 			<materials>
 				<material id="inherit" />
@@ -1688,6 +1724,149 @@
 
 
 
+		<component id="cactuar">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cbody" />
+				<componentref id="carmleft" />
+				<componentref id="carmright" />
+			</children>
+		</component>
+		<component id="carmright">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="carmrightbot" />
+				<componentref id="carmrighttop" />
+			</children>
+		</component>
+		<component id="carmrightbot">
+			<transformation>
+				<transformationref id="carmrightbot" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cbody" />
+			</children>
+		</component>
+		<component id="carmrighttop">
+			<transformation>
+				<transformationref id="carmrighttop" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cbody" />
+			</children>
+		</component>
+		<component id="carmleft">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="carmleftbot" />
+				<componentref id="carmlefttop" />
+			</children>
+		</component>
+		<component id="carmleftbot">
+			<transformation>
+				<transformationref id="carmleftbot" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cbody" />
+			</children>
+		</component>
+		<component id="carmlefttop">
+			<transformation>
+				<transformationref id="carmlefttop" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cbody" />
+			</children>
+		</component>
+		<component id="cbody">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cbodytop" />
+				<componentref id="cbodymidle" />
+				<componentref id="cbodybot" />
+			</children>
+		</component>
+		<component id="cbodytop">
+			<transformation>
+				<transformationref id="cbodytop" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="headtop" />
+			</children>
+		</component>
+		<component id="cbodymidle">
+			<transformation>
+				<transformationref id="cbodymidle" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="cake" />
+			</children>
+		</component>
+		<component id="cbodybot">
+			<transformation>
+				<transformationref id="cbodybot" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="headtop" />
+			</children>
+		</component>
+
+
+
+
+
 		<component id="rootScene">
 			<transformation>
 				<transformationref id="transID" />
@@ -1709,6 +1888,7 @@
 				<componentref id="moogle" />
 				<componentref id="marioplant" />
 				<componentref id="gramophone" />
+				<componentref id="cactuar" />
 			</children>
 		</component>
 	</components>
