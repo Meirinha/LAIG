@@ -70,6 +70,23 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="picture">
+			<translate x="0.8" y="0.0" z="-9.0" />
+			<scale x="0.001" y="2.0" z="1.8" />
+		</transformation>
+		<transformation id="leftportrait">
+			<scale x="0.2" y="2.0" z="0.2" />
+		</transformation>
+		<transformation id="rightportrait">
+			<translate x="0.0" y="0.0" z="-2.8" />
+		</transformation>
+		<transformation id="botportrait">
+			<scale x="0.2" y="0.2" z="1.8" />
+			<translate x="0.0" y="0.0" z="-5.0" />
+		</transformation>
+		<transformation id="topportrait">
+			<translate x="0.0" y="3.6" z="0.0" />
+		</transformation>
 		<transformation id="house">
 			<translate x="0.0" y="-0.4" z="0.0" />
 		</transformation>
@@ -112,6 +129,7 @@
 		<transformation id="veigarhand">
 			<rotate axis="x" angle="-90.0" />
 			<rotate axis="x" angle="30.0" />
+			<translate x="0.0" y="0.5" z="8.0" />
 		</transformation>
 		<transformation id="handbot">
 			<scale x="0.25" y="0.13" z="0.2" />
@@ -2524,6 +2542,84 @@
 		</component>
 
 
+		<component id="portrait">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="leftportrait" />
+				<componentref id="rightportrait" />
+				<componentref id="topportrait" />
+				<componentref id="botportrait" />
+				<componentref id="picture" />
+			</children>
+		</component>
+		<component id="leftportrait">
+			<transformation>
+				<transformationref id="leftportrait" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="rightportrait">
+			<transformation>
+				<transformationref id="rightportrait" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="leftportrait" />
+			</children>
+		</component>
+		<component id="botportrait">
+			<transformation>
+				<transformationref id="botportrait" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="topportrait">
+			<transformation>
+				<transformationref id="topportrait" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="botportrait" />
+			</children>
+		</component>
+		<component id="picture">
+			<transformation>
+				<transformationref id="picture" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+
+
 
 
 
@@ -2550,6 +2646,7 @@
 				<componentref id="gramophone" />
 				<componentref id="cactuar" />
 				<componentref id="veigarhand" />
+				<componentref id="portrait" />
 			</children>
 		</component>
 	</components>
