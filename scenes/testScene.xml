@@ -60,11 +60,37 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="veigarhand">
+			<rotate axis="x" angle="-90.0" />
+			<rotate axis="x" angle="30.0" />
+		</transformation>
+		<transformation id="handbot">
+			<scale x="0.25" y="0.13" z="0.2" />
+			<translate x="0.0" y="0.5" z="-2.0" />
+		</transformation>
+		<transformation id="handdecocenter">
+			<scale x="0.2" y="0.2" z="0.08" />
+			<translate x="0.0" y="-2.5" z="-4.5" />
+		</transformation>
+		<transformation id="handdecoright">
+			<scale x="0.08" y="0.08" z="0.08" />
+			<translate x="6.6" y="-14.0" z="-4.0" />
+			<rotate axis="y" angle="-12.0" />
+		</transformation>
+		<transformation id="handdecoleft">
+			<scale x="0.08" y="0.08" z="0.08" />
+			<translate x="-6.6" y="-14.0" z="-4.0" />
+			<rotate axis="y" angle="12.0" />
+		</transformation>
+		<transformation id="handdecomiddle">
+			<scale x="0.08" y="0.08" z="0.08" />
+			<translate x="0.0" y="-15.0" z="-5.0" />
+		</transformation>
 		<transformation id="thumb">
 			<rotate axis="y" angle="-110.0" />
 			<rotate axis="x" angle="-50.0" />
-			<scale x="1.2" y="1.2" z="1.0" />
-			<translate x="0.3" y="-0.3" z="-1.0" />
+			<scale x="1.2" y="1.2" z="0.9" />
+			<translate x="0.3" y="-0.3" z="-1.05" />
 		</transformation>
 		<transformation id="leftfinger">
 			<rotate axis="y" angle="-23.0" />
@@ -2080,7 +2106,7 @@
 
 		<component id="veigarhand">
 			<transformation>
-				<transformationref id="leg" />
+				<transformationref id="veigarhand" />
 			</transformation>
 			<materials>
 				<material id="inherit" />
@@ -2092,6 +2118,20 @@
 				<componentref id="middlefinger" />
 				<componentref id="leftfinger" />
 				<componentref id="thumb" />
+				<componentref id="handdeco" />
+				<componentref id="handbot" />
+			</children>
+		</component>
+		<component id="handbot">
+			<transformation>
+				<transformationref id="handbot" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="cake" />
 			</children>
 		</component>
 		<component id="thumb">
@@ -2218,6 +2258,69 @@
 			<children>
 				<componentref id="fronthand" />
 				<componentref id="backhand" />
+			</children>
+		</component>
+		<component id="handdeco">
+			<transformation>
+				<transformationref id="leg" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="handdecoright" />
+				<componentref id="handdecoleft" />
+				<componentref id="handdecomiddle" />
+				<componentref id="handdecocenter" />
+			</children>
+		</component>
+		<component id="handdecocenter">
+			<transformation>
+				<transformationref id="handdecocenter" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="cake" />
+			</children>
+		</component>
+		<component id="handdecomiddle">
+			<transformation>
+				<transformationref id="handdecomiddle" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="cake" />
+			</children>
+		</component>
+		<component id="handdecoleft">
+			<transformation>
+				<transformationref id="handdecoleft" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="cake" />
+			</children>
+		</component>
+		<component id="handdecoright">
+			<transformation>
+				<transformationref id="handdecoright" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<primitiveref id="cake" />
 			</children>
 		</component>
 		<component id="fronthand">
