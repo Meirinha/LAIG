@@ -21,12 +21,6 @@ class MyRectangle extends CGFobject {
 	};
 
 	initBuffers() {
-		/*this.texCoords = [
-			this.minS, this.maxT,
-			this.maxS, this.maxT,
-			this.minS, this.minT,
-			this.maxS, this.minT,
-		];*/
 
 		this.vertices = [
 			this.x1, this.y1, 0,
