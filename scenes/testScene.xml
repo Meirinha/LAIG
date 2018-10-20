@@ -43,6 +43,7 @@
 		<texture id="textureFloor" file="trunk-image.jpg" />
 		<texture id="dometop" file="dometop.jpg" />
 		<texture id="domebot" file="domebot.png" />
+		<texture id="grass" file="grass.jpg" />
 	</textures>
 	<materials>
 		<material id="materialID" shininess = "1.0" >
@@ -58,10 +59,10 @@
 			<specular r="0.3" g="0.3" b="0.3" a="0.0" />
 		</material>
 		<material id="materialID2" shininess = "1.0" >
-			<emission r="0.4" g="0.4" b="0.4" a="1.0" />
-			<ambient r="0.3" g="0.3" b="0.3" a="1.0" />
-			<diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
-			<specular r="0.3" g="0.3" b="0.3" a="1.0" />
+			<emission r="0.0" g="0.0" b="0.0" a="1.0" />
+			<ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+			<diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+			<specular r="0.0" g="0.0" b="0.0" a="1.0" />
 		</material>
 	</materials>
 	<transformations>
@@ -749,9 +750,9 @@
 				<transformationref id="domebot" />
 			</transformation>
 			<materials>
-				<material id="inherit" />
+				<material id="materialID2" />
 			</materials>
-			<texture id="inherit" length_s="1.0" length_t="1.0" />
+			<texture id="none" />
 			<children>
 				<primitiveref id="DomeBot" />
 			</children>
@@ -763,7 +764,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="grass" length_s="1.0" length_t="1.0"/>
 			<children>
 				<primitiveref id="torus" />
 			</children>
@@ -2530,7 +2531,7 @@
 				<transformationref id="transID" />
 			</transformation>
 			<materials>
-				<material id="materialID2" />
+				<material id="materialID" />
 			</materials>
 			<texture id="textureWall" length_s="1.0" length_t="1.0" />
 			<children>
