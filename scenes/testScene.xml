@@ -66,6 +66,8 @@
 		<texture id="disk" file="disk.png" />
 		<texture id="floor" file="floor.png" />
 		<texture id="wall" file="wall.png" />
+		<texture id="crystal" file="crystal.png" />
+		<texture id="crystal2" file="crystal2.png" />
 	</textures>
 	<materials>
 		<material id="halo" shininess = "1.0" >
@@ -358,7 +360,7 @@
 		</transformation>
 		<transformation id="gramophone">
 			<scale x="1.5" y="1.5" z="1.5" />
-			<translate x="-0.1" y="5.5" z="-16.5" />
+			<translate x="-0.1" y="5.8" z="-16.5" />
 		</transformation>
 		<transformation id="support">
 			<rotate axis="x" angle="-100.0" />
@@ -386,7 +388,7 @@
 			<scale x="1.4" y="0.1" z="1.4" />
 		</transformation>
 		<transformation id="marioplant">
-			<translate x="16.5" y="8.5" z="-13.3" />
+			<translate x="16.5" y="8.8" z="-13.3" />
 		</transformation>
 		<transformation id="leafeleft">
 			<rotate axis="x" angle="30.0" />
@@ -930,7 +932,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="crystal2" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="cyl" />
 				<componentref id="cyl2" />
@@ -2802,7 +2804,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="crystal" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="cube1" />
 				<componentref id="cube2" />
@@ -2818,7 +2820,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -2830,7 +2832,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -2842,7 +2844,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -2854,7 +2856,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -2866,7 +2868,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cube" />
 			</children>
