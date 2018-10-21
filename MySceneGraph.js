@@ -1018,9 +1018,12 @@ class MySceneGraph {
                     let matrix = mat4.create();
                     let currGreatchild = currGreatchildren[0];
                     if (currGreatchild != undefined) {
-                        if (currGreatchild.nodeName == "transformationref")
-                            mat4.multiply(matrix, matrix, this.transformations[currGreatchild.getAttribute("id")]);
-                        else {
+                        if (currGreatchild.nodeName == "transformationref") {
+                            let idTrans = currGreatchild.getAttribute("id");
+                            if (this.transformations[idTrans] == undefined)
+                                this.onXMLError("Transformation ID not found on component id=" + currID);
+                            mat4.multiply(matrix, matrix, this.transformations[idTrans]);
+                        } else {
                             mat4.multiply(matrix, matrix, this.processTransformations(currGreatchildren));
                         }
                     }
@@ -1029,20 +1032,19 @@ class MySceneGraph {
                 } else if (currGrandchild.nodeName == "materials") {
                     let currGreatchildren = currGrandchild.children;
                     for (let z = 0; z < currGreatchildren.length; z++) {
-                        let currGreatchild = currGreatchildren[z];
-                        this.components[currID].materialRefList.push(currGreatchild.getAttribute("id"));
+                        let materialID = currGreatchildren[z].getAttribute("id");
+                        let mater = this.materials[materialID];
+                        if (materialID != "inherit" && mater == undefined)
+                            this.onXMLError("Material ID not found on component id=" + currID);
+                        this.components[currID].materialRefList.push(materialID);
                     }
                 } else if (currGrandchild.nodeName == "texture") {
-
-                    if (currGrandchild.getAttribute("id") == "inherit") {
-                        this.components[currID].textureref = "inherit";
-                    } else if (currGrandchild.getAttribute("id") == "none") {
-                        this.components[currID].textureref = "none";
-                    } else {
-                        this.components[currID].textureref = currGrandchild.getAttribute("id");
+                    let textID = currGrandchild.getAttribute("id");
+                    if (textID != "inherit" && textID != "none" && this.textures[textID] == undefined) {
+                        this.onXMLError("Texture ID not found on component id=" + currID);
                     }
+                    this.components[currID].textureref = textID;
                     this.components[currID].texS = parseFloat(currGrandchild.getAttribute("length_s"));
-
                     this.components[currID].texT = parseFloat(currGrandchild.getAttribute("length_t"));
 
                 } else if (currGrandchild.nodeName == "children") {
@@ -1061,15 +1063,13 @@ class MySceneGraph {
     }
 
     assignFirstMaterial() {
-        for (var comp in this.components) {
+        for (var comp in this.components)
             this.components[comp].assignFirstMat();
-        }
     }
 
     componentsNextMaterial() {
-        for (var comp in this.components) {
+        for (var comp in this.components)
             this.components[comp].nextMaterial();
-        }
     }
 
     processNodesAux(componentNodes) {
@@ -1091,11 +1091,11 @@ class MySceneGraph {
                         let currGreatchild = greatchildren[k];
                         if (currGreatchild.nodeName == "primitiveref") {
                             let idPrimitive = currGreatchild.getAttribute("id");
-                            if (this.primitives[idPrimitive] < 0) {
+                            if (this.primitives[idPrimitive] < 0)
                                 this.onXMLError("Component id primitve not found");
-                            } else {
+                            else
                                 this.components[currID].addLeaf(this.primitives[idPrimitive]);
-                            }
+
                         } else if (currGreatchild.nodeName == "componentref") {
                             let idChild = currGreatchild.getAttribute("id");
                             if (this.components[idChild] < 0)
