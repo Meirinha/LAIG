@@ -60,6 +60,9 @@
 		<texture id="mariored" file="mariored.png" />
 		<texture id="marioplant" file="marioplant.png" />
 		<texture id="portalcake" file="portalcake.png" />
+		<texture id="golden" file="golden.png" />
+		<texture id="wood" file="wood.png" />
+		<texture id="disk" file="disk.png" />
 	</textures>
 	<materials>
 		<material id="halo" shininess = "1.0" >
@@ -330,7 +333,7 @@
 			<translate x="0.0" y="0.0" z="-7.1" />
 		</transformation>
 		<transformation id="gramophone">
-			<translate x="10.0" y="0.0" z="0.0" />
+			<translate x="10.0" y="5.0" z="0.0" />
 		</transformation>
 		<transformation id="support">
 			<rotate axis="x" angle="-100.0" />
@@ -1324,7 +1327,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="portalcake" length_s="1.0" length_t="1.0"  />
 			<children>
 				<componentref id="cake" />
 				<componentref id="topping" />
@@ -1337,7 +1340,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="portalcake" length_s="1.0" length_t="1.0" />
+			<texture id="inherit"/>
 			<children>
 				<primitiveref id="cake" />
 			</children>
@@ -2032,7 +2035,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="golden" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="thin" />
 				<componentref id="large" />
@@ -2046,7 +2049,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<primitiveref id="cake" />
 			</children>
@@ -2058,7 +2061,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<primitiveref id="thin" />
 			</children>
@@ -2070,7 +2073,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<primitiveref id="large" />
 			</children>
@@ -2082,7 +2085,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="disk" length_s="1.0" length_t="1.0"/>
 			<children>
 				<componentref id="cake" />
 			</children>
@@ -2094,7 +2097,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="wood" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="bottombox" />
 				<componentref id="topbox" />
@@ -2107,7 +2110,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -2119,7 +2122,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cube" />
 			</children>
