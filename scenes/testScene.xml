@@ -645,10 +645,10 @@
 			<torus inner="60.0" outer="80.0" slices="80" loops="80"/>
 		</primitive>
 		<primitive id="Lake">
-			<Dome slices="50" stacks="50"/>
+			<Dome slices="80" stacks="80"/>
 		</primitive>
 		<primitive id="Dome">
-			<Dome slices="50" stacks="50"/>
+			<Dome slices="80" stacks="80"/>
 		</primitive>
 		<primitive id="DomeBot">
 			<SemiSphere slices="50" stacks="50"/>
