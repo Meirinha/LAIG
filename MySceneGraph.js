@@ -1166,16 +1166,14 @@ class MySceneGraph {
             textura = null;
         else {
 
-            if (component.texS != NaN)
+            if (!isNaN(component.texS))
                 texS = component.texS;
-            if (component.texT != NaN)
+            if (!isNaN(component.texT))
                 texT = component.texT;
             if (component.textureref != "inherit") {
                 textura = component.textureref;
             }
         }
-
-
 
         if (component.materialref != "inherit") {
             material = component.materialref;
