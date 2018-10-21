@@ -46,6 +46,7 @@
 		<texture id="a" file="a.png" />
 		<texture id="grass" file="grass.jpg" />
 		<texture id="roof" file="roof.jpg" />
+		<texture id="roof2" file="roof2.jpg" />
 		<texture id="door" file="door.png" />
 		<texture id="moogleface" file="moogleface.png" />
 		<texture id="mooglefacetop" file="mooglefacetop.png" />
@@ -66,6 +67,12 @@
 		<texture id="disk" file="disk.png" />
 		<texture id="floor" file="floor.png" />
 		<texture id="wall" file="wall.png" />
+		<texture id="crystal" file="crystal.png" />
+		<texture id="crystal2" file="crystal2.png" />
+		<texture id="glass" file="glass.png" />
+		<texture id="huntress" file="huntress.png" />
+		<texture id="michael" file="michael.png" />
+		<texture id="freddy" file="freddy.png" />
 	</textures>
 	<materials>
 		<material id="halo" shininess = "1.0" >
@@ -155,6 +162,21 @@
 			<translate x="0.8" y="0.0" z="-9.0" />
 			<scale x="0.001" y="2.0" z="1.8" />
 		</transformation>
+		<transformation id="glass">
+			<translate x="1.0" y="0.0" z="-9.0" />
+			<scale x="0.001" y="2.0" z="1.8" />
+		</transformation>
+		<transformation id="portrait">
+			<scale x="1.5" y="1.5" z="1.5" />
+			<rotate axis="y" angle="-90.0" />
+			<translate x="-19.0" y="11.0" z="0.0" />
+		</transformation>
+		<transformation id="portrait2">
+			<translate x="0.0" y="0.0" z="-8.0" />
+		</transformation>
+		<transformation id="portrait3">
+			<translate x="0.0" y="0.0" z="8.0" />
+		</transformation>
 		<transformation id="leftportrait">
 			<scale x="0.2" y="2.0" z="0.2" />
 		</transformation>
@@ -170,6 +192,9 @@
 		</transformation>
 		<transformation id="house">
 			<translate x="0.0" y="3.6" z="0.0" />
+		</transformation>
+		<transformation id="rightwall">
+			<translate x="44.5" y="0.0" z="0.0" />
 		</transformation>
 		<transformation id="leftwallsmall">
 			<rotate axis="y" angle="-90.0" />
@@ -358,7 +383,7 @@
 		</transformation>
 		<transformation id="gramophone">
 			<scale x="1.5" y="1.5" z="1.5" />
-			<translate x="-0.1" y="5.5" z="-16.5" />
+			<translate x="-0.1" y="5.8" z="-16.5" />
 		</transformation>
 		<transformation id="support">
 			<rotate axis="x" angle="-100.0" />
@@ -386,7 +411,7 @@
 			<scale x="1.4" y="0.1" z="1.4" />
 		</transformation>
 		<transformation id="marioplant">
-			<translate x="16.5" y="8.5" z="-13.3" />
+			<translate x="16.5" y="8.8" z="-13.3" />
 		</transformation>
 		<transformation id="leafeleft">
 			<rotate axis="x" angle="30.0" />
@@ -930,7 +955,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="crystal2" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="cyl" />
 				<componentref id="cyl2" />
@@ -951,6 +976,19 @@
 				<componentref id="backtriangle" />
 				<componentref id="roof" />
 				<componentref id="frontbottom" />
+				<componentref id="leftwall" />
+				<componentref id="rightwall" />
+			</children>
+		</component>
+		<component id="rightwall">
+			<transformation>
+				<transformationref id="rightwall" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
 				<componentref id="leftwall" />
 			</children>
 		</component>
@@ -1022,7 +1060,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="roof" length_s="2.0" length_t="2.0"/>
+			<texture id="roof" length_s="1.0" length_t="0.3"/>
 			<children>
 				<componentref id="rightroof" />
 				<componentref id="leftroof" />
@@ -1062,7 +1100,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="roof2" length_s="1.0" length_t="0.5" />
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -2717,6 +2755,56 @@
 		</component>
 
 
+		<component id="portraits">
+			<transformation>
+				<transformationref id="portrait" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="portrait1" />
+				<componentref id="portrait2" />
+				<componentref id="portrait3" />
+			</children>
+		</component>
+		<component id="portrait2">
+			<transformation>
+				<transformationref id="portrait2" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="michael" length_s="1.0" length_t="1.0" />
+			<children>
+				<componentref id="portrait" />
+			</children>
+		</component>
+		<component id="portrait3">
+			<transformation>
+				<transformationref id="portrait3" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="freddy" length_s="1.0" length_t="1.0" />
+			<children>
+				<componentref id="portrait" />
+			</children>
+		</component>
+		<component id="portrait1">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="huntress" length_s="1.0" length_t="1.0" />
+			<children>
+				<componentref id="portrait" />
+			</children>
+		</component>
 		<component id="portrait">
 			<transformation>
 				<transformationref id="transID" />
@@ -2724,13 +2812,14 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit"/>
 			<children>
 				<componentref id="leftportrait" />
 				<componentref id="rightportrait" />
 				<componentref id="topportrait" />
 				<componentref id="botportrait" />
 				<componentref id="picture" />
+				<componentref id="glass" />
 			</children>
 		</component>
 		<component id="leftportrait">
@@ -2740,7 +2829,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="golden" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -2752,7 +2841,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="golden" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="leftportrait" />
 			</children>
@@ -2764,7 +2853,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="golden" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -2776,7 +2865,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="golden" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="botportrait" />
 			</children>
@@ -2788,7 +2877,19 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="glass">
+			<transformation>
+				<transformationref id="glass" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="glass" length_s="1.0" length_t="1.0"/>
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -2802,7 +2903,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="crystal" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="cube1" />
 				<componentref id="cube2" />
@@ -2818,7 +2919,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -2830,7 +2931,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -2842,7 +2943,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -2854,7 +2955,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -2866,7 +2967,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -2899,7 +3000,7 @@
 				<componentref id="gramophone" />
 				<componentref id="cactuar" />
 				<componentref id="veigarhand" />
-				<componentref id="portrait" />
+				<componentref id="portraits" />
 				<componentref id="cubes" />
 			</children>
 		</component>
