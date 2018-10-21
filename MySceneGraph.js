@@ -1040,9 +1040,9 @@ class MySceneGraph {
                     } else {
                         this.components[currID].textureref = currGrandchild.getAttribute("id");
                     }
-                    this.components[currID].texS = currGrandchild.getAttribute("length_s");
+                    this.components[currID].texS = parseFloat(currGrandchild.getAttribute("length_s"));
 
-                    this.components[currID].texT = currGrandchild.getAttribute("length_t");
+                    this.components[currID].texT = parseFloat(currGrandchild.getAttribute("length_t"));
 
                 } else if (currGrandchild.nodeName == "children") {
                     //nothing
@@ -1139,12 +1139,12 @@ class MySceneGraph {
 
         var rootComponent = this.components[this.rootID];
         if (this.textures[rootComponent.textureref] != null)
-            this.processComponent(rootComponent, rootComponent.textureref, rootComponent.materialref);
+            this.processComponent(rootComponent, rootComponent.textureref, rootComponent.materialref, rootComponent.texS, rootComponent.texT);
         else
-            this.processComponent(rootComponent, null, rootComponent.materialref);
+            this.processComponent(rootComponent, null, rootComponent.materialref, 1, 1);
     }
 
-    processComponent(component, tex, mat) {
+    processComponent(component, tex, mat, textureS, textureT) {
 
         let textura = tex;
         let material = mat;
@@ -1154,8 +1154,8 @@ class MySceneGraph {
         this.scene.pushMatrix();
         this.scene.multMatrix(component.transformationMatrix);
 
-        var texS = 1;
-        var texT = 1;
+        var texS = textureS;
+        var texT = textureT;
 
         if (component.textureref != "inherit") {
             if (component.textureref == 'none')
@@ -1172,7 +1172,7 @@ class MySceneGraph {
         }
 
         for (var i = 0; i < component.children.length; i++) {
-            this.processComponent(this.components[component.children[i].nodeID], textura, material);
+            this.processComponent(this.components[component.children[i].nodeID], textura, material, texS, texT);
         }
 
         if (this.scene.changeMaterial) {
