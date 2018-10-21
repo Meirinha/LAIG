@@ -157,6 +157,15 @@
 			<translate x="0.8" y="0.0" z="-9.0" />
 			<scale x="0.001" y="2.0" z="1.8" />
 		</transformation>
+		<transformation id="glass">
+			<translate x="1.0" y="0.0" z="-9.0" />
+			<scale x="0.001" y="2.0" z="1.8" />
+		</transformation>
+		<transformation id="portrait">
+			<scale x="1.5" y="1.5" z="1.5" />
+			<rotate axis="y" angle="-90.0" />
+			<translate x="-19.0" y="11.0" z="0.0" />
+		</transformation>
 		<transformation id="leftportrait">
 			<scale x="0.2" y="2.0" z="0.2" />
 		</transformation>
@@ -2719,7 +2728,45 @@
 		</component>
 
 
-		<component id="portrait">
+		<component id="portraits">
+			<transformation>
+				<transformationref id="portrait" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="portrait1" />
+				<componentref id="portrait2" />
+				<componentref id="portrait3" />
+			</children>
+		</component>
+		<component id="portrait2">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="portrait1" />
+			</children>
+		</component>
+		<component id="portrait3">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="portrait1" />
+			</children>
+		</component>
+		<component id="portrait1">
 			<transformation>
 				<transformationref id="transID" />
 			</transformation>
@@ -2733,6 +2780,7 @@
 				<componentref id="topportrait" />
 				<componentref id="botportrait" />
 				<componentref id="picture" />
+				<componentref id="glass" />
 			</children>
 		</component>
 		<component id="leftportrait">
@@ -2786,6 +2834,18 @@
 		<component id="picture">
 			<transformation>
 				<transformationref id="picture" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="glass">
+			<transformation>
+				<transformationref id="glass" />
 			</transformation>
 			<materials>
 				<material id="inherit" />
@@ -2901,7 +2961,7 @@
 				<componentref id="gramophone" />
 				<componentref id="cactuar" />
 				<componentref id="veigarhand" />
-				<componentref id="portrait" />
+				<componentref id="portraits" />
 				<componentref id="cubes" />
 			</children>
 		</component>
