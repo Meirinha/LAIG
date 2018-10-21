@@ -65,10 +65,6 @@
 		</spot>
 	</lights>
 	<textures>
-		<texture id="textureID" file="vidral.jpg" />
-		<texture id="textureRocks" file="rocks.jpg" />
-		<texture id="textureWall" file="bank.jpg" />
-		<texture id="textureFloor" file="trunk-image.jpg" />
 		<texture id="dometop" file="dometop.jpg" />
 		<texture id="domebot" file="domebot.png" />
 		<texture id="a" file="a.png" />
