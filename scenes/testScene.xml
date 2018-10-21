@@ -2987,7 +2987,6 @@
 			<texture id="textureWall" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="house" />
-				<componentref id="cube" />
 				<componentref id="dome" />
 				<componentref id="domebot" />
 				<componentref id="lakemargin" />
