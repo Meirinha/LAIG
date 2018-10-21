@@ -1059,7 +1059,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+			<texture id="inherit" length_s="2.0" length_t="2.0"/>
 			<children>
 				<componentref id="frontwallleft" />
 			</children>
@@ -1071,7 +1071,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="inherit" length_s="10.0" length_t="10.0"/>
 			<children>
 				<componentref id="fronttriangle" />
 			</children>
@@ -1083,7 +1083,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="inherit" length_s="10.0" length_t="10.0"/>
 			<children>
 				<componentref id="wall" />
 			</children>
@@ -1253,7 +1253,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="inherit" length_s="1.2" length_t="1.2"/>
 			<children>
 				<componentref id="frontwallleft" />
 				<componentref id="frontwallright" />
@@ -1267,7 +1267,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="door" length_s="0.5" length_t="0.5"/>
+			<texture id="door" length_s="0.5" length_t="1.0"/>
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -1303,7 +1303,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="inherit" length_s="10.0" length_t="10.0" />
 			<children>
 				<componentref id="triangleright" />
 				<componentref id="trianglerightback" />
@@ -1365,7 +1365,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="inherit" length_s="15.0" length_t="15.0"/>
 			<children>
 				<primitiveref id="tri" />
 			</children>
@@ -1377,7 +1377,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="inherit" length_s="15.0" length_t="15.0"/>
 			<children>
 				<primitiveref id="tri" />
 			</children>
@@ -1389,7 +1389,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="inherit" length_s="15.0" length_t="15.0"/>
 			<children>
 				<primitiveref id="tri" />
 			</children>
@@ -1403,7 +1403,7 @@
 			</materials>
 			<texture id="inherit" />
 			<children>
-				<primitiveref id="tri" />
+				<primitiveref id="tri" length_s="15.0" length_t="15.0"/>
 			</children>
 		</component>
 		<component id="floor">
@@ -3023,7 +3023,6 @@
 			<texture id="textureWall" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="house" />
-				<componentref id="cube" />
 				<componentref id="dome" />
 				<componentref id="domebot" />
 				<componentref id="lakemargin" />
