@@ -114,7 +114,6 @@ class XMLscene extends CGFscene {
         this.interface.addViewsGroup(this.graph.views);
 
         this.sceneInited = true;
-        console.log(this);
 
     }
 

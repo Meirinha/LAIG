@@ -1,12 +1,12 @@
 <yas>
 	<scene root="rootScene" axis_length="5.0" />
-	<views default="perp" >
+	<views default="orth" >
 	<perspective id="perp" near="0.1" far="900" angle="90.0">
 			<from x="15" y="15" z="15" />
 			<to x="0" y="0" z="0" />
 		</perspective>
-		<ortho id="orth" near="0.1" far="500" left="-15" right="15" top="10" bottom="-10" >
-			<from x="30" y="10" z="30" />
+		<ortho id="orth" near="0.1" far="500" left="-50" right="50" top="30" bottom="-30" >
+			<from x="30" y="30" z="30" />
 			<to x="0" y="5" z="0" />
 		</ortho>
 	</views>
@@ -782,7 +782,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" length_s="1.0" length_t="1.0" />
+			<texture id="inherit"  />
 			<children>
 				<primitiveref id="quad" />
 			</children>
@@ -794,7 +794,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" length_s="1.0" length_t="1.0" />
+			<texture id="inherit"  />
 			<children>
 				<primitiveref id="quad" />
 			</children>
@@ -806,7 +806,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" length_s="1.0" length_t="1.0" />
+			<texture id="inherit"  />
 			<children>
 				<primitiveref id="quad" />
 			</children>
@@ -818,7 +818,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" length_s="1.0" length_t="1.0" />
+			<texture id="inherit"  />
 			<children>
 				<primitiveref id="quadtop" />
 			</children>
@@ -830,7 +830,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" length_s="1.0" length_t="1.0" />
+			<texture id="inherit"  />
 			<children>
 				<primitiveref id="quad" />
 			</children>
@@ -842,7 +842,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" length_s="1.0" length_t="1.0" />
+			<texture id="inherit"  />
 			<children>
 				<primitiveref id="quadtop" />
 			</children>
