@@ -1017,12 +1017,13 @@ class MySceneGraph {
 
                     let matrix = mat4.create();
                     let currGreatchild = currGreatchildren[0];
-                    if (currGreatchild.nodeName == "transformationref")
-                        mat4.multiply(matrix, matrix, this.transformations[currGreatchild.getAttribute("id")]);
-                    else {
-                        mat4.multiply(matrix, matrix, this.processTransformations(currGreatchildren));
+                    if (currGreatchild != undefined) {
+                        if (currGreatchild.nodeName == "transformationref")
+                            mat4.multiply(matrix, matrix, this.transformations[currGreatchild.getAttribute("id")]);
+                        else {
+                            mat4.multiply(matrix, matrix, this.processTransformations(currGreatchildren));
+                        }
                     }
-
                     mat4.copy(this.components[currID].transformationMatrix, matrix);
 
                 } else if (currGrandchild.nodeName == "materials") {
