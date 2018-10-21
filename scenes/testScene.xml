@@ -64,6 +64,8 @@
 		<texture id="golden" file="golden.png" />
 		<texture id="wood" file="wood.png" />
 		<texture id="disk" file="disk.png" />
+		<texture id="floor" file="floor.png" />
+		<texture id="wall" file="wall.png" />
 	</textures>
 	<materials>
 		<material id="halo" shininess = "1.0" >
@@ -941,7 +943,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="wall" length_s="0.5" length_t="0.5"/>
 			<children>
 				<componentref id="front" />
 				<componentref id="floor" />
@@ -984,7 +986,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
 			<children>
 				<componentref id="frontwallleft" />
 			</children>
@@ -1338,7 +1340,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="textureRocks" length_s="1.0" length_t="1.0" />
+			<texture id="floor" length_s="0.1" length_t="0.1" />
 			<children>
 				<primitiveref id="rec1" />
 			</children>
