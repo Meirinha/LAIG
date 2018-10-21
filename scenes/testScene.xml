@@ -50,6 +50,12 @@
 		<texture id="moogleface" file="moogleface.png" />
 		<texture id="mooglefacetop" file="mooglefacetop.png" />
 		<texture id="black" file="black.png" />
+		<texture id="metal" file="metal.png" />
+		<texture id="red" file="red.png" />
+		<texture id="controller" file="controller.png" />
+		<texture id="stripes" file="stripes.png" />
+		<texture id="cactuar" file="cactuar.png" />
+		<texture id="cactuar2" file="cactuar2.png" />
 	</textures>
 	<materials>
 		<material id="halo" shininess = "1.0" >
@@ -240,7 +246,7 @@
 		</transformation>
 		<transformation id="cactuar">
 			<rotate axis="x" angle="-20.0" />
-			<translate x="0.0" y="4.0" z="-10.0" />
+			<translate x="0.0" y="6.0" z="-10.0" />
 		</transformation>
 		<transformation id="hair1">
 			<scale x="0.08" y="0.15" z="0.08" />
@@ -297,11 +303,13 @@
 		</transformation>
 		<transformation id="cbodytop">
 			<rotate axis="x" angle="-90.0" />
+			<rotate axis="z" angle="-110.0" />
 			<scale x="0.4" y="0.4" z="0.3" />
 			<translate x="0.0" y="0.0" z="11.6" />
 		</transformation>
 		<transformation id="cbodybot">
 			<rotate axis="x" angle="90.0" />
+			<rotate axis="z" angle="110.0" />
 			<scale x="0.4" y="0.4" z="0.3" />
 			<translate x="0.0" y="0.0" z="-7.1" />
 		</transformation>
@@ -2098,7 +2106,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="cactuar2" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="cbody" />
 				<componentref id="carmleft" />
@@ -2115,7 +2123,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="hair1" />
 				<componentref id="hair2" />
@@ -2129,7 +2137,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cbody" />
 			</children>
@@ -2141,7 +2149,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cbody" />
 			</children>
@@ -2153,7 +2161,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cbody" />
 			</children>
@@ -2165,7 +2173,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="clegleftbot" />
 				<componentref id="cleglefttop" />
@@ -2178,7 +2186,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cbody" />
 			</children>
@@ -2190,7 +2198,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cbody" />
 			</children>
@@ -2202,7 +2210,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="clegrightbot" />
 				<componentref id="clegrighttop" />
@@ -2215,7 +2223,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cbody" />
 			</children>
@@ -2227,7 +2235,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cbody" />
 			</children>
@@ -2239,7 +2247,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="carmrightbot" />
 				<componentref id="carmrighttop" />
@@ -2252,7 +2260,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cbody" />
 			</children>
@@ -2264,7 +2272,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cbody" />
 			</children>
@@ -2276,7 +2284,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="carmleftbot" />
 				<componentref id="carmlefttop" />
@@ -2289,7 +2297,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cbody" />
 			</children>
@@ -2301,7 +2309,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cbody" />
 			</children>
@@ -2313,7 +2321,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="cbodytop" />
 				<componentref id="cbodymidle" />
@@ -2327,7 +2335,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="cactuar" length_s="1.0" length_t="1.0" />
 			<children>
 				<primitiveref id="headtop" />
 			</children>
@@ -2339,7 +2347,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<primitiveref id="cake" />
 			</children>
@@ -2351,7 +2359,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="cactuar" length_s="1.0" length_t="1.0" />
 			<children>
 				<primitiveref id="headtop" />
 			</children>
@@ -2365,7 +2373,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="metal" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="handcenter" />
 				<componentref id="rightfinger" />
@@ -2383,7 +2391,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="stripes" length_s="1.0" length_t="1.0" />
 			<children>
 				<primitiveref id="cake" />
 			</children>
@@ -2395,7 +2403,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="rightfinger" />
 			</children>
@@ -2407,7 +2415,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="rightfinger" />
 			</children>
@@ -2419,7 +2427,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="rightfinger" />
 			</children>
@@ -2431,7 +2439,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="fingerbot" />
 				<componentref id="fingermiddle" />
@@ -2445,7 +2453,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="fronthand" />
 				<componentref id="frontfinger" />
@@ -2460,7 +2468,7 @@
 				<materials>
 					<material id="inherit" />
 				</materials>
-				<texture id="none" />
+				<texture id="inherit" />
 				<children>
 					<primitiveref id="cherry" />
 				</children>
@@ -2496,7 +2504,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="handcenter" />
 			</children>
@@ -2508,7 +2516,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="fronthand" />
 				<componentref id="backhand" />
@@ -2521,7 +2529,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="red" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="handdecoright" />
 				<componentref id="handdecoleft" />
@@ -2536,7 +2544,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="controller" length_s="1.0" length_t="1.0"/>
 			<children>
 				<primitiveref id="cake" />
 			</children>
@@ -2548,7 +2556,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<primitiveref id="cake" />
 			</children>
@@ -2560,7 +2568,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<primitiveref id="cake" />
 			</children>
@@ -2572,7 +2580,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<primitiveref id="cake" />
 			</children>
@@ -2584,7 +2592,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<primitiveref id="hand" />
 			</children>
