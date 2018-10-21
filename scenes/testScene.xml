@@ -56,6 +56,9 @@
 		<texture id="stripes" file="stripes.png" />
 		<texture id="cactuar" file="cactuar.png" />
 		<texture id="cactuar2" file="cactuar2.png" />
+		<texture id="cactuarhair" file="cactuarhair.png" />
+		<texture id="mariored" file="mariored.png" />
+		<texture id="marioplant" file="marioplant.png" />
 	</textures>
 	<materials>
 		<material id="halo" shininess = "1.0" >
@@ -63,6 +66,12 @@
 			<ambient r="0.5" g="0.5" b="0.5" a="1.0" />
 			<diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
 			<specular r="0.8" g="0.8" b="0.8" a="1.0" />
+		</material>
+		<material id="mariogreen" shininess = "0.5" >
+			<emission r="0.1" g="0.2" b="0.1" a="1.0" />
+			<ambient r="0.1" g="0.3" b="0.1" a="1.0" />
+			<diffuse r="0.0" g="0.3" b="0.0" a="1.0" />
+			<specular r="0.2" g="0.5" b="0.2" a="1.0" />
 		</material>
 		<material id="ball" shininess = "1.0" >
 			<emission r="0.5" g="0.5" b="0.2" a="1.0" />
@@ -342,7 +351,7 @@
 			<scale x="1.4" y="0.1" z="1.4" />
 		</transformation>
 		<transformation id="marioplant">
-			<translate x="0.0" y="0.0" z="20.0" />
+			<translate x="0.0" y="5.0" z="20.0" />
 		</transformation>
 		<transformation id="leafeleft">
 			<rotate axis="x" angle="30.0" />
@@ -1737,7 +1746,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="marioplant" length_s="1.0" length_t="1.0"/>
 			<children>
 				<componentref id="leafeleft" />
 				<componentref id="leaferight" />
@@ -1750,7 +1759,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<componentref id="leafeleft" />
 			</children>
@@ -1762,7 +1771,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<primitiveref id="leg" />
 			</children>
@@ -1901,9 +1910,21 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="mariored" length_s="1.0" length_t="1.0"/>
 			<children>
 				<primitiveref id="headtop" />
+				<componentref id="petalinterior" />
+			</children>
+		</component>
+		<component id="petalinterior">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="black" length_s="1.0" length_t="1.0"/>
+			<children>
 				<primitiveref id="petalinterior" />
 			</children>
 		</component>
@@ -1914,7 +1935,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="marioplant" length_s="1.0" length_t="1.0"/>
 			<children>
 				<componentref id="stalkbot" />
 				<componentref id="stalktop" />
@@ -1927,7 +1948,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<primitiveref id="cake" />
 			</children>
@@ -1939,7 +1960,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit" />
 			<children>
 				<primitiveref id="cake" />
 			</children>
@@ -1949,7 +1970,7 @@
 				<transformationref id="cake" />
 			</transformation>
 			<materials>
-				<material id="inherit" />
+				<material id="mariogreen" />
 			</materials>
 			<texture id="none" />
 			<children>
@@ -2108,7 +2129,7 @@
 			</materials>
 			<texture id="cactuar2" length_s="1.0" length_t="1.0" />
 			<children>
-				<componentref id="cbody" />
+				<componentref id="cmainbody" />
 				<componentref id="carmleft" />
 				<componentref id="carmright" />
 				<componentref id="clegright" />
@@ -2123,7 +2144,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="cactuarhair" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="hair1" />
 				<componentref id="hair2" />
@@ -2335,7 +2356,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="cactuar" length_s="1.0" length_t="1.0" />
+			<texture id="inherit"/>
 			<children>
 				<primitiveref id="headtop" />
 			</children>
@@ -2353,6 +2374,56 @@
 			</children>
 		</component>
 		<component id="cbodybot">
+			<transformation>
+				<transformationref id="cbodybot" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<primitiveref id="headtop" />
+			</children>
+		</component>
+		<component id="cmainbody">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="cmainbodytop" />
+				<componentref id="cmainbodymidle" />
+				<componentref id="cmainbodybot" />
+			</children>
+		</component>
+		<component id="cmainbodytop">
+			<transformation>
+				<transformationref id="cbodytop" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="cactuar" length_s="1.0" length_t="1.0" />
+			<children>
+				<primitiveref id="headtop" />
+			</children>
+		</component>
+		<component id="cmainbodymidle">
+			<transformation>
+				<transformationref id="cbodymidle" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<primitiveref id="cake" />
+			</children>
+		</component>
+		<component id="cmainbodybot">
 			<transformation>
 				<transformationref id="cbodybot" />
 			</transformation>
