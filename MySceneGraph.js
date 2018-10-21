@@ -1044,8 +1044,10 @@ class MySceneGraph {
                         this.onXMLError("Texture ID not found on component id=" + currID);
                     }
                     this.components[currID].textureref = textID;
-                    this.components[currID].texS = parseFloat(currGrandchild.getAttribute("length_s"));
-                    this.components[currID].texT = parseFloat(currGrandchild.getAttribute("length_t"));
+                    if (textID != "none") {
+                        this.components[currID].texS = parseFloat(currGrandchild.getAttribute("length_s"));
+                        this.components[currID].texT = parseFloat(currGrandchild.getAttribute("length_t"));
+                    }
 
                 } else if (currGrandchild.nodeName == "children") {
                     //nothing
@@ -1157,18 +1159,23 @@ class MySceneGraph {
         this.scene.pushMatrix();
         this.scene.multMatrix(component.transformationMatrix);
 
-        var texS = textureS;
-        var texT = textureT;
+        let texS = textureS;
+        let texT = textureT;
 
-        if (component.textureref != "inherit") {
-            if (component.textureref == 'none')
-                textura = null;
-            else {
-                textura = component.textureref;
+        if (component.textureref == 'none')
+            textura = null;
+        else {
+
+            if (component.texS != NaN)
                 texS = component.texS;
+            if (component.texT != NaN)
                 texT = component.texT;
+            if (component.textureref != "inherit") {
+                textura = component.textureref;
             }
         }
+
+
 
         if (component.materialref != "inherit") {
             material = component.materialref;
@@ -1177,6 +1184,7 @@ class MySceneGraph {
         for (var i = 0; i < component.children.length; i++) {
             this.processComponent(this.components[component.children[i].nodeID], textura, material, texS, texT);
         }
+
 
         if (this.scene.changeMaterial) {
             component.nextMaterial();
@@ -1187,15 +1195,15 @@ class MySceneGraph {
                 this.materials[material].setTexture(this.textures[textura]);
             }
             this.materials[material].apply();
-
-
         }
+
         for (var j = 0; j < component.leaves.length; j++) {
             component.leaves[j].updateTexCoords(texS, texT);
             component.leaves[j].display();
         }
         this.scene.popMatrix();
     }
+
 
     isValidNumber(attribute) {
         return !(attribute == null || isNaN(attribute));
