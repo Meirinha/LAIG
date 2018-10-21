@@ -118,6 +118,24 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="cubeexpo">
+			<scale x="3.5" y="3.0" z="3.5" />
+		</transformation>
+		<transformation id="cube1">
+			<translate x="-9.0" y="0.9" z="-1.0" />
+		</transformation>
+		<transformation id="cube2">
+			<translate x="-9.0" y="0.9" z="-8.5" />
+		</transformation>
+		<transformation id="cube3">
+			<translate x="0.0" y="0.9" z="-1.0" />
+		</transformation>
+		<transformation id="cube4">
+			<translate x="0.0" y="0.9" z="-8.5" />
+		</transformation>
+		<transformation id="cube5">
+			<translate x="-4.5" y="0.9" z="-11.5" />
+		</transformation>
 		<transformation id="lefteye">
 			<rotate axis="y" angle="-20.0" />
 			<rotate axis="x" angle="-15.0" />
@@ -2770,6 +2788,84 @@
 		</component>
 
 
+		<component id="cubes">
+			<transformation>
+				<transformationref id="cubeexpo" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube1" />
+				<componentref id="cube2" />
+				<componentref id="cube3" />
+				<componentref id="cube4" />
+				<componentref id="cube5" />
+			</children>
+		</component>
+		<component id="cube1">
+			<transformation>
+				<transformationref id="cube1" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="cube2">
+			<transformation>
+				<transformationref id="cube2" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="cube3">
+			<transformation>
+				<transformationref id="cube3" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="cube4">
+			<transformation>
+				<transformationref id="cube4" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="cube5">
+			<transformation>
+				<transformationref id="cube5" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+
+
 
 
 
@@ -2797,6 +2893,7 @@
 				<componentref id="cactuar" />
 				<componentref id="veigarhand" />
 				<componentref id="portrait" />
+				<componentref id="cubes" />
 			</children>
 		</component>
 	</components>
