@@ -46,8 +46,30 @@
 		<texture id="a" file="a.png" />
 		<texture id="grass" file="grass.jpg" />
 		<texture id="roof" file="roof.jpg" />
+		<texture id="door" file="door.png" />
+		<texture id="moogleface" file="moogleface.png" />
+		<texture id="mooglefacetop" file="mooglefacetop.png" />
+		<texture id="black" file="black.png" />
 	</textures>
 	<materials>
+		<material id="halo" shininess = "1.0" >
+			<emission r="0.5" g="0.5" b="0.5" a="1.0" />
+			<ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+			<diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
+			<specular r="0.8" g="0.8" b="0.8" a="1.0" />
+		</material>
+		<material id="ball" shininess = "1.0" >
+			<emission r="0.5" g="0.5" b="0.2" a="1.0" />
+			<ambient r="0.5" g="0.5" b="0.2" a="1.0" />
+			<diffuse r="0.7" g="0.7" b="0.2" a="1.0" />
+			<specular r="0.7" g="0.7" b="0.2" a="1.0" />
+		</material>
+		<material id="nose" shininess = "0.8" >
+			<emission r="0.3" g="0.1" b="0.2" a="1.0" />
+			<ambient r="0.66" g="0.1" b="0.9" a="1.0" />
+			<diffuse r="0.6" g="0.12" b="0.3" a="1.0" />
+			<specular r="0.66" g="0.72" b="0.9" a="1.0" />
+		</material>
 		<material id="materialID" shininess = "1.0" >
 			<emission r="0.4" g="0.4" b="0.4" a="1.0" />
 			<ambient r="0.3" g="0.3" b="0.3" a="1.0" />
@@ -71,6 +93,18 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="lefteye">
+			<rotate axis="y" angle="-20.0" />
+			<rotate axis="x" angle="-15.0" />
+			<scale x="0.4" y="0.13" z="0.1" />
+			<translate x="-6.0" y="67.0" z="36.5" />
+		</transformation>
+		<transformation id="righteye">
+			<rotate axis="y" angle="20.0" />
+			<rotate axis="x" angle="-15.0" />
+			<scale x="0.4" y="0.13" z="0.1" />
+			<translate x="-3.5" y="67.0" z="36.5" />
+		</transformation>
 		<transformation id="picture">
 			<translate x="0.8" y="0.0" z="-9.0" />
 			<scale x="0.001" y="2.0" z="1.8" />
@@ -89,7 +123,7 @@
 			<translate x="0.0" y="3.6" z="0.0" />
 		</transformation>
 		<transformation id="house">
-			<translate x="0.0" y="-0.4" z="0.0" />
+			<translate x="0.0" y="3.6" z="0.0" />
 		</transformation>
 		<transformation id="leftwallsmall">
 			<rotate axis="y" angle="-90.0" />
@@ -198,7 +232,7 @@
 			<translate x="0.0" y="0.35" z="-0.1" />
 		</transformation>
 		<transformation id="fronthand">
-			<scale x="0.9" y="0.3" z="1.0" />
+			<scale x="0.9" y="0.3" z="1.01" />
 		</transformation>
 		<transformation id="backhand">
 			<scale x="0.9" y="0.3" z="1.0" />
@@ -356,7 +390,7 @@
 			<scale x="0.1" y="0.1" z="0.08" />
 		</transformation>
 		<transformation id="moogle">
-			<translate x="-10.0" y="-5.0" z="1.0" />
+			<translate x="-10.0" y="0.0" z="1.0" />
 		</transformation>
 		<transformation id="headtop">
 			<scale x="2.2" y="1.8" z="1.8" />
@@ -370,7 +404,7 @@
 		</transformation>
 		<transformation id="nose">
 			<scale x="0.7" y="0.6" z="0.7" />
-			<translate x="0.0" y="16.0" z="2.2" />
+			<translate x="0.0" y="15.8" z="2.2" />
 			<rotate axis="x" angle="-13.0" />
 		</transformation>
 		<transformation id="bodytop">
@@ -570,16 +604,16 @@
 			<rotate axis="x" angle="90.0" />
 		</transformation>
 		<transformation id="circle">
-			<translate x="0.0" y="-5.0" z="0.0" />
+			<translate x="0.0" y="0.0" z="0.0" />
 			<scale x="60.0" y="1.0" z="60.0" />
 			<rotate axis="x" angle="-90.0" />
 		</transformation>
 		<transformation id="island">
-			<translate x="0.0" y="-2.0" z="0.0" />
+			<translate x="0.0" y="2.0" z="0.0" />
 			<rotate axis="x" angle="90.0" />
 		</transformation>
 		<transformation id="island2">
-			<translate x="0.0" y="-1.0" z="0.0" />
+			<translate x="0.0" y="3.0" z="0.0" />
 			<rotate axis="x" angle="90.0" />
 		</transformation>
 	</transformations>
@@ -1108,7 +1142,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="door" length_s="1.0" length_t="1.0"/>
 			<children>
 				<componentref id="cube" />
 			</children>
@@ -1398,7 +1432,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
 			<children>
 				<componentref id="head" />
 				<componentref id="body" />
@@ -1426,7 +1460,7 @@
 				<transformationref id="halo" />
 			</transformation>
 			<materials>
-				<material id="inherit" />
+				<material id="halo" />
 			</materials>
 			<texture id="none" />
 			<children>
@@ -1438,7 +1472,7 @@
 				<transformationref id="ball" />
 			</transformation>
 			<materials>
-				<material id="inherit" />
+				<material id="ball" />
 			</materials>
 			<texture id="none" />
 			<children>
@@ -1605,6 +1639,32 @@
 				<componentref id="headtop" />
 				<componentref id="headbot" />
 				<componentref id="nose" />
+				<componentref id="lefteye" />
+				<componentref id="righteye" />
+			</children>
+		</component>
+		<component id="righteye">
+			<transformation>
+				<transformationref id="righteye" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="black" length_s="1.0" length_t="1.0" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="lefteye">
+			<transformation>
+				<transformationref id="lefteye" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="black" length_s="1.0" length_t="1.0" />
+			<children>
+				<componentref id="cube" />
 			</children>
 		</component>
 		<component id="nose">
@@ -1612,7 +1672,7 @@
 				<transformationref id="nose" />
 			</transformation>
 			<materials>
-				<material id="inherit" />
+				<material id="nose" />
 			</materials>
 			<texture id="none" />
 			<children>
@@ -1626,7 +1686,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="inherit"/>
 			<children>
 				<primitiveref id="headtop" />
 			</children>
@@ -1638,7 +1698,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="moogleface" length_s="1.0" length_t="1.0"/>
 			<children>
 				<primitiveref id="headtop" />
 			</children>
@@ -2412,7 +2472,7 @@
 				<materials>
 					<material id="inherit" />
 				</materials>
-				<texture id="none" />
+				<texture id="black" length_s="1.0" length_t="1.0"/>
 				<children>
 					<primitiveref id="cherry" />
 				</children>
@@ -2424,7 +2484,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="black" length_s="1.0" length_t="1.0"/>
 			<children>
 				<componentref id="cake" />
 			</children>
@@ -2536,7 +2596,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="none" />
+			<texture id="black" length_s="1.0" length_t="1.0"/>
 			<children>
 				<primitiveref id="hand" />
 			</children>
@@ -2638,9 +2698,9 @@
 				<componentref id="dome" />
 				<componentref id="domebot" />
 				<componentref id="lakemargin" />
+				<componentref id="island" />
 				<componentref id="lake" />
 				<componentref id="Circle" />
-				<componentref id="island" />
 				<componentref id="portalcake" />
 				<componentref id="moogle" />
 				<componentref id="marioplant" />
