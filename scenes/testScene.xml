@@ -1,14 +1,42 @@
 <yas>
 	<scene root="rootScene" axis_length="5.0" />
-	<views default="orth" >
-	<perspective id="perp" near="0.1" far="900" angle="90.0">
-			<from x="15" y="15" z="15" />
-			<to x="0" y="0" z="0" />
+	<views default="moogle" >
+	<perspective id="moogle" near="0.1" far="900" angle="90.0">
+			<from x="0" y="15" z="20" />
+			<to x="0" y="7" z="0" />
+		</perspective>
+		<perspective id="veigar_hand" near="0.1" far="900" angle="90.0">
+			<from x="-9" y="14.5" z="-9" />
+			<to x="-14.5" y="13.5" z="-11.5" />
+		</perspective>
+		<perspective id="gramophone" near="0.1" far="900" angle="90.0">
+			<from x="4.0" y="14" z="-19" />
+			<to x="0.0" y="11" z="-24" />
+		</perspective>
+		<perspective id="piranha_plant" near="0.1" far="900" angle="90.0">
+			<from x="9" y="14.5" z="-9" />
+			<to x="16.5" y="13.5" z="-12" />
+		</perspective>
+		<perspective id="cactuar" near="0.1" far="900" angle="90.0">
+			<from x="9.0" y="14" z="9" />
+			<to x="14.5" y="11" z="12.5" />
+		</perspective>
+		<perspective id="cake" near="0.1" far="900" angle="90.0">
+			<from x="-9.0" y="14" z="9" />
+			<to x="-14.5" y="11" z="12.5" />
+		</perspective>
+		<perspective id="paintings" near="0.1" far="900" angle="90.0">
+			<from x="0.0" y="18" z="-19" />
+			<to x="0.0" y="18" z="-24" />
 		</perspective>
 		<ortho id="orth" near="0.1" far="500" left="-50" right="50" top="30" bottom="-30" >
 			<from x="30" y="30" z="30" />
 			<to x="0" y="5" z="0" />
 		</ortho>
+			<perspective id="world" near="0.1" far="900" angle="90.0">
+			<from x="0" y="0" z="100" />
+			<to x="0" y="7" z="0" />
+		</perspective>
 	</views>
 	<ambient>
 		<ambient r="0.2" g="0.2" b="0.2" a="1.0" />
@@ -16,21 +44,21 @@
 	</ambient>
 	<lights>
 		<omni id="lightOmni" enabled="1" >
-			<location x="-10" y="10" z="10" w="1" />
+			<location x="0.0" y="15" z="0.0" w="1" />
 			<ambient r="1.0" g="1.0" b="1.0" a="1" />
 			<diffuse r="0.9" g="0.9" b="0.9" a="1" />
 			<specular r="0.9" g="0.9" b="0.9" a="1" />
 		</omni>
 		<spot id="lightSpot" enabled="0" angle="50.0" exponent="1.0">
-			<location x="0.0" y="2.0" z="0.0" w="1" />
-			<target x="20.0" y="0.0" z="0.0" />
+			<location x="0.0" y="15.0" z="0.0" w="1" />
+			<target x="20.0" y="0.0" z="-20.0" />
 			<ambient r="0.3" g="0.0" b="0.0" a="1.0" />
 			<diffuse r="0.3" g="0.0" b="0.0" a="1.0" />
 			<specular r="0.3" g="0.0" b="0.0" a="1.0" />
 		</spot>
 		<spot id="tinyLight" enabled="0" angle="2.0" exponent="10.0">
-			<location x="0.0" y="2.0" z="0.0" w="1" />
-			<target x="20.0" y="0.0" z="0.0" />
+			<location x="0.0" y="15.0" z="0.0" w="1" />
+			<target x="0.0" y="0.0" z="-20.0" />
 			<ambient r="0.3" g="0.0" b="0.0" a="1.0" />
 			<diffuse r="0.3" g="0.0" b="0.0" a="1.0" />
 			<specular r="0.3" g="0.0" b="0.0" a="1.0" />
@@ -80,6 +108,13 @@
 			<ambient r="0.5" g="0.5" b="0.5" a="1.0" />
 			<diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
 			<specular r="0.8" g="0.8" b="0.8" a="1.0" />
+		</material>
+
+		<material id="change" shininess = "0.8" >
+			<emission r="0.3" g="0.0" b="0.0" a="1.0" />
+			<ambient r="0.3" g="0.0" b="0.0" a="1.0" />
+			<diffuse r="0.3" g="0.0" b="0.0" a="1.0" />
+			<specular r="0.3" g="0.0" b="0.0" a="1.0" />
 		</material>
 		<material id="cherry" shininess = "0.8" >
 			<emission r="0.3" g="0.1" b="0.1" a="1.0" />
@@ -2983,6 +3018,7 @@
 			</transformation>
 			<materials>
 				<material id="materialID" />
+				<material id="change" />
 			</materials>
 			<texture id="textureWall" length_s="1.0" length_t="1.0" />
 			<children>
