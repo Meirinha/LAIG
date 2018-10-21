@@ -57,12 +57,15 @@
 		<texture id="cactuar" file="cactuar.png" />
 		<texture id="cactuar2" file="cactuar2.png" />
 		<texture id="cactuarhair" file="cactuarhair.png" />
+		<texture id="cactuarface" file="cactuarface.png" />
 		<texture id="mariored" file="mariored.png" />
 		<texture id="marioplant" file="marioplant.png" />
 		<texture id="portalcake" file="portalcake.png" />
 		<texture id="golden" file="golden.png" />
 		<texture id="wood" file="wood.png" />
 		<texture id="disk" file="disk.png" />
+		<texture id="floor" file="floor.png" />
+		<texture id="wall" file="wall.png" />
 	</textures>
 	<materials>
 		<material id="halo" shininess = "1.0" >
@@ -117,6 +120,24 @@
 	<transformations>
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
+		</transformation>
+		<transformation id="cubeexpo">
+			<scale x="3.5" y="3.0" z="3.5" />
+		</transformation>
+		<transformation id="cube1">
+			<translate x="-9.0" y="0.9" z="-1.0" />
+		</transformation>
+		<transformation id="cube2">
+			<translate x="-9.0" y="0.9" z="-8.5" />
+		</transformation>
+		<transformation id="cube3">
+			<translate x="0.0" y="0.9" z="-1.0" />
+		</transformation>
+		<transformation id="cube4">
+			<translate x="0.0" y="0.9" z="-8.5" />
+		</transformation>
+		<transformation id="cube5">
+			<translate x="-4.5" y="0.9" z="-11.5" />
 		</transformation>
 		<transformation id="lefteye">
 			<rotate axis="y" angle="-20.0" />
@@ -187,9 +208,11 @@
 			<scale x="8.0" y="7.3" z="0.3" />
 		</transformation>
 		<transformation id="veigarhand">
+			<scale x="1.5" y="1.5" z="1.5" />
 			<rotate axis="x" angle="-90.0" />
+			<rotate axis="z" angle="60.0" />
 			<rotate axis="x" angle="30.0" />
-			<translate x="0.0" y="0.5" z="8.0" />
+			<translate x="2.5" y="14.5" z="-0.5" />
 		</transformation>
 		<transformation id="handbot">
 			<scale x="0.25" y="0.13" z="0.2" />
@@ -264,8 +287,9 @@
 			<translate x="0.0" y="0.4" z="0.0" />
 		</transformation>
 		<transformation id="cactuar">
+			<scale x="2.0" y="2.0" z="2.0" />
 			<rotate axis="x" angle="-20.0" />
-			<translate x="0.0" y="6.0" z="-10.0" />
+			<translate x="8.0" y="0.7" z="7.9" />
 		</transformation>
 		<transformation id="hair1">
 			<scale x="0.08" y="0.15" z="0.08" />
@@ -333,7 +357,8 @@
 			<translate x="0.0" y="0.0" z="-7.1" />
 		</transformation>
 		<transformation id="gramophone">
-			<translate x="10.0" y="5.0" z="0.0" />
+			<scale x="1.5" y="1.5" z="1.5" />
+			<translate x="-0.1" y="5.5" z="-16.5" />
 		</transformation>
 		<transformation id="support">
 			<rotate axis="x" angle="-100.0" />
@@ -361,7 +386,7 @@
 			<scale x="1.4" y="0.1" z="1.4" />
 		</transformation>
 		<transformation id="marioplant">
-			<translate x="0.0" y="5.0" z="20.0" />
+			<translate x="16.5" y="8.5" z="-13.3" />
 		</transformation>
 		<transformation id="leafeleft">
 			<rotate axis="x" angle="30.0" />
@@ -417,7 +442,7 @@
 			<scale x="0.1" y="0.1" z="0.08" />
 		</transformation>
 		<transformation id="moogle">
-			<translate x="-10.0" y="0.0" z="1.0" />
+			<translate x="0.5" y="-1.7" z="0.0" />
 		</transformation>
 		<transformation id="headtop">
 			<scale x="2.2" y="1.8" z="1.8" />
@@ -549,7 +574,7 @@
 			<rotate axis="x" angle="-90.0" />
 		</transformation>
 		<transformation id="portalcake">
-			<translate x="0.0" y="5.0" z="10.0" />
+			<translate x="-15.0" y="8.7" z="13.0" />
 		</transformation>
 		<transformation id="topping">
 			<translate x="0.0" y="2.05" z="0.0" />
@@ -918,7 +943,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="wall" length_s="0.5" length_t="0.5"/>
 			<children>
 				<componentref id="front" />
 				<componentref id="floor" />
@@ -961,7 +986,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
 			<children>
 				<componentref id="frontwallleft" />
 			</children>
@@ -1315,7 +1340,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="textureRocks" length_s="1.0" length_t="1.0" />
+			<texture id="floor" length_s="0.1" length_t="0.1" />
 			<children>
 				<primitiveref id="rec1" />
 			</children>
@@ -2428,7 +2453,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="cactuarface" length_s="1.0" length_t="1.0" />
 			<children>
 				<primitiveref id="cake" />
 			</children>
@@ -2770,6 +2795,84 @@
 		</component>
 
 
+		<component id="cubes">
+			<transformation>
+				<transformationref id="cubeexpo" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube1" />
+				<componentref id="cube2" />
+				<componentref id="cube3" />
+				<componentref id="cube4" />
+				<componentref id="cube5" />
+			</children>
+		</component>
+		<component id="cube1">
+			<transformation>
+				<transformationref id="cube1" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="cube2">
+			<transformation>
+				<transformationref id="cube2" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="cube3">
+			<transformation>
+				<transformationref id="cube3" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="cube4">
+			<transformation>
+				<transformationref id="cube4" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+		<component id="cube5">
+			<transformation>
+				<transformationref id="cube5" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="none" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+
+
 
 
 
@@ -2797,6 +2900,7 @@
 				<componentref id="cactuar" />
 				<componentref id="veigarhand" />
 				<componentref id="portrait" />
+				<componentref id="cubes" />
 			</children>
 		</component>
 	</components>
