@@ -1098,6 +1098,8 @@ class MySceneGraph {
                             }
                         } else if (currGreatchild.nodeName == "componentref") {
                             let idChild = currGreatchild.getAttribute("id");
+                            if (this.components[idChild] < 0)
+                                this.onXMLError("Component id child not found");
                             this.components[currID].addChild(this.components[idChild]);
                         }
                         k++;
