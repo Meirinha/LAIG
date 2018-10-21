@@ -57,6 +57,7 @@
 		<texture id="cactuar" file="cactuar.png" />
 		<texture id="cactuar2" file="cactuar2.png" />
 		<texture id="cactuarhair" file="cactuarhair.png" />
+		<texture id="cactuarface" file="cactuarface.png" />
 		<texture id="mariored" file="mariored.png" />
 		<texture id="marioplant" file="marioplant.png" />
 		<texture id="portalcake" file="portalcake.png" />
@@ -205,9 +206,11 @@
 			<scale x="8.0" y="7.3" z="0.3" />
 		</transformation>
 		<transformation id="veigarhand">
+			<scale x="1.5" y="1.5" z="1.5" />
 			<rotate axis="x" angle="-90.0" />
+			<rotate axis="z" angle="60.0" />
 			<rotate axis="x" angle="30.0" />
-			<translate x="0.0" y="0.5" z="8.0" />
+			<translate x="2.5" y="14.5" z="-0.5" />
 		</transformation>
 		<transformation id="handbot">
 			<scale x="0.25" y="0.13" z="0.2" />
@@ -282,8 +285,9 @@
 			<translate x="0.0" y="0.4" z="0.0" />
 		</transformation>
 		<transformation id="cactuar">
+			<scale x="2.0" y="2.0" z="2.0" />
 			<rotate axis="x" angle="-20.0" />
-			<translate x="0.0" y="6.0" z="-10.0" />
+			<translate x="8.0" y="0.7" z="7.9" />
 		</transformation>
 		<transformation id="hair1">
 			<scale x="0.08" y="0.15" z="0.08" />
@@ -351,7 +355,8 @@
 			<translate x="0.0" y="0.0" z="-7.1" />
 		</transformation>
 		<transformation id="gramophone">
-			<translate x="10.0" y="5.0" z="0.0" />
+			<scale x="1.5" y="1.5" z="1.5" />
+			<translate x="-0.1" y="5.5" z="-16.5" />
 		</transformation>
 		<transformation id="support">
 			<rotate axis="x" angle="-100.0" />
@@ -379,7 +384,7 @@
 			<scale x="1.4" y="0.1" z="1.4" />
 		</transformation>
 		<transformation id="marioplant">
-			<translate x="0.0" y="5.0" z="20.0" />
+			<translate x="16.5" y="8.5" z="-13.3" />
 		</transformation>
 		<transformation id="leafeleft">
 			<rotate axis="x" angle="30.0" />
@@ -435,7 +440,7 @@
 			<scale x="0.1" y="0.1" z="0.08" />
 		</transformation>
 		<transformation id="moogle">
-			<translate x="-10.0" y="0.0" z="1.0" />
+			<translate x="0.5" y="-1.7" z="0.0" />
 		</transformation>
 		<transformation id="headtop">
 			<scale x="2.2" y="1.8" z="1.8" />
@@ -567,7 +572,7 @@
 			<rotate axis="x" angle="-90.0" />
 		</transformation>
 		<transformation id="portalcake">
-			<translate x="0.0" y="5.0" z="10.0" />
+			<translate x="-15.0" y="8.7" z="13.0" />
 		</transformation>
 		<transformation id="topping">
 			<translate x="0.0" y="2.05" z="0.0" />
@@ -2446,7 +2451,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="cactuarface" length_s="1.0" length_t="1.0" />
 			<children>
 				<primitiveref id="cake" />
 			</children>
