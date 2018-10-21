@@ -59,6 +59,7 @@
 		<texture id="cactuarhair" file="cactuarhair.png" />
 		<texture id="mariored" file="mariored.png" />
 		<texture id="marioplant" file="marioplant.png" />
+		<texture id="portalcake" file="portalcake.png" />
 	</textures>
 	<materials>
 		<material id="halo" shininess = "1.0" >
@@ -66,6 +67,12 @@
 			<ambient r="0.5" g="0.5" b="0.5" a="1.0" />
 			<diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
 			<specular r="0.8" g="0.8" b="0.8" a="1.0" />
+		</material>
+		<material id="cherry" shininess = "0.8" >
+			<emission r="0.3" g="0.1" b="0.1" a="1.0" />
+			<ambient r="0.3" g="0.1" b="0.1" a="1.0" />
+			<diffuse r="0.3" g="0.1" b="0.1" a="1.0" />
+			<specular r="0.3" g="0.1" b="0.1" a="1.0" />
 		</material>
 		<material id="mariogreen" shininess = "0.5" >
 			<emission r="0.1" g="0.2" b="0.1" a="1.0" />
@@ -80,10 +87,10 @@
 			<specular r="0.7" g="0.7" b="0.2" a="1.0" />
 		</material>
 		<material id="nose" shininess = "0.8" >
-			<emission r="0.3" g="0.1" b="0.2" a="1.0" />
-			<ambient r="0.66" g="0.1" b="0.9" a="1.0" />
-			<diffuse r="0.6" g="0.12" b="0.3" a="1.0" />
-			<specular r="0.66" g="0.72" b="0.9" a="1.0" />
+			<emission r="0.8" g="0.3" b="0.3" a="1.0" />
+			<ambient r="0.8" g="0.3" b="0.3" a="1.0" />
+			<diffuse r="0.8" g="0.3" b="0.3" a="1.0" />
+			<specular r="0.8" g="0.3" b="0.3" a="1.0" />
 		</material>
 		<material id="materialID" shininess = "1.0" >
 			<emission r="0.4" g="0.4" b="0.4" a="1.0" />
@@ -539,7 +546,7 @@
 			<rotate axis="x" angle="-90.0" />
 		</transformation>
 		<transformation id="portalcake">
-			<translate x="0.0" y="0.0" z="10.0" />
+			<translate x="0.0" y="5.0" z="10.0" />
 		</transformation>
 		<transformation id="topping">
 			<translate x="0.0" y="2.05" z="0.0" />
@@ -1330,7 +1337,7 @@
 			<materials>
 				<material id="inherit" />
 			</materials>
-			<texture id="inherit" />
+			<texture id="portalcake" length_s="1.0" length_t="1.0" />
 			<children>
 				<primitiveref id="cake" />
 			</children>
@@ -1435,7 +1442,7 @@
 				<transformationref id="cherry" />
 			</transformation>
 			<materials>
-				<material id="inherit" />
+				<material id="cherry" />
 			</materials>
 			<texture id="none" />
 			<children>
