@@ -1,13 +1,13 @@
 <yas>
 	<scene root="rootScene" axis_length="5.0" />
 	<views default="perp" >
-		<perspective id="perp" near="0.1" far="900" angle="90.0">
+	<perspective id="perp" near="0.1" far="900" angle="90.0">
 			<from x="15" y="15" z="15" />
 			<to x="0" y="0" z="0" />
 		</perspective>
-		<ortho id="orth" near="0.3" far="400" left="-30" right="30" top="30" bottom="-30" >
-			<from x="40" y="40" z="40" />
-			<to x="0" y="0" z="0" />
+		<ortho id="orth" near="0.1" far="500" left="-15" right="15" top="10" bottom="-10" >
+			<from x="30" y="10" z="30" />
+			<to x="0" y="5" z="0" />
 		</ortho>
 	</views>
 	<ambient>
