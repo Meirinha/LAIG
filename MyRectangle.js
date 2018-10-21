@@ -1,7 +1,3 @@
-/**
- * MyRectangle
- * @constructor
- */
 class MyRectangle extends CGFobject {
 	constructor(scene, id, args) {
 		super(scene);
@@ -43,13 +39,11 @@ class MyRectangle extends CGFobject {
 
 		this.baseTexCoords = [
 			this.minS, this.minT,
-			this.minS, this.maxT,
 			this.maxS, this.minT,
 			this.maxS, this.maxT,
+			this.minS, this.maxT,
 		];
 		this.texCoords = new Array(this.baseTexCoords.length);
-
-
 		this.updateTexCoords(1, 1);
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
