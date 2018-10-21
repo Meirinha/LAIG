@@ -1154,13 +1154,16 @@ class MySceneGraph {
         this.scene.pushMatrix();
         this.scene.multMatrix(component.transformationMatrix);
 
+        var texS = 1;
+        var texT = 1;
+
         if (component.textureref != "inherit") {
             if (component.textureref == 'none')
                 textura = null;
             else {
                 textura = component.textureref;
-                var texS = component.texS;
-                var texT = component.texT;
+                texS = component.texS;
+                texT = component.texT;
             }
         }
 

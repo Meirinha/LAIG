@@ -43,7 +43,6 @@ class MyNode {
     nextMaterial() {
         let flag = false;
         for (var mate in this.materialRefList) {
-            console.log("HERE");
             if (this.materialref == this.materialRefList[mate])
                 flag = true;
             else if (flag) {
