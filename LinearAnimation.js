@@ -6,10 +6,13 @@ class LinearAnimation extends Animation{
     this.time = 0.0;
 	};
 
-  update(time, this.timePerPoint, this.vectors){
+  update(time){
     this.time += time;
-
-
+    for(let i = 0; i<timePerPoint.length; i++){
+      if(this.time <= this.sumTime[i]){
+        //aplica transformaçao entre 2 pontos distintos
+      }
+    }
   };
 
   defineTimePoint()
@@ -18,6 +21,8 @@ class LinearAnimation extends Animation{
     let totalDistance = 0.0;
     this.timePerPoint[] = 0.0;
     this.vectors[] = vec3.create();
+
+    this.sumTime[] = 0.0;
     for(let i = 0; i < this.points.length - 1; i++)
     {
       vec3.subtract(this.vectors[i], this.points[i+1], this.points[i]);
@@ -26,7 +31,12 @@ class LinearAnimation extends Animation{
     }
     for(let i = 0; i < this.points.length - 1; i++)
     {
-      this.timePerPoint[i] = this.distances[i]/totalDistance;
+      this.timePerPoint[i] = this.duration * this.distances[i]/totalDistance;
+      if(i>0)
+        this.sumTime[i] = this.timePerPoint[i] + this.sumTime[i-1];
+      else {
+        this.sumTime[i] = this.timePerPoint[i];
+      }
       this.vectors[i] /= this.timePerPoint;
     }
   }
