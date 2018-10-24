@@ -8,10 +8,24 @@ class LinearAnimation extends Animation{
 
   update(time){
     this.time += time;
+    this.matrix = mat4.create();
     for(let i = 0; i<timePerPoint.length; i++){
       if(this.time <= this.sumTime[i]){
         //aplica transformaçao entre 2 pontos distintos
+        //aplicar sempre angulo
+        if(i != 0){
+        vector = this.vectors[i].scale(this.sumTime[i-1] - this.time);
       }
+      else{
+        vector = this.vectors[i].scale(this.time);
+      }
+      mat4.translate(matrix, matrix, vector);
+      break;
+      vector = vec3.fromValues(0, 1, 0);
+      this.innerAngle = vec3.angle(this.vectors[i], this.vectors[i+1]);
+      angle = (360*DEGREE_TO_RAD)-this.innerAngle;
+      mat4.rotate(matrix, matrix, angle, vector);
+        }
     }
   };
 
