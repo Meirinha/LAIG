@@ -1,6 +1,7 @@
 class LinearAnimation extends Animation{
-  constructor(scene, points, duration) {
+  constructor(scene, id, points, duration) {
 		super(scene);
+    this.id = id;
 		this.points = points;
 		this.duration = duration;
     this.time = 0.0;
