@@ -11,9 +11,9 @@ class MyNode {
         this.materialref = null;
         this.materialRefList = [];
         this.textureref = null;
-        
-        this.animations = [];
 
+        this.animations = [];
+        this.currentAnimation;
         this.texS = 1.0;
         this.texT = 1.0;
 
@@ -39,6 +39,14 @@ class MyNode {
         for (var mat in this.materialRefList) {
             this.materialref = this.materialRefList[mat];
             break;
+        }
+    }
+
+    assignFirstAnimation(){ //Assigns first animation in array
+        if(this.animations.length == 0) this.hasAnimation = false;
+        else {
+        this.animation = this.animations[0];
+        this.hasAnimation = true;
         }
     }
 

@@ -15,7 +15,7 @@ class CircularAnimation extends Animation {
     this.transMatrix = mat4.create();
     };
 
-  getTransformMatrix(node, delta, section) {
+  getTransformationMatrix(node, delta, section) {
     this.time += delta;
     if (this.time >= this.duration)
       this.animationEnd = true;

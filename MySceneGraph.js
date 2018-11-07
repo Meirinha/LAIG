@@ -833,9 +833,9 @@ class MySceneGraph {
             let currChild = children[i];
 
             let currID = currChild.getAttribute("id");
-            console.log(this.animations);
+            console.log(this.animations[currID]);
             console.log(currID);
-            if (this.animations[currID] != -1) this.onXMLError("Repeated ID in animations");
+            if (this.animations[currID] != undefined) this.onXMLError("Repeated ID in animations");
 
             let currSpan = parseFloat(currChild.getAttribute("span"));
             if (!this.isValidNumber(currSpan)) this.onXMLError("Span attributes is invalid");
@@ -1233,6 +1233,9 @@ class MySceneGraph {
         this.scene.defaultAppearance.apply();
 
         this.scene.pushMatrix();
+        let matrix = component.transformationMatrix;
+        let aniMatrix = component.animation.getTransformationMatrix();
+
         this.scene.multMatrix(component.transformationMatrix);
 
         let texS = textureS;
