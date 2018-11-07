@@ -8,8 +8,9 @@ var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
 var TRANSFORMATIONS_INDEX = 6;
-var PRIMITIVES_INDEX = 7;
-var COMPONENTS_INDEX = 8;
+var ANIMATIONS_INDEX = 7;
+var PRIMITIVES_INDEX = 8;
+var COMPONENTS_INDEX = 9;
 
 //Default Values
 var DEFAULT_SCENE_ROOT = "rootScene";
@@ -199,6 +200,17 @@ class MySceneGraph {
             if ((error = this.parseTransformations(nodes[index])) != null)
                 return error;
         }
+        // <ANIMATIONS>
+        if ((index = nodeNames.indexOf("animaitons")) == -1)
+            return "tag <animations> missing";
+        else {
+            if (index != ANIMATIONS_INDEX)
+                this.onXMLMinorError("tag <animations> out of order");
+
+            //Parse ANIMATIONS block
+            if ((error = this.parseAnimations(nodes[index])) != null)
+                return error;
+        }
 
         // <PRIMITIVES>
         if ((index = nodeNames.indexOf("primitives")) == -1)
@@ -246,7 +258,6 @@ class MySceneGraph {
         return;
     }
 
-    //Views DONE TODO GUARDAR INFO  APAGAR
     parseViews(viewsNodes) {
         this.views = [];
         //Default
@@ -421,7 +432,6 @@ class MySceneGraph {
     //Ambient
     parseAmbient(ambientNodes) {
         var children = ambientNodes.children;
-        //Ambient TODO Test this GUARDAR INFO
         var currChild = children[0];
         if (currChild.nodeName == "ambient") {
             this.ambient = [];
@@ -467,7 +477,6 @@ class MySceneGraph {
             this.onXMLError("Ambient must have ambient and background children, in this order");
     }
 
-    //Lights TODO GUARDAR INFO
     parseLights(ligthsNodes) {
         let children = ligthsNodes.children;
         this.lights = [];
@@ -813,6 +822,59 @@ class MySceneGraph {
         } while (j < grandchildren.length)
         return matrix;
     }
+
+    //Animations
+    parseAnimations(animationNodes) {
+        let children = animationNodes.children;
+        this.animations = [];
+
+
+        for (let i = 0; i < children.length; i++) {
+            let currChild = children.animations[i];
+
+            let currID = currChild.getAttribute("id");
+            if (this.animations[currID] != -1) this.onXMLError("Repeated ID in animations");
+
+            let currSpan = parseFloat(currChild.getAttribute("span"));
+            if (!this.isValidNumber(currSpan)) this.onXMLError("Span attributes is invalid");
+
+            if (currChild.nodeName == "linear") {
+                let grandchildren = currChild.children;
+                let controlPoints = [];
+                for (let i = 0; i < grandchildren.length; i++) {
+                    let currGrandchild = grandchildren[i];
+
+                    if (currGrandchild.nodeName == "controlpoint") {
+                        let x = parseFloat(currGrandchild.getAttribute("xx"));
+                        let y = parseFloat(currGrandchild.getAttribute("yy"));
+                        let z = parseFloat(currGrandchild.getAttribute("zz"));
+
+                        if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
+                            this.onXMLError("Control point values are invalid");
+                        }
+                        controlPoints.push = vec3.fromValues(x, y, z);
+                    } else this.onXMLError("Tag must be controlpoint");
+                    this.animations[currID] = new LinearAnimation(this.scene, currID, currSpan, controlPoints);
+                }
+            } else if (currChild.nodeName == "circular") {
+
+
+                let centerString = currChild.getAttribute("center");
+                let centerArray = centerString.split(" ");
+                let center = vec3.fromValues(parseFloat(centerArray[0], centerArray[1], centerArray[2]));
+
+
+                let radius = parseFloat(currChild.getAttribute("radius"));
+                let startang = parseFloat(currChild.getAttribute("startang"));
+                let rotang = parseFloat(currChild.getAttribute("rotang"));
+
+                if (!this.isValidNumber(radius) || !this.isValidNumber(startang) || !this.isValidNumber(rotang)) this.onXMLError("Invalid circular animation attributes");
+
+                this.animations[currID] = new CircularAnimation(this.scene, currID, currSpan, center, radius, startang, rotang);
+            } else this.onXMLMinorError("Unknown tag " + currChild.nodeName + " in animations");
+        }
+    }
+
 
     //Primitives
     parsePrimitives(primitiveNodes) {
