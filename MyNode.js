@@ -11,6 +11,8 @@ class MyNode {
         this.materialref = null;
         this.materialRefList = [];
         this.textureref = null;
+        
+        this.animations = [];
 
         this.texS = 1.0;
         this.texT = 1.0;

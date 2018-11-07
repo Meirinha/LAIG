@@ -22,8 +22,8 @@ class XMLscene extends CGFscene {
     init(application) {
         super.init(application);
         // Transparency
-    this.gl.enable(this.gl.BLEND);
-    this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
+        this.gl.enable(this.gl.BLEND);
+        this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
 
         this.sceneInited = false;
 
@@ -37,6 +37,7 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
         this.displayAxis = true;
+        this.setUpdatePeriod(16);
     }
 
     /**
@@ -188,4 +189,15 @@ class XMLscene extends CGFscene {
         this.setShininess(10.0);
     }
 
-}
+    update(currTime) {
+        if (this.previousCurrTime == 0)
+            this.previousCurrTime = currTime;
+        else {
+
+            let delta = currTime - this.previousCurrTime;
+            this.previousCurrTime = currTime;
+
+            //this.components.animate(delta);
+        }
+    }
+};

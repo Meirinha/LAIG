@@ -201,7 +201,7 @@ class MySceneGraph {
                 return error;
         }
         // <ANIMATIONS>
-        if ((index = nodeNames.indexOf("animaitons")) == -1)
+        if ((index = nodeNames.indexOf("animations")) == -1)
             return "tag <animations> missing";
         else {
             if (index != ANIMATIONS_INDEX)
@@ -830,9 +830,11 @@ class MySceneGraph {
 
 
         for (let i = 0; i < children.length; i++) {
-            let currChild = children.animations[i];
+            let currChild = children[i];
 
             let currID = currChild.getAttribute("id");
+            console.log(this.animations);
+            console.log(currID);
             if (this.animations[currID] != -1) this.onXMLError("Repeated ID in animations");
 
             let currSpan = parseFloat(currChild.getAttribute("span"));
@@ -857,8 +859,6 @@ class MySceneGraph {
                     this.animations[currID] = new LinearAnimation(this.scene, currID, currSpan, controlPoints);
                 }
             } else if (currChild.nodeName == "circular") {
-
-
                 let centerString = currChild.getAttribute("center");
                 let centerArray = centerString.split(" ");
                 let center = vec3.fromValues(parseFloat(centerArray[0], centerArray[1], centerArray[2]));
@@ -1111,8 +1111,22 @@ class MySceneGraph {
                         this.components[currID].texT = parseFloat(currGrandchild.getAttribute("length_t"));
                     }
 
+                } else if (currGrandchild.nodeName == "animations") {
+                    let greatchildren = currGrandchild.children;
+                    for (let i = 0; i < greatchildren.length; i++) {
+                        let greatchild = greatchildren[i];
+                        if (greatchild.nodeName == "animationref") {
+                            let animationID = greatchild.getAttribute("id");
+                            if (this.animations[animationID] == -1) {
+                                this.onXMLError("Animation ID" + animationID + " does not exist.");
+                                break;
+                            }
+                            this.components[currID].animations.push(animationID);
+                        }
+                    }
+
                 } else if (currGrandchild.nodeName == "children") {
-                    //nothing
+                    //nothing yet
                 } else {
                     this.onXMLMinorError("Unknown tag");
                 }

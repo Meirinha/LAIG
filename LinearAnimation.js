@@ -30,12 +30,12 @@ class LinearAnimation extends Animation {
   };
 
   defineTimePoint() {
-    this.distances[] = 0.0;
+    this.distances = [0.0];
     let totalDistance = 0.0;
-    this.timePerPoint[] = 0.0;
-    this.vectors[] = vec3.create();
+    this.timePerPoint = [0.0];
+    this.vectors = [];
 
-    this.sumTime[] = 0.0;
+    this.sumTime = [0.0];
     for (let i = 0; i < this.points.length - 1; i++) {
       vec3.subtract(this.vectors[i], this.points[i + 1], this.points[i]);
       this.distances[i] = vec3.dist(this.points[i], this.points[i + 1]);
