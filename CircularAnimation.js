@@ -1,33 +1,32 @@
 class CircularAnimation extends Animation {
 
-  constructor(scene, id, duration, center, radius, initang, rotang) {
+  constructor(scene, id, duration, center, radius, startang, rotang) {
     super(scene);
     this.id = id;
     this.center = center;
     this.duration = duration;
     this.radius = radius;
-    this.initang = initang * DEGREE_TO_RAD;
+    this.startang = startang * DEGREE_TO_RAD;
     this.rotang = rotang * DEGREE_TO_RAD;
     this.angSpeed = this.radius / this.duration;
 
     this.time = 0.0;
 
-    this.transMatrix = mat4.create();
+    this.transformMatrix = mat4.create();
     };
 
-  getTransformationMatrix(node, delta, section) {
+  getTransformationMatrix(delta) {
     this.time += delta;
     if (this.time >= this.duration)
       this.animationEnd = true;
     else {
-      mat4.identity(this.transMatrix);
-      let dAlfa = this.initang + this.angSpeed * this.time;
-      mat4.translate(this.transMatrix, this.transMatrix, [this.center[0], this.center[1], this.center[2]]);
-      mat4.rotate(this.transMatrix, this.transMatrix, dAlfa, [0, 1, 0]);
-      mat4.translate(this.transMatrix, this.transMatrix, [this.radius, 0, 0]);
-      //mat4.rotate(this.transMatrix, this.transMatrix, Math.PI/2, [0, 1, 0]);
+      mat4.identity(this.transformMatrix);
+      let dAlfa = this.startang + this.angSpeed * this.time;
+      mat4.translate(this.transformMatrix, this.transformMatrix, [this.center[0], this.center[1], this.center[2]]);
+      mat4.rotate(this.transformMatrix, this.transformMatrix, dAlfa, [0, 1, 0]);
+      mat4.translate(this.transformMatrix, this.transformMatrix, [this.radius, 0, 0]);
+      mat4.rotate(this.transformMatrix, this.transformMatrix, Math.PI/2, [0, 1, 0]);
     }
-    return this.transMatrix;
+    return this.transformMatrix;
   };
-
 };

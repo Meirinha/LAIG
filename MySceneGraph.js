@@ -871,6 +871,7 @@ class MySceneGraph {
                 if (!this.isValidNumber(radius) || !this.isValidNumber(startang) || !this.isValidNumber(rotang)) this.onXMLError("Invalid circular animation attributes");
 
                 this.animations[currID] = new CircularAnimation(this.scene, currID, currSpan, center, radius, startang, rotang);
+                console.log(this.animations[currID]);
             } else this.onXMLMinorError("Unknown tag " + currChild.nodeName + " in animations");
         }
     }
@@ -1042,7 +1043,34 @@ class MySceneGraph {
                 this.primitives[currChild.getAttribute("id")] = new Torus(this.scene, currChild.getAttribute("id"),
                     parseFloat(currGrandchild.getAttribute("inner")), parseFloat(currGrandchild.getAttribute("outer")),
                     parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("loops")));
-            }
+            } else if (currGrandchild.nodeName == "patch") {
+                let npointsU = parseInt(currGrandchild.getAttribute("npointsU"));
+                let npointsV = parseInt(currGrandchild.getAttribute("npointsV"));
+                let npartsU = parseInt(currGrandchild.getAttribute("npartsU"));
+                let npartsV = parseInt(currGrandchild.getAttribute("npartsV"));
+                if (!this.isValidNumber(npointsU) || !this.isValidNumber(npointsV) || !this.isValidNumber(npartsU) || !this.isValidNumber(npartsV)) {
+                    this.onXMLError("Primitive nº " + i + " has invalid values.");
+                }
+                let greatchildren = currGrandchild.children;
+                let controlPoints = [];
+                for (let k = 0; k < greatchildren.length; k++) {
+                    let currGreatchild = greatchildren[k];
+                    if (currGreatchild.nodeName == "controlpoint") {
+                        let x = parseFloat(currGreatchild.getAttribute("xx"));
+                        let y = parseFloat(currGreatchild.getAttribute("yy"));
+                        let z = parseFloat(currGreatchild.getAttribute("zz"));
+
+                        if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
+                            this.onXMLError("Primitive nº " + i + " has invalid control point values");
+                        }
+
+                        controlPoints.push(vec3.fromValues(x, y, z));
+                    } else {
+                        this.onXMLError("Invalid tag " + greatchildren.nodeName);
+                    }
+                }
+                this.primitives[currChild.getAttribute("id")] = new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
+            } else this.onXMLError("Unknown node name " + currGrandchild.nodeName)
             i++;
         } while (i < children.length)
     }
@@ -1137,12 +1165,17 @@ class MySceneGraph {
 
         this.processNodesAux(componentNodes);
         this.assignFirstMaterial();
+        this.assignFirstAnimation();
         return null;
     }
 
     assignFirstMaterial() {
         for (var comp in this.components)
             this.components[comp].assignFirstMat();
+    }
+    assignFirstAnimation() {
+        for (var comp in this.components)
+            this.components[comp].assignFirstAni();
     }
 
     componentsNextMaterial() {
@@ -1233,10 +1266,11 @@ class MySceneGraph {
         this.scene.defaultAppearance.apply();
 
         this.scene.pushMatrix();
-        let matrix = component.transformationMatrix;
-        let aniMatrix = component.animation.getTransformationMatrix();
-
-        this.scene.multMatrix(component.transformationMatrix);
+        if (component.hasAnimation)
+            // this.scene.multMatrix(this.animations[component.currentAnimation].getTransformationMatrix());
+            // console.log(this.animations[component.currentAnimation].getTransformationMatrix());
+            this.scene.multMatrix(component.transformationMatrix);
+        // console.log(this.scene.getMatrix());
 
         let texS = textureS;
         let texT = textureT;

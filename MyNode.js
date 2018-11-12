@@ -42,10 +42,10 @@ class MyNode {
         }
     }
 
-    assignFirstAnimation(){ //Assigns first animation in array
+    assignFirstAni(){ //Assigns first animation in array
         if(this.animations.length == 0) this.hasAnimation = false;
         else {
-        this.animation = this.animations[0];
+        this.currentAnimation = this.animations[0];
         this.hasAnimation = true;
         }
     }
