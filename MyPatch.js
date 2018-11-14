@@ -1,15 +1,14 @@
 class MyPatch extends CGFobject {
 	constructor(scene, npointsU, npointsV, npartsU, npartsV, controlPoints) {
 		super(scene);
-		let nurbSurface = new CGFnurbsSurface(npointsU, npointsV, controlPoints);
-		this.nurbsObject = new CGFnurbsObject(scene, npartsU, npartsV, nurbSurface);
-	};
-	display() {
-		this.nurbsObject.display();
-	};
+		console.log(npartsU, npartsV, controlPoints);
+		let nurbsSurface = new CGFnurbsSurface(npointsU-1 , npointsV-1, controlPoints);
 
-	updateTexCoords(sFactor, tFactor)
-	{
+		var obj = new CGFnurbsObject(scene, npartsU, npartsV, nurbsSurface); // must provide an object with the function getPoint(u, v) (CGFnurbsSurface has it)
+
+		this.scene.surfaces.push(obj);
+	};
+	updateTexCoords(sFactor, tFactor) {
 
 	};
 }

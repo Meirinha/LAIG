@@ -35,27 +35,31 @@
         </transformation>
     </transformations>
     <animations>
-        <circular id="circular" span="5.0" center="0.0 0.0 0.0" radius="3.0" startang="0.0" rotang="90.0"/>
+        <!-- <circular id="circular" span="5.0" center="0.0 0.0 0.0" radius="3.0" startang="0.0" rotang="90.0"/> -->
     </animations>
     <primitives>
         <primitive id="cake">
-            <cylinder base="2.0" top="2.0" height="2" slices="20" stacks="5"/>
+            <cylinder base="0.01" top="0.02" height="0.01" slices="5" stacks="5"/>
         </primitive>
-        <!-- <primitive id="plane">
-   <plane npartsU="ii" npartsV="ii"/>
-        </primitive> -->
-        <primitive id="patch">
-            <patch npointsU="2" npointsV="2" npartsU="2" npartsV="2">
-                <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-                <controlpoint xx="0.0" yy="1.0" zz="0.0" />
-                <controlpoint xx="1.0" yy="0.0" zz="0.0" />
-                <controlpoint xx="1.0" yy="1.0" zz="0.0" />
+        <primitive id="plane">
+            <plane npartsU="3" npartsV="2"/>
+        </primitive>
+        <!--<primitive id="patch">
+            <patch npointsU="3" npointsV="2" npartsU="3" npartsV="2">
+                <controlpoint xx="0.0" yy="3.0" zz="0.0" />
+                <controlpoint xx="2.0" yy="2.0" zz="0.0" />
+                <controlpoint xx="0.0" yy="2.0" zz="2.0" />
+                <controlpoint xx="2.0" yy="0.0" zz="2.0" />
+                <controlpoint xx="0.0" yy="1.0" zz="4.0" />
+                <controlpoint xx="2.0" yy="0.0" zz="4.0" />
             </patch>
-        </primitive>
+        </primitive> -->
+
+
         <!-- <primitive id="vehicle">
    <vehicle/>
-        </primitive>
-  <primitive id="cylinder2">
+        </primitive> -->
+        <!--   <primitive id="cylinder2">
    <cylinder2 base="ff" top="ff" height="ff" slices="ii" stacks="ii"/>
         </primitive>
   <primitive id="terrain">
@@ -66,7 +70,7 @@
         </primitive> -->
     </primitives>
     <components>
-        <component id="plane">
+        <!-- <component id="plane">
             <transformation>
                 <transformationref id="transID" />
             </transformation>
@@ -77,10 +81,10 @@
             <children>
                 <primitiveref id="patch" />
             </children>
-        </component>
-<!--
+        </component> -->
 
-        <component id="portalcake">
+
+        <!-- <component id="portalcake">
             <transformation>
                 <transformationref id="transID" />
             </transformation>
@@ -94,10 +98,10 @@
             <children>
                 <componentref id="cake" />
             </children>
-        </component>
+        </component> -->
         <component id="cake">
             <transformation>
-                <transformationref id="transID" />
+                <translate x="0.0" y="10.0" z = "0.0" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -107,7 +111,7 @@
                 <primitiveref id="cake" />
             </children>
         </component>
--->
+
 
         <!-- ROOT -->
         <component id="rootScene">
@@ -119,7 +123,7 @@
             </materials>
             <texture id="none" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="plane" />
+                <componentref id="cake" />
             </children>
         </component>
     </components>

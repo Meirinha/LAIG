@@ -38,6 +38,19 @@ class XMLscene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.displayAxis = true;
         this.setUpdatePeriod(16);
+
+
+		this.appearance = new CGFappearance(this);
+		this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
+		this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
+		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);	
+		this.appearance.setShininess(120);
+		this.texture = new CGFtexture(this, "texture.jpg");
+		this.appearance.setTexture(this.texture);
+		this.appearance.setTextureWrap ('REPEAT', 'REPEAT');
+		
+
+        this.surfaces = [];
     }
 
     /**
@@ -145,7 +158,16 @@ class XMLscene extends CGFscene {
             this.updateLightsDisplay();
             this.setCameraUsed();
             // Displays the scene (MySceneGraph function).
+
             this.graph.displayScene();
+
+            this.appearance.apply();
+            for (i = 0; i < this.surfaces.length; i++) {
+                this.pushMatrix();
+                console.log(this.surfaces[i]);
+                this.surfaces[i].display();
+                this.popMatrix();
+            }
         } else {
             // Draw axis
             if (this.displayAxis)

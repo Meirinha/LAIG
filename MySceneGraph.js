@@ -1053,23 +1053,35 @@ class MySceneGraph {
                 }
                 let greatchildren = currGrandchild.children;
                 let controlPoints = [];
-                for (let k = 0; k < greatchildren.length; k++) {
-                    let currGreatchild = greatchildren[k];
-                    if (currGreatchild.nodeName == "controlpoint") {
-                        let x = parseFloat(currGreatchild.getAttribute("xx"));
-                        let y = parseFloat(currGreatchild.getAttribute("yy"));
-                        let z = parseFloat(currGreatchild.getAttribute("zz"));
+                for (let u = 0; u < npointsU; u++) {
+                    let vPoints = [];
+                    for (let v = 0; v < npointsV; v++) {
+                        let currGreatchild = greatchildren[npointsV * u + v];
+                        if (currGreatchild.nodeName == "controlpoint") {
+                            let x = parseFloat(currGreatchild.getAttribute("xx"));
+                            let y = parseFloat(currGreatchild.getAttribute("yy"));
+                            let z = parseFloat(currGreatchild.getAttribute("zz"));
 
-                        if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
-                            this.onXMLError("Primitive nº " + i + " has invalid control point values");
+                            if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
+                                this.onXMLError("Primitive nº " + i + " has invalid control point values");
+                            }
+                            vPoints.push(vec4.fromValues(x, y, z, 1));
+                        } else {
+                            this.onXMLError("Invalid tag " + greatchildren.nodeName);
                         }
-
-                        controlPoints.push(vec3.fromValues(x, y, z));
-                    } else {
-                        this.onXMLError("Invalid tag " + greatchildren.nodeName);
                     }
+                    controlPoints.push(vPoints);
                 }
-                this.primitives[currChild.getAttribute("id")] = new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
+                let temp = new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
+                console.log(this.primitives[currChild.getAttribute("id")]);
+            } else if (currGrandchild.nodeName == "plane") {
+                let npartsU = parseInt(currGrandchild.getAttribute("npartsU"));
+                let npartsV = parseInt(currGrandchild.getAttribute("npartsV"));
+                if (!this.isValidNumber(npartsU) || !this.isValidNumber(npartsV)) {
+                    this.onXMLError("Primitive nº " + i + " has invalid values.");
+                }
+
+                let temp = new MyPlane(this.scene, npartsU, npartsV);
             } else this.onXMLError("Unknown node name " + currGrandchild.nodeName)
             i++;
         } while (i < children.length)
@@ -1307,7 +1319,6 @@ class MySceneGraph {
             }
             this.materials[material].apply();
         }
-
         for (var j = 0; j < component.leaves.length; j++) {
             component.leaves[j].updateTexCoords(texS, texT);
             component.leaves[j].display();
