@@ -1073,7 +1073,6 @@ class MySceneGraph {
                     controlPoints.push(vPoints);
                 }
                 let temp = new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
-                console.log(this.primitives[currChild.getAttribute("id")]);
             } else if (currGrandchild.nodeName == "plane") {
                 let npartsU = parseInt(currGrandchild.getAttribute("npartsU"));
                 let npartsV = parseInt(currGrandchild.getAttribute("npartsV"));
@@ -1082,7 +1081,19 @@ class MySceneGraph {
                 }
 
                 let temp = new MyPlane(this.scene, npartsU, npartsV);
-            } else this.onXMLError("Unknown node name " + currGrandchild.nodeName)
+            } else if (currGrandchild.nodeName == "cylinder2") {
+                let base = parseFloat(currGrandchild.getAttribute("base"));
+                let top = parseFloat(currGrandchild.getAttribute("top"));
+                let height = parseFloat(currGrandchild.getAttribute("height"));
+                let slices = parseInt(currGrandchild.getAttribute("slices"));
+                let stacks = parseInt(currGrandchild.getAttribute("stacks"));
+
+                if(!this.isValidNumber(base) || !this.isValidNumber(top) || !this.isValidNumber(height) || !this.isValidNumber(slices) || !this.isValidNumber(stacks)){
+                    this.onXMLError("Cylinder2, primitive nº " + i + " has invalid attribute values.");
+                }
+
+                let temp = new PatchMyCylinder(this.scene, base, top, height, slices, stacks);
+            } else this.onXMLError("Unknown node name " + currGrandchild.nodeName);
             i++;
         } while (i < children.length)
     }
@@ -1278,9 +1289,10 @@ class MySceneGraph {
         this.scene.defaultAppearance.apply();
 
         this.scene.pushMatrix();
-        if (component.hasAnimation)
+        if (component.hasAnimation){
             // this.scene.multMatrix(this.animations[component.currentAnimation].getTransformationMatrix());
             // console.log(this.animations[component.currentAnimation].getTransformationMatrix());
+    }
             this.scene.multMatrix(component.transformationMatrix);
         // console.log(this.scene.getMatrix());
 
