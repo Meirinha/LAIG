@@ -14,11 +14,18 @@ class MyNode {
 
         this.animations = [];
         this.currentAnimation;
+        this.currAnimation = 0;
         this.texS = 1.0;
         this.texT = 1.0;
 
+        this.time = 0;
+        this.currentSection = 0;
+
         this.transformationMatrix = mat4.create();
         mat4.identity(this.transformationMatrix);
+
+        this.animationMatrix = mat4.create();
+        mat4.identity(this.animationMatrix);
     }
 
     /**
@@ -48,6 +55,19 @@ class MyNode {
         this.currentAnimation = this.animations[0];
         this.hasAnimation = true;
         }
+    }
+
+    updateAnimation(deltaT){
+      this.time += deltaT/1000;
+      if(this.currAnimation < this.animations.length){
+        this.animationMatrix =  this.graph.scene.animations[this.currentAnimation].getTransformationMatrix(this.time, this.currentSection);
+        console.log("animation:" + this.animationMatrix);
+        if(this.time >= this.graph.scene.animations[this.currentAnimation].duration){
+          this.time = 0;
+          this.currentSection = 0;
+          this.currAnimation++;
+        }
+      }
     }
 
     nextMaterial() {

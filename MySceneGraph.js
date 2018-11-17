@@ -826,16 +826,13 @@ class MySceneGraph {
     //Animations
     parseAnimations(animationNodes) {
         let children = animationNodes.children;
-        this.animations = [];
 
 
         for (let i = 0; i < children.length; i++) {
             let currChild = children[i];
 
             let currID = currChild.getAttribute("id");
-            console.log(this.animations[currID]);
-            console.log(currID);
-            if (this.animations[currID] != undefined) this.onXMLError("Repeated ID in animations");
+            if (this.scene.animations[currID] != undefined) this.onXMLError("Repeated ID in animations");
 
             let currSpan = parseFloat(currChild.getAttribute("span"));
             if (!this.isValidNumber(currSpan)) this.onXMLError("Span attributes is invalid");
@@ -856,12 +853,15 @@ class MySceneGraph {
                         }
                         controlPoints.push = vec3.fromValues(x, y, z);
                     } else this.onXMLError("Tag must be controlpoint");
-                    this.animations[currID] = new LinearAnimation(this.scene, currID, currSpan, controlPoints);
+                    this.scene.animations[currID] = new LinearAnimation(this.scene, currID, currSpan, controlPoints);
                 }
             } else if (currChild.nodeName == "circular") {
                 let centerString = currChild.getAttribute("center");
                 let centerArray = centerString.split(" ");
-                let center = vec3.fromValues(parseFloat(centerArray[0], centerArray[1], centerArray[2]));
+
+                let center = vec3.fromValues(centerArray[0], centerArray[1], centerArray[2]);
+
+                console.log("centerArray: " + center);
 
 
                 let radius = parseFloat(currChild.getAttribute("radius"));
@@ -870,8 +870,8 @@ class MySceneGraph {
 
                 if (!this.isValidNumber(radius) || !this.isValidNumber(startang) || !this.isValidNumber(rotang)) this.onXMLError("Invalid circular animation attributes");
 
-                this.animations[currID] = new CircularAnimation(this.scene, currID, currSpan, center, radius, startang, rotang);
-                console.log(this.animations[currID]);
+                this.scene.animations[currID] = new CircularAnimation(this.scene, currID, currSpan, center, radius, startang, rotang);
+                console.log(this.scene.animations[currID]);
             } else this.onXMLMinorError("Unknown tag " + currChild.nodeName + " in animations");
         }
     }
@@ -1157,7 +1157,7 @@ class MySceneGraph {
                         let greatchild = greatchildren[i];
                         if (greatchild.nodeName == "animationref") {
                             let animationID = greatchild.getAttribute("id");
-                            if (this.animations[animationID] == -1) {
+                            if (this.scene.animations[animationID] == -1) {
                                 this.onXMLError("Animation ID" + animationID + " does not exist.");
                                 break;
                             }
@@ -1278,11 +1278,9 @@ class MySceneGraph {
         this.scene.defaultAppearance.apply();
 
         this.scene.pushMatrix();
+        this.scene.multMatrix(component.transformationMatrix);
         if (component.hasAnimation)
-            // this.scene.multMatrix(this.animations[component.currentAnimation].getTransformationMatrix());
-            // console.log(this.animations[component.currentAnimation].getTransformationMatrix());
-            this.scene.multMatrix(component.transformationMatrix);
-        // console.log(this.scene.getMatrix());
+             this.scene.multMatrix(component.animationMatrix);
 
         let texS = textureS;
         let texT = textureT;

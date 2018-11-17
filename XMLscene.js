@@ -13,6 +13,8 @@ class XMLscene extends CGFscene {
 
         this.interface = myinterface;
         this.lightValues = {};
+
+        this.lastTime = 0;
     }
 
     /**
@@ -38,17 +40,18 @@ class XMLscene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.displayAxis = true;
         this.setUpdatePeriod(16);
+        this.animations = [];
 
 
 		this.appearance = new CGFappearance(this);
 		this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
 		this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
-		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);	
+		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
 		this.appearance.setShininess(120);
 		this.texture = new CGFtexture(this, "texture.jpg");
 		this.appearance.setTexture(this.texture);
 		this.appearance.setTextureWrap ('REPEAT', 'REPEAT');
-		
+
 
         this.surfaces = [];
     }
@@ -211,14 +214,10 @@ class XMLscene extends CGFscene {
     }
 
     update(currTime) {
-        if (this.previousCurrTime == 0)
-            this.previousCurrTime = currTime;
-        else {
 
-            let delta = currTime - this.previousCurrTime;
-            this.previousCurrTime = currTime;
-
-            //this.components.animate(delta);
+      for(var node in this.graph.components) {
+        this.graph.components[node].updateAnimation(currTime - this.lastTime);
+      }
+      this.lastTime = currTime;
         }
-    }
 };

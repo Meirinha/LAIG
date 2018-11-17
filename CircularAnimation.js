@@ -8,15 +8,18 @@ class CircularAnimation extends Animation {
     this.radius = radius;
     this.startang = startang * DEGREE_TO_RAD;
     this.rotang = rotang * DEGREE_TO_RAD;
-    this.angSpeed = this.radius / this.duration;
+    //this.animationLength = this.rotang * this.radius;
+    //this.speed = this.animationLength / this.duration;
+    this.angSpeed = this.rotang / this.duration;
 
     this.time = 0.0;
 
     this.transformMatrix = mat4.create();
     };
 
-  getTransformationMatrix(delta) {
-    this.time += delta;
+  getTransformationMatrix(delta, currentSection) {
+    this.time = delta;
+    console.log("delta: " + this.time);
     if (this.time >= this.duration)
       this.animationEnd = true;
     else {

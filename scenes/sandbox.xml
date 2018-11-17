@@ -35,11 +35,11 @@
         </transformation>
     </transformations>
     <animations>
-        <!-- <circular id="circular" span="5.0" center="0.0 0.0 0.0" radius="3.0" startang="0.0" rotang="90.0"/> -->
+         <circular id="circular" span="5.0" center="0.0 0.0 0.0" radius="3.0" startang="0.0" rotang="180.0"/>
     </animations>
     <primitives>
         <primitive id="cake">
-            <cylinder base="0.01" top="0.02" height="0.01" slices="5" stacks="5"/>
+            <cylinder base="1.0" top="1.0" height="1.0" slices="5" stacks="5"/>
         </primitive>
         <primitive id="plane">
             <plane npartsU="3" npartsV="2"/>
@@ -101,8 +101,11 @@
         </component> -->
         <component id="cake">
             <transformation>
-                <translate x="0.0" y="10.0" z = "0.0" />
+                <translate x="0.0" y="0.0" z = "0.0" />
             </transformation>
+            <animations>
+                <animationref id="circular"/>
+            </animations>
             <materials>
                 <material id="inherit" />
             </materials>
