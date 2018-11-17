@@ -61,7 +61,6 @@ class MyNode {
       this.time += deltaT/1000;
       if(this.currAnimation < this.animations.length){
         this.animationMatrix =  this.graph.scene.animations[this.currentAnimation].getTransformationMatrix(this.time, this.currentSection);
-        console.log("animation:" + this.animationMatrix);
         if(this.time >= this.graph.scene.animations[this.currentAnimation].duration){
           this.time = 0;
           this.currentSection = 0;

@@ -253,7 +253,6 @@ class MySceneGraph {
             sceneNodes.setAttribute("axis_length", DEFAULT_SCENE_AXIS_LENGTH);
         }
         this.referenceLength = parseFloat(sceneNodes.getAttribute("axis_length"));
-        console.log("Scene: Root= " + sceneNodes.getAttribute("root") + " Axis_Length= " + sceneNodes.getAttribute("axis_length"));
 
         return;
     }
@@ -265,7 +264,6 @@ class MySceneGraph {
             this.onXMLMinorError("Views does not have a default attribute, using value " + DEFAULT_VIEWS_DEFAULT + ".");
             viewsNodes.setAttribute("default", DEFAULT_VIEWS_DEFAULT);
         }
-        console.log("Views: default= " + viewsNodes.getAttribute("default"));
         this.defaultView = viewsNodes.getAttribute("default");
         //Views children
 
@@ -851,18 +849,15 @@ class MySceneGraph {
                         if (!this.isValidNumber(x) || !this.isValidNumber(y) || !this.isValidNumber(z)) {
                             this.onXMLError("Control point values are invalid");
                         }
-                        controlPoints.push = vec3.fromValues(x, y, z);
+                        controlPoints.push(new vec3.fromValues(x, y, z));
                     } else this.onXMLError("Tag must be controlpoint");
-                    this.scene.animations[currID] = new LinearAnimation(this.scene, currID, currSpan, controlPoints);
                 }
+                this.scene.animations[currID] = new LinearAnimation(this.scene, currID, currSpan, controlPoints);
             } else if (currChild.nodeName == "circular") {
                 let centerString = currChild.getAttribute("center");
                 let centerArray = centerString.split(" ");
 
                 let center = vec3.fromValues(centerArray[0], centerArray[1], centerArray[2]);
-
-                console.log("centerArray: " + center);
-
 
                 let radius = parseFloat(currChild.getAttribute("radius"));
                 let startang = parseFloat(currChild.getAttribute("startang"));
@@ -871,7 +866,7 @@ class MySceneGraph {
                 if (!this.isValidNumber(radius) || !this.isValidNumber(startang) || !this.isValidNumber(rotang)) this.onXMLError("Invalid circular animation attributes");
 
                 this.scene.animations[currID] = new CircularAnimation(this.scene, currID, currSpan, center, radius, startang, rotang);
-                console.log(this.scene.animations[currID]);
+
             } else this.onXMLMinorError("Unknown tag " + currChild.nodeName + " in animations");
         }
     }
@@ -961,7 +956,6 @@ class MySceneGraph {
                 let height = parseFloat(currGrandchild.getAttribute("height"));
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
                 let stacks = parseInt(currGrandchild.getAttribute("stacks"));
-                console.log(base + " " + top + " " + height);
                 if (!this.isValidNumber(base) || !this.isValidNumber(top) || !this.isValidNumber(height)) {
                     this.onXMLMinorError("Primitive nº " + i + " has one or more invalid 'cylinder' base/top/height values, using default 1.0")
                     currGrandchild.setAttribute("base", 1.0);

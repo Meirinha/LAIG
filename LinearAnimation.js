@@ -5,7 +5,39 @@ class LinearAnimation extends Animation {
         this.points = points;
         this.duration = duration;
         this.time = 0.0;
+        this.initValues = new Array();
+        this.totalDistance = 0;
+        this.animationVelocity = 0;
+
+
+    for (let i = 0; i < points.length-1; i++){
+      let values = new Array();
+      let distance = vec3.distance(points[i], points[i+1]);
+
+      this.totalDistance += distance;
+
+      let cosAlfa = (points[i+1][0] - points[i][0])/distance;
+      let senAlfa = (points[i+1][2] - points[i][2])/distance;
+      let dy = points[i+1][1] - points[i][1];
+      if(dy !== 0){
+        dy /= Math.abs(points[i+1][1] - points[i][1]);
+      }
+
+      let alfa = Math.acos(cosAlfa);
+
+      let vx = animationVelocity * cosAlfa;
+      let vz = animationVelocity * senAlfa;
+      let vy = Math.sqrt(Math.round((this.animationVelocity * this.animationVelocity - vx*vx - vz*vz)*1000)/1000)*dy;
+      this.secTimes.push(dist/this.animationVelocity);
+      values.push(vx, vy, vz, alfa);
+      this.initValues.push(values);
+    }
+    this.totalTime = this.totalDistance / this.animationVelocity;
+    this.transformMatrix = mat4.create();
+
+
     };
+    getTransformationMatrix(time, currentSection){};
 
     update(time) {
         this.time += time;
@@ -50,5 +82,5 @@ class LinearAnimation extends Animation {
             }
             this.vectors[i] /= this.timePerPoint;
         }
-    }
-}
+    };
+};
