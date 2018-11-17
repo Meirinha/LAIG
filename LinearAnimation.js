@@ -8,16 +8,20 @@ class LinearAnimation extends Animation {
         this.initValues = new Array();
         this.totalDistance = 0;
         this.animationVelocity = 0;
+        this.distances = new Array();
+        this.sectionTime = new Array();
 
 
     for (let i = 0; i < points.length-1; i++){
       let values = new Array();
       let distance = vec3.distance(points[i], points[i+1]);
-
+      this.distances.push(distance);
       this.totalDistance += distance;
-
-      let cosAlfa = (points[i+1][0] - points[i][0])/distance;
-      let senAlfa = (points[i+1][2] - points[i][2])/distance;
+}
+    this.animationVelocity = this.totalDistance/this.duration;
+    for (let i = 0; i < points.length-1; i++){
+      let cosAlfa = (points[i+1][0] - points[i][0])/this.distances[i];
+      let senAlfa = (points[i+1][2] - points[i][2])/this.distances[i];
       let dy = points[i+1][1] - points[i][1];
       if(dy !== 0){
         dy /= Math.abs(points[i+1][1] - points[i][1]);
@@ -25,62 +29,40 @@ class LinearAnimation extends Animation {
 
       let alfa = Math.acos(cosAlfa);
 
-      let vx = animationVelocity * cosAlfa;
-      let vz = animationVelocity * senAlfa;
+      let vx = this.animationVelocity * cosAlfa;
+      let vz = this.animationVelocity * senAlfa;
       let vy = Math.sqrt(Math.round((this.animationVelocity * this.animationVelocity - vx*vx - vz*vz)*1000)/1000)*dy;
-      this.secTimes.push(dist/this.animationVelocity);
+      this.sectionTime.push(this.distances[i]/this.animationVelocity);
       values.push(vx, vy, vz, alfa);
       this.initValues.push(values);
     }
-    this.totalTime = this.totalDistance / this.animationVelocity;
     this.transformMatrix = mat4.create();
-
-
-    };
-    getTransformationMatrix(time, currentSection){};
-
-    update(time) {
-        this.time += time;
-        this.matrix = mat4.create();
-        for (let i = 0; i < timePerPoint.length; i++) {
-            if (this.time <= this.sumTime[i]) {
-                //aplica transformaçao entre 2 pontos distintos
-                //aplicar sempre angulo
-                if (i != 0) {
-                    vector = this.vectors[i].scale(this.sumTime[i - 1] - this.time);
-                } else {
-                    vector = this.vectors[i].scale(this.time);
-                }
-                mat4.translate(matrix, matrix, vector);
-                break;
-                vector = vec3.fromValues(0, 1, 0);
-                this.innerAngle = vec3.angle(this.vectors[i], this.vectors[i + 1]);
-                angle = (360 * DEGREE_TO_RAD) - this.innerAngle;
-                mat4.rotate(matrix, matrix, angle, vector);
-            }
-        }
     };
 
-    defineTimePoint() {
-        this.distances = [0.0];
-        let totalDistance = 0.0;
-        this.timePerPoint = [0.0];
-        this.vectors = [];
+    getTransformationMatrix(time, currentSection){
+      let sectionTime = time;
+    for(let i = 0; i < currentSection; i++)
+      sectionTime -= this.sectionTime[i];
 
-        this.sumTime = [0.0];
-        for (let i = 0; i < this.points.length - 1; i++) {
-            vec3.subtract(this.vectors[i], this.points[i + 1], this.points[i]);
-            this.distances[i] = vec3.dist(this.points[i], this.points[i + 1]);
-            totalDistance += this.distances[i];
-        }
-        for (let i = 0; i < this.points.length - 1; i++) {
-            this.timePerPoint[i] = this.duration * this.distances[i] / totalDistance;
-            if (i > 0)
-                this.sumTime[i] = this.timePerPoint[i] + this.sumTime[i - 1];
-            else {
-                this.sumTime[i] = this.timePerPoint[i];
-            }
-            this.vectors[i] /= this.timePerPoint;
-        }
+
+    if(currentSection < this.points.length - 1){
+      mat4.identity(this.transformMatrix);
+      let dx = sectionTime * this.initValues[currentSection][0];
+      let dy = sectionTime * this.initValues[currentSection][1];
+      let dz = sectionTime * this.initValues[currentSection][2];
+
+      mat4.translate(this.transformMatrix, this.transformMatrix, [dx, dy, dz]);
+      mat4.translate(this.transformMatrix, this.transformMatrix,
+         [this.points[currentSection][0],
+         this.points[currentSection][1],
+         this.points[currentSection][2]]);
+
+      mat4.rotate(this.transformMatrix, this.transformMatrix, this.initValues[currentSection][3], [0, 1, 0]);
+    }
+    else
+      this.animationEnd = true;
+
+    return this.transformMatrix;
+
     };
 };
