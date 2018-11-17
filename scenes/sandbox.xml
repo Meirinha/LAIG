@@ -39,10 +39,10 @@
     </animations>
     <primitives>
         <primitive id="cake">
-            <cylinder base="1.0" top="1.0" height="1.0" slices="5" stacks="5"/>
+            <cylinder base="1" top="1" height="1" slices="5" stacks="5"/>
         </primitive>
-        <primitive id="plane">
-            <plane npartsU="3" npartsV="2"/>
+        <primitive id="cylinder2">
+            <cylinder2 base="5" top="1" height="1.0" slices="10" stacks="20"/>
         </primitive>
         <!--<primitive id="patch">
             <patch npointsU="3" npointsV="2" npartsU="3" npartsV="2">

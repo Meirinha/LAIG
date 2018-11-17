@@ -167,7 +167,6 @@ class XMLscene extends CGFscene {
             this.appearance.apply();
             for (i = 0; i < this.surfaces.length; i++) {
                 this.pushMatrix();
-                console.log(this.surfaces[i]);
                 this.surfaces[i].display();
                 this.popMatrix();
             }
