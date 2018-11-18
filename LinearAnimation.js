@@ -10,10 +10,9 @@ class LinearAnimation extends Animation {
         this.animationVelocity = 0;
         this.distances = new Array();
         this.sectionTime = new Array();
-
+        let values = new Array();
 
     for (let i = 0; i < points.length-1; i++){
-      let values = new Array();
       let distance = vec3.distance(points[i], points[i+1]);
       this.distances.push(distance);
       this.totalDistance += distance;
