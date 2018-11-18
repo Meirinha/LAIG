@@ -39,16 +39,16 @@ class LinearAnimation extends Animation {
     };
 
     getTransformationMatrix(time, currentSection){
-      let sectionTime = time;
+      let secTime = time;
     for(let i = 0; i < currentSection; i++)
-      sectionTime -= this.sectionTime[i];
+      secTime -= this.sectionTime[i];
 
 
     if(currentSection < this.points.length - 1){
       mat4.identity(this.transformMatrix);
-      let dx = sectionTime * this.initValues[currentSection][0];
-      let dy = sectionTime * this.initValues[currentSection][1];
-      let dz = sectionTime * this.initValues[currentSection][2];
+      let dx = secTime * this.initValues[currentSection][0];
+      let dy = secTime * this.initValues[currentSection][1];
+      let dz = secTime * this.initValues[currentSection][2];
 
       mat4.translate(this.transformMatrix, this.transformMatrix, [dx, dy, dz]);
       mat4.translate(this.transformMatrix, this.transformMatrix,
