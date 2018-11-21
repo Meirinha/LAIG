@@ -49,7 +49,7 @@
         <primitive id="cylinder2">
             <cylinder2 base="5" top="1" height="1.0" slices="10" stacks="20"/>
         </primitive>
-        <!--<primitive id="patch">
+        <primitive id="patch">
             <patch npointsU="3" npointsV="2" npartsU="3" npartsV="2">
                 <controlpoint xx="0.0" yy="3.0" zz="0.0" />
                 <controlpoint xx="2.0" yy="2.0" zz="0.0" />
@@ -58,7 +58,7 @@
                 <controlpoint xx="0.0" yy="1.0" zz="4.0" />
                 <controlpoint xx="2.0" yy="0.0" zz="4.0" />
             </patch>
-        </primitive> -->
+        </primitive>
 
 
         <!-- <primitive id="vehicle">
@@ -106,7 +106,7 @@
         </component> -->
         <component id="cake">
             <transformation>
-                <translate x="0.0" y="0.0" z = "0.0" />
+                <transformationref id="transID" />
             </transformation>
             <animations>
                 <animationref id="linear"/>
@@ -124,7 +124,7 @@
         <!-- ROOT -->
         <component id="rootScene">
             <transformation>
-                <transformationref id="transID" />
+                <scale x="1.0" y="1.0" z="1.0" />
             </transformation>
             <materials>
                 <material id="materialID" />

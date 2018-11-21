@@ -60,15 +60,16 @@ class XMLscene extends CGFscene {
     initShaders(){
 
       this.testShaders=[
-        new CGFshader(this.gl, "shaders/texture1.vert", "shaders/texture1.frag"),
+        new CGFshader(this.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
         new CGFshader(this.gl, "shaders/tvarying.vert", "shaders/tvarying.frag")
       ];
 
       this.selectedExampleShader = 0;
       this.scaleFactor = 50.0;
 
+      this.testShaders[0].setUniformsValues({uSampler2:1});
       this.testShaders[1].setUniformsValues({selColor:[1.0, 0.0, 0.0, 1.0]});
-      this.texture2 = new CGFtexture(this, "images/huntress.png");
+      this.texture2 = new CGFtexture(this, "scenes/images/huntress.png");
       this.updateScaleFactor();
     }
 
