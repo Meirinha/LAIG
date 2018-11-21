@@ -10,15 +10,19 @@ uniform mat4 uNMatrix;
 varying vec2 vTextureCoord;
 uniform sampler2D uSampler2;
 
+uniform float time;
+
 uniform float normScale;
 
 void main() {
 	vec3 offset=vec3(0.0,0.0,0.0);
-	vec3 yset =vec3(0.0,4.0,0.0);
+	vec3 yset =vec3(0.0,0.0,1.0);
+	vec2 textTime = vec2(time, time);
 
-	vTextureCoord = aTextureCoord;
+	vTextureCoord = aTextureCoord+textTime;
+	float grey = dot(texture2D(uSampler2, vTextureCoord+textTime).rgb, vec3(0.2989, 0.5870, 0.1140));
 
-		offset=aVertexNormal*yset*texture2D(uSampler2, vTextureCoord).b;
+		offset=aVertexNormal*yset*grey;
 
 	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition+offset, 1.0);
 }

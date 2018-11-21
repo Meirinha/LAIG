@@ -249,5 +249,6 @@ class XMLscene extends CGFscene {
       //shaders here
       let factor = (Math.sin((currTime * 3.0)%3141*0.002)+1.0)*0.5;
       this.testShaders[1].setUniformsValues({timeFactor:factor});
+      this.testShaders[0].setUniformsValues({time:factor});
         }
 };
