@@ -19,6 +19,11 @@ class MyInterface extends CGFinterface {
         //  http://workshop.chromeexperiments.com/examples/gui
 
         this.gui = new dat.GUI();
+        this.gui.add(this.scene, 'selectedExampleShader', {
+      			'Simple texturing': 0,
+      			'Multiple textures in VS and FS': 1
+
+      	}).name('Shader examples');
         this.gui.close();
         return true;
     }

@@ -31,6 +31,7 @@ class XMLscene extends CGFscene {
 
         this.initCameras();
         this.enableTextures(true);
+        this.initShaders();
 
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
@@ -55,6 +56,28 @@ class XMLscene extends CGFscene {
 
         this.surfaces = [];
     }
+
+    initShaders(){
+
+      this.testShaders=[
+        new CGFshader(this.gl, "shaders/texture1.vert", "shaders/texture1.frag"),
+        new CGFshader(this.gl, "shaders/tvarying.vert", "shaders/tvarying.frag")
+      ];
+
+      this.selectedExampleShader = 0;
+      this.scaleFactor = 50.0;
+
+      this.testShaders[1].setUniformsValues({selColor:[1.0, 0.0, 0.0, 1.0]});
+      this.texture2 = new CGFtexture(this, "images/huntress.png");
+      this.updateScaleFactor();
+    }
+
+    updateScaleFactor(){
+
+      this.testShaders[1].setUniformsValues({normScale: this.scaleFactor});
+    }
+
+
 
     /**
      * Initializes the scene cameras.
@@ -152,7 +175,10 @@ class XMLscene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
+        this.setActiveShader(this.testShaders[this.selectedExampleShader]);
         this.pushMatrix();
+
+        this.texture2.bind(1);
 
         if (this.sceneInited) {
             // Draw axis
@@ -177,6 +203,7 @@ class XMLscene extends CGFscene {
         }
 
         this.popMatrix();
+        this.setActiveShader(this.defaultShader);
         // ---- END Background, camera and axis setup
     }
 
@@ -218,5 +245,8 @@ class XMLscene extends CGFscene {
         this.graph.components[node].updateAnimation(currTime - this.lastTime);
       }
       this.lastTime = currTime;
+      //shaders here
+      let factor = (Math.sin((currTime * 3.0)%3141*0.002)+1.0)*0.5;
+      this.testShaders[1].setUniformsValues({timeFactor:factor});
         }
 };
