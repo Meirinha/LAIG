@@ -8,8 +8,6 @@ class CircularAnimation extends Animation {
     this.radius = radius;
     this.startang = startang * DEGREE_TO_RAD;
     this.rotang = rotang * DEGREE_TO_RAD;
-    //this.animationLength = this.rotang * this.radius;
-    //this.speed = this.animationLength / this.duration;
     this.angSpeed = this.rotang / this.duration;
 
     this.time = 0.0;
