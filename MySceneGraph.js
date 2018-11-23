@@ -1098,6 +1098,18 @@ class MySceneGraph {
                 }
 
                 this.primitives[currChild.getAttribute("id")] = new MyTerrain(this.scene,idTexture, idHeightMap, terrainParts, heightScale);
+            } else if (currGrandchild.nodeName == "water") {
+                let idTexture = currGrandchild.getAttribute("idtexture");
+                let idWaveMap = currGrandchild.getAttribute("idwavemap");
+                let terrainParts = parseInt(currGrandchild.getAttribute("parts"));
+                let heightScale = parseFloat(currGrandchild.getAttribute("heightscale"));
+                let texScale = parseFloat(currGrandchild.getAttribute("texscale"));
+
+                if (!this.isValidNumber(terrainParts) || !this.isValidNumber(heightScale) || !this.isValidNumber(texScale)) {
+                    this.onXMLError("Terrain, primitive nº " + i + " has invalid attribute values.");
+                }
+
+                this.primitives[currChild.getAttribute("id")] = new MyWater(this.scene,idTexture, idWaveMap, terrainParts, heightScale, texScale);
 
             } else this.onXMLError("Unknown node name " + currGrandchild.nodeName);
             i++;

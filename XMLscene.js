@@ -60,7 +60,7 @@ class XMLscene extends CGFscene {
     initShaders(){
 
         this.testShaders=[
-            new CGFshader(this.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
+            new CGFshader(this.gl, "shaders/water.vert", "shaders/water.frag"),
             new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag")
         ];
 
@@ -241,7 +241,7 @@ class XMLscene extends CGFscene {
         }
         this.lastTime = currTime;
         //shaders here
-        let factor = (Math.sin((currTime * 3.0)%3141*0.002)+1.0)*0.5;
+        let factor = (Math.sin((currTime * 0.5)%3141*0.002)+1.0)*0.5;
         this.testShaders[0].setUniformsValues({time:factor});
     }
 };

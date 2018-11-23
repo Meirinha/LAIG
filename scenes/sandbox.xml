@@ -21,6 +21,8 @@
     <textures>
         <texture id="dometop" file="dometop.jpg" />
         <texture id="terrainheight" file="terrainmap.jpg" />
+        <texture id="watertexture" file="watertexture.jpg" />
+        <texture id="wavemap" file="wave_map.jpg" />
     </textures>
     <materials>
         <material id="materialID" shininess = "1.0" >
@@ -68,9 +70,9 @@
         <primitive id="terrain">
             <terrain idtexture="dometop" idheightmap="terrainheight" parts="20" heightscale="1"/>
         </primitive>
-        <!-- <primitive id="water">
-   <water idtexture="ss" idwavemap="ss" parts="ii" heightscale="ff" texscale="ff"/>
-        </primitive> -->
+        <primitive id="water">
+   <water idtexture="watertexture" idwavemap="wavemap" parts="10 " heightscale="0.5" texscale="1"/>
+        </primitive>
     </primitives>
     <components>
         <!-- <component id="plane">
@@ -114,7 +116,9 @@
             </materials>
             <texture id="inherit"/>
             <children>
-                <primitiveref id="terrain"/>
+                <!-- <primitiveref id="cake"/> -->
+                <!-- <primitiveref id="terrain"/> -->
+                <primitiveref id="water"/>
             </children>
         </component>
 
