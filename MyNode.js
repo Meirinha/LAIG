@@ -60,21 +60,12 @@ class MyNode {
     updateAnimation(deltaT){
 
       this.time += deltaT/1000;
-      let secTime = this.time;
-      for(let i = 0; i < this.currentSection; i++){
-        secTime -= this.graph.scene.animations[this.currentAnimation].sectionTime[i];
-      }
-      console.log("currentSection: " + this.currentSection);
       if(this.currAnimation < this.animations.length){
-        this.animationMatrix =  this.graph.scene.animations[this.currentAnimation].getTransformationMatrix(this.time, this.currentSection);
+        this.animationMatrix =  this.graph.scene.animations[this.currentAnimation].getTransformationMatrix(this.time);
         if(this.time >= this.graph.scene.animations[this.currentAnimation].duration){
           this.time = 0;
-          this.currentSection = 0;
           this.currAnimation++;
         }
-        else if (secTime >= this.graph.scene.animations[this.currentAnimation].sectionTime[this.currentSection]){
-          this.currentSection++;
-      }
     }
   }
 

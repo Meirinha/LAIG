@@ -36,18 +36,17 @@ class PatchMyCylinder extends CGFobject {
         ];
         let nurbsSurface = new CGFnurbsSurface(1, 3, controlPoints);
 
-        var obj = new CGFnurbsObject(this.scene, this.stacks, this.slices, nurbsSurface); // must provide an object with the function getPoint(u, v) (CGFnurbsSurface has it)
-
-        this.scene.surfaces.push(obj);
+        this.obj = new CGFnurbsObject(this.scene, this.stacks, this.slices, nurbsSurface); // must provide an object with the function getPoint(u, v) (CGFnurbsSurface has it)
 
         let nurbsSurface2 = new CGFnurbsSurface(1, 3, controlPointsSequel);
 
-        var obj2 = new CGFnurbsObject(this.scene, this.stacks, this.slices, nurbsSurface2); // must provide an object with the function getPoint(u, v) (CGFnurbsSurface has it)
-
-        this.scene.surfaces.push(obj2);
-    };
-
-    updateTexCoords(sFactor, tFactor) {
+        this.obj2 = new CGFnurbsObject(this.scene, this.stacks, this.slices, nurbsSurface2); // must provide an object with the function getPoint(u, v) (CGFnurbsSurface has it)
 
     };
+
+    display()
+    {
+        this.obj.display();
+        this.obj2.display();
+    }
 }

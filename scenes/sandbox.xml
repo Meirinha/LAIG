@@ -20,6 +20,7 @@
     </lights>
     <textures>
         <texture id="dometop" file="dometop.jpg" />
+        <texture id="terrainheight" file="terrainmap.jpg" />
     </textures>
     <materials>
         <material id="materialID" shininess = "1.0" >
@@ -35,20 +36,20 @@
         </transformation>
     </transformations>
     <animations>
-         <circular id="circular" span="5.0" center="0.0 0.0 0.0" radius="3.0" startang="0.0" rotang="180.0"/>
-         <linear id="linear" span="10" >
-           <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-           <controlpoint xx="0.0" yy="0.0" zz="3.0" />
-           <controlpoint xx="0.0" yy="3.0" zz="0.0" />
-          </linear>
+        <circular id="circular" span="5.0" center="0.0 0.0 0.0" radius="3.0" startang="0.0" rotang="180.0"/>
+        <linear id="linear" span="10" >
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="0.0" zz="3.0" />
+            <controlpoint xx="0.0" yy="3.0" zz="0.0" />
+        </linear>
     </animations>
     <primitives>
         <primitive id="cake">
             <cylinder base="1" top="1" height="1" slices="5" stacks="5"/>
         </primitive>
-        <primitive id="cylinder2">
+         <primitive id="cylinder2">
             <cylinder2 base="5" top="1" height="1.0" slices="10" stacks="20"/>
-        </primitive>
+        </primitive> 
         <primitive id="patch">
             <patch npointsU="3" npointsV="2" npartsU="3" npartsV="2">
                 <controlpoint xx="0.0" yy="3.0" zz="0.0" />
@@ -64,13 +65,10 @@
         <!-- <primitive id="vehicle">
    <vehicle/>
         </primitive> -->
-        <!--   <primitive id="cylinder2">
-   <cylinder2 base="ff" top="ff" height="ff" slices="ii" stacks="ii"/>
+        <primitive id="terrain">
+            <terrain idtexture="dometop" idheightmap="terrainheight" parts="20" heightscale="1"/>
         </primitive>
-  <primitive id="terrain">
-   <terrain idtexture="ss" idheightmap="ss" parts="ii" heightscale="ff"/>
-        </primitive>
-  <primitive id="water">
+        <!-- <primitive id="water">
    <water idtexture="ss" idwavemap="ss" parts="ii" heightscale="ff" texscale="ff"/>
         </primitive> -->
     </primitives>
@@ -109,14 +107,14 @@
                 <transformationref id="transID" />
             </transformation>
             <animations>
-                <animationref id="linear"/>
+<!--                <animationref id="linear"/>-->
             </animations>
             <materials>
                 <material id="inherit" />
             </materials>
             <texture id="inherit"/>
             <children>
-                <primitiveref id="cake" />
+                <primitiveref id="terrain"/>
             </children>
         </component>
 

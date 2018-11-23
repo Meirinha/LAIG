@@ -641,7 +641,7 @@ class MySceneGraph {
 
             i++;
         } while (i < children.length)
-        return null;
+            return null;
     }
 
     parseMaterials(materialsNodes) {
@@ -818,7 +818,7 @@ class MySceneGraph {
             j++;
 
         } while (j < grandchildren.length)
-        return matrix;
+            return matrix;
     }
 
     //Animations
@@ -944,9 +944,9 @@ class MySceneGraph {
                 }
 
                 let args = [parseFloat(currGrandchild.getAttribute("x1")), parseFloat(currGrandchild.getAttribute("y1")), parseFloat(currGrandchild.getAttribute("z1")),
-                    parseFloat(currGrandchild.getAttribute("x2")), parseFloat(currGrandchild.getAttribute("y2")), parseFloat(currGrandchild.getAttribute("z2")),
-                    parseFloat(currGrandchild.getAttribute("x3")), parseFloat(currGrandchild.getAttribute("y3")), parseFloat(currGrandchild.getAttribute("z3"))
-                ];
+                            parseFloat(currGrandchild.getAttribute("x2")), parseFloat(currGrandchild.getAttribute("y2")), parseFloat(currGrandchild.getAttribute("z2")),
+                            parseFloat(currGrandchild.getAttribute("x3")), parseFloat(currGrandchild.getAttribute("y3")), parseFloat(currGrandchild.getAttribute("z3"))
+                           ];
 
                 this.primitives[currChild.getAttribute("id")] = new MyTriangle(this.scene, currChild.getAttribute("id"), args);
 
@@ -969,8 +969,8 @@ class MySceneGraph {
                     currGrandchild.setAttribute("stacks", 2);
                 }
                 this.primitives[currChild.getAttribute("id")] = new MyCylinder(this.scene, currChild.getAttribute("id"),
-                    parseFloat(currGrandchild.getAttribute("base")), parseFloat(currGrandchild.getAttribute("top")), parseFloat(currGrandchild.getAttribute("height")),
-                    parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
+                                                                               parseFloat(currGrandchild.getAttribute("base")), parseFloat(currGrandchild.getAttribute("top")), parseFloat(currGrandchild.getAttribute("height")),
+                                                                               parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
             } else if (currGrandchild.nodeName == "sphere") {
                 let radius = parseFloat(currGrandchild.getAttribute("radius"));
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
@@ -986,8 +986,8 @@ class MySceneGraph {
                     currGrandchild.setAttribute("stacks", 2);
                 }
                 this.primitives[currChild.getAttribute("id")] = new MySphere(this.scene, currChild.getAttribute("id"),
-                    parseFloat(currGrandchild.getAttribute("radius")),
-                    parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
+                                                                             parseFloat(currGrandchild.getAttribute("radius")),
+                                                                             parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
             } else if (currGrandchild.nodeName == "SemiSphere") {
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
                 let stacks = parseInt(currGrandchild.getAttribute("stacks"));
@@ -997,7 +997,7 @@ class MySceneGraph {
                     currGrandchild.setAttribute("stacks", 2);
                 }
                 this.primitives[currChild.getAttribute("id")] = new MySemiSphere(this.scene, currChild.getAttribute("id"),
-                    parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
+                                                                                 parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
             } else if (currGrandchild.nodeName == "Dome") {
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
                 let stacks = parseInt(currGrandchild.getAttribute("stacks"));
@@ -1007,7 +1007,7 @@ class MySceneGraph {
                     currGrandchild.setAttribute("stacks", 2);
                 }
                 this.primitives[currChild.getAttribute("id")] = new MyDome(this.scene, currChild.getAttribute("id"),
-                    parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
+                                                                           parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("stacks")));
             } else if (currGrandchild.nodeName == "Circle") {
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
                 if (!this.isValidNumber(slices)) {
@@ -1015,7 +1015,7 @@ class MySceneGraph {
                     currGrandchild.setAttribute("slices", 5);
                 }
                 this.primitives[currChild.getAttribute("id")] = new MyBase(this.scene, currChild.getAttribute("id"),
-                    parseInt(currGrandchild.getAttribute("slices")));
+                                                                           parseInt(currGrandchild.getAttribute("slices")));
             } else if (currGrandchild.nodeName == "torus") {
                 let inner = parseFloat(currGrandchild.getAttribute("inner"));
                 let outer = parseFloat(currGrandchild.getAttribute("outer"));
@@ -1035,8 +1035,8 @@ class MySceneGraph {
                     currGrandchild.setAttribute("loops", 2);
                 }
                 this.primitives[currChild.getAttribute("id")] = new Torus(this.scene, currChild.getAttribute("id"),
-                    parseFloat(currGrandchild.getAttribute("inner")), parseFloat(currGrandchild.getAttribute("outer")),
-                    parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("loops")));
+                                                                          parseFloat(currGrandchild.getAttribute("inner")), parseFloat(currGrandchild.getAttribute("outer")),
+                                                                          parseInt(currGrandchild.getAttribute("slices")), parseInt(currGrandchild.getAttribute("loops")));
             } else if (currGrandchild.nodeName == "patch") {
                 let npointsU = parseInt(currGrandchild.getAttribute("npointsU"));
                 let npointsV = parseInt(currGrandchild.getAttribute("npointsV"));
@@ -1066,7 +1066,7 @@ class MySceneGraph {
                     }
                     controlPoints.push(vPoints);
                 }
-                let temp = new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
+                this.primitives[currChild.getAttribute("id")] = new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
             } else if (currGrandchild.nodeName == "plane") {
                 let npartsU = parseInt(currGrandchild.getAttribute("npartsU"));
                 let npartsV = parseInt(currGrandchild.getAttribute("npartsV"));
@@ -1074,7 +1074,7 @@ class MySceneGraph {
                     this.onXMLError("Primitive nº " + i + " has invalid values.");
                 }
 
-                let temp = new MyPlane(this.scene, npartsU, npartsV);
+                this.primitives[currChild.getAttribute("id")] = new MyPlane(this.scene, npartsU, npartsV);
             } else if (currGrandchild.nodeName == "cylinder2") {
                 let base = parseFloat(currGrandchild.getAttribute("base"));
                 let top = parseFloat(currGrandchild.getAttribute("top"));
@@ -1082,14 +1082,27 @@ class MySceneGraph {
                 let slices = parseInt(currGrandchild.getAttribute("slices"));
                 let stacks = parseInt(currGrandchild.getAttribute("stacks"));
 
-                if(!this.isValidNumber(base) || !this.isValidNumber(top) || !this.isValidNumber(height) || !this.isValidNumber(slices) || !this.isValidNumber(stacks)){
+                if (!this.isValidNumber(base) || !this.isValidNumber(top) || !this.isValidNumber(height) || !this.isValidNumber(slices) || !this.isValidNumber(stacks)) {
                     this.onXMLError("Cylinder2, primitive nº " + i + " has invalid attribute values.");
                 }
 
-                let temp = new PatchMyCylinder(this.scene, base, top, height, slices, stacks);
+                this.primitives[currChild.getAttribute("id")] = new PatchMyCylinder(this.scene, base, top, height, slices, stacks);
+            } else if (currGrandchild.nodeName == "terrain") {
+                let idTexture = currGrandchild.getAttribute("idtexture");
+                let idHeightMap = currGrandchild.getAttribute("idheightmap");
+                let terrainParts = parseInt(currGrandchild.getAttribute("parts"));
+                let heightScale = parseFloat(currGrandchild.getAttribute("heightscale"));
+
+                if (!this.isValidNumber(terrainParts) || !this.isValidNumber(heightScale)) {
+                    this.onXMLError("Terrain, primitive nº " + i + " has invalid attribute values.");
+                }
+
+                this.primitives[currChild.getAttribute("id")] = new MyTerrain(this.scene,idTexture, idHeightMap, terrainParts, heightScale);
+
             } else this.onXMLError("Unknown node name " + currGrandchild.nodeName);
             i++;
-        } while (i < children.length)
+        }
+        while (i < children.length)
     }
 
     //Components
@@ -1177,160 +1190,160 @@ class MySceneGraph {
                 }
                 l++;
             } while (l < grandchildren.length)
-            i++;
+                i++;
         } while (i < children.length)
 
-        this.processNodesAux(componentNodes);
+            this.processNodesAux(componentNodes);
         this.assignFirstMaterial();
         this.assignFirstAnimation();
         return null;
     }
 
-    assignFirstMaterial() {
-        for (var comp in this.components)
-            this.components[comp].assignFirstMat();
-    }
-    assignFirstAnimation() {
-        for (var comp in this.components)
-            this.components[comp].assignFirstAni();
-    }
+        assignFirstMaterial() {
+            for (var comp in this.components)
+                this.components[comp].assignFirstMat();
+        }
+        assignFirstAnimation() {
+            for (var comp in this.components)
+                this.components[comp].assignFirstAni();
+        }
 
-    componentsNextMaterial() {
-        for (var comp in this.components)
-            this.components[comp].nextMaterial();
-    }
+        componentsNextMaterial() {
+            for (var comp in this.components)
+                this.components[comp].nextMaterial();
+        }
 
-    processNodesAux(componentNodes) {
-        //CHILDREN
-        let children = componentNodes.children;
-        let i = 0;
-        do {
-            let currChild = children[i];
-            let j = 0;
-            let grandchildren = currChild.children;
-
-            let currID = currChild.getAttribute("id");
+        processNodesAux(componentNodes) {
+            //CHILDREN
+            let children = componentNodes.children;
+            let i = 0;
             do {
-                let currGrandchild = grandchildren[j];
-                if (currGrandchild.nodeName == "children") {
-                    let greatchildren = currGrandchild.children;
-                    let k = 0;
-                    do {
-                        let currGreatchild = greatchildren[k];
-                        if (currGreatchild.nodeName == "primitiveref") {
-                            let idPrimitive = currGreatchild.getAttribute("id");
-                            if (this.primitives[idPrimitive] < 0)
-                                this.onXMLError("Component id primitve not found");
-                            else
-                                this.components[currID].addLeaf(this.primitives[idPrimitive]);
+                let currChild = children[i];
+                let j = 0;
+                let grandchildren = currChild.children;
 
-                        } else if (currGreatchild.nodeName == "componentref") {
-                            let idChild = currGreatchild.getAttribute("id");
-                            if (this.components[idChild] < 0)
-                                this.onXMLError("Component id child not found");
-                            this.components[currID].addChild(this.components[idChild]);
-                        }
-                        k++;
-                    } while (k < greatchildren.length)
+                let currID = currChild.getAttribute("id");
+                do {
+                    let currGrandchild = grandchildren[j];
+                    if (currGrandchild.nodeName == "children") {
+                        let greatchildren = currGrandchild.children;
+                        let k = 0;
+                        do {
+                            let currGreatchild = greatchildren[k];
+                            if (currGreatchild.nodeName == "primitiveref") {
+                                let idPrimitive = currGreatchild.getAttribute("id");
+                                if (this.primitives[idPrimitive] < 0)
+                                    this.onXMLError("Component id primitve not found");
+                                else
+                                    this.components[currID].addLeaf(this.primitives[idPrimitive]);
+
+                            } else if (currGreatchild.nodeName == "componentref") {
+                                let idChild = currGreatchild.getAttribute("id");
+                                if (this.components[idChild] < 0)
+                                    this.onXMLError("Component id child not found");
+                                this.components[currID].addChild(this.components[idChild]);
+                            }
+                            k++;
+                        } while (k < greatchildren.length)
+                    }
+                    j++;
+                    }
+                    while (j < grandchildren.length)
+                        i++;
+                } while (i < children.length)
+            }
+
+
+
+            onXMLError(message) {
+                console.error("XML Loading Error: " + message);
+                this.loadedOk = false;
+            }
+
+                /**
+ * Callback to be executed on any minor error, showing a warning on the console.
+ * @param {string} message
+ */
+                onXMLMinorError(message) {
+                    console.warn("Warning: " + message);
                 }
-                j++;
+
+                /**
+ * Callback to be executed on any message.
+ * @param {string} message
+ */
+                log(message) {
+                    console.log("   " + message);
+                }
+
+                /**
+ * Displays the scene, processing each node, starting in the root node.
+ */
+                displayScene() {
+
+                    var rootComponent = this.components[this.rootID];
+                    if (this.textures[rootComponent.textureref] != null)
+                        this.processComponent(rootComponent, rootComponent.textureref, rootComponent.materialref, rootComponent.texS, rootComponent.texT);
+                    else
+                        this.processComponent(rootComponent, null, rootComponent.materialref, 1, 1);
+                }
+
+                processComponent(component, tex, mat, textureS, textureT) {
+
+                    let textura = tex;
+                    let material = mat;
+                    this.scene.setDefaultAppearance();
+                    this.scene.defaultAppearance.apply();
+
+                    this.scene.pushMatrix();
+                    this.scene.multMatrix(component.transformationMatrix);
+                    if (component.hasAnimation)
+                        this.scene.multMatrix(component.animationMatrix);
+
+                    let texS = textureS;
+                    let texT = textureT;
+
+                    if (component.textureref == 'none')
+                        textura = null;
+                    else {
+
+                        if (!isNaN(component.texS))
+                            texS = component.texS;
+                        if (!isNaN(component.texT))
+                            texT = component.texT;
+                        if (component.textureref != "inherit") {
+                            textura = component.textureref;
+                        }
+                    }
+
+                    if (component.materialref != "inherit") {
+                        material = component.materialref;
+                    }
+
+                    for (var i = 0; i < component.children.length; i++) {
+                        this.processComponent(this.components[component.children[i].nodeID], textura, material, texS, texT);
+                    }
+
+
+                    if (this.scene.changeMaterial) {
+                        component.nextMaterial();
+                    }
+                    if (material != null) {
+                        this.materials[material].setTexture(null);
+                        if (textura != null) {
+                            this.materials[material].setTexture(this.textures[textura]);
+                        }
+                        this.materials[material].apply();
+                    }
+                    for (var j = 0; j < component.leaves.length; j++) {
+                        component.leaves[j].updateTexCoords(texS, texT);
+                        component.leaves[j].display();
+                    }
+                    this.scene.popMatrix();
+                }
+
+
+                isValidNumber(attribute) {
+                    return !(attribute == null || isNaN(attribute));
+                }
             }
-            while (j < grandchildren.length)
-            i++;
-        } while (i < children.length)
-    }
-
-
-
-    onXMLError(message) {
-        console.error("XML Loading Error: " + message);
-        this.loadedOk = false;
-    }
-
-    /**
-     * Callback to be executed on any minor error, showing a warning on the console.
-     * @param {string} message
-     */
-    onXMLMinorError(message) {
-        console.warn("Warning: " + message);
-    }
-
-    /**
-     * Callback to be executed on any message.
-     * @param {string} message
-     */
-    log(message) {
-        console.log("   " + message);
-    }
-
-    /**
-     * Displays the scene, processing each node, starting in the root node.
-     */
-    displayScene() {
-
-        var rootComponent = this.components[this.rootID];
-        if (this.textures[rootComponent.textureref] != null)
-            this.processComponent(rootComponent, rootComponent.textureref, rootComponent.materialref, rootComponent.texS, rootComponent.texT);
-        else
-            this.processComponent(rootComponent, null, rootComponent.materialref, 1, 1);
-    }
-
-    processComponent(component, tex, mat, textureS, textureT) {
-
-        let textura = tex;
-        let material = mat;
-        this.scene.setDefaultAppearance();
-        this.scene.defaultAppearance.apply();
-
-        this.scene.pushMatrix();
-        this.scene.multMatrix(component.transformationMatrix);
-        if (component.hasAnimation)
-             this.scene.multMatrix(component.animationMatrix);
-
-        let texS = textureS;
-        let texT = textureT;
-
-        if (component.textureref == 'none')
-            textura = null;
-        else {
-
-            if (!isNaN(component.texS))
-                texS = component.texS;
-            if (!isNaN(component.texT))
-                texT = component.texT;
-            if (component.textureref != "inherit") {
-                textura = component.textureref;
-            }
-        }
-
-        if (component.materialref != "inherit") {
-            material = component.materialref;
-        }
-
-        for (var i = 0; i < component.children.length; i++) {
-            this.processComponent(this.components[component.children[i].nodeID], textura, material, texS, texT);
-        }
-
-
-        if (this.scene.changeMaterial) {
-            component.nextMaterial();
-        }
-        if (material != null) {
-            this.materials[material].setTexture(null);
-            if (textura != null) {
-                this.materials[material].setTexture(this.textures[textura]);
-            }
-            this.materials[material].apply();
-        }
-        for (var j = 0; j < component.leaves.length; j++) {
-            component.leaves[j].updateTexCoords(texS, texT);
-            component.leaves[j].display();
-        }
-        this.scene.popMatrix();
-    }
-
-
-    isValidNumber(attribute) {
-        return !(attribute == null || isNaN(attribute));
-    }
-}

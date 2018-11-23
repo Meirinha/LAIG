@@ -44,14 +44,14 @@ class XMLscene extends CGFscene {
         this.animations = [];
 
 
-		this.appearance = new CGFappearance(this);
-		this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
-		this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
-		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
-		this.appearance.setShininess(120);
-		this.texture = new CGFtexture(this, "texture.jpg");
-		this.appearance.setTexture(this.texture);
-		this.appearance.setTextureWrap ('REPEAT', 'REPEAT');
+        this.appearance = new CGFappearance(this);
+        this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
+        this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
+        this.appearance.setShininess(120);
+        this.texture = new CGFtexture(this, "texture.jpg");
+        this.appearance.setTexture(this.texture);
+        this.appearance.setTextureWrap ('REPEAT', 'REPEAT');
 
 
         this.surfaces = [];
@@ -59,23 +59,23 @@ class XMLscene extends CGFscene {
 
     initShaders(){
 
-      this.testShaders=[
-        new CGFshader(this.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
-        new CGFshader(this.gl, "shaders/tvarying.vert", "shaders/tvarying.frag")
-      ];
+        this.testShaders=[
+            new CGFshader(this.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
+            new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag")
+        ];
 
-      this.selectedExampleShader = 0;
-      this.scaleFactor = 50.0;
+        this.selectedExampleShader = 0;
+        this.scaleFactor = 1.0;
 
-      this.testShaders[0].setUniformsValues({uSampler2:1});
-      this.testShaders[1].setUniformsValues({selColor:[1.0, 0.0, 0.0, 1.0]});
-      this.texture2 = new CGFtexture(this, "scenes/images/huntress.png");
-      this.updateScaleFactor();
+        this.testShaders[0].setUniformsValues({uSampler2:1});
+        this.testShaders[1].setUniformsValues({uSampler2:1});
+        this.texture2 = new CGFtexture(this, "scenes/images/huntress.png");
+        this.updateScaleFactor();
     }
 
     updateScaleFactor(){
-
-      this.testShaders[1].setUniformsValues({normScale: this.scaleFactor});
+        this.testShaders[0].setUniformsValues({normScale: 1});
+        this.testShaders[1].setUniformsValues({normScale: 1});
     }
 
 
@@ -176,7 +176,7 @@ class XMLscene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
-        this.setActiveShader(this.testShaders[this.selectedExampleShader]);
+        this.setActiveShader(this.defaultShader);
         this.pushMatrix();
 
         this.texture2.bind(1);
@@ -191,12 +191,6 @@ class XMLscene extends CGFscene {
 
             this.graph.displayScene();
 
-            this.appearance.apply();
-            for (i = 0; i < this.surfaces.length; i++) {
-                this.pushMatrix();
-                this.surfaces[i].display();
-                this.popMatrix();
-            }
         } else {
             // Draw axis
             if (this.displayAxis)
@@ -242,13 +236,12 @@ class XMLscene extends CGFscene {
 
     update(currTime) {
 
-      for(var node in this.graph.components) {
-        this.graph.components[node].updateAnimation(currTime - this.lastTime);
-      }
-      this.lastTime = currTime;
-      //shaders here
-      let factor = (Math.sin((currTime * 3.0)%3141*0.002)+1.0)*0.5;
-      this.testShaders[1].setUniformsValues({timeFactor:factor});
-      this.testShaders[0].setUniformsValues({time:factor});
+        for(var node in this.graph.components) {
+            this.graph.components[node].updateAnimation(currTime - this.lastTime);
         }
+        this.lastTime = currTime;
+        //shaders here
+        let factor = (Math.sin((currTime * 3.0)%3141*0.002)+1.0)*0.5;
+        this.testShaders[0].setUniformsValues({time:factor});
+    }
 };

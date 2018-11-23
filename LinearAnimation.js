@@ -1,67 +1,81 @@
 class LinearAnimation extends Animation {
+    /** * @constructor */
     constructor(scene, id, duration, points) {
         super(scene);
-        this.id = id;
         this.points = points;
         this.duration = duration;
-        this.time = 0.0;
-        this.initValues = new Array();
-        this.totalDistance = 0;
-        this.animationVelocity = 0;
-        this.distances = new Array();
-        this.sectionTime = new Array();
-        let values = new Array();
+         this.transformationMat = mat4.create();
+    }
+    getTransformationMatrix(time) {
+        //Scale time
+        let scaledT = time % this.duration;
 
-    for (let i = 0; i < points.length-1; i++){
-      let distance = vec3.distance(points[i], points[i+1]);
-      this.distances.push(distance);
-      this.totalDistance += distance;
+        //Time per transition
+        let transitionT = (this.duration / (this.points.length - 1));
+
+        //Next control point
+        let nextPoint = Math.ceil(scaledT / transitionT);
+        if (nextPoint == 0 || nextPoint > this.points.length - 1) {
+            nextPoint = 1;
+        }
+
+        //Previous control point
+        let previousPoint = nextPoint - 1;
+
+        //console.log("===================");
+        //console.log("Scalled time: " + scaledT);
+        //console.log("Previous point: " + previousPoint);
+        //console.log("Next point: " + nextPoint);
+
+        //Vector from previous to next 
+        let vec = {
+            x: this.points[nextPoint][0] - this.points[previousPoint][0],
+            y: this.points[nextPoint][1] - this.points[previousPoint][1],
+            z: this.points[nextPoint][2] - this.points[previousPoint][2]
+        }
+
+        //Magnitude 
+        let mag = Math.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+
+        //If magnitude is 0 what to do?
+        //Just use magnitude 1 for simplicity, still shouldn't happen 
+        if (mag == 0)
+            mag = 1;
+
+        //Normalize 
+        vec.x /= mag;
+        vec.y /= mag;
+        vec.z /= mag;
+
+        //Time at next control point 
+        let timeNext = transitionT * nextPoint;
+
+        //Time at previous control point 
+        let timePrevious = transitionT * previousPoint;
+
+        //Current time percentage of time difference between control points 
+        scaledT -= timePrevious;
+        timeNext -= timePrevious;
+        let percentageT = scaledT / timeNext;
+
+        //Desired magnitude 
+        let desiredMag = mag * percentageT;
+
+        //Apply magnitude
+        vec.x *= desiredMag;
+        vec.y *= desiredMag;
+        vec.z *= desiredMag;
+
+        //http://glmatrix.net/docs/
+
+        //Final position 
+        let pos = vec3.fromValues(this.points[previousPoint][0] + vec.x, this.points[previousPoint][1] + vec.y, this.points[previousPoint][2] + vec.z);
+
+        //Reset matrix 
+        mat4.identity(this.transformationMat);
+
+        //Apply to matrix;
+        mat4.translate(this.transformationMat, this.transformationMat, pos);
+        return this.transformationMat;
+    }
 }
-    this.animationVelocity = this.totalDistance/this.duration;
-    for (let i = 0; i < points.length-1; i++){
-      let cosAlfa = (points[i+1][0] - points[i][0])/this.distances[i];
-      let senAlfa = (points[i+1][2] - points[i][2])/this.distances[i];
-      let dy = points[i+1][1] - points[i][1];
-      if(dy !== 0){
-        dy /= Math.abs(points[i+1][1] - points[i][1]);
-      }
-
-      let alfa = Math.acos(cosAlfa);
-
-      let vx = this.animationVelocity * cosAlfa;
-      let vz = this.animationVelocity * senAlfa;
-      let vy = Math.sqrt(Math.round((this.animationVelocity * this.animationVelocity - vx*vx - vz*vz)*1000)/1000)*dy;
-      this.sectionTime.push(this.distances[i]/this.animationVelocity);
-      values.push(vx, vy, vz, alfa);
-      this.initValues.push(values);
-    }
-    this.transformMatrix = mat4.create();
-    };
-
-    getTransformationMatrix(time, currentSection){
-      let secTime = time;
-    for(let i = 0; i < currentSection; i++)
-      secTime -= this.sectionTime[i];
-
-
-    if(currentSection < this.points.length - 1){
-      mat4.identity(this.transformMatrix);
-      let dx = secTime * this.initValues[currentSection][0];
-      let dy = secTime * this.initValues[currentSection][1];
-      let dz = secTime * this.initValues[currentSection][2];
-
-      mat4.translate(this.transformMatrix, this.transformMatrix, [dx, dy, dz]);
-      mat4.translate(this.transformMatrix, this.transformMatrix,
-         [this.points[currentSection][0],
-         this.points[currentSection][1],
-         this.points[currentSection][2]]);
-
-      mat4.rotate(this.transformMatrix, this.transformMatrix, this.initValues[currentSection][3], [0, 1, 0]);
-    }
-    else
-      this.animationEnd = true;
-
-    return this.transformMatrix;
-
-    };
-};
