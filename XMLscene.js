@@ -61,7 +61,8 @@ class XMLscene extends CGFscene {
 
         this.testShaders=[
             new CGFshader(this.gl, "shaders/water.vert", "shaders/water.frag"),
-            new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag")
+            new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag"),
+            new CGFshader(this.gl, "shaders/OVNI.vert", "shaders/OVNI.frag")
         ];
 
         this.selectedExampleShader = 0;
@@ -69,13 +70,14 @@ class XMLscene extends CGFscene {
 
         this.testShaders[0].setUniformsValues({uSampler2:1});
         this.testShaders[1].setUniformsValues({uSampler2:1});
-        this.texture2 = new CGFtexture(this, "scenes/images/huntress.png");
+        this.testShaders[2].setUniformsValues({uSampler2:1});
         this.updateScaleFactor();
     }
 
     updateScaleFactor(){
         this.testShaders[0].setUniformsValues({normScale: 1});
         this.testShaders[1].setUniformsValues({normScale: 1});
+        this.testShaders[2].setUniformsValues({normScale: 1});
     }
 
 
@@ -179,7 +181,6 @@ class XMLscene extends CGFscene {
         this.setActiveShader(this.defaultShader);
         this.pushMatrix();
 
-        this.texture2.bind(1);
 
         if (this.sceneInited) {
             // Draw axis
@@ -243,5 +244,6 @@ class XMLscene extends CGFscene {
         //shaders here
         let factor = (Math.sin((currTime * 0.5)%3141*0.002)+1.0)*0.5;
         this.testShaders[0].setUniformsValues({time:factor});
+        this.testShaders[2].setUniformsValues({time:factor});
     }
 };

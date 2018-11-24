@@ -65,6 +65,9 @@
 		</spot>
 	</lights>
 	<textures>
+		<texture id="watertexture" file="watertexture.jpg" />
+		<texture id="wavemap" file="wave_map.jpg" />
+		<texture id="terrainheight" file="terrainmap.jpg" />
 		<texture id="dometop" file="dometop.jpg" />
 		<texture id="domebot" file="domebot.png" />
 		<texture id="a" file="a.png" />
@@ -734,6 +737,15 @@
         </linear>
     </animations>
 	<primitives>
+
+		<primitive id="terrain">
+				<terrain idtexture="dometop" idheightmap="terrainheight" parts="20" heightscale="1"/>
+		</primitive>
+		<primitive id="water">
+				<water idtexture="watertexture" idwavemap="wavemap" parts="16" heightscale="0.2" texscale="0.5"/>
+		</primitive>
+
+
 		<primitive id="rec">
 			<rectangle x1="45.0" y1="15.0" x2="0.0" y2="0.0" />
 		</primitive >
@@ -941,14 +953,14 @@
 		</component>
 		<component id="lake">
 			<transformation>
-				<transformationref id="lake" />
+				<transformationref id="transID" />
 			</transformation>
 			<materials>
 				<material id="transparent" />
 			</materials>
-			<texture id="domebot" length_s="1.0" length_t="1.0" />
+			<texture id="none" />
 			<children>
-				<primitiveref id="Lake" />
+				<primitiveref id="water" />
 			</children>
 		</component>
 		<component id="Circle">

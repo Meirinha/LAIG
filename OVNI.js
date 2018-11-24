@@ -33,6 +33,12 @@ class OVNi extends CGFobject {
 
 	display()
 	{
+		this.scene.setActiveShader(this.scene.testShaders[0]);
+        this.scene.testShaders[2].setUniformsValues({heightScale:this.heightScale});
+        this.scene.testShaders[2].setUniformsValues({texScale:this.texScale});
 
+        this.graph.textures[this.idTexture].bind(0);
+
+        this.graph.textures[this.idWaveMap].bind(1);
 	};
 }

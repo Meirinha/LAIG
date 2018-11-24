@@ -15,7 +15,7 @@ class MyWater extends CGFobject {
             -0.5, -0.5,
             0.5, -0.5,
             0.5, 0.5,
-            -0.5, 0.5   
+            -0.5, 0.5
         ];
     };
 
@@ -26,19 +26,12 @@ class MyWater extends CGFobject {
         this.scene.testShaders[0].setUniformsValues({texScale:this.texScale});
 
         this.graph.textures[this.idTexture].bind(0);
-        
+
         this.graph.textures[this.idWaveMap].bind(1);
         this.plane.display();
     }
 
     updateTexCoords(sFactor, tFactor) {
-		// for (let i = 0; i < this.baseTexCoords.length; i++) {
-		// 	if (i % 2 == 0)
-		// 		this.texCoords[i] = this.baseTexCoords[i] / this.texScale;
-		// 	else
-		// 		this.texCoords[i] = this.baseTexCoords[i] / this.texScale;
-		// }
-		// this.updateTexCoordsGLBuffers();
     };
 
     getTexture(){return this.idTexture;};
