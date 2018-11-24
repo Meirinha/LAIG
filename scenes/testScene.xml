@@ -677,24 +677,19 @@
 		</transformation>
 		<transformation id="dome">
 			<rotate axis="x" angle="-90.0" />
-			<scale x="80.0" y="80.0" z="80.0" />
-		</transformation>
-		<transformation id="domebot">
-			<rotate axis="x" angle="90.0" />
-			<scale x="80.0" y="80.0" z="80.0" />
+			<scale x="300.0" y="300.0" z="300.0" />
 		</transformation>
 		<transformation id="torus">
 			<scale x="1.0" y="0.3" z="1.0" />
 			<rotate axis="x" angle="90.0" />
 		</transformation>
 		<transformation id="lake">
-			<scale x="62.0" y="60.0" z="62.0" />
+			<scale x="300.0" y="300.0" z="300.0" />
 			<rotate axis="x" angle="90.0" />
 		</transformation>
 		<transformation id="circle">
 			<translate x="0.0" y="0.0" z="0.0" />
-			<scale x="60.0" y="1.0" z="60.0" />
-			<rotate axis="x" angle="-90.0" />
+			<scale x="600.0" y="1.0" z="600.0" />
 		</transformation>
 		<transformation id="island">
 			<translate x="0.0" y="2.0" z="0.0" />
@@ -719,7 +714,7 @@
 				<terrain idtexture="dometop" idheightmap="terrainheight" parts="20" heightscale="1"/>
 		</primitive>
 		<primitive id="water">
-				<water idtexture="watertexture" idwavemap="wavemap" parts="16" heightscale="0.2" texscale="0.5"/>
+				<water idtexture="watertexture" idwavemap="wavemap" parts="50" heightscale="20.0" texscale="0.5"/>
 		</primitive>
 
 
