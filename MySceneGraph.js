@@ -1347,6 +1347,7 @@ class MySceneGraph {
                         }
                         this.materials[material].apply();
                     }
+                    this.scene.setActiveShader(this.scene.defaultShader);
                     for (var j = 0; j < component.leaves.length; j++) {
                         component.leaves[j].updateTexCoords(texS, texT);
                         component.leaves[j].display();
