@@ -18,6 +18,8 @@ class MyTerrain extends CGFobject {
         this.graph.textures[this.idTexture].bind(0);
         this.graph.textures[this.idHeightMap].bind(1);
         this.plane.display();
+
+        this.scene.setActiveShader(this.scene.defaultShader);
     }
 
     updateTexCoords(sFactor, tFactor) {

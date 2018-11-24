@@ -29,6 +29,8 @@ class MyWater extends CGFobject {
 
         this.graph.textures[this.idWaveMap].bind(1);
         this.plane.display();
+        
+        this.scene.setActiveShader(this.scene.defaultShader);
     }
 
     updateTexCoords(sFactor, tFactor) {
