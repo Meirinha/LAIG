@@ -1,10 +1,9 @@
 class CircularAnimation extends Animation {
 
   constructor(scene, id, duration, center, radius, startang, rotang) {
-    super(scene);
+    super(scene, id, duration);
     this.id = id;
     this.center = center;
-    this.duration = duration;
     this.radius = radius;
     this.startang = startang * DEGREE_TO_RAD;
     this.rotang = rotang * DEGREE_TO_RAD;
@@ -17,7 +16,6 @@ class CircularAnimation extends Animation {
 
   getTransformationMatrix(delta) {
     this.time = delta;
-    console.log("delta: " + this.time);
     if (this.time >= this.duration)
       this.animationEnd = true;
     else {

@@ -49,4 +49,8 @@ class PatchMyCylinder extends CGFobject {
         this.obj.display();
         this.obj2.display();
     }
+
+    updateTexCoords(sFactor, tFactor) {
+
+    };
 }

@@ -6,10 +6,12 @@ varying vec2 vTextureCoord;
 
 uniform sampler2D uSampler;
 uniform sampler2D uSampler2;
+uniform float texScale;
 
 void main() {
-	vec4 color = texture2D(uSampler, vTextureCoord);
-	vec4 filter = texture2D(uSampler2, vec2(3.0,0.1)+vTextureCoord);
+	vec2 newTexCoords = vTextureCoord*texScale;
+	vec4 color = texture2D(uSampler, newTexCoords);
+	vec4 filter = texture2D(uSampler2, newTexCoords);
 	
 	gl_FragColor = color;
 }

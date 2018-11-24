@@ -41,7 +41,7 @@ class MyRectangle extends CGFobject {
 			this.minS, this.minT,
 			this.maxS, this.minT,
 			this.maxS, this.maxT,
-			this.minS, this.maxT,
+			this.minS, this.maxT
 		];
 		this.texCoords = new Array(this.baseTexCoords.length);
 		this.updateTexCoords(1, 1);

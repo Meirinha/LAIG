@@ -14,7 +14,7 @@ class MyNode {
 
         this.animations = [];
         this.currentAnimation;
-        this.currAnimation = 0;
+        this.currentAnimationIndex = 0;
         this.texS = 1.0;
         this.texT = 1.0;
 
@@ -52,22 +52,23 @@ class MyNode {
     assignFirstAni(){ //Assigns first animation in array
         if(this.animations.length == 0) this.hasAnimation = false;
         else {
-        this.currentAnimation = this.animations[0];
-        this.hasAnimation = true;
+            this.currentAnimation = this.animations[0];
+            this.hasAnimation = true;
         }
     }
 
     updateAnimation(deltaT){
 
-      this.time += deltaT/1000;
-      if(this.currAnimation < this.animations.length){
-        this.animationMatrix =  this.graph.scene.animations[this.currentAnimation].getTransformationMatrix(this.time);
-        if(this.time >= this.graph.scene.animations[this.currentAnimation].duration){
-          this.time = 0;
-          this.currAnimation++;
+        this.time += deltaT/1000;
+        if(this.currentAnimationIndex < this.animations.length){
+            this.animationMatrix =  this.graph.scene.animations[this.currentAnimation].getTransformationMatrix(this.time);
+            if(this.time >= this.graph.scene.animations[this.currentAnimation].duration){
+                this.time = 0;
+                this.currentAnimationIndex++;
+                this.currentAnimation = this.animations[this.currentAnimationIndex];
+            }
         }
     }
-  }
 
     nextMaterial() {
         let flag = false;

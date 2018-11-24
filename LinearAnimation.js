@@ -1,9 +1,8 @@
 class LinearAnimation extends Animation {
     /** * @constructor */
     constructor(scene, id, duration, points) {
-        super(scene);
+        super(scene, id, duration);
         this.points = points;
-        this.duration = duration;
          this.transformationMat = mat4.create();
     }
     getTransformationMatrix(time) {

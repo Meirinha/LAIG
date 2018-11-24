@@ -49,7 +49,7 @@
         <primitive id="cake">
             <cylinder base="1" top="1" height="1" slices="5" stacks="5"/>
         </primitive>
-         <primitive id="cylinder2">
+        <primitive id="cylinder2">
             <cylinder2 base="5" top="1" height="1.0" slices="10" stacks="20"/>
         </primitive> 
         <primitive id="patch">
@@ -71,7 +71,7 @@
             <terrain idtexture="dometop" idheightmap="terrainheight" parts="20" heightscale="1"/>
         </primitive>
         <primitive id="water">
-   <water idtexture="watertexture" idwavemap="wavemap" parts="10 " heightscale="0.5" texscale="1"/>
+            <water idtexture="watertexture" idwavemap="wavemap" parts="16" heightscale="0.2" texscale="0.5"/>
         </primitive>
     </primitives>
     <components>
@@ -109,7 +109,9 @@
                 <transformationref id="transID" />
             </transformation>
             <animations>
-<!--                <animationref id="linear"/>-->
+                <!-- <animationref id="circular"/>
+                <animationref id="linear"/>
+                <animationref id="circular"/>  -->
             </animations>
             <materials>
                 <material id="inherit" />
@@ -117,8 +119,9 @@
             <texture id="inherit"/>
             <children>
                 <!-- <primitiveref id="cake"/> -->
-                <!-- <primitiveref id="terrain"/> -->
-                <primitiveref id="water"/>
+                <!-- <primitiveref id="water"/> -->
+                <!-- <primitiveref id="cake"/> -->
+
             </children>
         </component>
 
