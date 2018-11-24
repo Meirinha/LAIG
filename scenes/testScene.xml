@@ -65,9 +65,9 @@
 		</spot>
 	</lights>
 	<textures>
+		<texture id="terrainheight" file="terrainmap.jpg" />
 		<texture id="watertexture" file="watertexture.jpg" />
 		<texture id="wavemap" file="wave_map.jpg" />
-		<texture id="terrainheight" file="terrainmap.jpg" />
 		<texture id="dometop" file="dometop.jpg" />
 		<texture id="domebot" file="domebot.png" />
 		<texture id="a" file="a.png" />
@@ -200,31 +200,8 @@
 			<translate x="1.0" y="0.0" z="-9.0" />
 			<scale x="0.001" y="2.0" z="1.8" />
 		</transformation>
-		<transformation id="portrait">
-			<scale x="1.5" y="1.5" z="1.5" />
-			<rotate axis="y" angle="-90.0" />
-			<translate x="-19.0" y="11.0" z="0.0" />
-		</transformation>
-		<transformation id="portrait2">
-			<translate x="0.0" y="0.0" z="-8.0" />
-		</transformation>
-		<transformation id="portrait3">
-			<translate x="0.0" y="0.0" z="8.0" />
-		</transformation>
-		<transformation id="leftportrait">
-			<scale x="0.2" y="2.0" z="0.2" />
-		</transformation>
-		<transformation id="rightportrait">
-			<translate x="0.0" y="0.0" z="-2.8" />
-		</transformation>
-		<transformation id="botportrait">
-			<scale x="0.2" y="0.2" z="1.8" />
-			<translate x="0.0" y="0.0" z="-5.0" />
-		</transformation>
-		<transformation id="topportrait">
-			<translate x="0.0" y="3.6" z="0.0" />
-		</transformation>
 		<transformation id="house">
+			<scale x="0.15" y="0.15" z="0.15" />
 			<translate x="0.0" y="3.6" z="0.0" />
 		</transformation>
 		<transformation id="rightwall">
@@ -927,40 +904,16 @@
 				<primitiveref id="Dome" />
 			</children>
 		</component>
-		<component id="domebot">
-			<transformation>
-				<transformationref id="domebot" />
-			</transformation>
-			<materials>
-				<material id="materialID2" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="DomeBot" />
-			</children>
-		</component>
-		<component id="lakemargin">
-			<transformation>
-				<transformationref id="torus" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="grass" length_s="1.0" length_t="1.0"/>
-			<children>
-				<primitiveref id="torus" />
-			</children>
-		</component>
 		<component id="lake">
 			<transformation>
-				<transformationref id="transID" />
+				<transformationref id="lake" />
 			</transformation>
 			<materials>
 				<material id="transparent" />
 			</materials>
-			<texture id="none" />
+			<texture id="domebot" length_s="1.0" length_t="1.0" />
 			<children>
-				<primitiveref id="water" />
+				<primitiveref id="Lake" />
 			</children>
 		</component>
 		<component id="Circle">
@@ -972,7 +925,7 @@
 			</materials>
 			<texture id="a" length_s="1.0" length_t="1.0" />
 			<children>
-				<primitiveref id="Circle" />
+				<primitiveref id="water" />
 			</children>
 		</component>
 		<component id="cyl">
@@ -2806,146 +2759,6 @@
 		</component>
 
 
-		<component id="portraits">
-			<transformation>
-				<transformationref id="portrait" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="portrait1" />
-				<componentref id="portrait2" />
-				<componentref id="portrait3" />
-			</children>
-		</component>
-		<component id="portrait2">
-			<transformation>
-				<transformationref id="portrait2" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="michael" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="portrait" />
-			</children>
-		</component>
-		<component id="portrait3">
-			<transformation>
-				<transformationref id="portrait3" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="freddy" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="portrait" />
-			</children>
-		</component>
-		<component id="portrait1">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="huntress" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="portrait" />
-			</children>
-		</component>
-		<component id="portrait">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit"/>
-			<children>
-				<componentref id="leftportrait" />
-				<componentref id="rightportrait" />
-				<componentref id="topportrait" />
-				<componentref id="botportrait" />
-				<componentref id="picture" />
-				<componentref id="glass" />
-			</children>
-		</component>
-		<component id="leftportrait">
-			<transformation>
-				<transformationref id="leftportrait" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="golden" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="rightportrait">
-			<transformation>
-				<transformationref id="rightportrait" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="golden" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="leftportrait" />
-			</children>
-		</component>
-		<component id="botportrait">
-			<transformation>
-				<transformationref id="botportrait" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="golden" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="topportrait">
-			<transformation>
-				<transformationref id="topportrait" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="golden" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="botportrait" />
-			</children>
-		</component>
-		<component id="picture">
-			<transformation>
-				<transformationref id="picture" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="glass">
-			<transformation>
-				<transformationref id="glass" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="glass" length_s="1.0" length_t="1.0"/>
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-
 
 		<component id="cubes">
 			<transformation>
@@ -3040,8 +2853,6 @@
 			<children>
 				<componentref id="house" />
 				<componentref id="dome" />
-				<componentref id="domebot" />
-				<componentref id="lakemargin" />
 				<componentref id="island" />
 				<componentref id="lake" />
 				<componentref id="Circle" />
@@ -3051,7 +2862,6 @@
 				<componentref id="gramophone" />
 				<componentref id="cactuar" />
 				<componentref id="veigarhand" />
-				<componentref id="portraits" />
 				<componentref id="cubes" />
 			</children>
 		</component>
