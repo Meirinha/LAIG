@@ -25,6 +25,10 @@
             <from x="-9.0" y="144" z="9" />
             <to x="-14.5" y="141" z="12.5" />
         </perspective>
+        <perspective id="house" near="0.1" far="900" angle="90.0">
+            <from x="4.0" y="144" z="19" />
+            <to x="2.0" y="141" z="24" />
+        </perspective>
         <ortho id="orth" near="0.1" far="500" left="-50" right="50" top="30" bottom="-30" >
             <from x="30" y="160" z="30" />
             <to x="0" y="135" z="0" />
