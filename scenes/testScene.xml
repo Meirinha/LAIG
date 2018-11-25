@@ -704,18 +704,18 @@
         </transformation>
     </transformations>
     <animations>
-        <circular id="aroundCenter" span="40.0" center="0.0 3.0 0.0" radius="13.0" startang="-90.0" rotang="360.0"/>
-        <circular id="aroundSelf" span="20.0" center="0.0 0.0 0.0" radius="0.0" startang="0.0" rotang="2160.0"/>
-        <linear id="spendTime" span="16" >
+        <circular id="aroundCenter" span="40.0" center="0.0 3.0 0.0" radius="3.0" startang="-90.0" rotang="360.0"/>
+        <circular id="aroundSelf" span="40.0" center="0.0 0.0 0.0" radius="0.0" startang="0.0" rotang="4230.0"/>
+        <linear id="spendTime" span="4" >
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
             <controlpoint xx="0.0" yy="0.000000000000000000000001" zz="0.0" />
         </linear>
-        <linear id="up" span="15" >
+        <linear id="up" span="4" >
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
             <controlpoint xx="0.0" yy="2.0" zz="0.0" />
             <controlpoint xx="0.0" yy="3.0" zz="0.0" />
         </linear>
-        <linear id="down" span="10" >
+        <linear id="down" span="4" >
             <controlpoint xx="0.0" yy="3.0" zz="0.0" />
             <controlpoint xx="0.0" yy="2.0" zz="0.0" />
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
@@ -2867,6 +2867,7 @@
             <animations>
                 <animationref id="spendTime"/>
                 <animationref id="aroundSelf"/>
+                <animationref id="spendTime"/>
             </animations>
             <materials>
                 <material id="inherit" />
