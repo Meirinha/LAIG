@@ -14,14 +14,14 @@ class OVNI extends CGFobject {
 			//segments per pointU
 			[
 				//line per pointsV
-				vec4.fromValues(0,0,1,1),
-				vec4.fromValues(0,1,1,1),
-				vec4.fromValues(0,1,0,1)
+				vec4.fromValues(-0.5,0,0,1),
+				vec4.fromValues(0,0,-0.5,1),
+				vec4.fromValues(0.5,0,0,1)
 			],
 			[
-				vec4.fromValues(1,0,0.5,1),
-				vec4.fromValues(1,0.5,0.5,1),
-				vec4.fromValues(1,0.5,0,1)
+				vec4.fromValues(-0.25,1,0,1),
+				vec4.fromValues(0,1,-0.5,1),
+				vec4.fromValues(0.25,1,0,1)
 			]
 		];
 		this.cape = new MyPatch(scene, pointsU, pointsV, partsU, partsV, controlPoints);
@@ -42,7 +42,9 @@ class OVNI extends CGFobject {
         this.scene.graph.textures["wavemap"].bind(1);
 
 
-        this.cape.display();
+		this.cape.display();
+		this.scene.setActiveShader(this.scene.defaultShader);
+
 	};
 	updateTexCoords(sFactor, tFactor) {
 	};

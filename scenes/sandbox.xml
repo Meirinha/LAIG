@@ -119,7 +119,7 @@
             <texture id="inherit"/>
             <children>
                 <!-- <primitiveref id="cake"/> -->
-                <primitiveref id="water"/>
+                <!-- <primitiveref id="water"/> -->
                 <!-- <primitiveref id="cake"/> -->
                 <primitiveref id = "vehicle"/>
             </children>
