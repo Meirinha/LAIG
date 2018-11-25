@@ -1,4 +1,4 @@
-class OVNi extends CGFobject {
+class OVNI extends CGFobject {
 	constructor(scene) {
 		super(scene);
 
@@ -14,14 +14,14 @@ class OVNi extends CGFobject {
 			//segments per pointU
 			[
 				//line per pointsV
-				vec4.createFrom(1,1,1,1),
-				vec4.createFrom(1,1,1,1),
-				vec4.createFrom(1,1,1,1)
+				vec4.fromValues(1,1,1,1),
+				vec4.fromValues(1,1,1,1),
+				vec4.fromValues(1,1,1,1)
 			],
 			[
-				vec4.createFrom(1,1,1,1),
-				vec4.createFrom(1,1,1,1),
-				vec4.createFrom(1,1,1,1)
+				vec4.fromValues(1,1,1,1),
+				vec4.fromValues(1,1,1,1),
+				vec4.fromValues(1,1,1,1)
 			]
 		];
 		this.cape = new MyPatch(scene, pointsU, pointsV, partsU, partsV, controlPoints);
@@ -37,9 +37,9 @@ class OVNi extends CGFobject {
         this.scene.testShaders[2].setUniformsValues({heightScale:this.heightScale});
         this.scene.testShaders[2].setUniformsValues({texScale:this.texScale});
 
-        this.graph.textures[this.idTexture].bind(0);
+        // this.scene.graph.textures[this.idTexture].bind(0);
 
-        this.graph.textures[this.idWaveMap].bind(1);
+        // this.scene.graph.textures[this.idWaveMap].bind(1);
 	};
 	updateTexCoords(sFactor, tFactor) {
 	};
