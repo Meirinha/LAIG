@@ -21,43 +21,38 @@ class LinearAnimation extends Animation {
         //Previous control point
         let previousPoint = nextPoint - 1;
 
-        //console.log("===================");
-        //console.log("Scalled time: " + scaledT);
-        //console.log("Previous point: " + previousPoint);
-        //console.log("Next point: " + nextPoint);
-
-        //Vector from previous to next 
+        //Vector from previous to next
         let vec = {
             x: this.points[nextPoint][0] - this.points[previousPoint][0],
             y: this.points[nextPoint][1] - this.points[previousPoint][1],
             z: this.points[nextPoint][2] - this.points[previousPoint][2]
         }
 
-        //Magnitude 
+        //Magnitude
         let mag = Math.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 
         //If magnitude is 0 what to do?
-        //Just use magnitude 1 for simplicity, still shouldn't happen 
+        //Just use magnitude 1 for simplicity, still shouldn't happen
         if (mag == 0)
             mag = 1;
 
-        //Normalize 
+        //Normalize
         vec.x /= mag;
         vec.y /= mag;
         vec.z /= mag;
 
-        //Time at next control point 
+        //Time at next control point
         let timeNext = transitionT * nextPoint;
 
-        //Time at previous control point 
+        //Time at previous control point
         let timePrevious = transitionT * previousPoint;
 
-        //Current time percentage of time difference between control points 
+        //Current time percentage of time difference between control points
         scaledT -= timePrevious;
         timeNext -= timePrevious;
         let percentageT = scaledT / timeNext;
 
-        //Desired magnitude 
+        //Desired magnitude
         let desiredMag = mag * percentageT;
 
         //Apply magnitude
@@ -65,12 +60,10 @@ class LinearAnimation extends Animation {
         vec.y *= desiredMag;
         vec.z *= desiredMag;
 
-        //http://glmatrix.net/docs/
-
-        //Final position 
+        //Final position
         let pos = vec3.fromValues(this.points[previousPoint][0] + vec.x, this.points[previousPoint][1] + vec.y, this.points[previousPoint][2] + vec.z);
 
-        //Reset matrix 
+        //Reset matrix
         mat4.identity(this.transformationMat);
 
         //Apply to matrix;
