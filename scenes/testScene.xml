@@ -156,7 +156,7 @@
     </materials>
     <transformations>
         <transformation id="transID">
-            <scale x="1.0" y="1.0" z="1.0" />
+            <translate x="0.0" y="0.0" z="0.0" />
         </transformation>
         <transformation id="elements">
             <translate x="0.0" y="130.0" z="0.0" />
@@ -2906,7 +2906,7 @@
                 <transformationref id="transID" />
             </transformation>
             <animations>
-                <animationref id="up"/>
+              <animationref id="up"/>
                 <animationref id="aroundCenter"/>
                 <animationref id="down"/>
             </animations>
@@ -2928,11 +2928,6 @@
             <transformation>
                 <transformationref id="moogle" />
             </transformation>
-            <animations>
-                <animationref id="spendTime"/>
-                <animationref id="aroundSelf"/>
-                <animationref id="spendTime"/>
-            </animations>
             <materials>
                 <material id="inherit" />
             </materials>
@@ -2952,7 +2947,7 @@
                 <transformationref id="moogle1" />
             </transformation>
             <animations>
-                <animationref id="spendTime"/>
+              <animationref id="spendTime"/>
                 <animationref id="aroundSelf"/>
                 <animationref id="spendTime"/>
             </animations>
@@ -3082,7 +3077,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="crystal" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="cake" />
             </children>
