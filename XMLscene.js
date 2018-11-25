@@ -55,6 +55,13 @@ class XMLscene extends CGFscene {
 
 
         this.surfaces = [];
+
+        this.currentMusic = 0;
+    }
+
+    music()
+    {
+        
     }
 
     initShaders(){
@@ -155,7 +162,7 @@ class XMLscene extends CGFscene {
         this.interface.addAxis();
         this.interface.addLightsGroup(this.graph.lights);
         this.interface.addViewsGroup(this.graph.views);
-        this.interface.addShadersGroup();
+        this.interface.addMusicGroup();
 
         this.sceneInited = true;
 
@@ -167,7 +174,7 @@ class XMLscene extends CGFscene {
      */
     display() {
         // ---- BEGIN Background, camera and axis setup
-
+        console.log(this.currentMusic);
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
@@ -237,7 +244,6 @@ class XMLscene extends CGFscene {
     }
 
     update(currTime) {
-
         for(var node in this.graph.components) {
             this.graph.components[node].updateAnimation(currTime - this.lastTime);
         }

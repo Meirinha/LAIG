@@ -62,12 +62,18 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'changeCamera', this.cameraArray).name("Active Camera");
     }
 
-    addShadersGroup() {
-        this.gui.add(this.scene, 'selectedExampleShader', {
-            'Simple texturing': 0,
-            'Multiple textures in VS and FS': 1
+    addMusicGroup() {
+        this.audio = new Array();
 
-        }).name('Shader examples');
+        this.audio.push(new Audio('scenes/songs/Mii_Channel_Music.mp3'));
+        this.audio.push(new Audio('scenes/songs/NieR_Automata_Peaceful_Sleep.mp3'));
+        this.audio.push(new Audio('scenes/songs/Xayah_and_Rakan.mp3'));
+
+        let arrayMusic = [0,1,2];
+
+        this.gui.add(this.scene, 'currentMusic', arrayMusic).name("Music");
+        this.gui.add(this.scene, 'music').name('Press P to play');
+        this.gui.add(this.scene, 'music').name('Press S to pause');
     }
 
     processKeyUp(event) {
@@ -75,6 +81,14 @@ class MyInterface extends CGFinterface {
         if (event.code == "KeyM") {
             console.log("Pressed M");
             graph.componentsNextMaterial();
+        } else if (event.code == "KeyP") {
+            for(let i = 0; i < this.audio.length; i++)
+            {
+                this.audio[i].pause();
+            }
+            this.audio[this.scene.currentMusic].play();
+        } else if (event.code == "KeyS") {
+            this.audio[this.scene.currentMusic].pause();
         }
     }
 }
