@@ -489,35 +489,29 @@
             <scale x="0.1" y="0.1" z="0.08" />
         </transformation>
         <transformation id="moogle">
-            <translate x="0.5" y="-1.7" z="0.0" />
+            <scale x="2.0" y="2.0" z="2.0" />
         </transformation>
         <transformation id="moogle1">
             <translate x="0.5" y="-6.5" z="40.0" />
-            <scale x="2.0" y="2.0" z="2.0" />
             <rotate axis="y" angle="-180.0" />
         </transformation>
         <transformation id="moogle2">
             <translate x="0.5" y="-6.5" z="-40.0" />
-            <scale x="2.0" y="2.0" z="2.0" />
         </transformation>
         <transformation id="moogle3">
             <translate x="35.5" y="-6.5" z="-20.0" />
-            <scale x="2.0" y="2.0" z="2.0" />
             <rotate axis="y" angle="-45.0" />
         </transformation>
         <transformation id="moogle4">
             <translate x="-35.5" y="-6.5" z="-20.0" />
-            <scale x="2.0" y="2.0" z="2.0" />
             <rotate axis="y" angle="45.0" />
         </transformation>
         <transformation id="moogle5">
             <translate x="-35.5" y="-6.5" z="20.0" />
-            <scale x="2.0" y="2.0" z="2.0" />
             <rotate axis="y" angle="135.0" />
         </transformation>
         <transformation id="moogle6">
             <translate x="35.5" y="-6.5" z="20.0" />
-            <scale x="2.0" y="2.0" z="2.0" />
             <rotate axis="y" angle="-135.0" />
         </transformation>
         <transformation id="headtop">
@@ -774,9 +768,9 @@
         <primitive id="water">
             <water idtexture="watertexture" idwavemap="wavemap" parts="100" heightscale="13.0" texscale="0.5"/>
         </primitive>
-        <!--<primitive id="vehicle">
+        <primitive id="vehicle">
         <vehicle/>
-  </primitive>-->
+  </primitive>
 
 
         <primitive id="rec">
@@ -2930,6 +2924,29 @@
             </children>
         </component>
 
+        <component id="moogle">
+            <transformation>
+                <transformationref id="moogle" />
+            </transformation>
+            <animations>
+                <animationref id="spendTime"/>
+                <animationref id="aroundSelf"/>
+                <animationref id="spendTime"/>
+            </animations>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="head" />
+                <componentref id="body" />
+                <componentref id="legs" />
+                <componentref id="arms" />
+                <componentref id="ears" />
+                <componentref id="top" />
+            </children>
+        </component>
+
         <component id="moogle1">
             <transformation>
                 <transformationref id="moogle1" />
@@ -2944,12 +2961,7 @@
             </materials>
             <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="head" />
-                <componentref id="body" />
-                <componentref id="legs" />
-                <componentref id="arms" />
-                <componentref id="ears" />
-                <componentref id="top" />
+                <componentref id="moogle" />
                 <componentref id="cape" />
             </children>
         </component>
@@ -2968,12 +2980,7 @@
             </materials>
             <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="head" />
-                <componentref id="body" />
-                <componentref id="legs" />
-                <componentref id="arms" />
-                <componentref id="ears" />
-                <componentref id="top" />
+                <componentref id="moogle" />
                 <componentref id="cape" />
             </children>
         </component>
@@ -2992,14 +2999,9 @@
             </materials>
             <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="head" />
-                <componentref id="body" />
-                <componentref id="legs" />
-                <componentref id="arms" />
-                <componentref id="ears" />
-                <componentref id="top" />
-                <componentref id="cape" />
-            </children>
+              <componentref id="moogle" />
+              <componentref id="cape" />
+          </children>
         </component>
 
         <component id="moogle4">
@@ -3016,14 +3018,9 @@
             </materials>
             <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="head" />
-                <componentref id="body" />
-                <componentref id="legs" />
-                <componentref id="arms" />
-                <componentref id="ears" />
-                <componentref id="top" />
-                <componentref id="cape" />
-            </children>
+              <componentref id="moogle" />
+              <componentref id="cape" />
+          </children>
         </component>
 
         <component id="moogle5">
@@ -3040,14 +3037,9 @@
             </materials>
             <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="head" />
-                <componentref id="body" />
-                <componentref id="legs" />
-                <componentref id="arms" />
-                <componentref id="ears" />
-                <componentref id="top" />
-                <componentref id="cape" />
-            </children>
+              <componentref id="moogle" />
+              <componentref id="cape" />
+          </children>
         </component>
 
         <component id="moogle6">
@@ -3064,14 +3056,9 @@
             </materials>
             <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="head" />
-                <componentref id="body" />
-                <componentref id="legs" />
-                <componentref id="arms" />
-                <componentref id="ears" />
-                <componentref id="top" />
-                <componentref id="cape" />
-            </children>
+              <componentref id="moogle" />
+              <componentref id="cape" />
+          </children>
         </component>
 
         <component id="cape">
@@ -3083,7 +3070,7 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="cake" />
+                <primitiveref id="vehicle" />
             </children>
         </component>
 
