@@ -1114,7 +1114,8 @@ class MySceneGraph {
             }
             else if(currGrandchild.nodeName == "vehicle"){
               this.primitives[currChild.getAttribute("id")] = new OVNI(this.scene);
-            } else this.onXMLError("Unknown node name " + currGrandchild.nodeName);
+            }
+            else this.onXMLError("Unknown node name " + currGrandchild.nodeName);
             i++;
         }
         while (i < children.length)

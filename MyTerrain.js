@@ -23,7 +23,6 @@ class MyTerrain extends CGFobject {
     }
 
     updateTexCoords(sFactor, tFactor) {
-
     };
 
     getTexture(){return this.idTexture;};

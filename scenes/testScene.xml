@@ -65,7 +65,7 @@
 		</spot>
 	</lights>
 	<textures>
-		<texture id="golden" file="golden.jpg" />
+		<texture id="golden" file="golden.png" />
 		<texture id="terrainheight" file="terrainmap.jpg" />
 		<texture id="terrain" file="terrainTexture.png" />
 		<texture id="watertexture" file="watertexture.jpg" />
@@ -491,6 +491,10 @@
 		<transformation id="moogle">
 			<translate x="0.5" y="-1.7" z="0.0" />
 		</transformation>
+		<transformation id="moogle1">
+			<translate x="0.5" y="-4.0" z="45.0" />
+			<scale x="2.0" y="2.0" z="2.0" />
+		</transformation>
 		<transformation id="headtop">
 			<scale x="2.2" y="1.8" z="1.8" />
 			<translate x="0.0" y="5.0" z="0.0" />
@@ -704,12 +708,16 @@
 		</transformation>
 	</transformations>
 	   <animations>
-        <circular id="aroundCenter" span="5.0" center="0.0 0.0 0.0" radius="3.0" startang="0.0" rotang="180.0"/>
-				<circular id="aroundSelf" span="5.0" center="0.0 0.0 0.0" radius="3.0" startang="0.0" rotang="180.0"/>
-        <linear id="up" span="10" >
+        <circular id="aroundCenter" span="40.0" center="0.0 -10.0 0.0" radius="25.0" startang="0.0" rotang="720.0"/>
+				<circular id="aroundSelf" span="20.0" center="0.0 0.0 0.0" radius="0.0" startang="0.0" rotang="1080.0"/>
+				<linear id="spendTime" span="20" >
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-            <controlpoint xx="0.0" yy="0.0" zz="3.0" />
-            <controlpoint xx="0.0" yy="3.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="0.0000000000000000001" zz="0.0" />
+        </linear>
+        <linear id="up" span="20" >
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="2.0" zz="3.0" />
+            <controlpoint xx="0.0" yy="4.0" zz="6.0" />
         </linear>
 				<linear id="down" span="10" >
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
@@ -2837,6 +2845,10 @@
 			<transformation>
 				<transformationref id="transID" />
 			</transformation>
+			<animations>
+				<animationref id="up"/>
+					<animationref id="aroundCenter"/>
+			</animations>
 			<materials>
 				<material id="inherit" />
 			</materials>
@@ -2853,8 +2865,12 @@
 
 		<component id="moogle1">
 			<transformation>
-				<transformationref id="moogle" />
+				<transformationref id="moogle1" />
 			</transformation>
+			<animations>
+				<animationref id="spendTime"/>
+					<animationref id="aroundSelf"/>
+			</animations>
 			<materials>
 				<material id="inherit" />
 			</materials>
@@ -2974,7 +2990,7 @@
 			</materials>
 			<texture id="inherit" />
 			<children>
-				<primitiveref id="vehicle" />
+				<primitiveref id="cake" />
 			</children>
 		</component>
 
