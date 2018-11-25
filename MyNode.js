@@ -65,6 +65,11 @@ class MyNode {
                 this.time = 0;
                 this.currentAnimationIndex++;
                 this.currentAnimation = this.animations[this.currentAnimationIndex];
+                if(this.currentAnimationIndex >= this.animations.length)
+                {
+                    this.currentAnimationIndex = 0;
+                    this.currentAnimation = this.animations[this.currentAnimationIndex];
+                }
             }
             this.animationMatrix = this.graph.scene.animations[this.currentAnimation].getTransformationMatrix(this.time);
         }
