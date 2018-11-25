@@ -64,9 +64,9 @@
         </primitive>
 
 
-        <!-- <primitive id="vehicle">
-   <vehicle/>
-        </primitive> -->
+        <primitive id="vehicle">
+            <vehicle/>
+        </primitive>
         <primitive id="terrain">
             <terrain idtexture="dometop" idheightmap="terrainheight" parts="20" heightscale="1"/>
         </primitive>
@@ -119,9 +119,9 @@
             <texture id="inherit"/>
             <children>
                 <!-- <primitiveref id="cake"/> -->
-                <!-- <primitiveref id="water"/> -->
+                <primitiveref id="water"/>
                 <!-- <primitiveref id="cake"/> -->
-
+                <primitiveref id = "vehicle"/>
             </children>
         </component>
 
