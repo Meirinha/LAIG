@@ -19,17 +19,13 @@ class MyInterface extends CGFinterface {
         //  http://workshop.chromeexperiments.com/examples/gui
 
         this.gui = new dat.GUI();
-        this.gui.add(this.scene, 'selectedExampleShader', {
-      			'Simple texturing': 0,
-      			'Multiple textures in VS and FS': 1
 
-      	}).name('Shader examples');
-        this.gui.close();
+        this.gui.open();
         return true;
     }
 
     addAxis() {
-        this.gui.add(this.scene, 'displayAxis');
+        this.gui.add(this.scene, 'displayAxis').name("Display Axis");
     }
 
     /**
@@ -63,7 +59,15 @@ class MyInterface extends CGFinterface {
             this.cameraArray.push(key);
         }
 
-        this.gui.add(this.scene, 'changeCamera', this.cameraArray);
+        this.gui.add(this.scene, 'changeCamera', this.cameraArray).name("Active Camera");
+    }
+
+    addShadersGroup() {
+        this.gui.add(this.scene, 'selectedExampleShader', {
+            'Simple texturing': 0,
+            'Multiple textures in VS and FS': 1
+
+        }).name('Shader examples');
     }
 
     processKeyUp(event) {
