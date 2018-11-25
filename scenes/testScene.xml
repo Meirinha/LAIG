@@ -753,11 +753,11 @@
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
         </linear>
         <linear id="left" span="5" >
-          <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-          <controlpoint xx="0.0" yy="3.0" zz="-2.0" />
-          <controlpoint xx="0.0" yy="6.0" zz="-4.0" />
-          <controlpoint xx="0.0" yy="3.0" zz="-2.0" />
-          <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="3.0" zz="-2.0" />
+            <controlpoint xx="0.0" yy="6.0" zz="-4.0" />
+            <controlpoint xx="0.0" yy="3.0" zz="-2.0" />
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
         </linear>
     </animations>
     <primitives>
@@ -769,8 +769,8 @@
             <water idtexture="watertexture" idwavemap="wavemap" parts="100" heightscale="13.0" texscale="0.5"/>
         </primitive>
         <primitive id="vehicle">
-        <vehicle/>
-  </primitive>
+            <vehicle/>
+        </primitive>
 
 
         <primitive id="rec">
@@ -2881,16 +2881,16 @@
                 <transformationref id="transID" />
             </transformation>
             <animations>
-               <animationref id="spendTimeRing"/>
-               <animationref id="right"/>
-               <animationref id="left"/>
-               <animationref id="right"/>
-               <animationref id="left"/>
-               <animationref id="right"/>
-               <animationref id="left"/>
-               <animationref id="right"/>
-               <animationref id="left"/>
-               <animationref id="spendTimeRing"/>
+                <animationref id="spendTimeRing"/>
+                <animationref id="right"/>
+                <animationref id="left"/>
+                <animationref id="right"/>
+                <animationref id="left"/>
+                <animationref id="right"/>
+                <animationref id="left"/>
+                <animationref id="right"/>
+                <animationref id="left"/>
+                <animationref id="spendTimeRing"/>
             </animations>
             <materials>
                 <material id="inherit" />
@@ -2906,7 +2906,7 @@
                 <transformationref id="transID" />
             </transformation>
             <animations>
-               <animationref id="up"/>
+                <animationref id="up"/>
                 <animationref id="aroundCenter"/>
                 <animationref id="down"/>
             </animations>
@@ -2999,9 +2999,9 @@
             </materials>
             <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
             <children>
-              <componentref id="moogle" />
-              <componentref id="cape" />
-          </children>
+                <componentref id="moogle" />
+                <componentref id="cape" />
+            </children>
         </component>
 
         <component id="moogle4">
@@ -3018,9 +3018,9 @@
             </materials>
             <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
             <children>
-              <componentref id="moogle" />
-              <componentref id="cape" />
-          </children>
+                <componentref id="moogle" />
+                <componentref id="cape" />
+            </children>
         </component>
 
         <component id="moogle5">
@@ -3037,9 +3037,9 @@
             </materials>
             <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
             <children>
-              <componentref id="moogle" />
-              <componentref id="cape" />
-          </children>
+                <componentref id="moogle" />
+                <componentref id="cape" />
+            </children>
         </component>
 
         <component id="moogle6">
@@ -3056,9 +3056,9 @@
             </materials>
             <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
             <children>
-              <componentref id="moogle" />
-              <componentref id="cape" />
-          </children>
+                <componentref id="moogle" />
+                <componentref id="cape" />
+            </children>
         </component>
 
         <component id="cape">
