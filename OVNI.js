@@ -1,3 +1,6 @@
+/**
+ * OVNI class, aka vehicle object
+ */
 class OVNI extends CGFobject {
 	constructor(scene) {
 		super(scene);

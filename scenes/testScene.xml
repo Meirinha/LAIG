@@ -2906,7 +2906,7 @@
                 <transformationref id="transID" />
             </transformation>
             <animations>
-              <animationref id="up"/>
+                <animationref id="up"/>
                 <animationref id="aroundCenter"/>
                 <animationref id="down"/>
             </animations>
@@ -2947,7 +2947,7 @@
                 <transformationref id="moogle1" />
             </transformation>
             <animations>
-              <animationref id="spendTime"/>
+                <animationref id="spendTime"/>
                 <animationref id="aroundSelf"/>
                 <animationref id="spendTime"/>
             </animations>

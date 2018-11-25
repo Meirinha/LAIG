@@ -1,3 +1,8 @@
+/**
+ * PatchMyCylinder class
+ * 
+ * Cylinder created from nurb surfaces
+ */
 class PatchMyCylinder extends CGFobject {
     constructor(scene, base, top, height, slices, stacks) {
         super(scene);

@@ -49,7 +49,6 @@ class XMLscene extends CGFscene {
         this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
         this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
         this.appearance.setShininess(120);
-        this.texture = new CGFtexture(this, "texture.jpg");
         this.appearance.setTexture(this.texture);
         this.appearance.setTextureWrap ('REPEAT', 'REPEAT');
 
@@ -61,7 +60,7 @@ class XMLscene extends CGFscene {
 
     music()
     {
-        
+
     }
 
     initShaders(){
@@ -174,7 +173,6 @@ class XMLscene extends CGFscene {
      */
     display() {
         // ---- BEGIN Background, camera and axis setup
-        console.log(this.currentMusic);
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
