@@ -2,6 +2,8 @@
 attribute vec3 aVertexPosition;
 attribute vec3 aVertexNormal;
 attribute vec2 aTextureCoord;
+varying vec3 vVertexPosition;
+varying vec3 vVertexNormal;
 
 uniform mat4 uMVMatrix;
 uniform mat4 uPMatrix;
@@ -15,6 +17,9 @@ uniform float normScale;
 uniform float heightScale;
 
 void main() {
+vVertexPosition = aVertexPosition;
+vVertexNormal = aVertexNormal;
+
 	vec3 offset=vec3(0.0,0.0,0.0);
 	vec3 yset =vec3(0.0,heightScale,0.0);
 
