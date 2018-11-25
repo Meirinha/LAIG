@@ -5,18 +5,11 @@ class MyWater extends CGFobject {
         this.idTexture = idtexture;
         this.idWaveMap = idwavemap;
         this.parts = parts;
-		this.heightScale = heightscale;
-		this.texScale = texscale;
+		    this.heightScale = heightscale;
+		    this.texScale = texscale;
 
         this.plane = new MyPlane(this.scene, this.parts, this.parts);
         this.graph = this.scene.graph;
-
-        this.baseTexCoords = [
-            -0.5, -0.5,
-            0.5, -0.5,
-            0.5, 0.5,
-            -0.5, 0.5
-        ];
     };
 
     display()
@@ -29,7 +22,7 @@ class MyWater extends CGFobject {
 
         this.graph.textures[this.idWaveMap].bind(1);
         this.plane.display();
-        
+
         this.scene.setActiveShader(this.scene.defaultShader);
     }
 

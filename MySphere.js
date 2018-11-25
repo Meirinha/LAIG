@@ -16,7 +16,6 @@ initBuffers (){
 	this.indices = new Array();
 	this.normals = new Array();
 	this.texCoords = new Array();
-	//var depth = 1.0/this.stacks;
 	var radius = Math.PI / this.stacks; //Radius
 	var currtRadius;
 

@@ -41,4 +41,6 @@ class OVNi extends CGFobject {
 
         this.graph.textures[this.idWaveMap].bind(1);
 	};
+	updateTexCoords(sFactor, tFactor) {
+	};
 }
