@@ -33,9 +33,7 @@ class OVNI extends CGFobject {
 
 	display()
 	{
-		this.scene.setActiveShader(this.scene.testShaders[1]);
-        this.scene.testShaders[1].setUniformsValues({heightScale:this.heightScale});
-        this.scene.testShaders[1].setUniformsValues({texScale:this.texScale});
+		this.scene.setActiveShader(this.scene.testShaders[2]);
 
         this.scene.graph.textures["watertexture"].bind(0);
 

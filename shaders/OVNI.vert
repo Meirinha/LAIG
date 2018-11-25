@@ -17,7 +17,7 @@ uniform float heightScale;
 
 void main() {
 	vec3 offset=vec3(0.0,0.0,0.0);
-	vec3 yset =vec3(1.0,0.0,0.0);
+	vec3 yset =vec3(0.0,0.0,0.3);
 	vec2 textTime = vec2(time, time);
 
 	vTextureCoord = aTextureCoord+textTime;
