@@ -735,19 +735,35 @@
     <animations>
         <circular id="aroundCenter" span="40.0" center="0.0 3.0 0.0" radius="3.0" startang="-90.0" rotang="360.0"/>
         <circular id="aroundSelf" span="40.0" center="0.0 0.0 0.0" radius="0.0" startang="0.0" rotang="4230.0"/>
-        <linear id="spendTime" span="3" >
+        <linear id="spendTime" span="1" >
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
             <controlpoint xx="0.0" yy="0.000000000000000000000001" zz="0.0" />
         </linear>
-        <linear id="up" span="3" >
+        <linear id="spendTimeRing" span="1" >
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-            <controlpoint xx="0.0" yy="2.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="0.0" zz="0.000000000000000000000000000000000000001" />
+        </linear>
+        <linear id="up" span="1" >
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
             <controlpoint xx="0.0" yy="3.0" zz="0.0" />
         </linear>
-        <linear id="down" span="3" >
+        <linear id="down" span="1" >
             <controlpoint xx="0.0" yy="3.0" zz="0.0" />
-            <controlpoint xx="0.0" yy="2.0" zz="0.0" />
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+        </linear>
+        <linear id="right" span="5" >
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="3.0" zz="2.0" />
+            <controlpoint xx="0.0" yy="6.0" zz="4.0" />
+            <controlpoint xx="0.0" yy="3.0" zz="2.0" />
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+        </linear>
+        <linear id="left" span="5" >
+          <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+          <controlpoint xx="0.0" yy="3.0" zz="-2.0" />
+          <controlpoint xx="0.0" yy="6.0" zz="-4.0" />
+          <controlpoint xx="0.0" yy="3.0" zz="-2.0" />
+          <controlpoint xx="0.0" yy="0.0" zz="0.0" />
         </linear>
     </animations>
     <primitives>
@@ -2857,12 +2873,37 @@
                 <componentref id="floatingDisk" />
                 <componentref id="house" />
                 <componentref id="portalcake" />
-                <componentref id="moogles" />
+                <componentref id="ring" />
                 <componentref id="marioplant" />
                 <componentref id="gramophone" />
                 <componentref id="cactuar" />
                 <componentref id="veigarhand" />
                 <componentref id="cubes" />
+            </children>
+        </component>
+
+        <component id="ring">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <animations>
+               <animationref id="spendTimeRing"/>
+               <animationref id="right"/>
+               <animationref id="left"/>
+               <animationref id="right"/>
+               <animationref id="left"/>
+               <animationref id="right"/>
+               <animationref id="left"/>
+               <animationref id="right"/>
+               <animationref id="left"/>
+               <animationref id="spendTimeRing"/>
+            </animations>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="moogles" />
             </children>
         </component>
 
