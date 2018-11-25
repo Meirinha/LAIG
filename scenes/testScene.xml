@@ -1,712 +1,712 @@
 <yas>
-	<scene root="rootScene" axis_length="5.0" />
-	<views default="moogle" >
-	<perspective id="moogle" near="0.1" far="900" angle="90.0">
-			<from x="0" y="145" z="20" />
-			<to x="0" y="137" z="0" />
-		</perspective>
-		<perspective id="veigar_hand" near="0.1" far="900" angle="90.0">
-			<from x="-9" y="144.5" z="-9" />
-			<to x="-14.5" y="143.5" z="-11.5" />
-		</perspective>
-		<perspective id="gramophone" near="0.1" far="900" angle="90.0">
-			<from x="4.0" y="144" z="-19" />
-			<to x="0.0" y="141" z="-24" />
-		</perspective>
-		<perspective id="piranha_plant" near="0.1" far="900" angle="90.0">
-			<from x="9" y="144.5" z="-9" />
-			<to x="16.5" y="143.5" z="-12" />
-		</perspective>
-		<perspective id="cactuar" near="0.1" far="900" angle="90.0">
-			<from x="9.0" y="144" z="9" />
-			<to x="14.5" y="141" z="12.5" />
-		</perspective>
-		<perspective id="cake" near="0.1" far="900" angle="90.0">
-			<from x="-9.0" y="144" z="9" />
-			<to x="-14.5" y="141" z="12.5" />
-		</perspective>
-		<ortho id="orth" near="0.1" far="500" left="-50" right="50" top="30" bottom="-30" >
-			<from x="30" y="160" z="30" />
-			<to x="0" y="135" z="0" />
-		</ortho>
-			<perspective id="world" near="0.1" far="900" angle="90.0">
-			<from x="0" y="130" z="100" />
-			<to x="0" y="137" z="0" />
-		</perspective>
-	</views>
-	<ambient>
-		<ambient r="0.2" g="0.2" b="0.2" a="1.0" />
-		<background r="0.0" g="0.0" b="0.0" a="1.0" />
-	</ambient>
-	<lights>
-		<omni id="lightOmni" enabled="1" >
-			<location x="0.0" y="15" z="0.0" w="1" />
-			<ambient r="1.0" g="1.0" b="1.0" a="1" />
-			<diffuse r="0.9" g="0.9" b="0.9" a="1" />
-			<specular r="0.9" g="0.9" b="0.9" a="1" />
-		</omni>
-		<spot id="lightSpot" enabled="0" angle="50.0" exponent="1.0">
-			<location x="0.0" y="15.0" z="0.0" w="1" />
-			<target x="20.0" y="0.0" z="-20.0" />
-			<ambient r="0.3" g="0.0" b="0.0" a="1.0" />
-			<diffuse r="0.3" g="0.0" b="0.0" a="1.0" />
-			<specular r="0.3" g="0.0" b="0.0" a="1.0" />
-		</spot>
-		<spot id="tinyLight" enabled="0" angle="2.0" exponent="10.0">
-			<location x="0.0" y="15.0" z="0.0" w="1" />
-			<target x="0.0" y="0.0" z="-20.0" />
-			<ambient r="0.3" g="0.0" b="0.0" a="1.0" />
-			<diffuse r="0.3" g="0.0" b="0.0" a="1.0" />
-			<specular r="0.3" g="0.0" b="0.0" a="1.0" />
-		</spot>
-	</lights>
-	<textures>
-		<texture id="golden" file="golden.png" />
-		<texture id="terrainheight" file="terrainmap.jpg" />
-		<texture id="terrain" file="terrainTexture.png" />
-		<texture id="watertexture" file="watertexture.jpg" />
-		<texture id="wavemap" file="wave_map.png" />
-		<texture id="dometop" file="dometop.jpg" />
-		<texture id="domebot" file="domebot.png" />
-		<texture id="roof" file="roof.jpg" />
-		<texture id="roof2" file="roof2.jpg" />
-		<texture id="door" file="door.png" />
-		<texture id="moogleface" file="moogleface.png" />
-		<texture id="mooglefacetop" file="mooglefacetop.png" />
-		<texture id="black" file="black.png" />
-		<texture id="metal" file="metal.png" />
-		<texture id="red" file="red.png" />
-		<texture id="controller" file="controller.png" />
-		<texture id="stripes" file="stripes.png" />
-		<texture id="cactuar" file="cactuar.png" />
-		<texture id="cactuar2" file="cactuar2.png" />
-		<texture id="cactuarhair" file="cactuarhair.png" />
-		<texture id="cactuarface" file="cactuarface.png" />
-		<texture id="mariored" file="mariored.png" />
-		<texture id="marioplant" file="marioplant.png" />
-		<texture id="portalcake" file="portalcake.png" />
-		<texture id="wood" file="wood.png" />
-		<texture id="disk" file="disk.png" />
-		<texture id="floor" file="floor.png" />
-		<texture id="wall" file="wall.png" />
-		<texture id="crystal" file="crystal.png" />
-		<texture id="crystal2" file="crystal2.png" />
-		<texture id="glass" file="glass.png" />
-	</textures>
-	<materials>
-		<material id="halo" shininess = "1.0" >
-			<emission r="0.5" g="0.5" b="0.5" a="1.0" />
-			<ambient r="0.5" g="0.5" b="0.5" a="1.0" />
-			<diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
-			<specular r="0.8" g="0.8" b="0.8" a="1.0" />
-		</material>
+    <scene root="rootScene" axis_length="5.0" />
+    <views default="moogle" >
+        <perspective id="moogle" near="0.1" far="900" angle="90.0">
+            <from x="0" y="145" z="20" />
+            <to x="0" y="137" z="0" />
+        </perspective>
+        <perspective id="veigar_hand" near="0.1" far="900" angle="90.0">
+            <from x="-9" y="144.5" z="-9" />
+            <to x="-14.5" y="143.5" z="-11.5" />
+        </perspective>
+        <perspective id="gramophone" near="0.1" far="900" angle="90.0">
+            <from x="4.0" y="144" z="-19" />
+            <to x="0.0" y="141" z="-24" />
+        </perspective>
+        <perspective id="piranha_plant" near="0.1" far="900" angle="90.0">
+            <from x="9" y="144.5" z="-9" />
+            <to x="16.5" y="143.5" z="-12" />
+        </perspective>
+        <perspective id="cactuar" near="0.1" far="900" angle="90.0">
+            <from x="9.0" y="144" z="9" />
+            <to x="14.5" y="141" z="12.5" />
+        </perspective>
+        <perspective id="cake" near="0.1" far="900" angle="90.0">
+            <from x="-9.0" y="144" z="9" />
+            <to x="-14.5" y="141" z="12.5" />
+        </perspective>
+        <ortho id="orth" near="0.1" far="500" left="-50" right="50" top="30" bottom="-30" >
+            <from x="30" y="160" z="30" />
+            <to x="0" y="135" z="0" />
+        </ortho>
+        <perspective id="world" near="0.1" far="900" angle="90.0">
+            <from x="0" y="130" z="100" />
+            <to x="0" y="137" z="0" />
+        </perspective>
+    </views>
+    <ambient>
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <background r="0.0" g="0.0" b="0.0" a="1.0" />
+    </ambient>
+    <lights>
+        <omni id="lightOmni" enabled="1" >
+            <location x="0.0" y="15" z="0.0" w="1" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1" />
+            <diffuse r="0.9" g="0.9" b="0.9" a="1" />
+            <specular r="0.9" g="0.9" b="0.9" a="1" />
+        </omni>
+        <spot id="lightSpot" enabled="0" angle="50.0" exponent="1.0">
+            <location x="0.0" y="15.0" z="0.0" w="1" />
+            <target x="20.0" y="0.0" z="-20.0" />
+            <ambient r="0.3" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.3" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.3" g="0.0" b="0.0" a="1.0" />
+        </spot>
+        <spot id="tinyLight" enabled="0" angle="2.0" exponent="10.0">
+            <location x="0.0" y="15.0" z="0.0" w="1" />
+            <target x="0.0" y="0.0" z="-20.0" />
+            <ambient r="0.3" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.3" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.3" g="0.0" b="0.0" a="1.0" />
+        </spot>
+    </lights>
+    <textures>
+        <texture id="golden" file="golden.png" />
+        <texture id="terrainheight" file="terrainmap.jpg" />
+        <texture id="terrain" file="terrainTexture.png" />
+        <texture id="watertexture" file="watertexture.jpg" />
+        <texture id="wavemap" file="wave_map.png" />
+        <texture id="dometop" file="dometop.jpg" />
+        <texture id="domebot" file="domebot.png" />
+        <texture id="roof" file="roof.jpg" />
+        <texture id="roof2" file="roof2.jpg" />
+        <texture id="door" file="door.png" />
+        <texture id="moogleface" file="moogleface.png" />
+        <texture id="mooglefacetop" file="mooglefacetop.png" />
+        <texture id="black" file="black.png" />
+        <texture id="metal" file="metal.png" />
+        <texture id="red" file="red.png" />
+        <texture id="controller" file="controller.png" />
+        <texture id="stripes" file="stripes.png" />
+        <texture id="cactuar" file="cactuar.png" />
+        <texture id="cactuar2" file="cactuar2.png" />
+        <texture id="cactuarhair" file="cactuarhair.png" />
+        <texture id="cactuarface" file="cactuarface.png" />
+        <texture id="mariored" file="mariored.png" />
+        <texture id="marioplant" file="marioplant.png" />
+        <texture id="portalcake" file="portalcake.png" />
+        <texture id="wood" file="wood.png" />
+        <texture id="disk" file="disk.png" />
+        <texture id="floor" file="floor.png" />
+        <texture id="wall" file="wall.png" />
+        <texture id="crystal" file="crystal.png" />
+        <texture id="crystal2" file="crystal2.png" />
+        <texture id="glass" file="glass.png" />
+    </textures>
+    <materials>
+        <material id="halo" shininess = "1.0" >
+            <emission r="0.5" g="0.5" b="0.5" a="1.0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
+            <specular r="0.8" g="0.8" b="0.8" a="1.0" />
+        </material>
 
-		<material id="change" shininess = "0.8" >
-			<emission r="0.3" g="0.0" b="0.0" a="1.0" />
-			<ambient r="0.3" g="0.0" b="0.0" a="1.0" />
-			<diffuse r="0.3" g="0.0" b="0.0" a="1.0" />
-			<specular r="0.3" g="0.0" b="0.0" a="1.0" />
-		</material>
-		<material id="cherry" shininess = "0.8" >
-			<emission r="0.3" g="0.1" b="0.1" a="1.0" />
-			<ambient r="0.3" g="0.1" b="0.1" a="1.0" />
-			<diffuse r="0.3" g="0.1" b="0.1" a="1.0" />
-			<specular r="0.3" g="0.1" b="0.1" a="1.0" />
-		</material>
-		<material id="mariogreen" shininess = "0.5" >
-			<emission r="0.1" g="0.2" b="0.1" a="1.0" />
-			<ambient r="0.1" g="0.3" b="0.1" a="1.0" />
-			<diffuse r="0.0" g="0.3" b="0.0" a="1.0" />
-			<specular r="0.2" g="0.5" b="0.2" a="1.0" />
-		</material>
-		<material id="ball" shininess = "1.0" >
-			<emission r="0.5" g="0.5" b="0.2" a="1.0" />
-			<ambient r="0.5" g="0.5" b="0.2" a="1.0" />
-			<diffuse r="0.7" g="0.7" b="0.2" a="1.0" />
-			<specular r="0.7" g="0.7" b="0.2" a="1.0" />
-		</material>
-		<material id="nose" shininess = "0.8" >
-			<emission r="0.8" g="0.3" b="0.3" a="1.0" />
-			<ambient r="0.8" g="0.3" b="0.3" a="1.0" />
-			<diffuse r="0.8" g="0.3" b="0.3" a="1.0" />
-			<specular r="0.8" g="0.3" b="0.3" a="1.0" />
-		</material>
-		<material id="materialID" shininess = "1.0" >
-			<emission r="0.4" g="0.4" b="0.4" a="1.0" />
-			<ambient r="0.3" g="0.3" b="0.3" a="1.0" />
-			<diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
-			<specular r="0.3" g="0.3" b="0.3" a="1.0" />
-		</material>
-		<material id="transparent" shininess = "0.8" >
-			<emission r="0.4" g="0.4" b="0.4" a="0.6" />
-			<ambient r="0.3" g="0.3" b="0.3" a="0.6" />
-			<diffuse r="0.3" g="0.3" b="0.3" a="0.6" />
-			<specular r="0.3" g="0.3" b="0.3" a="0.6" />
-		</material>
-		<material id="materialID2" shininess = "1.0" >
-			<emission r="0.0" g="0.0" b="0.0" a="1.0" />
-			<ambient r="0.0" g="0.0" b="0.0" a="1.0" />
-			<diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
-			<specular r="0.0" g="0.0" b="0.0" a="1.0" />
-		</material>
-	</materials>
-	<transformations>
-		<transformation id="transID">
-			<scale x="1.0" y="1.0" z="1.0" />
-		</transformation>
-		<transformation id="elements">
-			<translate x="0.0" y="130.0" z="0.0" />
-		</transformation>
-		<transformation id="floatingDisk">
-			<scale x="18.0" y="1.0" z="18.0" />
-			<translate x="0.06" y="2.0" z="0.0" />
-			<rotate axis="x" angle="-90.0" />
-		</transformation>
-		<transformation id="terrain">
-			<translate x="0.0" y="5.0" z="0.0" />
-			<scale x="350.0" y="1.0" z="350.0" />
-		</transformation>
-		<transformation id="cubeexpo">
-			<scale x="3.5" y="3.0" z="3.5" />
-		</transformation>
-		<transformation id="cube1">
-			<translate x="-9.0" y="0.9" z="-1.0" />
-		</transformation>
-		<transformation id="cube2">
-			<translate x="-9.0" y="0.9" z="-8.5" />
-		</transformation>
-		<transformation id="cube3">
-			<translate x="0.0" y="0.9" z="-1.0" />
-		</transformation>
-		<transformation id="cube4">
-			<translate x="0.0" y="0.9" z="-8.5" />
-		</transformation>
-		<transformation id="cube5">
-			<translate x="-4.5" y="0.9" z="-11.5" />
-		</transformation>
-		<transformation id="cube6">
-			<translate x="-4.5" y="0.9" z="2.5" />
-		</transformation>
-		<transformation id="lefteye">
-			<rotate axis="y" angle="-20.0" />
-			<rotate axis="x" angle="-15.0" />
-			<scale x="0.4" y="0.13" z="0.1" />
-			<translate x="-6.0" y="67.0" z="36.5" />
-		</transformation>
-		<transformation id="righteye">
-			<rotate axis="y" angle="20.0" />
-			<rotate axis="x" angle="-15.0" />
-			<scale x="0.4" y="0.13" z="0.1" />
-			<translate x="-3.5" y="67.0" z="36.5" />
-		</transformation>
-		<transformation id="picture">
-			<translate x="0.8" y="0.0" z="-9.0" />
-			<scale x="0.001" y="2.0" z="1.8" />
-		</transformation>
-		<transformation id="glass">
-			<translate x="1.0" y="0.0" z="-9.0" />
-			<scale x="0.001" y="2.0" z="1.8" />
-		</transformation>
-		<transformation id="house">
-			<scale x="0.08" y="0.08" z="0.07" />
-			<translate x="13.0" y="110.0" z="360.0" />
-		</transformation>
-		<transformation id="rightwall">
-			<translate x="44.5" y="0.0" z="0.0" />
-		</transformation>
-		<transformation id="leftwallsmall">
-			<rotate axis="y" angle="-90.0" />
-			<scale x="0.6" y="1.0" z="1.0" />
-			<translate x="48.5" y="0.0" z="-5.1" />
-		</transformation>
-		<transformation id="leftwalllarge">
-			<rotate axis="y" angle="-90.0" />
-			<scale x="2.45" y="1.55" z="1.0" />
-			<translate x="10.5" y="0.0" z="-5.1" />
-		</transformation>
-		<transformation id="frontsupleft">
-			<rotate axis="x" angle="-90.0" />
-			<translate x="-4.0" y="-33.0" z="-0.5" />
-			<scale x="0.4" y="0.4" z="1.1" />
-		</transformation>
-		<transformation id="frontsupright">
-			<rotate axis="x" angle="-90.0" />
-			<translate x="4.0" y="-33.0" z="-0.5" />
-			<scale x="0.4" y="0.4" z="1.1" />
-		</transformation>
-		<transformation id="frontroof">
-			<translate x="8.0" y="7.0" z="17.3" />
-			<scale x="0.6" y="0.4" z="0.6" />
-		</transformation>
-		<transformation id="frontwallleft">
-			<translate x="-70.0" y="-0.5" z="25.5" />
-			<scale x="12.0" y="7.5" z="0.3" />
-		</transformation>
-		<transformation id="frontwallright">
-			<translate x="-43.0" y="-0.5" z="25.5" />
-			<scale x="12.0" y="7.5" z="0.3" />
-		</transformation>
-		<transformation id="frontdoor">
-			<translate x="-39.0" y="-0.5" z="25.3" />
-			<scale x="8.0" y="7.3" z="0.3" />
-		</transformation>
-		<transformation id="veigarhand">
-			<scale x="1.5" y="1.5" z="1.5" />
-			<rotate axis="x" angle="-90.0" />
-			<rotate axis="z" angle="60.0" />
-			<rotate axis="x" angle="30.0" />
-			<translate x="2.5" y="14.5" z="-0.5" />
-		</transformation>
-		<transformation id="handbot">
-			<scale x="0.25" y="0.13" z="0.2" />
-			<translate x="0.0" y="0.5" z="-2.0" />
-		</transformation>
-		<transformation id="handdecocenter">
-			<scale x="0.2" y="0.2" z="0.08" />
-			<translate x="0.0" y="-2.5" z="-4.5" />
-		</transformation>
-		<transformation id="handdecoright">
-			<scale x="0.08" y="0.08" z="0.08" />
-			<translate x="6.6" y="-14.0" z="-4.0" />
-			<rotate axis="y" angle="-12.0" />
-		</transformation>
-		<transformation id="handdecoleft">
-			<scale x="0.08" y="0.08" z="0.08" />
-			<translate x="-6.6" y="-14.0" z="-4.0" />
-			<rotate axis="y" angle="12.0" />
-		</transformation>
-		<transformation id="handdecomiddle">
-			<scale x="0.08" y="0.08" z="0.08" />
-			<translate x="0.0" y="-15.0" z="-5.0" />
-		</transformation>
-		<transformation id="thumb">
-			<rotate axis="y" angle="-110.0" />
-			<rotate axis="x" angle="-50.0" />
-			<scale x="1.2" y="1.2" z="0.9" />
-			<translate x="0.3" y="-0.3" z="-1.05" />
-		</transformation>
-		<transformation id="leftfinger">
-			<rotate axis="y" angle="-23.0" />
-			<translate x="-0.45" y="0.0" z="0.15" />
-		</transformation>
-		<transformation id="middlefinger">
-			<rotate axis="y" angle="-13.0" />
-			<scale x="1.0" y="1.0" z="1.1" />
-			<translate x="-0.2" y="0.0" z="-0.1" />
-		</transformation>
-		<transformation id="fingerbot">
-			<scale x="0.3" y="0.4" z="0.35" />
-			<translate x="1.8" y="0.0" z="4.0" />
-			<rotate axis="y" angle="10.0" />
-			<rotate axis="x" angle="-10.0" />
-		</transformation>
-		<transformation id="fingermiddle">
-			<rotate axis="y" angle="10.0" />
-			<scale x="0.1" y="0.06" z="0.05" />
-			<translate x="3.0" y="1.5" z="41.0" />
-			<rotate axis="x" angle="-20.0" />
-		</transformation>
-		<transformation id="fingertop">
-			<rotate axis="y" angle="15.0" />
-			<scale x="0.35" y="0.45" z="0.15" />
-			<translate x="0.3" y="0.25" z="13.8" />
-			<rotate axis="x" angle="-20.0" />
-		</transformation>
-		<transformation id="frontfinger">
-			<rotate axis="x" angle="90.0" />
-			<scale x="4.4" y="4.4" z="1.4" />
-			<translate x="0.0" y="0.35" z="0.01" />
-		</transformation>
-		<transformation id="backfinger">
-			<rotate axis="x" angle="90.0" />
-			<scale x="4.4" y="4.4" z="1.4" />
-			<translate x="0.0" y="0.35" z="-0.1" />
-		</transformation>
-		<transformation id="fronthand">
-			<scale x="0.9" y="0.3" z="1.01" />
-		</transformation>
-		<transformation id="backhand">
-			<scale x="0.9" y="0.3" z="1.0" />
-			<translate x="0.0" y="0.4" z="0.0" />
-		</transformation>
-		<transformation id="cactuar">
-			<scale x="2.0" y="2.0" z="2.0" />
-			<rotate axis="x" angle="-20.0" />
-			<translate x="8.0" y="0.7" z="7.9" />
-		</transformation>
-		<transformation id="hair1">
-			<scale x="0.08" y="0.15" z="0.08" />
-			<translate x="0.0" y="22.5" z="-2.3" />
-		</transformation>
-		<transformation id="hair2">
-			<scale x="0.08" y="0.15" z="0.08" />
-			<translate x="0.0" y="23.0" z="0.0" />
-		</transformation>
-		<transformation id="hair3">
-			<scale x="0.08" y="0.15" z="0.08" />
-			<translate x="0.0" y="22.5" z="2.3" />
-		</transformation>
-		<transformation id="carmrighttop">
-			<scale x="0.33" y="0.3" z="0.33" />
-			<translate x="0.0" y="6.63" z="-2.6" />
-		</transformation>
-		<transformation id="carmrightbot">
-			<rotate axis="x" angle="90.0" />
-			<scale x="0.3" y="0.3" z="0.3" />
-			<translate x="0.0" y="-4.7" z="-10.0" />
-		</transformation>
-		<transformation id="clegrighttop">
-			<scale x="0.35" y="0.35" z="0.35" />
-			<translate x="0.0" y="2.1" z="-2.3" />
-		</transformation>
-		<transformation id="clegrightbot">
-			<rotate axis="x" angle="90.0" />
-			<scale x="0.3" y="0.5" z="0.3" />
-			<translate x="0.0" y="-3.7" z="-6.5" />
-		</transformation>
-		<transformation id="cleglefttop">
-			<rotate axis="x" angle="90.0" />
-			<scale x="0.35" y="0.35" z="0.35" />
-			<translate x="0.0" y="-1.3" z="-4.4" />
-		</transformation>
-		<transformation id="clegleftbot">
-			<scale x="0.3" y="0.4" z="0.3" />
-			<translate x="0.0" y="1.7" z="0.95" />
-		</transformation>
-		<transformation id="carmleftbot">
-			<rotate axis="x" angle="90.0" />
-			<scale x="0.3" y="0.3" z="0.3" />
-			<translate x="0.0" y="-0.8" z="-10.0" />
-		</transformation>
-		<transformation id="carmlefttop">
-			<scale x="0.33" y="0.3" z="0.33" />
-			<translate x="0.0" y="7.8" z="2.6" />
-		</transformation>
-		<transformation id="cbodymidle">
-			<rotate axis="x" angle="90.0" />
-			<scale x="0.2" y="0.2" z="0.7" />
-			<translate x="0.0" y="0.0" z="-5.0" />
-		</transformation>
-		<transformation id="cbodytop">
-			<rotate axis="x" angle="-90.0" />
-			<rotate axis="z" angle="-110.0" />
-			<scale x="0.4" y="0.4" z="0.3" />
-			<translate x="0.0" y="0.0" z="11.6" />
-		</transformation>
-		<transformation id="cbodybot">
-			<rotate axis="x" angle="90.0" />
-			<rotate axis="z" angle="110.0" />
-			<scale x="0.4" y="0.4" z="0.3" />
-			<translate x="0.0" y="0.0" z="-7.1" />
-		</transformation>
-		<transformation id="gramophone">
-			<scale x="1.5" y="1.5" z="1.5" />
-			<translate x="-0.1" y="5.8" z="-16.5" />
-		</transformation>
-		<transformation id="support">
-			<rotate axis="x" angle="-100.0" />
-			<scale x="0.04" y="0.04" z="0.5" />
-			<translate x="17.8" y="2.0" z="2.1" />
-		</transformation>
-		<transformation id="thin">
-			<rotate axis="x" angle="-33.0" />
-			<translate x="0.7" y="1.9" z="0.5" />
-		</transformation>
-		<transformation id="large">
-				<rotate axis="x" angle="-33.0" />
-				<translate x="0.7" y="1.9" z="2.0" />
-		</transformation>
-		<transformation id="disk">
-			<translate x="0.7" y="1.0" z="0.7" />
-			<scale x="0.4" y="0.03" z="0.4" />
-		</transformation>
-		<transformation id="bottombox">
-			<translate x="-5.0" y="0.0" z="-5.0" />
-			<scale x="1.2" y="0.4" z="1.2" />
-		</transformation>
-		<transformation id="topbox">
-			<translate x="-5.95" y="0.8" z="-5.95" />
-			<scale x="1.4" y="0.1" z="1.4" />
-		</transformation>
-		<transformation id="marioplant">
-			<translate x="16.5" y="8.8" z="-13.3" />
-		</transformation>
-		<transformation id="leafeleft">
-			<rotate axis="x" angle="30.0" />
-			<translate x="0.0" y="2.1" z="-3.1" />
-			<scale x="1.3" y="0.2" z="1.8" />
-			<rotate axis="x" angle="30.0" />
-		</transformation>
-		<transformation id="teeth">
-			<scale x="0.4" y="0.4" z="0.4" />
-			<rotate axis="x" angle="30.0" />
-		</transformation>
-		<transformation id="teeth1">
-			<translate x="0.0" y="13.0" z="-6.3" />
-		</transformation>
-		<transformation id="teeth2">
-		<translate x="1.0" y="12.3" z="-6.3" />
-		</transformation>
-		<transformation id="teeth3">
-			<translate x="-1.0" y="12.3" z="-6.3" />
-		</transformation>
-		<transformation id="teeth4">
-			<translate x="1.3" y="11.3" z="-6.3" />
-		</transformation>
-		<transformation id="teeth5">
-			<translate x="-1.3" y="11.3" z="-6.3" />
-		</transformation>
-		<transformation id="flowerright">
-			<translate x="0.0" y="0.0" z="0.1" />
-			<rotate axis="y" angle="180.0" />
-		</transformation>
-		<transformation id="petalleft">
-			<translate x="0.0" y="4.9" z="0.5" />
-			<rotate axis="x" angle="30.0" />
-		</transformation>
-		<transformation id="lipleft">
-			<translate x="0.0" y="4.9" z="0.5" />
-			<scale x="4.0" y="4.0" z="4.0" />
-			<rotate axis="x" angle="33.0" />
-		</transformation>
-		<transformation id="vasebot">
-			<scale x="0.5" y="0.5" z="1.0" />
-		</transformation>
-		<transformation id="vasetop">
-			<translate x="0.0" y="0.0" z="1.8" />
-			<scale x="0.6" y="0.6" z="0.3" />
-		</transformation>
-		<transformation id="stalkbot">
-			<translate x="0.0" y="0.0" z="2.0" />
-			<scale x="0.06" y="0.06" z="0.9" />
-		</transformation>
-		<transformation id="stalktop">
-			<translate x="0.0" y="0.0" z="3.8" />
-			<scale x="0.1" y="0.1" z="0.08" />
-		</transformation>
-		<transformation id="moogle">
-			<translate x="0.5" y="-1.7" z="0.0" />
-		</transformation>
-		<transformation id="moogle1">
-			<translate x="0.5" y="-4.0" z="40.0" />
-			<scale x="2.0" y="2.0" z="2.0" />
-		</transformation>
-		<transformation id="headtop">
-			<scale x="2.2" y="1.8" z="1.8" />
-			<translate x="0.0" y="5.0" z="0.0" />
-			<rotate axis="x" angle="-90.0" />
-		</transformation>
-		<transformation id="headbot">
-			<scale x="2.2" y="1.0" z="1.8" />
-			<translate x="0.0" y="9.0" z="0.0" />
-			<rotate axis="x" angle="90.0" />
-		</transformation>
-		<transformation id="nose">
-			<scale x="0.7" y="0.6" z="0.7" />
-			<translate x="0.0" y="15.8" z="2.2" />
-			<rotate axis="x" angle="-13.0" />
-		</transformation>
-		<transformation id="bodytop">
-			<translate x="0.0" y="7.3" z="0.0" />
-			<rotate axis="x" angle="-90.0" />
-		</transformation>
-		<transformation id="bodybot">
-			<translate x="0.0" y="6.65" z="0.0" />
-			<scale x="1.2" y="1.0" z="1.2" />
-		</transformation>
-		<transformation id="leg">
-			<rotate axis="x" angle="-90.0" />
-		</transformation>
-		<transformation id="legleft">
-			<translate x="-1.2" y="0.0" z="4.8" />
-			<rotate axis="y" angle="25.0" />
-		</transformation>
-		<transformation id="legright">
-			<translate x="1.2" y="0.0" z="4.8" />
-			<rotate axis="y" angle="-25.0" />
-		</transformation>
-		<transformation id="arm">
-			<rotate axis="x" angle="-90.0" />
-		</transformation>
-		<transformation id="armleft">
-			<translate x="-2.35" y="0.0" z="7.2" />
-			<rotate axis="y" angle="63.0" />
-		</transformation>
-		<transformation id="armright">
-			<translate x="2.35" y="0.0" z="7.2" />
-			<rotate axis="y" angle="-63.0" />
-		</transformation>
-		<transformation id="earleft">
-			<translate x="-1.1" y="10.4" z="-0.3" />
-			<rotate axis="y" angle="-20.0" />
-			<rotate axis="z" angle="50.0" />
-			<rotate axis="x" angle="20.0" />
-			<scale x="1.3" y="2.1" z="1.0" />
-		</transformation>
-		<transformation id="earright">
-			<translate x="1.1" y="10.4" z="-0.3" />
-			<rotate axis="y" angle="20.0" />
-			<rotate axis="z" angle="-50.0" />
-			<rotate axis="x" angle="20.0" />
-			<scale x="1.3" y="1.9" z="1.0" />
-		</transformation>
-		<transformation id="halo">
-			<translate x="0.0" y="0.0" z="-10.2" />
-			<scale x="6.0" y="6.0" z="3.0" />
-			<rotate axis="x" angle="10.0" />
-		</transformation>
-		<transformation id="ball">
-			<translate x="0.0" y="0.0" z="-10.2" />
-			<scale x="4.0" y="4.0" z="4.0" />
-		</transformation>
-		<transformation id="wall1">
-			<translate x="-22.0" y="-0.5" z="27.0" />
-		</transformation>
-		<transformation id="frontbottom">
-			<translate x="0.0" y="40.5" z="16.1" />
-			<scale x="1.0" y="1.0" z="0.75" />
-			<rotate axis="x" angle="90.0" />
-		</transformation>
-		<transformation id="fronttop">
-			<translate x="0.0" y="13.8" z="-11.3" />
-			<scale x="1.0" y="0.6" z="1.0" />
-		</transformation>
-		<transformation id="fronttriangle">
-			<translate x="-34.5" y="8.0" z="-11.3" />
-			<scale x="2.5" y="1.0" z="1.0" />
-		</transformation>
-		<transformation id="backtriangle">
-			<translate x="0.0" y="0.0" z="-44.0" />
-		</transformation>
-		<transformation id="rightpart">
-			<translate x="-10.0" y="38.8" z="-16.0" />
-			<rotate axis="z" angle="-36.5" />
-			<scale x="7.5" y="0.3" z="8.0" />
-		</transformation>
-		<transformation id="midcyl">
-			<translate x="14.0" y="21.3" z="15.8" />
-		</transformation>
-		<transformation id="leftpart">
-			<translate x="-19.0" y="-3.8" z="-16.0" />
-			<rotate axis="z" angle="37.0" />
-			<scale x="7.5" y="0.3" z="8.0" />
-		</transformation>
-		<transformation id="leftroof">
-			<translate x="-27.0" y="0.0" z="0.0" />
-		</transformation>
-		<transformation id="toproof">
-			<translate x="33.0" y="8.0" z="-95.0" />
-			<scale x="2.5" y="1.0" z="4.1" />
-		</transformation>
-		<transformation id="midleroof">
-			<translate x="-85.0" y="43.0" z="-13.4" />
-			<rotate axis="x" angle="36.0" />
-			<scale x="18.0" y="0.3" z="9.0" />
-		</transformation>
-		<transformation id="housewallback">
-			<translate x="-142.0" y="-0.5" z="-29.5" />
-			<scale x="30.0" y="11.5" z="0.3" />
-		</transformation>
-		<transformation id="triangleleft">
-			<translate x="-22.0" y="14.5" z="27.0" />
-		</transformation>
-		<transformation id="triangleleftback">
-			<translate x="-4.0" y="14.5" z="27.0" />
-			<rotate axis="y" angle="180.0" />
-		</transformation>
-		<transformation id="triangleright">
-			<translate x="5.0" y="14.5" z="27.0" />
-		</transformation>
-		<transformation id="cake">
-			<rotate axis="x" angle="-90.0" />
-		</transformation>
-		<transformation id="portalcake">
-			<translate x="-15.0" y="8.7" z="13.0" />
-		</transformation>
-		<transformation id="topping">
-			<translate x="0.0" y="2.05" z="0.0" />
-			<rotate axis="x" angle="90.0" />
-		</transformation>
-		<transformation id="cherry">
-			<translate x="0.0" y="0.0" z="0.02" />
-		</transformation>
-		<transformation id="decoration1">
-			<translate x="0.0" y="1.5" z="0.0" />
-		</transformation>
-		<transformation id="decoration2">
-			<translate x="0.0" y="-1.5" z="0.0" />
-		</transformation>
-		<transformation id="decoration3">
-			<translate x="1.25" y="0.7" z="0.0" />
-		</transformation>
-		<transformation id="decoration4">
-			<translate x="1.25" y="-0.7" z="0.0" />
-		</transformation>
-		<transformation id="decoration5">
-			<translate x="-1.3" y="0.7" z="0.0" />
-		</transformation>
-		<transformation id="decoration6">
-			<translate x="-1.3" y="-0.7" z="0.0" />
-		</transformation>
-		<transformation id="trianglerightback">
-			<translate x="23.0" y="14.5" z="27.0" />
-			<rotate axis="y" angle="180.0" />
-		</transformation>
-		<transformation id="wallback">
-			<translate x="23.0" y="-0.5" z="27.0" />
-			<rotate axis="y" angle="180.0" />
-		</transformation>
-		<transformation id="floor">
-			<translate x="23.0" y="-0.5" z="27.0" />
-			<rotate axis="z" angle="90.0" />
-			<rotate axis="y" angle="90.0" />
-		</transformation>
-		<transformation id="cube">
-			<translate x="4" y="0.0" z="4" />
-		</transformation>
-		<transformation id="quad1">
-			<translate x="1.5" y="0.0" z="1.5" />
-			<rotate axis="y" angle="90.0" />
-		</transformation>
-		<transformation id="quad2">
-			<translate x="0.0" y="0.0" z="1.5" />
-		</transformation>
-		<transformation id="quad3">
-			<rotate axis="y" angle="-90.0" />
-		</transformation>
-		<transformation id="quad4">
-			<translate x="0.0" y="2.0" z="1.5" />
-			<rotate axis="x" angle="-90.0" />
-		</transformation>
-		<transformation id="quad6">
-			<translate x="0.0" y="0.0" z="0.0" />
-			<rotate axis="x" angle="90.0" />
-		</transformation>
-		<transformation id="quad5">
-			<translate x="1.5" y="0.0" z="0.0" />
-			<rotate axis="y" angle="-180.0" />
-		</transformation>
-		<transformation id="dome">
-			<rotate axis="x" angle="-90.0" />
-			<scale x="300.0" y="300.0" z="300.0" />
-		</transformation>
-		<transformation id="torus">
-			<scale x="1.0" y="0.3" z="1.0" />
-			<rotate axis="x" angle="90.0" />
-		</transformation>
-		<transformation id="lake">
-			<scale x="300.0" y="300.0" z="300.0" />
-			<rotate axis="x" angle="90.0" />
-		</transformation>
-		<transformation id="water">
-			<translate x="0.0" y="3.0" z="0.0" />
-			<scale x="600.0" y="1.0" z="600.0" />
-		</transformation>
-	</transformations>
-	   <animations>
+        <material id="change" shininess = "0.8" >
+            <emission r="0.3" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.3" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.3" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.3" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="cherry" shininess = "0.8" >
+            <emission r="0.3" g="0.1" b="0.1" a="1.0" />
+            <ambient r="0.3" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.3" g="0.1" b="0.1" a="1.0" />
+            <specular r="0.3" g="0.1" b="0.1" a="1.0" />
+        </material>
+        <material id="mariogreen" shininess = "0.5" >
+            <emission r="0.1" g="0.2" b="0.1" a="1.0" />
+            <ambient r="0.1" g="0.3" b="0.1" a="1.0" />
+            <diffuse r="0.0" g="0.3" b="0.0" a="1.0" />
+            <specular r="0.2" g="0.5" b="0.2" a="1.0" />
+        </material>
+        <material id="ball" shininess = "1.0" >
+            <emission r="0.5" g="0.5" b="0.2" a="1.0" />
+            <ambient r="0.5" g="0.5" b="0.2" a="1.0" />
+            <diffuse r="0.7" g="0.7" b="0.2" a="1.0" />
+            <specular r="0.7" g="0.7" b="0.2" a="1.0" />
+        </material>
+        <material id="nose" shininess = "0.8" >
+            <emission r="0.8" g="0.3" b="0.3" a="1.0" />
+            <ambient r="0.8" g="0.3" b="0.3" a="1.0" />
+            <diffuse r="0.8" g="0.3" b="0.3" a="1.0" />
+            <specular r="0.8" g="0.3" b="0.3" a="1.0" />
+        </material>
+        <material id="materialID" shininess = "1.0" >
+            <emission r="0.4" g="0.4" b="0.4" a="1.0" />
+            <ambient r="0.3" g="0.3" b="0.3" a="1.0" />
+            <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </material>
+        <material id="transparent" shininess = "0.8" >
+            <emission r="0.4" g="0.4" b="0.4" a="0.6" />
+            <ambient r="0.3" g="0.3" b="0.3" a="0.6" />
+            <diffuse r="0.3" g="0.3" b="0.3" a="0.6" />
+            <specular r="0.3" g="0.3" b="0.3" a="0.6" />
+        </material>
+        <material id="materialID2" shininess = "1.0" >
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+    </materials>
+    <transformations>
+        <transformation id="transID">
+            <scale x="1.0" y="1.0" z="1.0" />
+        </transformation>
+        <transformation id="elements">
+            <translate x="0.0" y="130.0" z="0.0" />
+        </transformation>
+        <transformation id="floatingDisk">
+            <scale x="18.0" y="1.0" z="18.0" />
+            <translate x="0.06" y="2.0" z="0.0" />
+            <rotate axis="x" angle="-90.0" />
+        </transformation>
+        <transformation id="terrain">
+            <translate x="0.0" y="5.0" z="0.0" />
+            <scale x="350.0" y="1.0" z="350.0" />
+        </transformation>
+        <transformation id="cubeexpo">
+            <scale x="3.5" y="3.0" z="3.5" />
+        </transformation>
+        <transformation id="cube1">
+            <translate x="-9.0" y="0.9" z="-1.0" />
+        </transformation>
+        <transformation id="cube2">
+            <translate x="-9.0" y="0.9" z="-8.5" />
+        </transformation>
+        <transformation id="cube3">
+            <translate x="0.0" y="0.9" z="-1.0" />
+        </transformation>
+        <transformation id="cube4">
+            <translate x="0.0" y="0.9" z="-8.5" />
+        </transformation>
+        <transformation id="cube5">
+            <translate x="-4.5" y="0.9" z="-11.5" />
+        </transformation>
+        <transformation id="cube6">
+            <translate x="-4.5" y="0.9" z="2.5" />
+        </transformation>
+        <transformation id="lefteye">
+            <rotate axis="y" angle="-20.0" />
+            <rotate axis="x" angle="-15.0" />
+            <scale x="0.4" y="0.13" z="0.1" />
+            <translate x="-6.0" y="67.0" z="36.5" />
+        </transformation>
+        <transformation id="righteye">
+            <rotate axis="y" angle="20.0" />
+            <rotate axis="x" angle="-15.0" />
+            <scale x="0.4" y="0.13" z="0.1" />
+            <translate x="-3.5" y="67.0" z="36.5" />
+        </transformation>
+        <transformation id="picture">
+            <translate x="0.8" y="0.0" z="-9.0" />
+            <scale x="0.001" y="2.0" z="1.8" />
+        </transformation>
+        <transformation id="glass">
+            <translate x="1.0" y="0.0" z="-9.0" />
+            <scale x="0.001" y="2.0" z="1.8" />
+        </transformation>
+        <transformation id="house">
+            <scale x="0.08" y="0.08" z="0.07" />
+            <translate x="13.0" y="110.0" z="360.0" />
+        </transformation>
+        <transformation id="rightwall">
+            <translate x="44.5" y="0.0" z="0.0" />
+        </transformation>
+        <transformation id="leftwallsmall">
+            <rotate axis="y" angle="-90.0" />
+            <scale x="0.6" y="1.0" z="1.0" />
+            <translate x="48.5" y="0.0" z="-5.1" />
+        </transformation>
+        <transformation id="leftwalllarge">
+            <rotate axis="y" angle="-90.0" />
+            <scale x="2.45" y="1.55" z="1.0" />
+            <translate x="10.5" y="0.0" z="-5.1" />
+        </transformation>
+        <transformation id="frontsupleft">
+            <rotate axis="x" angle="-90.0" />
+            <translate x="-4.0" y="-33.0" z="-0.5" />
+            <scale x="0.4" y="0.4" z="1.1" />
+        </transformation>
+        <transformation id="frontsupright">
+            <rotate axis="x" angle="-90.0" />
+            <translate x="4.0" y="-33.0" z="-0.5" />
+            <scale x="0.4" y="0.4" z="1.1" />
+        </transformation>
+        <transformation id="frontroof">
+            <translate x="8.0" y="7.0" z="17.3" />
+            <scale x="0.6" y="0.4" z="0.6" />
+        </transformation>
+        <transformation id="frontwallleft">
+            <translate x="-70.0" y="-0.5" z="25.5" />
+            <scale x="12.0" y="7.5" z="0.3" />
+        </transformation>
+        <transformation id="frontwallright">
+            <translate x="-43.0" y="-0.5" z="25.5" />
+            <scale x="12.0" y="7.5" z="0.3" />
+        </transformation>
+        <transformation id="frontdoor">
+            <translate x="-39.0" y="-0.5" z="25.3" />
+            <scale x="8.0" y="7.3" z="0.3" />
+        </transformation>
+        <transformation id="veigarhand">
+            <scale x="1.5" y="1.5" z="1.5" />
+            <rotate axis="x" angle="-90.0" />
+            <rotate axis="z" angle="60.0" />
+            <rotate axis="x" angle="30.0" />
+            <translate x="2.5" y="14.5" z="-0.5" />
+        </transformation>
+        <transformation id="handbot">
+            <scale x="0.25" y="0.13" z="0.2" />
+            <translate x="0.0" y="0.5" z="-2.0" />
+        </transformation>
+        <transformation id="handdecocenter">
+            <scale x="0.2" y="0.2" z="0.08" />
+            <translate x="0.0" y="-2.5" z="-4.5" />
+        </transformation>
+        <transformation id="handdecoright">
+            <scale x="0.08" y="0.08" z="0.08" />
+            <translate x="6.6" y="-14.0" z="-4.0" />
+            <rotate axis="y" angle="-12.0" />
+        </transformation>
+        <transformation id="handdecoleft">
+            <scale x="0.08" y="0.08" z="0.08" />
+            <translate x="-6.6" y="-14.0" z="-4.0" />
+            <rotate axis="y" angle="12.0" />
+        </transformation>
+        <transformation id="handdecomiddle">
+            <scale x="0.08" y="0.08" z="0.08" />
+            <translate x="0.0" y="-15.0" z="-5.0" />
+        </transformation>
+        <transformation id="thumb">
+            <rotate axis="y" angle="-110.0" />
+            <rotate axis="x" angle="-50.0" />
+            <scale x="1.2" y="1.2" z="0.9" />
+            <translate x="0.3" y="-0.3" z="-1.05" />
+        </transformation>
+        <transformation id="leftfinger">
+            <rotate axis="y" angle="-23.0" />
+            <translate x="-0.45" y="0.0" z="0.15" />
+        </transformation>
+        <transformation id="middlefinger">
+            <rotate axis="y" angle="-13.0" />
+            <scale x="1.0" y="1.0" z="1.1" />
+            <translate x="-0.2" y="0.0" z="-0.1" />
+        </transformation>
+        <transformation id="fingerbot">
+            <scale x="0.3" y="0.4" z="0.35" />
+            <translate x="1.8" y="0.0" z="4.0" />
+            <rotate axis="y" angle="10.0" />
+            <rotate axis="x" angle="-10.0" />
+        </transformation>
+        <transformation id="fingermiddle">
+            <rotate axis="y" angle="10.0" />
+            <scale x="0.1" y="0.06" z="0.05" />
+            <translate x="3.0" y="1.5" z="41.0" />
+            <rotate axis="x" angle="-20.0" />
+        </transformation>
+        <transformation id="fingertop">
+            <rotate axis="y" angle="15.0" />
+            <scale x="0.35" y="0.45" z="0.15" />
+            <translate x="0.3" y="0.25" z="13.8" />
+            <rotate axis="x" angle="-20.0" />
+        </transformation>
+        <transformation id="frontfinger">
+            <rotate axis="x" angle="90.0" />
+            <scale x="4.4" y="4.4" z="1.4" />
+            <translate x="0.0" y="0.35" z="0.01" />
+        </transformation>
+        <transformation id="backfinger">
+            <rotate axis="x" angle="90.0" />
+            <scale x="4.4" y="4.4" z="1.4" />
+            <translate x="0.0" y="0.35" z="-0.1" />
+        </transformation>
+        <transformation id="fronthand">
+            <scale x="0.9" y="0.3" z="1.01" />
+        </transformation>
+        <transformation id="backhand">
+            <scale x="0.9" y="0.3" z="1.0" />
+            <translate x="0.0" y="0.4" z="0.0" />
+        </transformation>
+        <transformation id="cactuar">
+            <scale x="2.0" y="2.0" z="2.0" />
+            <rotate axis="x" angle="-20.0" />
+            <translate x="8.0" y="0.7" z="7.9" />
+        </transformation>
+        <transformation id="hair1">
+            <scale x="0.08" y="0.15" z="0.08" />
+            <translate x="0.0" y="22.5" z="-2.3" />
+        </transformation>
+        <transformation id="hair2">
+            <scale x="0.08" y="0.15" z="0.08" />
+            <translate x="0.0" y="23.0" z="0.0" />
+        </transformation>
+        <transformation id="hair3">
+            <scale x="0.08" y="0.15" z="0.08" />
+            <translate x="0.0" y="22.5" z="2.3" />
+        </transformation>
+        <transformation id="carmrighttop">
+            <scale x="0.33" y="0.3" z="0.33" />
+            <translate x="0.0" y="6.63" z="-2.6" />
+        </transformation>
+        <transformation id="carmrightbot">
+            <rotate axis="x" angle="90.0" />
+            <scale x="0.3" y="0.3" z="0.3" />
+            <translate x="0.0" y="-4.7" z="-10.0" />
+        </transformation>
+        <transformation id="clegrighttop">
+            <scale x="0.35" y="0.35" z="0.35" />
+            <translate x="0.0" y="2.1" z="-2.3" />
+        </transformation>
+        <transformation id="clegrightbot">
+            <rotate axis="x" angle="90.0" />
+            <scale x="0.3" y="0.5" z="0.3" />
+            <translate x="0.0" y="-3.7" z="-6.5" />
+        </transformation>
+        <transformation id="cleglefttop">
+            <rotate axis="x" angle="90.0" />
+            <scale x="0.35" y="0.35" z="0.35" />
+            <translate x="0.0" y="-1.3" z="-4.4" />
+        </transformation>
+        <transformation id="clegleftbot">
+            <scale x="0.3" y="0.4" z="0.3" />
+            <translate x="0.0" y="1.7" z="0.95" />
+        </transformation>
+        <transformation id="carmleftbot">
+            <rotate axis="x" angle="90.0" />
+            <scale x="0.3" y="0.3" z="0.3" />
+            <translate x="0.0" y="-0.8" z="-10.0" />
+        </transformation>
+        <transformation id="carmlefttop">
+            <scale x="0.33" y="0.3" z="0.33" />
+            <translate x="0.0" y="7.8" z="2.6" />
+        </transformation>
+        <transformation id="cbodymidle">
+            <rotate axis="x" angle="90.0" />
+            <scale x="0.2" y="0.2" z="0.7" />
+            <translate x="0.0" y="0.0" z="-5.0" />
+        </transformation>
+        <transformation id="cbodytop">
+            <rotate axis="x" angle="-90.0" />
+            <rotate axis="z" angle="-110.0" />
+            <scale x="0.4" y="0.4" z="0.3" />
+            <translate x="0.0" y="0.0" z="11.6" />
+        </transformation>
+        <transformation id="cbodybot">
+            <rotate axis="x" angle="90.0" />
+            <rotate axis="z" angle="110.0" />
+            <scale x="0.4" y="0.4" z="0.3" />
+            <translate x="0.0" y="0.0" z="-7.1" />
+        </transformation>
+        <transformation id="gramophone">
+            <scale x="1.5" y="1.5" z="1.5" />
+            <translate x="-0.1" y="5.8" z="-16.5" />
+        </transformation>
+        <transformation id="support">
+            <rotate axis="x" angle="-100.0" />
+            <scale x="0.04" y="0.04" z="0.5" />
+            <translate x="17.8" y="2.0" z="2.1" />
+        </transformation>
+        <transformation id="thin">
+            <rotate axis="x" angle="-33.0" />
+            <translate x="0.7" y="1.9" z="0.5" />
+        </transformation>
+        <transformation id="large">
+            <rotate axis="x" angle="-33.0" />
+            <translate x="0.7" y="1.9" z="2.0" />
+        </transformation>
+        <transformation id="disk">
+            <translate x="0.7" y="1.0" z="0.7" />
+            <scale x="0.4" y="0.03" z="0.4" />
+        </transformation>
+        <transformation id="bottombox">
+            <translate x="-5.0" y="0.0" z="-5.0" />
+            <scale x="1.2" y="0.4" z="1.2" />
+        </transformation>
+        <transformation id="topbox">
+            <translate x="-5.95" y="0.8" z="-5.95" />
+            <scale x="1.4" y="0.1" z="1.4" />
+        </transformation>
+        <transformation id="marioplant">
+            <translate x="16.5" y="8.8" z="-13.3" />
+        </transformation>
+        <transformation id="leafeleft">
+            <rotate axis="x" angle="30.0" />
+            <translate x="0.0" y="2.1" z="-3.1" />
+            <scale x="1.3" y="0.2" z="1.8" />
+            <rotate axis="x" angle="30.0" />
+        </transformation>
+        <transformation id="teeth">
+            <scale x="0.4" y="0.4" z="0.4" />
+            <rotate axis="x" angle="30.0" />
+        </transformation>
+        <transformation id="teeth1">
+            <translate x="0.0" y="13.0" z="-6.3" />
+        </transformation>
+        <transformation id="teeth2">
+            <translate x="1.0" y="12.3" z="-6.3" />
+        </transformation>
+        <transformation id="teeth3">
+            <translate x="-1.0" y="12.3" z="-6.3" />
+        </transformation>
+        <transformation id="teeth4">
+            <translate x="1.3" y="11.3" z="-6.3" />
+        </transformation>
+        <transformation id="teeth5">
+            <translate x="-1.3" y="11.3" z="-6.3" />
+        </transformation>
+        <transformation id="flowerright">
+            <translate x="0.0" y="0.0" z="0.1" />
+            <rotate axis="y" angle="180.0" />
+        </transformation>
+        <transformation id="petalleft">
+            <translate x="0.0" y="4.9" z="0.5" />
+            <rotate axis="x" angle="30.0" />
+        </transformation>
+        <transformation id="lipleft">
+            <translate x="0.0" y="4.9" z="0.5" />
+            <scale x="4.0" y="4.0" z="4.0" />
+            <rotate axis="x" angle="33.0" />
+        </transformation>
+        <transformation id="vasebot">
+            <scale x="0.5" y="0.5" z="1.0" />
+        </transformation>
+        <transformation id="vasetop">
+            <translate x="0.0" y="0.0" z="1.8" />
+            <scale x="0.6" y="0.6" z="0.3" />
+        </transformation>
+        <transformation id="stalkbot">
+            <translate x="0.0" y="0.0" z="2.0" />
+            <scale x="0.06" y="0.06" z="0.9" />
+        </transformation>
+        <transformation id="stalktop">
+            <translate x="0.0" y="0.0" z="3.8" />
+            <scale x="0.1" y="0.1" z="0.08" />
+        </transformation>
+        <transformation id="moogle">
+            <translate x="0.5" y="-1.7" z="0.0" />
+        </transformation>
+        <transformation id="moogle1">
+            <translate x="0.5" y="-4.0" z="40.0" />
+            <scale x="2.0" y="2.0" z="2.0" />
+        </transformation>
+        <transformation id="headtop">
+            <scale x="2.2" y="1.8" z="1.8" />
+            <translate x="0.0" y="5.0" z="0.0" />
+            <rotate axis="x" angle="-90.0" />
+        </transformation>
+        <transformation id="headbot">
+            <scale x="2.2" y="1.0" z="1.8" />
+            <translate x="0.0" y="9.0" z="0.0" />
+            <rotate axis="x" angle="90.0" />
+        </transformation>
+        <transformation id="nose">
+            <scale x="0.7" y="0.6" z="0.7" />
+            <translate x="0.0" y="15.8" z="2.2" />
+            <rotate axis="x" angle="-13.0" />
+        </transformation>
+        <transformation id="bodytop">
+            <translate x="0.0" y="7.3" z="0.0" />
+            <rotate axis="x" angle="-90.0" />
+        </transformation>
+        <transformation id="bodybot">
+            <translate x="0.0" y="6.65" z="0.0" />
+            <scale x="1.2" y="1.0" z="1.2" />
+        </transformation>
+        <transformation id="leg">
+            <rotate axis="x" angle="-90.0" />
+        </transformation>
+        <transformation id="legleft">
+            <translate x="-1.2" y="0.0" z="4.8" />
+            <rotate axis="y" angle="25.0" />
+        </transformation>
+        <transformation id="legright">
+            <translate x="1.2" y="0.0" z="4.8" />
+            <rotate axis="y" angle="-25.0" />
+        </transformation>
+        <transformation id="arm">
+            <rotate axis="x" angle="-90.0" />
+        </transformation>
+        <transformation id="armleft">
+            <translate x="-2.35" y="0.0" z="7.2" />
+            <rotate axis="y" angle="63.0" />
+        </transformation>
+        <transformation id="armright">
+            <translate x="2.35" y="0.0" z="7.2" />
+            <rotate axis="y" angle="-63.0" />
+        </transformation>
+        <transformation id="earleft">
+            <translate x="-1.1" y="10.4" z="-0.3" />
+            <rotate axis="y" angle="-20.0" />
+            <rotate axis="z" angle="50.0" />
+            <rotate axis="x" angle="20.0" />
+            <scale x="1.3" y="2.1" z="1.0" />
+        </transformation>
+        <transformation id="earright">
+            <translate x="1.1" y="10.4" z="-0.3" />
+            <rotate axis="y" angle="20.0" />
+            <rotate axis="z" angle="-50.0" />
+            <rotate axis="x" angle="20.0" />
+            <scale x="1.3" y="1.9" z="1.0" />
+        </transformation>
+        <transformation id="halo">
+            <translate x="0.0" y="0.0" z="-10.2" />
+            <scale x="6.0" y="6.0" z="3.0" />
+            <rotate axis="x" angle="10.0" />
+        </transformation>
+        <transformation id="ball">
+            <translate x="0.0" y="0.0" z="-10.2" />
+            <scale x="4.0" y="4.0" z="4.0" />
+        </transformation>
+        <transformation id="wall1">
+            <translate x="-22.0" y="-0.5" z="27.0" />
+        </transformation>
+        <transformation id="frontbottom">
+            <translate x="0.0" y="40.5" z="16.1" />
+            <scale x="1.0" y="1.0" z="0.75" />
+            <rotate axis="x" angle="90.0" />
+        </transformation>
+        <transformation id="fronttop">
+            <translate x="0.0" y="13.8" z="-11.3" />
+            <scale x="1.0" y="0.6" z="1.0" />
+        </transformation>
+        <transformation id="fronttriangle">
+            <translate x="-34.5" y="8.0" z="-11.3" />
+            <scale x="2.5" y="1.0" z="1.0" />
+        </transformation>
+        <transformation id="backtriangle">
+            <translate x="0.0" y="0.0" z="-44.0" />
+        </transformation>
+        <transformation id="rightpart">
+            <translate x="-10.0" y="38.8" z="-16.0" />
+            <rotate axis="z" angle="-36.5" />
+            <scale x="7.5" y="0.3" z="8.0" />
+        </transformation>
+        <transformation id="midcyl">
+            <translate x="14.0" y="21.3" z="15.8" />
+        </transformation>
+        <transformation id="leftpart">
+            <translate x="-19.0" y="-3.8" z="-16.0" />
+            <rotate axis="z" angle="37.0" />
+            <scale x="7.5" y="0.3" z="8.0" />
+        </transformation>
+        <transformation id="leftroof">
+            <translate x="-27.0" y="0.0" z="0.0" />
+        </transformation>
+        <transformation id="toproof">
+            <translate x="33.0" y="8.0" z="-95.0" />
+            <scale x="2.5" y="1.0" z="4.1" />
+        </transformation>
+        <transformation id="midleroof">
+            <translate x="-85.0" y="43.0" z="-13.4" />
+            <rotate axis="x" angle="36.0" />
+            <scale x="18.0" y="0.3" z="9.0" />
+        </transformation>
+        <transformation id="housewallback">
+            <translate x="-142.0" y="-0.5" z="-29.5" />
+            <scale x="30.0" y="11.5" z="0.3" />
+        </transformation>
+        <transformation id="triangleleft">
+            <translate x="-22.0" y="14.5" z="27.0" />
+        </transformation>
+        <transformation id="triangleleftback">
+            <translate x="-4.0" y="14.5" z="27.0" />
+            <rotate axis="y" angle="180.0" />
+        </transformation>
+        <transformation id="triangleright">
+            <translate x="5.0" y="14.5" z="27.0" />
+        </transformation>
+        <transformation id="cake">
+            <rotate axis="x" angle="-90.0" />
+        </transformation>
+        <transformation id="portalcake">
+            <translate x="-15.0" y="8.7" z="13.0" />
+        </transformation>
+        <transformation id="topping">
+            <translate x="0.0" y="2.05" z="0.0" />
+            <rotate axis="x" angle="90.0" />
+        </transformation>
+        <transformation id="cherry">
+            <translate x="0.0" y="0.0" z="0.02" />
+        </transformation>
+        <transformation id="decoration1">
+            <translate x="0.0" y="1.5" z="0.0" />
+        </transformation>
+        <transformation id="decoration2">
+            <translate x="0.0" y="-1.5" z="0.0" />
+        </transformation>
+        <transformation id="decoration3">
+            <translate x="1.25" y="0.7" z="0.0" />
+        </transformation>
+        <transformation id="decoration4">
+            <translate x="1.25" y="-0.7" z="0.0" />
+        </transformation>
+        <transformation id="decoration5">
+            <translate x="-1.3" y="0.7" z="0.0" />
+        </transformation>
+        <transformation id="decoration6">
+            <translate x="-1.3" y="-0.7" z="0.0" />
+        </transformation>
+        <transformation id="trianglerightback">
+            <translate x="23.0" y="14.5" z="27.0" />
+            <rotate axis="y" angle="180.0" />
+        </transformation>
+        <transformation id="wallback">
+            <translate x="23.0" y="-0.5" z="27.0" />
+            <rotate axis="y" angle="180.0" />
+        </transformation>
+        <transformation id="floor">
+            <translate x="23.0" y="-0.5" z="27.0" />
+            <rotate axis="z" angle="90.0" />
+            <rotate axis="y" angle="90.0" />
+        </transformation>
+        <transformation id="cube">
+            <translate x="4" y="0.0" z="4" />
+        </transformation>
+        <transformation id="quad1">
+            <translate x="1.5" y="0.0" z="1.5" />
+            <rotate axis="y" angle="90.0" />
+        </transformation>
+        <transformation id="quad2">
+            <translate x="0.0" y="0.0" z="1.5" />
+        </transformation>
+        <transformation id="quad3">
+            <rotate axis="y" angle="-90.0" />
+        </transformation>
+        <transformation id="quad4">
+            <translate x="0.0" y="2.0" z="1.5" />
+            <rotate axis="x" angle="-90.0" />
+        </transformation>
+        <transformation id="quad6">
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate axis="x" angle="90.0" />
+        </transformation>
+        <transformation id="quad5">
+            <translate x="1.5" y="0.0" z="0.0" />
+            <rotate axis="y" angle="-180.0" />
+        </transformation>
+        <transformation id="dome">
+            <rotate axis="x" angle="-90.0" />
+            <scale x="300.0" y="300.0" z="300.0" />
+        </transformation>
+        <transformation id="torus">
+            <scale x="1.0" y="0.3" z="1.0" />
+            <rotate axis="x" angle="90.0" />
+        </transformation>
+        <transformation id="lake">
+            <scale x="300.0" y="300.0" z="300.0" />
+            <rotate axis="x" angle="90.0" />
+        </transformation>
+        <transformation id="water">
+            <translate x="0.0" y="3.0" z="0.0" />
+            <scale x="600.0" y="1.0" z="600.0" />
+        </transformation>
+    </transformations>
+    <animations>
         <circular id="aroundCenter" span="40.0" center="0.0 3.0 0.0" radius="13.0" startang="-90.0" rotang="720.0"/>
-				<circular id="aroundSelf" span="20.0" center="0.0 0.0 0.0" radius="0.0" startang="0.0" rotang="1080.0"/>
-				<linear id="spendTime" span="16" >
+        <circular id="aroundSelf" span="20.0" center="0.0 0.0 0.0" radius="0.0" startang="0.0" rotang="1080.0"/>
+        <linear id="spendTime" span="16" >
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
             <controlpoint xx="0.0" yy="0.000000000000000000000001" zz="0.0" />
         </linear>
@@ -715,2315 +715,2315 @@
             <controlpoint xx="0.0" yy="2.0" zz="0.0" />
             <controlpoint xx="0.0" yy="3.0" zz="0.0" />
         </linear>
-				<linear id="down" span="10" >
+        <linear id="down" span="10" >
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
             <controlpoint xx="0.0" yy="0.0" zz="3.0" />
             <controlpoint xx="0.0" yy="3.0" zz="0.0" />
         </linear>
     </animations>
-	<primitives>
+    <primitives>
 
-		<primitive id="terrain">
-				<terrain idtexture="terrain" idheightmap="terrainheight" parts="15" heightscale="90.0"/>
-		</primitive>
-		<primitive id="water">
-				<water idtexture="watertexture" idwavemap="wavemap" parts="100" heightscale="13.0" texscale="0.5"/>
-		</primitive>
-		<!--<primitive id="vehicle">
+        <primitive id="terrain">
+            <terrain idtexture="terrain" idheightmap="terrainheight" parts="15" heightscale="90.0"/>
+        </primitive>
+        <primitive id="water">
+            <water idtexture="watertexture" idwavemap="wavemap" parts="100" heightscale="13.0" texscale="0.5"/>
+        </primitive>
+        <!--<primitive id="vehicle">
         <vehicle/>
-		</primitive>-->
+  </primitive>-->
 
 
-		<primitive id="rec">
-			<rectangle x1="45.0" y1="15.0" x2="0.0" y2="0.0" />
-		</primitive >
-		<primitive id="rec1">
-			<rectangle x1="55.0" y1="45.0" x2="0.0" y2="0.0" />
-		</primitive >
-		<primitive id="quad">
-			<rectangle x1="1.5" y1="2.0" x2="0.0" y2="0.0" />
-		</primitive >
-		<primitive id="quadtop">
-			<rectangle x1="1.5" y1="1.5.0" x2="0.0" y2="0.0" />
-		</primitive >
-		<primitive id="tri">
-			<triangle x1="0.0" y1="0.0" z1="0.0" x2="18.0" y2="0.0" z2="0.0" x3="9.0" y3="7.0" z3="0.0"/>
-		</primitive >
-		<primitive id="hand">
-			<cylinder base="0.8" top="1.0" height="1.5" slices="40" stacks="5"/>
-		</primitive>
-		<primitive id="thin">
-			<cylinder base="0.08" top="0.3" height="1.5" slices="10" stacks="5"/>
-		</primitive>
-		<primitive id="large">
-			<cylinder base="0.3" top="1.1" height="0.8" slices="10" stacks="5"/>
-		</primitive>
-		<primitive id="cyl">
-			<cylinder base="40.0" top="0.0" height="15" slices="20" stacks="5"/>
-		</primitive>
-		<primitive id="bodytop">
-			<cylinder base="1.35" top="0.4" height="1" slices="80" stacks="5"/>
-		</primitive>
-		<primitive id="bodybot">
-			<sphere radius="1.3" slices="50" stacks="50"/>
-		</primitive>
-		<primitive id="leg">
-			<cylinder base="0.01" top="0.4" height="1" slices="20" stacks="5"/>
-		</primitive>
-		<primitive id="arm">
-			<cylinder base="0.15" top="0.3" height="1.8" slices="20" stacks="5"/>
-		</primitive>
-		<primitive id="ear">
-			<cylinder base="0.001" top="0.3" height="0.3" slices="20" stacks="5"/>
-		</primitive>
-		<primitive id="midcyl">
-			<cylinder base="0.7" top="0.7" height="12.5" slices="20" stacks="5"/>
-		</primitive>
-		<primitive id="cake">
-			<cylinder base="2.0" top="2.0" height="2" slices="20" stacks="5"/>
-		</primitive>
-		<primitive id="cherry">
-			<sphere radius="0.2" slices="50" stacks="50"/>
-		</primitive>
-		<primitive id="chantily">
-			<torus inner="0.3" outer="0.2" slices="80" loops="80"/>
-		</primitive>
-		<primitive id="cyl2">
-			<cylinder base="38.0" top="40.0" height="1" slices="20" stacks="5"/>
-		</primitive>
-		<primitive id="torus">
-			<torus inner="60.0" outer="80.0" slices="80" loops="80"/>
-		</primitive>
-		<primitive id="Lake">
-			<Dome slices="80" stacks="80"/>
-		</primitive>
-		<primitive id="Dome">
-			<Dome slices="80" stacks="80"/>
-		</primitive>
-		<primitive id="DomeBot">
-			<SemiSphere slices="50" stacks="50"/>
-		</primitive>
-		<primitive id="headtop">
-			<SemiSphere slices="50" stacks="50"/>
-		</primitive>
-		<primitive id="petalinterior">
-			<Dome slices="50" stacks="50"/>
-		</primitive>
-	</primitives >
-	<components>
-		<component id="quad1">
-			<transformation>
-				<transformationref id="quad1" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit"  />
-			<children>
-				<primitiveref id="quad" />
-			</children>
-		</component>
-		<component id="quad2">
-			<transformation>
-				<transformationref id="quad2" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit"  />
-			<children>
-				<primitiveref id="quad" />
-			</children>
-		</component>
-		<component id="quad3">
-			<transformation>
-				<transformationref id="quad3" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit"  />
-			<children>
-				<primitiveref id="quad" />
-			</children>
-		</component>
-		<component id="quad4">
-			<transformation>
-				<transformationref id="quad4" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit"  />
-			<children>
-				<primitiveref id="quadtop" />
-			</children>
-		</component>
-		<component id="quad5">
-			<transformation>
-				<transformationref id="quad5" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit"  />
-			<children>
-				<primitiveref id="quad" />
-			</children>
-		</component>
-		<component id="quad6">
-			<transformation>
-				<transformationref id="quad6" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit"  />
-			<children>
-				<primitiveref id="quadtop" />
-			</children>
-		</component>
-		<component id="cube">
-			<transformation>
-				<transformationref id="cube" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="quad1" />
-				<componentref id="quad2" />
-				<componentref id="quad3" />
-				<componentref id="quad4" />
-				<componentref id="quad5" />
-				<componentref id="quad6" />
-			</children>
-		</component>
-		<component id="dome">
-			<transformation>
-				<transformationref id="dome" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="dometop" length_s="1.0" length_t="1.0" />
-			<children>
-				<primitiveref id="Dome" />
-			</children>
-		</component>
-		<component id="lake">
-			<transformation>
-				<transformationref id="lake" />
-			</transformation>
-			<materials>
-				<material id="transparent" />
-			</materials>
-			<texture id="domebot" length_s="1.0" length_t="1.0" />
-			<children>
-				<primitiveref id="Lake" />
-			</children>
-		</component>
-		<component id="Water">
-			<transformation>
-				<transformationref id="water" />
-			</transformation>
-			<materials>
-				<material id="transparent" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="water" />
-			</children>
-		</component>
-		<component id="island">
-			<transformation>
-				<transformationref id="terrain" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="crystal2" length_s="1.0" length_t="1.0" />
-			<children>
-					<primitiveref id="terrain" />
-			</children>
-		</component>
-		<component id="house">
-			<transformation>
-				<transformationref id="house" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="wall" length_s="0.5" length_t="0.5"/>
-			<children>
-				<componentref id="front" />
-				<componentref id="floor" />
-				<componentref id="housewallback" />
-				<componentref id="backtriangle" />
-				<componentref id="roof" />
-				<componentref id="frontbottom" />
-				<componentref id="leftwall" />
-				<componentref id="rightwall" />
-			</children>
-		</component>
-		<component id="rightwall">
-			<transformation>
-				<transformationref id="rightwall" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="leftwall" />
-			</children>
-		</component>
-		<component id="leftwall">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="leftwallsmall" />
-				<componentref id="leftwalllarge" />
-			</children>
-		</component>
-		<component id="leftwalllarge">
-			<transformation>
-				<transformationref id="leftwalllarge" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="frontwallleft" />
-			</children>
-		</component>
-		<component id="leftwallsmall">
-			<transformation>
-				<transformationref id="leftwallsmall" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" length_s="2.0" length_t="2.0"/>
-			<children>
-				<componentref id="frontwallleft" />
-			</children>
-		</component>
-		<component id="backtriangle">
-			<transformation>
-				<transformationref id="backtriangle" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" length_s="10.0" length_t="10.0"/>
-			<children>
-				<componentref id="fronttriangle" />
-			</children>
-		</component>
-		<component id="frontbottom">
-			<transformation>
-				<transformationref id="frontbottom" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" length_s="10.0" length_t="10.0"/>
-			<children>
-				<componentref id="wall" />
-			</children>
-		</component>
-		<component id="roof">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="roof" length_s="1.0" length_t="0.3"/>
-			<children>
-				<componentref id="rightroof" />
-				<componentref id="leftroof" />
-				<componentref id="midleroof" />
-				<componentref id="toproof" />
-				<componentref id="frontroof" />
-			</children>
-		</component>
-		<component id="frontroof">
-			<transformation>
-				<transformationref id="frontroof" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="leftroof" />
-			</children>
-		</component>
-		<component id="toproof">
-			<transformation>
-				<transformationref id="toproof" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="leftroof" />
-			</children>
-		</component>
-		<component id="midleroof">
-			<transformation>
-				<transformationref id="midleroof" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="roof2" length_s="1.0" length_t="0.5" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="leftroof">
-			<transformation>
-				<transformationref id="leftroof" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="rightroof" />
-			</children>
-		</component>
-		<component id="rightroof">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="rightpart" />
-				<componentref id="leftpart" />
-				<componentref id="midcyl" />
-			</children>
-		</component>
-		<component id="midcyl">
-			<transformation>
-				<transformationref id="midcyl" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="midcyl" />
-			</children>
-		</component>
-		<component id="rightpart">
-			<transformation>
-				<transformationref id="rightpart" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit"/>
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="leftpart">
-			<transformation>
-				<transformationref id="leftpart" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="front">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="frontwall" />
-				<componentref id="fronttop" />
-				<componentref id="triangleleft" />
-				<componentref id="triangleleftback" />
-				<componentref id="triangleright" />
-				<componentref id="trianglerightback" />
-				<componentref id="fronttriangle" />
-				<componentref id="frontsupleft" />
-				<componentref id="frontsupright" />
-			</children>
-		</component>
-		<component id="frontsupleft">
-			<transformation>
-				<transformationref id="frontsupleft" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="midcyl" />
-			</children>
-		</component>
-		<component id="frontsupright">
-			<transformation>
-				<transformationref id="frontsupright" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="midcyl" />
-			</children>
-		</component>
-		<component id="frontwall">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" length_s="1.2" length_t="1.2"/>
-			<children>
-				<componentref id="frontwallleft" />
-				<componentref id="frontwallright" />
-				<componentref id="frontdoor" />
-			</children>
-		</component>
-		<component id="frontdoor">
-			<transformation>
-				<transformationref id="frontdoor" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="door" length_s="0.5" length_t="1.0"/>
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="frontwallright">
-			<transformation>
-				<transformationref id="frontwallright" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="frontwallleft">
-			<transformation>
-				<transformationref id="frontwallleft" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="fronttriangle">
-			<transformation>
-				<transformationref id="fronttriangle" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" length_s="10.0" length_t="10.0" />
-			<children>
-				<componentref id="triangleright" />
-				<componentref id="trianglerightback" />
-			</children>
-		</component>
-		<component id="fronttop">
-			<transformation>
-				<transformationref id="fronttop" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="wall" />
-				<componentref id="wallback" />
-			</children>
-		</component>
-		<component id="wall">
-			<transformation>
-				<transformationref id="wall1" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="rec" />
-			</children>
-		</component>
-		<component id="housewallback">
-			<transformation>
-				<transformationref id="housewallback" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="wallback">
-			<transformation>
-				<transformationref id="wallback" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="rec" />
-			</children>
-		</component>
-		<component id="triangleleft">
-			<transformation>
-				<transformationref id="triangleleft" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" length_s="15.0" length_t="15.0"/>
-			<children>
-				<primitiveref id="tri" />
-			</children>
-		</component>
-		<component id="triangleleftback">
-			<transformation>
-				<transformationref id="triangleleftback" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" length_s="15.0" length_t="15.0"/>
-			<children>
-				<primitiveref id="tri" />
-			</children>
-		</component>
-		<component id="triangleright">
-			<transformation>
-				<transformationref id="triangleright" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" length_s="15.0" length_t="15.0"/>
-			<children>
-				<primitiveref id="tri" />
-			</children>
-		</component>
-		<component id="trianglerightback">
-			<transformation>
-				<transformationref id="trianglerightback" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="tri" length_s="15.0" length_t="15.0"/>
-			</children>
-		</component>
-		<component id="floor">
-			<transformation>
-				<transformationref id="floor" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="floor" length_s="0.1" length_t="0.1" />
-			<children>
-				<primitiveref id="rec1" />
-			</children>
-		</component>
-		<component id="portalcake">
-			<transformation>
-				<transformationref id="portalcake" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="portalcake" length_s="1.0" length_t="1.0"  />
-			<children>
-				<componentref id="cake" />
-				<componentref id="topping" />
-			</children>
-		</component>
-		<component id="cake">
-			<transformation>
-				<transformationref id="cake" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit"/>
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
-		<component id="topping">
-			<transformation>
-				<transformationref id="topping" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="decoration1" />
-				<componentref id="decoration2" />
-				<componentref id="decoration3" />
-				<componentref id="decoration4" />
-				<componentref id="decoration5" />
-				<componentref id="decoration6" />
-			</children>
-		</component>
-		<component id="decoration1">
-			<transformation>
-				<transformationref id="decoration1" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="cherry" />
-				<primitiveref id="chantily" />
-			</children>
-		</component>
-		<component id="decoration2">
-			<transformation>
-				<transformationref id="decoration2" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="cherry" />
-				<primitiveref id="chantily" />
-			</children>
-		</component>
-		<component id="decoration3">
-			<transformation>
-				<transformationref id="decoration3" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="cherry" />
-				<primitiveref id="chantily" />
-			</children>
-		</component>
-		<component id="decoration4">
-			<transformation>
-				<transformationref id="decoration4" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="cherry" />
-				<primitiveref id="chantily" />
-			</children>
-		</component>
-		<component id="decoration5">
-			<transformation>
-				<transformationref id="decoration5" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="cherry" />
-				<primitiveref id="chantily" />
-			</children>
-		</component>
-		<component id="decoration6">
-			<transformation>
-				<transformationref id="decoration6" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="cherry" />
-				<primitiveref id="chantily" />
-			</children>
-		</component>
-		<component id="cherry">
-			<transformation>
-				<transformationref id="cherry" />
-			</transformation>
-			<materials>
-				<material id="cherry" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="cherry" />
-			</children>
-		</component>
-		<component id="top">
-			<transformation>
-				<transformationref id="topping" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="halo" />
-				<componentref id="ball" />
-			</children>
-		</component>
-		<component id="halo">
-			<transformation>
-				<transformationref id="halo" />
-			</transformation>
-			<materials>
-				<material id="halo" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="chantily" />
-			</children>
-		</component>
-		<component id="ball">
-			<transformation>
-				<transformationref id="ball" />
-			</transformation>
-			<materials>
-				<material id="ball" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="cherry" />
-			</children>
-		</component>
-		<component id="ears">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="earleft" />
-				<componentref id="earright" />
-			</children>
-		</component>
-		<component id="earleft">
-			<transformation>
-				<transformationref id="earleft" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="ear" />
-			</children>
-		</component>
-		<component id="earright">
-			<transformation>
-				<transformationref id="earright" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="ear" />
-			</children>
-		</component>
-		<component id="arms">
-			<transformation>
-				<transformationref id="arm" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="armleft" />
-				<componentref id="armright" />
-			</children>
-		</component>
-		<component id="armleft">
-			<transformation>
-				<transformationref id="armleft" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="arm" />
-			</children>
-		</component>
-		<component id="armright">
-			<transformation>
-				<transformationref id="armright" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="arm" />
-			</children>
-		</component>
-		<component id="legs">
-			<transformation>
-				<transformationref id="leg" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="legleft" />
-				<componentref id="legright" />
-			</children>
-		</component>
-		<component id="legleft">
-			<transformation>
-				<transformationref id="legleft" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="leg" />
-			</children>
-		</component>
-		<component id="legright">
-			<transformation>
-				<transformationref id="legright" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="leg" />
-			</children>
-		</component>
-		<component id="body">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="bodytop" />
-				<componentref id="bodybot" />
-			</children>
-		</component>
-		<component id="bodybot">
-			<transformation>
-				<transformationref id="bodybot" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="bodybot" />
-			</children>
-		</component>
-		<component id="bodytop">
-			<transformation>
-				<transformationref id="bodytop" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="bodytop" />
-			</children>
-		</component>
-		<component id="head">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="headtop" />
-				<componentref id="headbot" />
-				<componentref id="nose" />
-				<componentref id="lefteye" />
-				<componentref id="righteye" />
-			</children>
-		</component>
-		<component id="righteye">
-			<transformation>
-				<transformationref id="righteye" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="black" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="lefteye">
-			<transformation>
-				<transformationref id="lefteye" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="black" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="nose">
-			<transformation>
-				<transformationref id="nose" />
-			</transformation>
-			<materials>
-				<material id="nose" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="headtop" />
-			</children>
-		</component>
-		<component id="headtop">
-			<transformation>
-				<transformationref id="headtop" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit"/>
-			<children>
-				<primitiveref id="headtop" />
-			</children>
-		</component>
-		<component id="headbot">
-			<transformation>
-				<transformationref id="headbot" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="moogleface" length_s="1.0" length_t="1.0"/>
-			<children>
-				<primitiveref id="headtop" />
-			</children>
-		</component>
-
-
-
-
-		<component id="marioplant">
-			<transformation>
-				<transformationref id="marioplant" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="vase" />
-				<componentref id="stalk" />
-				<componentref id="flower" />
-				<componentref id="leafe" />
-			</children>
-		</component>
-		<component id="leafe">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="marioplant" length_s="1.0" length_t="1.0"/>
-			<children>
-				<componentref id="leafeleft" />
-				<componentref id="leaferight" />
-			</children>
-		</component>
-		<component id="leaferight">
-			<transformation>
-				<transformationref id="flowerright" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="leafeleft" />
-			</children>
-		</component>
-		<component id="leafeleft">
-			<transformation>
-				<transformationref id="leafeleft" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="leg" />
-			</children>
-		</component>
-		<component id="flower">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="flowerleft" />
-				<componentref id="flowerright" />
-			</children>
-		</component>
-		<component id="flowerright">
-			<transformation>
-				<transformationref id="flowerright" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="flowerleft" />
-			</children>
-		</component>
-		<component id="flowerleft">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="petalleft" />
-				<componentref id="lipleft" />
-				<componentref id="teeth" />
-			</children>
-		</component>
-		<component id="teeth">
-			<transformation>
-				<transformationref id="teeth" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="teeth1" />
-				<componentref id="teeth2" />
-				<componentref id="teeth3" />
-				<componentref id="teeth4" />
-				<componentref id="teeth5" />
-			</children>
-		</component>
-		<component id="teeth1">
-			<transformation>
-				<transformationref id="teeth1" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="leg" />
-			</children>
-		</component>
-		<component id="teeth2">
-			<transformation>
-				<transformationref id="teeth2" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="leg" />
-			</children>
-		</component>
-		<component id="teeth3">
-			<transformation>
-				<transformationref id="teeth3" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="leg" />
-			</children>
-		</component>
-		<component id="teeth4">
-			<transformation>
-				<transformationref id="teeth4" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="leg" />
-			</children>
-		</component>
-		<component id="teeth5">
-			<transformation>
-				<transformationref id="teeth5" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="leg" />
-			</children>
-		</component>
-		<component id="lipleft">
-			<transformation>
-				<transformationref id="lipleft" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="chantily" />
-			</children>
-		</component>
-		<component id="petalleft">
-			<transformation>
-				<transformationref id="petalleft" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="mariored" length_s="1.0" length_t="1.0"/>
-			<children>
-				<primitiveref id="headtop" />
-				<componentref id="petalinterior" />
-			</children>
-		</component>
-		<component id="petalinterior">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="black" length_s="1.0" length_t="1.0"/>
-			<children>
-				<primitiveref id="petalinterior" />
-			</children>
-		</component>
-		<component id="stalk">
-			<transformation>
-				<transformationref id="cake" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="marioplant" length_s="1.0" length_t="1.0"/>
-			<children>
-				<componentref id="stalkbot" />
-				<componentref id="stalktop" />
-			</children>
-		</component>
-		<component id="stalkbot">
-			<transformation>
-				<transformationref id="stalkbot" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
-		<component id="stalktop">
-			<transformation>
-				<transformationref id="stalktop" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
-		<component id="vase">
-			<transformation>
-				<transformationref id="cake" />
-			</transformation>
-			<materials>
-				<material id="mariogreen" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="vasebot" />
-				<componentref id="vasetop" />
-			</children>
-		</component>
-		<component id="vasebot">
-			<transformation>
-				<transformationref id="vasebot" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
-		<component id="vasetop">
-			<transformation>
-				<transformationref id="vasetop" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
-
-
-		<component id="gramophone">
-			<transformation>
-				<transformationref id="gramophone" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="none" />
-			<children>
-				<componentref id="box" />
-				<componentref id="disk" />
-				<componentref id="horn" />
-			</children>
-		</component>
-		<component id="horn">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="golden" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="thin" />
-				<componentref id="large" />
-				<componentref id="support" />
-			</children>
-		</component>
-		<component id="support">
-			<transformation>
-				<transformationref id="support" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
-		<component id="thin">
-			<transformation>
-				<transformationref id="thin" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="thin" />
-			</children>
-		</component>
-		<component id="large">
-			<transformation>
-				<transformationref id="large" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="large" />
-			</children>
-		</component>
-		<component id="disk">
-			<transformation>
-				<transformationref id="disk" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="disk" length_s="1.0" length_t="1.0"/>
-			<children>
-				<componentref id="cake" />
-			</children>
-		</component>
-		<component id="box">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="wood" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="bottombox" />
-				<componentref id="topbox" />
-			</children>
-		</component>
-		<component id="topbox">
-			<transformation>
-				<transformationref id="topbox" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="bottombox">
-			<transformation>
-				<transformationref id="bottombox" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-
-
-
-		<component id="cactuar">
-			<transformation>
-				<transformationref id="cactuar" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="cactuar2" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="cmainbody" />
-				<componentref id="carmleft" />
-				<componentref id="carmright" />
-				<componentref id="clegright" />
-				<componentref id="clegleft" />
-				<componentref id="hair" />
-			</children>
-		</component>
-		<component id="hair">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="cactuarhair" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="hair1" />
-				<componentref id="hair2" />
-				<componentref id="hair3" />
-			</children>
-		</component>
-		<component id="hair1">
-			<transformation>
-				<transformationref id="hair1" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cbody" />
-			</children>
-		</component>
-		<component id="hair2">
-			<transformation>
-				<transformationref id="hair2" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cbody" />
-			</children>
-		</component>
-		<component id="hair3">
-			<transformation>
-				<transformationref id="hair3" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cbody" />
-			</children>
-		</component>
-		<component id="clegleft">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="clegleftbot" />
-				<componentref id="cleglefttop" />
-			</children>
-		</component>
-		<component id="clegleftbot">
-			<transformation>
-				<transformationref id="clegleftbot" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cbody" />
-			</children>
-		</component>
-		<component id="cleglefttop">
-			<transformation>
-				<transformationref id="cleglefttop" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cbody" />
-			</children>
-		</component>
-		<component id="clegright">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="clegrightbot" />
-				<componentref id="clegrighttop" />
-			</children>
-		</component>
-		<component id="clegrightbot">
-			<transformation>
-				<transformationref id="clegrightbot" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cbody" />
-			</children>
-		</component>
-		<component id="clegrighttop">
-			<transformation>
-				<transformationref id="clegrighttop" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cbody" />
-			</children>
-		</component>
-		<component id="carmright">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="carmrightbot" />
-				<componentref id="carmrighttop" />
-			</children>
-		</component>
-		<component id="carmrightbot">
-			<transformation>
-				<transformationref id="carmrightbot" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cbody" />
-			</children>
-		</component>
-		<component id="carmrighttop">
-			<transformation>
-				<transformationref id="carmrighttop" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cbody" />
-			</children>
-		</component>
-		<component id="carmleft">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="carmleftbot" />
-				<componentref id="carmlefttop" />
-			</children>
-		</component>
-		<component id="carmleftbot">
-			<transformation>
-				<transformationref id="carmleftbot" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cbody" />
-			</children>
-		</component>
-		<component id="carmlefttop">
-			<transformation>
-				<transformationref id="carmlefttop" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cbody" />
-			</children>
-		</component>
-		<component id="cbody">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cbodytop" />
-				<componentref id="cbodymidle" />
-				<componentref id="cbodybot" />
-			</children>
-		</component>
-		<component id="cbodytop">
-			<transformation>
-				<transformationref id="cbodytop" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit"/>
-			<children>
-				<primitiveref id="headtop" />
-			</children>
-		</component>
-		<component id="cbodymidle">
-			<transformation>
-				<transformationref id="cbodymidle" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
-		<component id="cbodybot">
-			<transformation>
-				<transformationref id="cbodybot" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="headtop" />
-			</children>
-		</component>
-		<component id="cmainbody">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cmainbodytop" />
-				<componentref id="cmainbodymidle" />
-				<componentref id="cmainbodybot" />
-			</children>
-		</component>
-		<component id="cmainbodytop">
-			<transformation>
-				<transformationref id="cbodytop" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="cactuar" length_s="1.0" length_t="1.0" />
-			<children>
-				<primitiveref id="headtop" />
-			</children>
-		</component>
-		<component id="cmainbodymidle">
-			<transformation>
-				<transformationref id="cbodymidle" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="cactuarface" length_s="1.0" length_t="1.0" />
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
-		<component id="cmainbodybot">
-			<transformation>
-				<transformationref id="cbodybot" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="cactuar" length_s="1.0" length_t="1.0" />
-			<children>
-				<primitiveref id="headtop" />
-			</children>
-		</component>
-
-
-		<component id="veigarhand">
-			<transformation>
-				<transformationref id="veigarhand" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="metal" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="handcenter" />
-				<componentref id="rightfinger" />
-				<componentref id="middlefinger" />
-				<componentref id="leftfinger" />
-				<componentref id="thumb" />
-				<componentref id="handdeco" />
-				<componentref id="handbot" />
-			</children>
-		</component>
-		<component id="handbot">
-			<transformation>
-				<transformationref id="handbot" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="stripes" length_s="1.0" length_t="1.0" />
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
-		<component id="thumb">
-			<transformation>
-				<transformationref id="thumb" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="rightfinger" />
-			</children>
-		</component>
-		<component id="leftfinger">
-			<transformation>
-				<transformationref id="leftfinger" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="rightfinger" />
-			</children>
-		</component>
-		<component id="middlefinger">
-			<transformation>
-				<transformationref id="middlefinger" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="rightfinger" />
-			</children>
-		</component>
-		<component id="rightfinger">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="fingerbot" />
-				<componentref id="fingermiddle" />
-				<componentref id="fingertop" />
-			</children>
-		</component>
-		<component id="fingertop">
-			<transformation>
-				<transformationref id="fingertop" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="fronthand" />
-				<componentref id="frontfinger" />
-				<componentref id="backhand" />
-				<componentref id="backfinger" />
-			</children>
-		</component>
-			<component id="frontfinger">
-				<transformation>
-					<transformationref id="frontfinger" />
-				</transformation>
-				<materials>
-					<material id="inherit" />
-				</materials>
-				<texture id="inherit" />
-				<children>
-					<primitiveref id="cherry" />
-				</children>
-			</component>
-			<component id="backfinger">
-				<transformation>
-					<transformationref id="backfinger" />
-				</transformation>
-				<materials>
-					<material id="inherit" />
-				</materials>
-				<texture id="black" length_s="1.0" length_t="1.0"/>
-				<children>
-					<primitiveref id="cherry" />
-				</children>
-			</component>
-		<component id="fingermiddle">
-			<transformation>
-				<transformationref id="fingermiddle" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="black" length_s="1.0" length_t="1.0"/>
-			<children>
-				<componentref id="cake" />
-			</children>
-		</component>
-		<component id="fingerbot">
-			<transformation>
-				<transformationref id="fingerbot" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="handcenter" />
-			</children>
-		</component>
-		<component id="handcenter">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="fronthand" />
-				<componentref id="backhand" />
-			</children>
-		</component>
-		<component id="handdeco">
-			<transformation>
-				<transformationref id="leg" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="red" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="handdecoright" />
-				<componentref id="handdecoleft" />
-				<componentref id="handdecomiddle" />
-				<componentref id="handdecocenter" />
-			</children>
-		</component>
-		<component id="handdecocenter">
-			<transformation>
-				<transformationref id="handdecocenter" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="controller" length_s="1.0" length_t="1.0"/>
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
-		<component id="handdecomiddle">
-			<transformation>
-				<transformationref id="handdecomiddle" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
-		<component id="handdecoleft">
-			<transformation>
-				<transformationref id="handdecoleft" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
-		<component id="handdecoright">
-			<transformation>
-				<transformationref id="handdecoright" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
-		<component id="fronthand">
-			<transformation>
-				<transformationref id="fronthand" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="hand" />
-			</children>
-		</component>
-		<component id="backhand">
-			<transformation>
-				<transformationref id="backhand" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="black" length_s="1.0" length_t="1.0"/>
-			<children>
-				<primitiveref id="hand" />
-			</children>
-		</component>
-
-
-
-		<component id="cubes">
-			<transformation>
-				<transformationref id="cubeexpo" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="crystal" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="cube1" />
-				<componentref id="cube2" />
-				<componentref id="cube3" />
-				<componentref id="cube4" />
-				<componentref id="cube5" />
-				<componentref id="cube6" />
-			</children>
-		</component>
-		<component id="cube1">
-			<transformation>
-				<transformationref id="cube1" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="cube2">
-			<transformation>
-				<transformationref id="cube2" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="cube3">
-			<transformation>
-				<transformationref id="cube3" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="cube4">
-			<transformation>
-				<transformationref id="cube4" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="cube5">
-			<transformation>
-				<transformationref id="cube5" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-		<component id="cube6">
-			<transformation>
-				<transformationref id="cube6" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="cube" />
-			</children>
-		</component>
-
-		<component id="elements">
-			<transformation>
-				<transformationref id="elements" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="floatingDisk" />
-				<componentref id="house" />
-				<componentref id="portalcake" />
-				<componentref id="moogles" />
-				<componentref id="marioplant" />
-				<componentref id="gramophone" />
-				<componentref id="cactuar" />
-				<componentref id="veigarhand" />
-				<componentref id="cubes" />
-			</children>
-		</component>
-
-		<component id="moogles">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<animations>
-				<animationref id="up"/>
-					<animationref id="aroundCenter"/>
-			</animations>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<componentref id="moogle1" />
-				<componentref id="moogle2" />
-				<componentref id="moogle3" />
-				<componentref id="moogle4" />
-				<componentref id="moogle5" />
-				<componentref id="moogle6" />
-			</children>
-		</component>
-
-		<component id="moogle1">
-			<transformation>
-				<transformationref id="moogle1" />
-			</transformation>
-			<animations>
-				<animationref id="spendTime"/>
-					<animationref id="aroundSelf"/>
-			</animations>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="head" />
-				<componentref id="body" />
-				<componentref id="legs" />
-				<componentref id="arms" />
-				<componentref id="ears" />
-				<componentref id="top" />
-				<componentref id="cape" />
-			</children>
-		</component>
-
-		<component id="moogle2">
-			<transformation>
-				<transformationref id="moogle" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="head" />
-				<componentref id="body" />
-				<componentref id="legs" />
-				<componentref id="arms" />
-				<componentref id="ears" />
-				<componentref id="top" />
-				<componentref id="cape" />
-			</children>
-		</component>
-
-		<component id="moogle3">
-			<transformation>
-				<transformationref id="moogle" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="head" />
-				<componentref id="body" />
-				<componentref id="legs" />
-				<componentref id="arms" />
-				<componentref id="ears" />
-				<componentref id="top" />
-				<componentref id="cape" />
-			</children>
-		</component>
-
-		<component id="moogle4">
-			<transformation>
-				<transformationref id="moogle" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="head" />
-				<componentref id="body" />
-				<componentref id="legs" />
-				<componentref id="arms" />
-				<componentref id="ears" />
-				<componentref id="top" />
-				<componentref id="cape" />
-			</children>
-		</component>
-
-		<component id="moogle5">
-			<transformation>
-				<transformationref id="moogle" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="head" />
-				<componentref id="body" />
-				<componentref id="legs" />
-				<componentref id="arms" />
-				<componentref id="ears" />
-				<componentref id="top" />
-				<componentref id="cape" />
-			</children>
-		</component>
-
-		<component id="moogle6">
-			<transformation>
-				<transformationref id="moogle" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="head" />
-				<componentref id="body" />
-				<componentref id="legs" />
-				<componentref id="arms" />
-				<componentref id="ears" />
-				<componentref id="top" />
-				<componentref id="cape" />
-			</children>
-		</component>
-
-		<component id="cape">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
-
-
-		<component id="floatingDisk">
-			<transformation>
-				<transformationref id="floatingDisk" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="cake" />
-			</children>
-		</component>
+        <primitive id="rec">
+            <rectangle x1="45.0" y1="15.0" x2="0.0" y2="0.0" />
+        </primitive >
+        <primitive id="rec1">
+            <rectangle x1="55.0" y1="45.0" x2="0.0" y2="0.0" />
+        </primitive >
+        <primitive id="quad">
+            <rectangle x1="1.5" y1="2.0" x2="0.0" y2="0.0" />
+        </primitive >
+        <primitive id="quadtop">
+            <rectangle x1="1.5" y1="1.5.0" x2="0.0" y2="0.0" />
+        </primitive >
+        <primitive id="tri">
+            <triangle x1="0.0" y1="0.0" z1="0.0" x2="18.0" y2="0.0" z2="0.0" x3="9.0" y3="7.0" z3="0.0"/>
+        </primitive >
+        <primitive id="hand">
+            <cylinder base="0.8" top="1.0" height="1.5" slices="40" stacks="5"/>
+        </primitive>
+        <primitive id="thin">
+            <cylinder base="0.08" top="0.3" height="1.5" slices="10" stacks="5"/>
+        </primitive>
+        <primitive id="large">
+            <cylinder base="0.3" top="1.1" height="0.8" slices="10" stacks="5"/>
+        </primitive>
+        <primitive id="cyl">
+            <cylinder base="40.0" top="0.0" height="15" slices="20" stacks="5"/>
+        </primitive>
+        <primitive id="bodytop">
+            <cylinder base="1.35" top="0.4" height="1" slices="80" stacks="5"/>
+        </primitive>
+        <primitive id="bodybot">
+            <sphere radius="1.3" slices="50" stacks="50"/>
+        </primitive>
+        <primitive id="leg">
+            <cylinder base="0.01" top="0.4" height="1" slices="20" stacks="5"/>
+        </primitive>
+        <primitive id="arm">
+            <cylinder base="0.15" top="0.3" height="1.8" slices="20" stacks="5"/>
+        </primitive>
+        <primitive id="ear">
+            <cylinder base="0.001" top="0.3" height="0.3" slices="20" stacks="5"/>
+        </primitive>
+        <primitive id="midcyl">
+            <cylinder base="0.7" top="0.7" height="12.5" slices="20" stacks="5"/>
+        </primitive>
+        <primitive id="cake">
+            <cylinder base="2.0" top="2.0" height="2" slices="20" stacks="5"/>
+        </primitive>
+        <primitive id="cherry">
+            <sphere radius="0.2" slices="50" stacks="50"/>
+        </primitive>
+        <primitive id="chantily">
+            <torus inner="0.3" outer="0.2" slices="80" loops="80"/>
+        </primitive>
+        <primitive id="cyl2">
+            <cylinder base="38.0" top="40.0" height="1" slices="20" stacks="5"/>
+        </primitive>
+        <primitive id="torus">
+            <torus inner="60.0" outer="80.0" slices="80" loops="80"/>
+        </primitive>
+        <primitive id="Lake">
+            <Dome slices="80" stacks="80"/>
+        </primitive>
+        <primitive id="Dome">
+            <Dome slices="80" stacks="80"/>
+        </primitive>
+        <primitive id="DomeBot">
+            <SemiSphere slices="50" stacks="50"/>
+        </primitive>
+        <primitive id="headtop">
+            <SemiSphere slices="50" stacks="50"/>
+        </primitive>
+        <primitive id="petalinterior">
+            <Dome slices="50" stacks="50"/>
+        </primitive>
+    </primitives >
+    <components>
+        <component id="quad1">
+            <transformation>
+                <transformationref id="quad1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"  />
+            <children>
+                <primitiveref id="quad" />
+            </children>
+        </component>
+        <component id="quad2">
+            <transformation>
+                <transformationref id="quad2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"  />
+            <children>
+                <primitiveref id="quad" />
+            </children>
+        </component>
+        <component id="quad3">
+            <transformation>
+                <transformationref id="quad3" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"  />
+            <children>
+                <primitiveref id="quad" />
+            </children>
+        </component>
+        <component id="quad4">
+            <transformation>
+                <transformationref id="quad4" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"  />
+            <children>
+                <primitiveref id="quadtop" />
+            </children>
+        </component>
+        <component id="quad5">
+            <transformation>
+                <transformationref id="quad5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"  />
+            <children>
+                <primitiveref id="quad" />
+            </children>
+        </component>
+        <component id="quad6">
+            <transformation>
+                <transformationref id="quad6" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"  />
+            <children>
+                <primitiveref id="quadtop" />
+            </children>
+        </component>
+        <component id="cube">
+            <transformation>
+                <transformationref id="cube" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="quad1" />
+                <componentref id="quad2" />
+                <componentref id="quad3" />
+                <componentref id="quad4" />
+                <componentref id="quad5" />
+                <componentref id="quad6" />
+            </children>
+        </component>
+        <component id="dome">
+            <transformation>
+                <transformationref id="dome" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="dometop" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="Dome" />
+            </children>
+        </component>
+        <component id="lake">
+            <transformation>
+                <transformationref id="lake" />
+            </transformation>
+            <materials>
+                <material id="transparent" />
+            </materials>
+            <texture id="domebot" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="Lake" />
+            </children>
+        </component>
+        <component id="Water">
+            <transformation>
+                <transformationref id="water" />
+            </transformation>
+            <materials>
+                <material id="transparent" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="water" />
+            </children>
+        </component>
+        <component id="island">
+            <transformation>
+                <transformationref id="terrain" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="crystal2" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="terrain" />
+            </children>
+        </component>
+        <component id="house">
+            <transformation>
+                <transformationref id="house" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wall" length_s="0.5" length_t="0.5"/>
+            <children>
+                <componentref id="front" />
+                <componentref id="floor" />
+                <componentref id="housewallback" />
+                <componentref id="backtriangle" />
+                <componentref id="roof" />
+                <componentref id="frontbottom" />
+                <componentref id="leftwall" />
+                <componentref id="rightwall" />
+            </children>
+        </component>
+        <component id="rightwall">
+            <transformation>
+                <transformationref id="rightwall" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="leftwall" />
+            </children>
+        </component>
+        <component id="leftwall">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="leftwallsmall" />
+                <componentref id="leftwalllarge" />
+            </children>
+        </component>
+        <component id="leftwalllarge">
+            <transformation>
+                <transformationref id="leftwalllarge" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="frontwallleft" />
+            </children>
+        </component>
+        <component id="leftwallsmall">
+            <transformation>
+                <transformationref id="leftwallsmall" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" length_s="2.0" length_t="2.0"/>
+            <children>
+                <componentref id="frontwallleft" />
+            </children>
+        </component>
+        <component id="backtriangle">
+            <transformation>
+                <transformationref id="backtriangle" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" length_s="10.0" length_t="10.0"/>
+            <children>
+                <componentref id="fronttriangle" />
+            </children>
+        </component>
+        <component id="frontbottom">
+            <transformation>
+                <transformationref id="frontbottom" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" length_s="10.0" length_t="10.0"/>
+            <children>
+                <componentref id="wall" />
+            </children>
+        </component>
+        <component id="roof">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="roof" length_s="1.0" length_t="0.3"/>
+            <children>
+                <componentref id="rightroof" />
+                <componentref id="leftroof" />
+                <componentref id="midleroof" />
+                <componentref id="toproof" />
+                <componentref id="frontroof" />
+            </children>
+        </component>
+        <component id="frontroof">
+            <transformation>
+                <transformationref id="frontroof" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="leftroof" />
+            </children>
+        </component>
+        <component id="toproof">
+            <transformation>
+                <transformationref id="toproof" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="leftroof" />
+            </children>
+        </component>
+        <component id="midleroof">
+            <transformation>
+                <transformationref id="midleroof" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="roof2" length_s="1.0" length_t="0.5" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="leftroof">
+            <transformation>
+                <transformationref id="leftroof" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="rightroof" />
+            </children>
+        </component>
+        <component id="rightroof">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="rightpart" />
+                <componentref id="leftpart" />
+                <componentref id="midcyl" />
+            </children>
+        </component>
+        <component id="midcyl">
+            <transformation>
+                <transformationref id="midcyl" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="midcyl" />
+            </children>
+        </component>
+        <component id="rightpart">
+            <transformation>
+                <transformationref id="rightpart" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="leftpart">
+            <transformation>
+                <transformationref id="leftpart" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="front">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="frontwall" />
+                <componentref id="fronttop" />
+                <componentref id="triangleleft" />
+                <componentref id="triangleleftback" />
+                <componentref id="triangleright" />
+                <componentref id="trianglerightback" />
+                <componentref id="fronttriangle" />
+                <componentref id="frontsupleft" />
+                <componentref id="frontsupright" />
+            </children>
+        </component>
+        <component id="frontsupleft">
+            <transformation>
+                <transformationref id="frontsupleft" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="midcyl" />
+            </children>
+        </component>
+        <component id="frontsupright">
+            <transformation>
+                <transformationref id="frontsupright" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="midcyl" />
+            </children>
+        </component>
+        <component id="frontwall">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" length_s="1.2" length_t="1.2"/>
+            <children>
+                <componentref id="frontwallleft" />
+                <componentref id="frontwallright" />
+                <componentref id="frontdoor" />
+            </children>
+        </component>
+        <component id="frontdoor">
+            <transformation>
+                <transformationref id="frontdoor" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="door" length_s="0.5" length_t="1.0"/>
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="frontwallright">
+            <transformation>
+                <transformationref id="frontwallright" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="frontwallleft">
+            <transformation>
+                <transformationref id="frontwallleft" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="fronttriangle">
+            <transformation>
+                <transformationref id="fronttriangle" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" length_s="10.0" length_t="10.0" />
+            <children>
+                <componentref id="triangleright" />
+                <componentref id="trianglerightback" />
+            </children>
+        </component>
+        <component id="fronttop">
+            <transformation>
+                <transformationref id="fronttop" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="wall" />
+                <componentref id="wallback" />
+            </children>
+        </component>
+        <component id="wall">
+            <transformation>
+                <transformationref id="wall1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="rec" />
+            </children>
+        </component>
+        <component id="housewallback">
+            <transformation>
+                <transformationref id="housewallback" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="wallback">
+            <transformation>
+                <transformationref id="wallback" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="rec" />
+            </children>
+        </component>
+        <component id="triangleleft">
+            <transformation>
+                <transformationref id="triangleleft" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" length_s="15.0" length_t="15.0"/>
+            <children>
+                <primitiveref id="tri" />
+            </children>
+        </component>
+        <component id="triangleleftback">
+            <transformation>
+                <transformationref id="triangleleftback" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" length_s="15.0" length_t="15.0"/>
+            <children>
+                <primitiveref id="tri" />
+            </children>
+        </component>
+        <component id="triangleright">
+            <transformation>
+                <transformationref id="triangleright" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" length_s="15.0" length_t="15.0"/>
+            <children>
+                <primitiveref id="tri" />
+            </children>
+        </component>
+        <component id="trianglerightback">
+            <transformation>
+                <transformationref id="trianglerightback" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="tri" length_s="15.0" length_t="15.0"/>
+            </children>
+        </component>
+        <component id="floor">
+            <transformation>
+                <transformationref id="floor" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="floor" length_s="0.1" length_t="0.1" />
+            <children>
+                <primitiveref id="rec1" />
+            </children>
+        </component>
+        <component id="portalcake">
+            <transformation>
+                <transformationref id="portalcake" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="portalcake" length_s="1.0" length_t="1.0"  />
+            <children>
+                <componentref id="cake" />
+                <componentref id="topping" />
+            </children>
+        </component>
+        <component id="cake">
+            <transformation>
+                <transformationref id="cake" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="topping">
+            <transformation>
+                <transformationref id="topping" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="decoration1" />
+                <componentref id="decoration2" />
+                <componentref id="decoration3" />
+                <componentref id="decoration4" />
+                <componentref id="decoration5" />
+                <componentref id="decoration6" />
+            </children>
+        </component>
+        <component id="decoration1">
+            <transformation>
+                <transformationref id="decoration1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="cherry" />
+                <primitiveref id="chantily" />
+            </children>
+        </component>
+        <component id="decoration2">
+            <transformation>
+                <transformationref id="decoration2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="cherry" />
+                <primitiveref id="chantily" />
+            </children>
+        </component>
+        <component id="decoration3">
+            <transformation>
+                <transformationref id="decoration3" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="cherry" />
+                <primitiveref id="chantily" />
+            </children>
+        </component>
+        <component id="decoration4">
+            <transformation>
+                <transformationref id="decoration4" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="cherry" />
+                <primitiveref id="chantily" />
+            </children>
+        </component>
+        <component id="decoration5">
+            <transformation>
+                <transformationref id="decoration5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="cherry" />
+                <primitiveref id="chantily" />
+            </children>
+        </component>
+        <component id="decoration6">
+            <transformation>
+                <transformationref id="decoration6" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="cherry" />
+                <primitiveref id="chantily" />
+            </children>
+        </component>
+        <component id="cherry">
+            <transformation>
+                <transformationref id="cherry" />
+            </transformation>
+            <materials>
+                <material id="cherry" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cherry" />
+            </children>
+        </component>
+        <component id="top">
+            <transformation>
+                <transformationref id="topping" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="halo" />
+                <componentref id="ball" />
+            </children>
+        </component>
+        <component id="halo">
+            <transformation>
+                <transformationref id="halo" />
+            </transformation>
+            <materials>
+                <material id="halo" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="chantily" />
+            </children>
+        </component>
+        <component id="ball">
+            <transformation>
+                <transformationref id="ball" />
+            </transformation>
+            <materials>
+                <material id="ball" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cherry" />
+            </children>
+        </component>
+        <component id="ears">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="earleft" />
+                <componentref id="earright" />
+            </children>
+        </component>
+        <component id="earleft">
+            <transformation>
+                <transformationref id="earleft" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="ear" />
+            </children>
+        </component>
+        <component id="earright">
+            <transformation>
+                <transformationref id="earright" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="ear" />
+            </children>
+        </component>
+        <component id="arms">
+            <transformation>
+                <transformationref id="arm" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="armleft" />
+                <componentref id="armright" />
+            </children>
+        </component>
+        <component id="armleft">
+            <transformation>
+                <transformationref id="armleft" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="arm" />
+            </children>
+        </component>
+        <component id="armright">
+            <transformation>
+                <transformationref id="armright" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="arm" />
+            </children>
+        </component>
+        <component id="legs">
+            <transformation>
+                <transformationref id="leg" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="legleft" />
+                <componentref id="legright" />
+            </children>
+        </component>
+        <component id="legleft">
+            <transformation>
+                <transformationref id="legleft" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="leg" />
+            </children>
+        </component>
+        <component id="legright">
+            <transformation>
+                <transformationref id="legright" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="leg" />
+            </children>
+        </component>
+        <component id="body">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="bodytop" />
+                <componentref id="bodybot" />
+            </children>
+        </component>
+        <component id="bodybot">
+            <transformation>
+                <transformationref id="bodybot" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="bodybot" />
+            </children>
+        </component>
+        <component id="bodytop">
+            <transformation>
+                <transformationref id="bodytop" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="bodytop" />
+            </children>
+        </component>
+        <component id="head">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="headtop" />
+                <componentref id="headbot" />
+                <componentref id="nose" />
+                <componentref id="lefteye" />
+                <componentref id="righteye" />
+            </children>
+        </component>
+        <component id="righteye">
+            <transformation>
+                <transformationref id="righteye" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="black" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="lefteye">
+            <transformation>
+                <transformationref id="lefteye" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="black" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="nose">
+            <transformation>
+                <transformationref id="nose" />
+            </transformation>
+            <materials>
+                <material id="nose" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="headtop" />
+            </children>
+        </component>
+        <component id="headtop">
+            <transformation>
+                <transformationref id="headtop" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="headtop" />
+            </children>
+        </component>
+        <component id="headbot">
+            <transformation>
+                <transformationref id="headbot" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="moogleface" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="headtop" />
+            </children>
+        </component>
 
 
 
 
+        <component id="marioplant">
+            <transformation>
+                <transformationref id="marioplant" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="vase" />
+                <componentref id="stalk" />
+                <componentref id="flower" />
+                <componentref id="leafe" />
+            </children>
+        </component>
+        <component id="leafe">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="marioplant" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="leafeleft" />
+                <componentref id="leaferight" />
+            </children>
+        </component>
+        <component id="leaferight">
+            <transformation>
+                <transformationref id="flowerright" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="leafeleft" />
+            </children>
+        </component>
+        <component id="leafeleft">
+            <transformation>
+                <transformationref id="leafeleft" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="leg" />
+            </children>
+        </component>
+        <component id="flower">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="flowerleft" />
+                <componentref id="flowerright" />
+            </children>
+        </component>
+        <component id="flowerright">
+            <transformation>
+                <transformationref id="flowerright" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="flowerleft" />
+            </children>
+        </component>
+        <component id="flowerleft">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="petalleft" />
+                <componentref id="lipleft" />
+                <componentref id="teeth" />
+            </children>
+        </component>
+        <component id="teeth">
+            <transformation>
+                <transformationref id="teeth" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="teeth1" />
+                <componentref id="teeth2" />
+                <componentref id="teeth3" />
+                <componentref id="teeth4" />
+                <componentref id="teeth5" />
+            </children>
+        </component>
+        <component id="teeth1">
+            <transformation>
+                <transformationref id="teeth1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="leg" />
+            </children>
+        </component>
+        <component id="teeth2">
+            <transformation>
+                <transformationref id="teeth2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="leg" />
+            </children>
+        </component>
+        <component id="teeth3">
+            <transformation>
+                <transformationref id="teeth3" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="leg" />
+            </children>
+        </component>
+        <component id="teeth4">
+            <transformation>
+                <transformationref id="teeth4" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="leg" />
+            </children>
+        </component>
+        <component id="teeth5">
+            <transformation>
+                <transformationref id="teeth5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="leg" />
+            </children>
+        </component>
+        <component id="lipleft">
+            <transformation>
+                <transformationref id="lipleft" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="chantily" />
+            </children>
+        </component>
+        <component id="petalleft">
+            <transformation>
+                <transformationref id="petalleft" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="mariored" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="headtop" />
+                <componentref id="petalinterior" />
+            </children>
+        </component>
+        <component id="petalinterior">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="black" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="petalinterior" />
+            </children>
+        </component>
+        <component id="stalk">
+            <transformation>
+                <transformationref id="cake" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="marioplant" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="stalkbot" />
+                <componentref id="stalktop" />
+            </children>
+        </component>
+        <component id="stalkbot">
+            <transformation>
+                <transformationref id="stalkbot" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="stalktop">
+            <transformation>
+                <transformationref id="stalktop" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="vase">
+            <transformation>
+                <transformationref id="cake" />
+            </transformation>
+            <materials>
+                <material id="mariogreen" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="vasebot" />
+                <componentref id="vasetop" />
+            </children>
+        </component>
+        <component id="vasebot">
+            <transformation>
+                <transformationref id="vasebot" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="vasetop">
+            <transformation>
+                <transformationref id="vasetop" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
 
-		<component id="rootScene">
-			<transformation>
-				<transformationref id="transID" />
-			</transformation>
-			<materials>
-				<material id="materialID" />
-				<material id="change" />
-			</materials>
-			<texture id="metal" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="dome" />
-				<componentref id="island" />
-				<componentref id="lake" />
-				<componentref id="Water" />
-				<componentref id="elements" />
-			</children>
-		</component>
-	</components>
+
+        <component id="gramophone">
+            <transformation>
+                <transformationref id="gramophone" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="box" />
+                <componentref id="disk" />
+                <componentref id="horn" />
+            </children>
+        </component>
+        <component id="horn">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="golden" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="thin" />
+                <componentref id="large" />
+                <componentref id="support" />
+            </children>
+        </component>
+        <component id="support">
+            <transformation>
+                <transformationref id="support" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="thin">
+            <transformation>
+                <transformationref id="thin" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="thin" />
+            </children>
+        </component>
+        <component id="large">
+            <transformation>
+                <transformationref id="large" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="large" />
+            </children>
+        </component>
+        <component id="disk">
+            <transformation>
+                <transformationref id="disk" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="disk" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cake" />
+            </children>
+        </component>
+        <component id="box">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="bottombox" />
+                <componentref id="topbox" />
+            </children>
+        </component>
+        <component id="topbox">
+            <transformation>
+                <transformationref id="topbox" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="bottombox">
+            <transformation>
+                <transformationref id="bottombox" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+
+
+        <component id="cactuar">
+            <transformation>
+                <transformationref id="cactuar" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="cactuar2" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="cmainbody" />
+                <componentref id="carmleft" />
+                <componentref id="carmright" />
+                <componentref id="clegright" />
+                <componentref id="clegleft" />
+                <componentref id="hair" />
+            </children>
+        </component>
+        <component id="hair">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="cactuarhair" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="hair1" />
+                <componentref id="hair2" />
+                <componentref id="hair3" />
+            </children>
+        </component>
+        <component id="hair1">
+            <transformation>
+                <transformationref id="hair1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cbody" />
+            </children>
+        </component>
+        <component id="hair2">
+            <transformation>
+                <transformationref id="hair2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cbody" />
+            </children>
+        </component>
+        <component id="hair3">
+            <transformation>
+                <transformationref id="hair3" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cbody" />
+            </children>
+        </component>
+        <component id="clegleft">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="clegleftbot" />
+                <componentref id="cleglefttop" />
+            </children>
+        </component>
+        <component id="clegleftbot">
+            <transformation>
+                <transformationref id="clegleftbot" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cbody" />
+            </children>
+        </component>
+        <component id="cleglefttop">
+            <transformation>
+                <transformationref id="cleglefttop" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cbody" />
+            </children>
+        </component>
+        <component id="clegright">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="clegrightbot" />
+                <componentref id="clegrighttop" />
+            </children>
+        </component>
+        <component id="clegrightbot">
+            <transformation>
+                <transformationref id="clegrightbot" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cbody" />
+            </children>
+        </component>
+        <component id="clegrighttop">
+            <transformation>
+                <transformationref id="clegrighttop" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cbody" />
+            </children>
+        </component>
+        <component id="carmright">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="carmrightbot" />
+                <componentref id="carmrighttop" />
+            </children>
+        </component>
+        <component id="carmrightbot">
+            <transformation>
+                <transformationref id="carmrightbot" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cbody" />
+            </children>
+        </component>
+        <component id="carmrighttop">
+            <transformation>
+                <transformationref id="carmrighttop" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cbody" />
+            </children>
+        </component>
+        <component id="carmleft">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="carmleftbot" />
+                <componentref id="carmlefttop" />
+            </children>
+        </component>
+        <component id="carmleftbot">
+            <transformation>
+                <transformationref id="carmleftbot" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cbody" />
+            </children>
+        </component>
+        <component id="carmlefttop">
+            <transformation>
+                <transformationref id="carmlefttop" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cbody" />
+            </children>
+        </component>
+        <component id="cbody">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cbodytop" />
+                <componentref id="cbodymidle" />
+                <componentref id="cbodybot" />
+            </children>
+        </component>
+        <component id="cbodytop">
+            <transformation>
+                <transformationref id="cbodytop" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="headtop" />
+            </children>
+        </component>
+        <component id="cbodymidle">
+            <transformation>
+                <transformationref id="cbodymidle" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="cbodybot">
+            <transformation>
+                <transformationref id="cbodybot" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="headtop" />
+            </children>
+        </component>
+        <component id="cmainbody">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cmainbodytop" />
+                <componentref id="cmainbodymidle" />
+                <componentref id="cmainbodybot" />
+            </children>
+        </component>
+        <component id="cmainbodytop">
+            <transformation>
+                <transformationref id="cbodytop" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="cactuar" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="headtop" />
+            </children>
+        </component>
+        <component id="cmainbodymidle">
+            <transformation>
+                <transformationref id="cbodymidle" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="cactuarface" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="cmainbodybot">
+            <transformation>
+                <transformationref id="cbodybot" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="cactuar" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="headtop" />
+            </children>
+        </component>
+
+
+        <component id="veigarhand">
+            <transformation>
+                <transformationref id="veigarhand" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="metal" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="handcenter" />
+                <componentref id="rightfinger" />
+                <componentref id="middlefinger" />
+                <componentref id="leftfinger" />
+                <componentref id="thumb" />
+                <componentref id="handdeco" />
+                <componentref id="handbot" />
+            </children>
+        </component>
+        <component id="handbot">
+            <transformation>
+                <transformationref id="handbot" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="stripes" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="thumb">
+            <transformation>
+                <transformationref id="thumb" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="rightfinger" />
+            </children>
+        </component>
+        <component id="leftfinger">
+            <transformation>
+                <transformationref id="leftfinger" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="rightfinger" />
+            </children>
+        </component>
+        <component id="middlefinger">
+            <transformation>
+                <transformationref id="middlefinger" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="rightfinger" />
+            </children>
+        </component>
+        <component id="rightfinger">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="fingerbot" />
+                <componentref id="fingermiddle" />
+                <componentref id="fingertop" />
+            </children>
+        </component>
+        <component id="fingertop">
+            <transformation>
+                <transformationref id="fingertop" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="fronthand" />
+                <componentref id="frontfinger" />
+                <componentref id="backhand" />
+                <componentref id="backfinger" />
+            </children>
+        </component>
+        <component id="frontfinger">
+            <transformation>
+                <transformationref id="frontfinger" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="cherry" />
+            </children>
+        </component>
+        <component id="backfinger">
+            <transformation>
+                <transformationref id="backfinger" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="black" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cherry" />
+            </children>
+        </component>
+        <component id="fingermiddle">
+            <transformation>
+                <transformationref id="fingermiddle" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="black" length_s="1.0" length_t="1.0"/>
+            <children>
+                <componentref id="cake" />
+            </children>
+        </component>
+        <component id="fingerbot">
+            <transformation>
+                <transformationref id="fingerbot" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="handcenter" />
+            </children>
+        </component>
+        <component id="handcenter">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="fronthand" />
+                <componentref id="backhand" />
+            </children>
+        </component>
+        <component id="handdeco">
+            <transformation>
+                <transformationref id="leg" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="red" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="handdecoright" />
+                <componentref id="handdecoleft" />
+                <componentref id="handdecomiddle" />
+                <componentref id="handdecocenter" />
+            </children>
+        </component>
+        <component id="handdecocenter">
+            <transformation>
+                <transformationref id="handdecocenter" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="controller" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="handdecomiddle">
+            <transformation>
+                <transformationref id="handdecomiddle" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="handdecoleft">
+            <transformation>
+                <transformationref id="handdecoleft" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="handdecoright">
+            <transformation>
+                <transformationref id="handdecoright" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="fronthand">
+            <transformation>
+                <transformationref id="fronthand" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="hand" />
+            </children>
+        </component>
+        <component id="backhand">
+            <transformation>
+                <transformationref id="backhand" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="black" length_s="1.0" length_t="1.0"/>
+            <children>
+                <primitiveref id="hand" />
+            </children>
+        </component>
+
+
+
+        <component id="cubes">
+            <transformation>
+                <transformationref id="cubeexpo" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="crystal" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="cube1" />
+                <componentref id="cube2" />
+                <componentref id="cube3" />
+                <componentref id="cube4" />
+                <componentref id="cube5" />
+                <componentref id="cube6" />
+            </children>
+        </component>
+        <component id="cube1">
+            <transformation>
+                <transformationref id="cube1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="cube2">
+            <transformation>
+                <transformationref id="cube2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="cube3">
+            <transformation>
+                <transformationref id="cube3" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="cube4">
+            <transformation>
+                <transformationref id="cube4" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="cube5">
+            <transformation>
+                <transformationref id="cube5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="cube6">
+            <transformation>
+                <transformationref id="cube6" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="elements">
+            <transformation>
+                <transformationref id="elements" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="floatingDisk" />
+                <componentref id="house" />
+                <componentref id="portalcake" />
+                <componentref id="moogles" />
+                <componentref id="marioplant" />
+                <componentref id="gramophone" />
+                <componentref id="cactuar" />
+                <componentref id="veigarhand" />
+                <componentref id="cubes" />
+            </children>
+        </component>
+
+        <component id="moogles">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <animations>
+                <animationref id="up"/>
+                <animationref id="aroundCenter"/>
+            </animations>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="moogle1" />
+                <componentref id="moogle2" />
+                <componentref id="moogle3" />
+                <componentref id="moogle4" />
+                <componentref id="moogle5" />
+                <componentref id="moogle6" />
+            </children>
+        </component>
+
+        <component id="moogle1">
+            <transformation>
+                <transformationref id="moogle1" />
+            </transformation>
+            <animations>
+                <animationref id="spendTime"/>
+                <animationref id="aroundSelf"/>
+            </animations>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="head" />
+                <componentref id="body" />
+                <componentref id="legs" />
+                <componentref id="arms" />
+                <componentref id="ears" />
+                <componentref id="top" />
+                <componentref id="cape" />
+            </children>
+        </component>
+
+        <component id="moogle2">
+            <transformation>
+                <transformationref id="moogle" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="head" />
+                <componentref id="body" />
+                <componentref id="legs" />
+                <componentref id="arms" />
+                <componentref id="ears" />
+                <componentref id="top" />
+                <componentref id="cape" />
+            </children>
+        </component>
+
+        <component id="moogle3">
+            <transformation>
+                <transformationref id="moogle" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="head" />
+                <componentref id="body" />
+                <componentref id="legs" />
+                <componentref id="arms" />
+                <componentref id="ears" />
+                <componentref id="top" />
+                <componentref id="cape" />
+            </children>
+        </component>
+
+        <component id="moogle4">
+            <transformation>
+                <transformationref id="moogle" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="head" />
+                <componentref id="body" />
+                <componentref id="legs" />
+                <componentref id="arms" />
+                <componentref id="ears" />
+                <componentref id="top" />
+                <componentref id="cape" />
+            </children>
+        </component>
+
+        <component id="moogle5">
+            <transformation>
+                <transformationref id="moogle" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="head" />
+                <componentref id="body" />
+                <componentref id="legs" />
+                <componentref id="arms" />
+                <componentref id="ears" />
+                <componentref id="top" />
+                <componentref id="cape" />
+            </children>
+        </component>
+
+        <component id="moogle6">
+            <transformation>
+                <transformationref id="moogle" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="head" />
+                <componentref id="body" />
+                <componentref id="legs" />
+                <componentref id="arms" />
+                <componentref id="ears" />
+                <componentref id="top" />
+                <componentref id="cape" />
+            </children>
+        </component>
+
+        <component id="cape">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+
+
+        <component id="floatingDisk">
+            <transformation>
+                <transformationref id="floatingDisk" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+
+
+
+
+
+        <component id="rootScene">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="materialID" />
+                <material id="change" />
+            </materials>
+            <texture id="metal" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="dome" />
+                <componentref id="island" />
+                <componentref id="lake" />
+                <componentref id="Water" />
+                <componentref id="elements" />
+            </children>
+        </component>
+    </components>
 </yas>
