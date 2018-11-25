@@ -492,8 +492,33 @@
             <translate x="0.5" y="-1.7" z="0.0" />
         </transformation>
         <transformation id="moogle1">
-            <translate x="0.5" y="-4.0" z="40.0" />
+            <translate x="0.5" y="-6.5" z="40.0" />
             <scale x="2.0" y="2.0" z="2.0" />
+            <rotate axis="y" angle="-180.0" />
+        </transformation>
+        <transformation id="moogle2">
+            <translate x="0.5" y="-6.5" z="-40.0" />
+            <scale x="2.0" y="2.0" z="2.0" />
+        </transformation>
+        <transformation id="moogle3">
+            <translate x="35.5" y="-6.5" z="-20.0" />
+            <scale x="2.0" y="2.0" z="2.0" />
+            <rotate axis="y" angle="-45.0" />
+        </transformation>
+        <transformation id="moogle4">
+            <translate x="-35.5" y="-6.5" z="-20.0" />
+            <scale x="2.0" y="2.0" z="2.0" />
+            <rotate axis="y" angle="45.0" />
+        </transformation>
+        <transformation id="moogle5">
+            <translate x="-35.5" y="-6.5" z="20.0" />
+            <scale x="2.0" y="2.0" z="2.0" />
+            <rotate axis="y" angle="135.0" />
+        </transformation>
+        <transformation id="moogle6">
+            <translate x="35.5" y="-6.5" z="20.0" />
+            <scale x="2.0" y="2.0" z="2.0" />
+            <rotate axis="y" angle="-135.0" />
         </transformation>
         <transformation id="headtop">
             <scale x="2.2" y="1.8" z="1.8" />
@@ -2846,7 +2871,7 @@
                 <transformationref id="transID" />
             </transformation>
             <animations>
-                <animationref id="up"/>
+               <animationref id="up"/>
                 <animationref id="aroundCenter"/>
                 <animationref id="down"/>
             </animations>
@@ -2890,8 +2915,13 @@
 
         <component id="moogle2">
             <transformation>
-                <transformationref id="moogle" />
+                <transformationref id="moogle2" />
             </transformation>
+            <animations>
+                <animationref id="spendTime"/>
+                <animationref id="aroundSelf"/>
+                <animationref id="spendTime"/>
+            </animations>
             <materials>
                 <material id="inherit" />
             </materials>
@@ -2909,8 +2939,13 @@
 
         <component id="moogle3">
             <transformation>
-                <transformationref id="moogle" />
+                <transformationref id="moogle3" />
             </transformation>
+            <animations>
+                <animationref id="spendTime"/>
+                <animationref id="aroundSelf"/>
+                <animationref id="spendTime"/>
+            </animations>
             <materials>
                 <material id="inherit" />
             </materials>
@@ -2928,8 +2963,13 @@
 
         <component id="moogle4">
             <transformation>
-                <transformationref id="moogle" />
+                <transformationref id="moogle4" />
             </transformation>
+            <animations>
+                <animationref id="spendTime"/>
+                <animationref id="aroundSelf"/>
+                <animationref id="spendTime"/>
+            </animations>
             <materials>
                 <material id="inherit" />
             </materials>
@@ -2947,8 +2987,13 @@
 
         <component id="moogle5">
             <transformation>
-                <transformationref id="moogle" />
+                <transformationref id="moogle5" />
             </transformation>
+            <animations>
+                <animationref id="spendTime"/>
+                <animationref id="aroundSelf"/>
+                <animationref id="spendTime"/>
+            </animations>
             <materials>
                 <material id="inherit" />
             </materials>
@@ -2966,8 +3011,13 @@
 
         <component id="moogle6">
             <transformation>
-                <transformationref id="moogle" />
+                <transformationref id="moogle6" />
             </transformation>
+            <animations>
+                <animationref id="spendTime"/>
+                <animationref id="aroundSelf"/>
+                <animationref id="spendTime"/>
+            </animations>
             <materials>
                 <material id="inherit" />
             </materials>
