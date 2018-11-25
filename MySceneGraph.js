@@ -1111,6 +1111,9 @@ class MySceneGraph {
 
                 this.primitives[currChild.getAttribute("id")] = new MyWater(this.scene,idTexture, idWaveMap, terrainParts, heightScale, texScale);
 
+            }
+            else if(currGrandchild.nodeName == "vehicle"){
+              this.primitives[currChild.getAttribute("id")] = new OVNI(this.scene);
             } else this.onXMLError("Unknown node name " + currGrandchild.nodeName);
             i++;
         }

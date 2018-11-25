@@ -242,7 +242,7 @@ class XMLscene extends CGFscene {
         }
         this.lastTime = currTime;
         //shaders here
-        let factor = (Math.sin((currTime * 0.1)%3141*0.002)+1.0)*0.5;
+        let factor = (Math.sin((currTime * 0.05)%3130*0.001)+1.0)*0.5;
         this.testShaders[0].setUniformsValues({time:factor});
         this.testShaders[2].setUniformsValues({time:factor});
     }

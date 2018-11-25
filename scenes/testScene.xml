@@ -66,12 +66,11 @@
 	</lights>
 	<textures>
 		<texture id="terrainheight" file="terrainmap.jpg" />
+		<texture id="terrain" file="terrainTexture.png" />
 		<texture id="watertexture" file="watertexture.jpg" />
-		<texture id="wavemap" file="wave_map.jpg" />
+		<texture id="wavemap" file="wave_map.png" />
 		<texture id="dometop" file="dometop.jpg" />
 		<texture id="domebot" file="domebot.png" />
-		<texture id="a" file="a.png" />
-		<texture id="grass" file="grass.jpg" />
 		<texture id="roof" file="roof.jpg" />
 		<texture id="roof2" file="roof2.jpg" />
 		<texture id="door" file="door.png" />
@@ -89,7 +88,6 @@
 		<texture id="mariored" file="mariored.png" />
 		<texture id="marioplant" file="marioplant.png" />
 		<texture id="portalcake" file="portalcake.png" />
-		<texture id="golden" file="golden.png" />
 		<texture id="wood" file="wood.png" />
 		<texture id="disk" file="disk.png" />
 		<texture id="floor" file="floor.png" />
@@ -97,9 +95,6 @@
 		<texture id="crystal" file="crystal.png" />
 		<texture id="crystal2" file="crystal2.png" />
 		<texture id="glass" file="glass.png" />
-		<texture id="huntress" file="huntress.png" />
-		<texture id="michael" file="michael.png" />
-		<texture id="freddy" file="freddy.png" />
 	</textures>
 	<materials>
 		<material id="halo" shininess = "1.0" >
@@ -162,6 +157,18 @@
 		<transformation id="transID">
 			<scale x="1.0" y="1.0" z="1.0" />
 		</transformation>
+		<transformation id="elements">
+			<translate x="0.0" y="130.0" z="0.0" />
+		</transformation>
+		<transformation id="floatingDisk">
+			<scale x="18.0" y="1.0" z="18.0" />
+			<translate x="0.06" y="2.0" z="0.0" />
+			<rotate axis="x" angle="-90.0" />
+		</transformation>
+		<transformation id="terrain">
+			<translate x="0.0" y="5.0" z="0.0" />
+			<scale x="350.0" y="1.0" z="350.0" />
+		</transformation>
 		<transformation id="cubeexpo">
 			<scale x="3.5" y="3.0" z="3.5" />
 		</transformation>
@@ -179,6 +186,9 @@
 		</transformation>
 		<transformation id="cube5">
 			<translate x="-4.5" y="0.9" z="-11.5" />
+		</transformation>
+		<transformation id="cube6">
+			<translate x="-4.5" y="0.9" z="2.5" />
 		</transformation>
 		<transformation id="lefteye">
 			<rotate axis="y" angle="-20.0" />
@@ -201,8 +211,8 @@
 			<scale x="0.001" y="2.0" z="1.8" />
 		</transformation>
 		<transformation id="house">
-			<scale x="0.15" y="0.15" z="0.15" />
-			<translate x="0.0" y="3.6" z="0.0" />
+			<scale x="0.08" y="0.08" z="0.07" />
+			<translate x="13.0" y="110.0" z="360.0" />
 		</transformation>
 		<transformation id="rightwall">
 			<translate x="44.5" y="0.0" z="0.0" />
@@ -687,17 +697,9 @@
 			<scale x="300.0" y="300.0" z="300.0" />
 			<rotate axis="x" angle="90.0" />
 		</transformation>
-		<transformation id="circle">
-			<translate x="0.0" y="0.0" z="0.0" />
-			<scale x="600.0" y="1.0" z="600.0" />
-		</transformation>
-		<transformation id="island">
-			<translate x="0.0" y="2.0" z="0.0" />
-			<rotate axis="x" angle="90.0" />
-		</transformation>
-		<transformation id="island2">
+		<transformation id="water">
 			<translate x="0.0" y="3.0" z="0.0" />
-			<rotate axis="x" angle="90.0" />
+			<scale x="600.0" y="1.0" z="600.0" />
 		</transformation>
 	</transformations>
 	   <animations>
@@ -711,10 +713,13 @@
 	<primitives>
 
 		<primitive id="terrain">
-				<terrain idtexture="dometop" idheightmap="terrainheight" parts="20" heightscale="1"/>
+				<terrain idtexture="terrain" idheightmap="terrainheight" parts="15" heightscale="90.0"/>
 		</primitive>
 		<primitive id="water">
-				<water idtexture="watertexture" idwavemap="wavemap" parts="50" heightscale="20.0" texscale="0.5"/>
+				<water idtexture="watertexture" idwavemap="wavemap" parts="100" heightscale="13.0" texscale="0.5"/>
+		</primitive>
+		<primitive id="vehicle">
+        <vehicle/>
 		</primitive>
 
 
@@ -786,9 +791,6 @@
 		</primitive>
 		<primitive id="DomeBot">
 			<SemiSphere slices="50" stacks="50"/>
-		</primitive>
-		<primitive id="Circle">
-			<Circle slices="50"/>
 		</primitive>
 		<primitive id="headtop">
 			<SemiSphere slices="50" stacks="50"/>
@@ -911,9 +913,9 @@
 				<primitiveref id="Lake" />
 			</children>
 		</component>
-		<component id="Circle">
+		<component id="Water">
 			<transformation>
-				<transformationref id="circle" />
+				<transformationref id="water" />
 			</transformation>
 			<materials>
 				<material id="transparent" />
@@ -923,41 +925,16 @@
 				<primitiveref id="water" />
 			</children>
 		</component>
-		<component id="cyl">
-			<transformation>
-				<transformationref id="island" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="cyl" />
-			</children>
-		</component>
-		<component id="cyl2">
-			<transformation>
-				<transformationref id="island2" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="inherit" />
-			<children>
-				<primitiveref id="cyl2" />
-			</children>
-		</component>
 		<component id="island">
 			<transformation>
-				<transformationref id="transID" />
+				<transformationref id="terrain" />
 			</transformation>
 			<materials>
 				<material id="inherit" />
 			</materials>
 			<texture id="crystal2" length_s="1.0" length_t="1.0" />
 			<children>
-				<componentref id="cyl" />
-				<componentref id="cyl2" />
+					<primitiveref id="terrain" />
 			</children>
 		</component>
 		<component id="house">
@@ -1512,23 +1489,6 @@
 			<texture id="none" />
 			<children>
 				<primitiveref id="cherry" />
-			</children>
-		</component>
-		<component id="moogle">
-			<transformation>
-				<transformationref id="moogle" />
-			</transformation>
-			<materials>
-				<material id="inherit" />
-			</materials>
-			<texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
-			<children>
-				<componentref id="head" />
-				<componentref id="body" />
-				<componentref id="legs" />
-				<componentref id="arms" />
-				<componentref id="ears" />
-				<componentref id="top" />
 			</children>
 		</component>
 		<component id="top">
@@ -2769,6 +2729,7 @@
 				<componentref id="cube3" />
 				<componentref id="cube4" />
 				<componentref id="cube5" />
+				<componentref id="cube6" />
 			</children>
 		</component>
 		<component id="cube1">
@@ -2831,6 +2792,198 @@
 				<componentref id="cube" />
 			</children>
 		</component>
+		<component id="cube6">
+			<transformation>
+				<transformationref id="cube6" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="cube" />
+			</children>
+		</component>
+
+		<component id="elements">
+			<transformation>
+				<transformationref id="elements" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="floatingDisk" />
+				<componentref id="house" />
+				<componentref id="portalcake" />
+				<componentref id="moogles" />
+				<componentref id="marioplant" />
+				<componentref id="gramophone" />
+				<componentref id="cactuar" />
+				<componentref id="veigarhand" />
+				<componentref id="cubes" />
+			</children>
+		</component>
+
+		<component id="moogles">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<componentref id="moogle1" />
+				<componentref id="moogle2" />
+				<componentref id="moogle3" />
+				<componentref id="moogle4" />
+				<componentref id="moogle5" />
+				<componentref id="moogle6" />
+			</children>
+		</component>
+
+		<component id="moogle1">
+			<transformation>
+				<transformationref id="moogle" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
+			<children>
+				<componentref id="head" />
+				<componentref id="body" />
+				<componentref id="legs" />
+				<componentref id="arms" />
+				<componentref id="ears" />
+				<componentref id="top" />
+				<componentref id="cape" />
+			</children>
+		</component>
+
+		<component id="moogle2">
+			<transformation>
+				<transformationref id="moogle" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
+			<children>
+				<componentref id="head" />
+				<componentref id="body" />
+				<componentref id="legs" />
+				<componentref id="arms" />
+				<componentref id="ears" />
+				<componentref id="top" />
+				<componentref id="cape" />
+			</children>
+		</component>
+
+		<component id="moogle3">
+			<transformation>
+				<transformationref id="moogle" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
+			<children>
+				<componentref id="head" />
+				<componentref id="body" />
+				<componentref id="legs" />
+				<componentref id="arms" />
+				<componentref id="ears" />
+				<componentref id="top" />
+				<componentref id="cape" />
+			</children>
+		</component>
+
+		<component id="moogle4">
+			<transformation>
+				<transformationref id="moogle" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
+			<children>
+				<componentref id="head" />
+				<componentref id="body" />
+				<componentref id="legs" />
+				<componentref id="arms" />
+				<componentref id="ears" />
+				<componentref id="top" />
+				<componentref id="cape" />
+			</children>
+		</component>
+
+		<component id="moogle5">
+			<transformation>
+				<transformationref id="moogle" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
+			<children>
+				<componentref id="head" />
+				<componentref id="body" />
+				<componentref id="legs" />
+				<componentref id="arms" />
+				<componentref id="ears" />
+				<componentref id="top" />
+				<componentref id="cape" />
+			</children>
+		</component>
+
+		<component id="moogle6">
+			<transformation>
+				<transformationref id="moogle" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="mooglefacetop" length_s="1.0" length_t="1.0" />
+			<children>
+				<componentref id="head" />
+				<componentref id="body" />
+				<componentref id="legs" />
+				<componentref id="arms" />
+				<componentref id="ears" />
+				<componentref id="top" />
+				<componentref id="cape" />
+			</children>
+		</component>
+
+		<component id="cape">
+			<transformation>
+				<transformationref id="transID" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<primitiveref id="vehicle" />
+			</children>
+		</component>
+
+
+		<component id="floatingDisk">
+			<transformation>
+				<transformationref id="floatingDisk" />
+			</transformation>
+			<materials>
+				<material id="inherit" />
+			</materials>
+			<texture id="inherit" />
+			<children>
+				<primitiveref id="cake" />
+			</children>
+		</component>
 
 
 
@@ -2846,18 +2999,11 @@
 			</materials>
 			<texture id="metal" length_s="1.0" length_t="1.0" />
 			<children>
-				<componentref id="house" />
 				<componentref id="dome" />
 				<componentref id="island" />
 				<componentref id="lake" />
-				<componentref id="Circle" />
-				<componentref id="portalcake" />
-				<componentref id="moogle" />
-				<componentref id="marioplant" />
-				<componentref id="gramophone" />
-				<componentref id="cactuar" />
-				<componentref id="veigarhand" />
-				<componentref id="cubes" />
+				<componentref id="Water" />
+				<componentref id="elements" />
 			</children>
 		</component>
 	</components>
