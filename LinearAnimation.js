@@ -69,5 +69,5 @@ class LinearAnimation extends Animation {
         //Apply to matrix;
         mat4.translate(this.transformationMat, this.transformationMat, pos);
         return this.transformationMat;
-    }
+    };
 }

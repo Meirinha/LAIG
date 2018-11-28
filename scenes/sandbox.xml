@@ -22,7 +22,7 @@
         <texture id="dometop" file="dometop.jpg" />
         <texture id="terrainheight" file="terrainmap.jpg" />
         <texture id="watertexture" file="watertexture.jpg" />
-        <texture id="wavemap" file="wave_map.jpg" />
+        <texture id="wavemap" file="wave_map.png" />
     </textures>
     <materials>
         <material id="materialID" shininess = "1.0" >
@@ -41,8 +41,8 @@
         <circular id="circular" span="5.0" center="0.0 0.0 0.0" radius="3.0" startang="0.0" rotang="180.0"/>
         <linear id="linear" span="10" >
             <controlpoint xx="0.0" yy="0.0" zz="0.0" />
-            <controlpoint xx="0.0" yy="0.0" zz="3.0" />
-            <controlpoint xx="0.0" yy="3.0" zz="0.0" />
+            <controlpoint xx="3.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="3.0" yy="0.0" zz="3.0" />
         </linear>
     </animations>
     <primitives>
@@ -109,19 +109,19 @@
                 <transformationref id="transID" />
             </transformation>
             <animations>
-                <!-- <animationref id="circular"/>
+                <!-- <animationref id="circular"/> -->
                 <animationref id="linear"/>
-                <animationref id="circular"/>  -->
+                <!-- <animationref id="circular"/>  -->
             </animations>
             <materials>
                 <material id="inherit" />
             </materials>
             <texture id="inherit"/>
             <children>
-                <!-- <primitiveref id="cake"/> -->
+                <primitiveref id="cake"/>
                 <!-- <primitiveref id="water"/> -->
                 <!-- <primitiveref id="cake"/> -->
-                <primitiveref id = "vehicle"/>
+                <!-- <primitiveref id = "vehicle"/> -->
             </children>
         </component>
 
