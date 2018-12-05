@@ -54,35 +54,31 @@ class XMLscene extends CGFscene {
 
 
         this.surfaces = [];
+        this.objects = [];
 
         this.currentMusic = 0;
+        for(let i = 0; i<76; i++)
+            this.objects.push(new CGFplane(this));
 
-        this.objects= [
-      		new CGFplane(this),
-      		new CGFplane(this),
-      		new CGFplane(this),
-      		new CGFplane(this)
-      	];
-
-      	this.setPickEnabled(true);
+        this.setPickEnabled(true);
 
     }
 
-logPicking()
+    logPicking()
     {
-    	if (this.pickMode == false) {
-    		if (this.pickResults != null && this.pickResults.length > 0) {
-    			for (var i=0; i< this.pickResults.length; i++) {
-    				var obj = this.pickResults[i][0];
-    				if (obj)
-    				{
-    					var customId = this.pickResults[i][1];
-    					console.log("Picked object: " + obj + ", with pick id " + customId);
-    				}
-    			}
-    			this.pickResults.splice(0,this.pickResults.length);
-    		}
-    	}
+        if (this.pickMode == false) {
+            if (this.pickResults != null && this.pickResults.length > 0) {
+                for (var i=0; i< this.pickResults.length; i++) {
+                    var obj = this.pickResults[i][0];
+                    if (obj)
+                    {
+                        var customId = this.pickResults[i][1];
+                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                    }
+                }
+                this.pickResults.splice(0,this.pickResults.length);
+            }
+        }
     }
 
     music()
@@ -200,8 +196,8 @@ logPicking()
      */
     display() {
 
-      this.logPicking();
-    	this.clearPickRegistration();
+        this.logPicking();
+        this.clearPickRegistration();
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -237,17 +233,51 @@ logPicking()
         this.popMatrix();
         this.setActiveShader(this.defaultShader);
         // draw objects
-      	for (i =0; i<this.objects.length; i++) {
-      		this.pushMatrix();
+        for (let i =0; i<19; i++) {
+            this.pushMatrix();
 
-      		this.translate(i*2, 0, 0);
-      		this.registerForPick(i+1, this.objects[i]);
+            this.translate(i*2+2, 0, 0);
+            this.registerForPick(i+1, this.objects[i]);
 
-      		this.objects[i].display();
-      		this.popMatrix();
-      	}
+            this.objects[i].display();
+            this.popMatrix();
+        }
         // ---- END Background, camera and axis setup
+        let j=0;
+    for (let i =19; i<38; i++) {
+        this.pushMatrix();
+
+        this.translate(0, 0, j*2+2);
+        this.registerForPick(i+1, this.objects[i]);
+
+        this.objects[i].display();
+        this.popMatrix();
+        j++;
     }
+    j=0;
+    for (let i =38; i<57; i++) {
+        this.pushMatrix();
+
+        this.translate(j*2+2, 0, 40);
+        this.registerForPick(i+1, this.objects[i]);
+
+        this.objects[i].display();
+        this.popMatrix();
+        j++;
+    }
+    j=0;
+    for (let i =57; i<76; i++) {
+        this.pushMatrix();
+
+        this.translate(40, 0, j*2+2);
+        this.registerForPick(i+1, this.objects[i]);
+
+        this.objects[i].display();
+        this.popMatrix();
+        j++;
+    }
+    // ---- END Background, camera and axis setup
+}
 
     updateLightsDisplay() {
         var i = 0;
