@@ -1,0 +1,418 @@
+<yas>
+    <scene root="rootScene" axis_length="5.0" />
+    <views default="default" >
+      <perspective id="default" near="0.1" far="900" angle="90.0">
+          <from x="5" y="5" z="5" />
+          <to x="0" y="0" z="0" />
+      </perspective>
+        <perspective id="moogle" near="0.1" far="900" angle="90.0">
+            <from x="0" y="145" z="20" />
+            <to x="0" y="137" z="0" />
+        </perspective>
+        <perspective id="veigar_hand" near="0.1" far="900" angle="90.0">
+            <from x="-9" y="144.5" z="-9" />
+            <to x="-14.5" y="143.5" z="-11.5" />
+        </perspective>
+        <perspective id="gramophone" near="0.1" far="900" angle="90.0">
+            <from x="4.0" y="144" z="-19" />
+            <to x="0.0" y="141" z="-24" />
+        </perspective>
+        <perspective id="piranha_plant" near="0.1" far="900" angle="90.0">
+            <from x="9" y="144.5" z="-9" />
+            <to x="16.5" y="143.5" z="-12" />
+        </perspective>
+        <perspective id="cactuar" near="0.1" far="900" angle="90.0">
+            <from x="9.0" y="144" z="9" />
+            <to x="14.5" y="141" z="12.5" />
+        </perspective>
+        <perspective id="cake" near="0.1" far="900" angle="90.0">
+            <from x="-9.0" y="144" z="9" />
+            <to x="-14.5" y="141" z="12.5" />
+        </perspective>
+        <perspective id="house" near="0.1" far="900" angle="90.0">
+            <from x="4.0" y="144" z="19" />
+            <to x="2.0" y="141" z="24" />
+        </perspective>
+        <ortho id="orth" near="0.1" far="500" left="-50" right="50" top="30" bottom="-30" >
+            <from x="30" y="160" z="30" />
+            <to x="0" y="135" z="0" />
+        </ortho>
+        <perspective id="world" near="0.1" far="900" angle="90.0">
+            <from x="0" y="130" z="100" />
+            <to x="0" y="137" z="0" />
+        </perspective>
+    </views>
+    <ambient>
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <background r="0.0" g="0.0" b="0.0" a="1.0" />
+    </ambient>
+    <lights>
+        <omni id="lightOmni" enabled="1" >
+            <location x="0.0" y="15" z="0.0" w="1" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1" />
+            <diffuse r="0.9" g="0.9" b="0.9" a="1" />
+            <specular r="0.9" g="0.9" b="0.9" a="1" />
+        </omni>
+        <spot id="lightSpot" enabled="0" angle="50.0" exponent="1.0">
+            <location x="0.0" y="15.0" z="0.0" w="1" />
+            <target x="20.0" y="0.0" z="-20.0" />
+            <ambient r="0.3" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.3" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.3" g="0.0" b="0.0" a="1.0" />
+        </spot>
+        <spot id="tinyLight" enabled="0" angle="2.0" exponent="10.0">
+            <location x="0.0" y="15.0" z="0.0" w="1" />
+            <target x="0.0" y="0.0" z="-20.0" />
+            <ambient r="0.3" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.3" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.3" g="0.0" b="0.0" a="1.0" />
+        </spot>
+    </lights>
+    <textures>
+        <texture id="golden" file="golden.png" />
+    </textures>
+    <materials>
+        <material id="halo" shininess = "1.0" >
+            <emission r="0.5" g="0.5" b="0.5" a="1.0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
+            <specular r="0.8" g="0.8" b="0.8" a="1.0" />
+        </material>
+
+        <material id="change" shininess = "0.8" >
+            <emission r="0.3" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.3" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.3" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.3" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="cherry" shininess = "0.8" >
+            <emission r="0.3" g="0.1" b="0.1" a="1.0" />
+            <ambient r="0.3" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.3" g="0.1" b="0.1" a="1.0" />
+            <specular r="0.3" g="0.1" b="0.1" a="1.0" />
+        </material>
+        <material id="mariogreen" shininess = "0.5" >
+            <emission r="0.1" g="0.2" b="0.1" a="1.0" />
+            <ambient r="0.1" g="0.3" b="0.1" a="1.0" />
+            <diffuse r="0.0" g="0.3" b="0.0" a="1.0" />
+            <specular r="0.2" g="0.5" b="0.2" a="1.0" />
+        </material>
+        <material id="ball" shininess = "1.0" >
+            <emission r="0.5" g="0.5" b="0.2" a="1.0" />
+            <ambient r="0.5" g="0.5" b="0.2" a="1.0" />
+            <diffuse r="0.7" g="0.7" b="0.2" a="1.0" />
+            <specular r="0.7" g="0.7" b="0.2" a="1.0" />
+        </material>
+        <material id="nose" shininess = "0.8" >
+            <emission r="0.8" g="0.3" b="0.3" a="1.0" />
+            <ambient r="0.8" g="0.3" b="0.3" a="1.0" />
+            <diffuse r="0.8" g="0.3" b="0.3" a="1.0" />
+            <specular r="0.8" g="0.3" b="0.3" a="1.0" />
+        </material>
+        <material id="materialID" shininess = "1.0" >
+            <emission r="0.4" g="0.4" b="0.4" a="1.0" />
+            <ambient r="0.3" g="0.3" b="0.3" a="1.0" />
+            <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </material>
+        <material id="transparent" shininess = "0.8" >
+            <emission r="0.4" g="0.4" b="0.4" a="0.6" />
+            <ambient r="0.3" g="0.3" b="0.3" a="0.6" />
+            <diffuse r="0.3" g="0.3" b="0.3" a="0.6" />
+            <specular r="0.3" g="0.3" b="0.3" a="0.6" />
+        </material>
+        <material id="materialID2" shininess = "1.0" >
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+    </materials>
+    <transformations>
+        <transformation id="transID">
+            <translate x="0.0" y="0.0" z="0.0" />
+        </transformation>
+
+        <transformation id="cube">
+            <translate x="4" y="0.0" z="4" />
+        </transformation>
+        <transformation id="quad1">
+            <translate x="1.5" y="0.0" z="1.5" />
+            <rotate axis="y" angle="90.0" />
+        </transformation>
+        <transformation id="quad2">
+            <translate x="0.0" y="0.0" z="1.5" />
+        </transformation>
+        <transformation id="quad3">
+            <rotate axis="y" angle="-90.0" />
+        </transformation>
+        <transformation id="quad4">
+            <translate x="0.0" y="2.0" z="1.5" />
+            <rotate axis="x" angle="-90.0" />
+        </transformation>
+        <transformation id="quad6">
+            <translate x="0.0" y="0.0" z="0.0" />
+            <rotate axis="x" angle="90.0" />
+        </transformation>
+        <transformation id="quad5">
+            <translate x="1.5" y="0.0" z="0.0" />
+            <rotate axis="y" angle="-180.0" />
+        </transformation>
+    </transformations>
+    <animations>
+        <circular id="aroundCenter" span="40.0" center="0.0 3.0 0.0" radius="3.0" startang="-90.0" rotang="360.0"/>
+        <circular id="aroundSelf" span="40.0" center="0.0 0.0 0.0" radius="0.0" startang="0.0" rotang="4230.0"/>
+        <linear id="spendTime" span="1" >
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="0.000000000000000000000001" zz="0.0" />
+        </linear>
+        <linear id="spendTimeRing" span="1" >
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="0.0" zz="0.000000000000000000000000000000000000001" />
+        </linear>
+        <linear id="up" span="1" >
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="3.0" zz="0.0" />
+        </linear>
+        <linear id="down" span="1" >
+            <controlpoint xx="0.0" yy="3.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+        </linear>
+        <linear id="right" span="5" >
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="3.0" zz="2.0" />
+            <controlpoint xx="0.0" yy="6.0" zz="4.0" />
+            <controlpoint xx="0.0" yy="3.0" zz="2.0" />
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+        </linear>
+        <linear id="left" span="5" >
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+            <controlpoint xx="0.0" yy="3.0" zz="-2.0" />
+            <controlpoint xx="0.0" yy="6.0" zz="-4.0" />
+            <controlpoint xx="0.0" yy="3.0" zz="-2.0" />
+            <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+        </linear>
+    </animations>
+    <primitives>
+
+        <primitive id="terrain">
+            <terrain idtexture="terrain" idheightmap="terrainheight" parts="15" heightscale="90.0"/>
+        </primitive>
+        <primitive id="water">
+            <water idtexture="watertexture" idwavemap="wavemap" parts="100" heightscale="13.0" texscale="0.5"/>
+        </primitive>
+        <primitive id="vehicle">
+            <vehicle/>
+        </primitive>
+
+
+        <primitive id="rec">
+            <rectangle x1="45.0" y1="15.0" x2="0.0" y2="0.0" />
+        </primitive >
+        <primitive id="rec1">
+            <rectangle x1="55.0" y1="45.0" x2="0.0" y2="0.0" />
+        </primitive >
+        <primitive id="quad">
+            <rectangle x1="1.5" y1="2.0" x2="0.0" y2="0.0" />
+        </primitive >
+        <primitive id="quadtop">
+            <rectangle x1="1.5" y1="1.5.0" x2="0.0" y2="0.0" />
+        </primitive >
+        <primitive id="tri">
+            <triangle x1="0.0" y1="0.0" z1="0.0" x2="18.0" y2="0.0" z2="0.0" x3="9.0" y3="7.0" z3="0.0"/>
+        </primitive >
+        <primitive id="hand">
+            <cylinder base="0.8" top="1.0" height="1.5" slices="40" stacks="5"/>
+        </primitive>
+        <primitive id="thin">
+            <cylinder base="0.08" top="0.3" height="1.5" slices="10" stacks="5"/>
+        </primitive>
+        <primitive id="large">
+            <cylinder base="0.3" top="1.1" height="0.8" slices="10" stacks="5"/>
+        </primitive>
+        <primitive id="cyl">
+            <cylinder base="40.0" top="0.0" height="15" slices="20" stacks="5"/>
+        </primitive>
+        <primitive id="bodytop">
+            <cylinder base="1.35" top="0.4" height="1" slices="80" stacks="5"/>
+        </primitive>
+        <primitive id="bodybot">
+            <sphere radius="1.3" slices="50" stacks="50"/>
+        </primitive>
+        <primitive id="leg">
+            <cylinder base="0.01" top="0.4" height="1" slices="20" stacks="5"/>
+        </primitive>
+        <primitive id="arm">
+            <cylinder base="0.15" top="0.3" height="1.8" slices="20" stacks="5"/>
+        </primitive>
+        <primitive id="ear">
+            <cylinder base="0.001" top="0.3" height="0.3" slices="20" stacks="5"/>
+        </primitive>
+        <primitive id="midcyl">
+            <cylinder base="0.7" top="0.7" height="12.5" slices="20" stacks="5"/>
+        </primitive>
+        <primitive id="cake">
+            <cylinder base="2.0" top="2.0" height="2" slices="20" stacks="5"/>
+        </primitive>
+        <primitive id="cherry">
+            <sphere radius="0.2" slices="50" stacks="50"/>
+        </primitive>
+        <primitive id="chantily">
+            <torus inner="0.3" outer="0.2" slices="80" loops="80"/>
+        </primitive>
+        <primitive id="cyl2">
+            <cylinder base="38.0" top="40.0" height="1" slices="20" stacks="5"/>
+        </primitive>
+        <primitive id="torus">
+            <torus inner="60.0" outer="80.0" slices="80" loops="80"/>
+        </primitive>
+        <primitive id="Lake">
+            <Dome slices="80" stacks="80"/>
+        </primitive>
+        <primitive id="Dome">
+            <Dome slices="80" stacks="80"/>
+        </primitive>
+        <primitive id="DomeBot">
+            <SemiSphere slices="50" stacks="50"/>
+        </primitive>
+        <primitive id="headtop">
+            <SemiSphere slices="50" stacks="50"/>
+        </primitive>
+        <primitive id="petalinterior">
+            <Dome slices="50" stacks="50"/>
+        </primitive>
+    </primitives >
+    <components>
+        <component id="quad1">
+            <transformation>
+                <transformationref id="quad1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"  />
+            <children>
+                <primitiveref id="quad" />
+            </children>
+        </component>
+        <component id="quad2">
+            <transformation>
+                <transformationref id="quad2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"  />
+            <children>
+                <primitiveref id="quad" />
+            </children>
+        </component>
+        <component id="quad3">
+            <transformation>
+                <transformationref id="quad3" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"  />
+            <children>
+                <primitiveref id="quad" />
+            </children>
+        </component>
+        <component id="quad4">
+            <transformation>
+                <transformationref id="quad4" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"  />
+            <children>
+                <primitiveref id="quadtop" />
+            </children>
+        </component>
+        <component id="quad5">
+            <transformation>
+                <transformationref id="quad5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"  />
+            <children>
+                <primitiveref id="quad" />
+            </children>
+        </component>
+        <component id="quad6">
+            <transformation>
+                <transformationref id="quad6" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"  />
+            <children>
+                <primitiveref id="quadtop" />
+            </children>
+        </component>
+        <component id="cube">
+            <transformation>
+                <transformationref id="cube" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="quad1" />
+                <componentref id="quad2" />
+                <componentref id="quad3" />
+                <componentref id="quad4" />
+                <componentref id="quad5" />
+                <componentref id="quad6" />
+            </children>
+        </component>
+
+        <component id="bed">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="frame" />
+            </children>
+        </component>
+
+        <component id="frame">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+                <componentref id="quad1" />
+            </children>
+        </component>
+
+
+        <component id="rootScene">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="materialID" />
+                <material id="change" />
+            </materials>
+            <texture id="golden" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="bed" />
+            </children>
+        </component>
+    </components>
+</yas>
