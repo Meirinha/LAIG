@@ -22,7 +22,7 @@ create_row_aux(0, Row, Row) :- !.
 create_row_aux(N, L, Row) :- 
 	N > 0, 
 	N1 is N-1, 
-	create_row_aux(N1, [freeCell|L], Row).
+	create_row_aux(N1, [e|L], Row).
 
 %----Verify Win---
 % Only verifies right, down and diagonal, other directions come from previous calls

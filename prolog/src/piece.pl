@@ -34,7 +34,7 @@ set_column(Ncolumn, Piece, [DPiece|Tail], [DPiece|NewTail]):-
 %Remove Piece
 remove_piece(Ncolumn, Nrow, RemovedPiece, BoardIn, BoardOut):-
 	get_piece(Ncolumn, Nrow, BoardIn, RemovedPiece),
-	set_piece(Ncolumn, Nrow, freeCell, BoardIn, BoardOut).
+	set_piece(Ncolumn, Nrow, e, BoardIn, BoardOut).
 
 %Move Piece
 %first case, the piece can move, last case it cannot
@@ -43,7 +43,7 @@ move_piece(right, Ncolumn, Nrow, BoardIn, BoardOut):-
 	Ncolumn < 19,
 	Ncol is Ncolumn+1,
 	get_piece(Ncol, Nrow, BoardIn, NextPiece),
-	NextPiece == freeCell,
+	NextPiece == e,
 	remove_piece(Ncolumn, Nrow, Piece, BoardIn, BoardInt),
 	set_piece(Ncol, Nrow, Piece, BoardInt, BoardOut).
 
@@ -51,7 +51,7 @@ move_piece(left, Ncolumn, Nrow, BoardIn, BoardOut):-
 	Ncolumn > 1,
 	Ncol is Ncolumn-1,
 	get_piece(Ncol, Nrow, BoardIn, NextPiece),
-	NextPiece == freeCell,
+	NextPiece == e,
 	remove_piece(Ncolumn, Nrow, Piece, BoardIn, BoardInt),
 	set_piece(Ncol, Nrow, Piece, BoardInt, BoardOut).
 
@@ -59,7 +59,7 @@ move_piece(up, Ncolumn, Nrow, BoardIn, BoardOut):-
 	Nrow > 1,
 	Nr is Nrow-1,
 	get_piece(Ncolumn, Nr, BoardIn, NextPiece),
-	NextPiece == freeCell,
+	NextPiece == e,
 	remove_piece(Ncolumn, Nrow, Piece, BoardIn, BoardInt),
 	set_piece(Ncolumn, Nr, Piece, BoardInt, BoardOut).
 
@@ -67,7 +67,7 @@ move_piece(down, Ncolumn, Nrow, BoardIn, BoardOut):-
 	Nrow < 19,
 	Nr is Nrow+1,
 	get_piece(Ncolumn, Nr, BoardIn, NextPiece),
-	NextPiece == freeCell,
+	NextPiece == e,
 	remove_piece(Ncolumn, Nrow, Piece, BoardIn, BoardInt),
 	set_piece(Ncolumn, Nr, Piece, BoardInt, BoardOut).
 
@@ -80,7 +80,7 @@ first_piece_in_row(Board, Row, Piece, Column):-
 first_piece_in_row_aux(N, Board, Row, Piece, N):-
 	N < 20,
 	get_piece(N, Row, Board, Piece),
-	Piece \= freeCell,!.
+	Piece \= e,!.
 first_piece_in_row_aux(N, Board, Row, Piece, Column):-
 	N < 20,
 	NN is N+1,
@@ -91,7 +91,7 @@ last_piece_in_row(Board, Row, Piece, Column):-
 last_piece_in_row_aux(N, Board, Row, Piece, N):-
 	N > 0,
 	get_piece(N, Row, Board, Piece),
-	Piece \= freeCell,!.
+	Piece \= e,!.
 last_piece_in_row_aux(N, Board, Row, Piece, Column):-
 	N > 0,
 	NN is N - 1,
@@ -102,7 +102,7 @@ first_piece_in_column(Board, Column, Piece, Row):-
 first_piece_in_column_aux(N, Board, Column, Piece, N):-
 	N < 20,
 	get_piece(Column, N, Board, Piece),
-	Piece \= freeCell,!.
+	Piece \= e,!.
 first_piece_in_column_aux(N, Board, Column, Piece, Row):-
 	N < 20,
 	NN is N + 1,
@@ -113,7 +113,7 @@ last_piece_in_column(Board, Column, Piece, Row):-
 last_piece_in_column_aux(N, Board, Column, Piece, N):-
 	N > 0,
 	get_piece(Column, N, Board, Piece),
-	Piece \= freeCell,!.
+	Piece \= e,!.
 last_piece_in_column_aux(N, Board, Column, Piece, Row):-
 	N > 0,
 	NN is N - 1,

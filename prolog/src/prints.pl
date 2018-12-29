@@ -1,4 +1,4 @@
-% Prints the Board, freeCell replaced with empty space ' '
+% Prints the Board, e replaced with empty space ' '
 print_board(Board):-
 	print_top,
 	print_row_divider(29),
@@ -14,11 +14,11 @@ print_board_aux([Row|Rest], N):-
 print_row([], N):- 
 	write(N),
 	print_row_divider(29).
-print_row([freeCell|Tail], N):-
+print_row([e|Tail], N):-
 	write(' | '),
 	print_row(Tail, N).
 print_row([Piece|Rest], N) :-
-	Piece \= freeCell,
+	Piece \= e,
 	write(Piece),
 	write('| '),
 	print_row(Rest, N).
