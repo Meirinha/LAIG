@@ -1,5 +1,9 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 
+let CELL_WIDTH = 1.0;
+let BOARD_SIZE = 19;
+
+
 /**
  * XMLscene class, representing the scene that is to be rendered.
  */
@@ -50,45 +54,30 @@ class XMLscene extends CGFscene {
         this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
         this.appearance.setShininess(120);
         this.appearance.setTexture(this.texture);
-        this.appearance.setTextureWrap ('REPEAT', 'REPEAT');
+        this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
 
         this.surfaces = [];
         this.objects = [];
 
         this.currentMusic = 0;
-        for(let i = 0; i<76; i++)
+        for (let i = 0; i < 76; i++)
             this.objects.push(new CGFplane(this));
 
         this.setPickEnabled(true);
 
+        this.initGameVariables();
     }
 
-    logPicking()
-    {
-        if (this.pickMode == false) {
-            if (this.pickResults != null && this.pickResults.length > 0) {
-                for (var i=0; i< this.pickResults.length; i++) {
-                    var obj = this.pickResults[i][0];
-                    if (obj)
-                    {
-                        var customId = this.pickResults[i][1];
-                        console.log("Picked object: " + obj + ", with pick id " + customId);
-                    }
-                }
-                this.pickResults.splice(0,this.pickResults.length);
-            }
-        }
-    }
+    initGameVariables() {
+        this.board = new Array(BOARD_SIZE);
 
-    music()
-    {
 
     }
 
-    initShaders(){
+    initShaders() {
 
-        this.testShaders=[
+        this.testShaders = [
             new CGFshader(this.gl, "shaders/water.vert", "shaders/water.frag"),
             new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag"),
             new CGFshader(this.gl, "shaders/OVNI.vert", "shaders/OVNI.frag")
@@ -97,16 +86,28 @@ class XMLscene extends CGFscene {
         this.selectedExampleShader = 0;
         this.scaleFactor = 1.0;
 
-        this.testShaders[0].setUniformsValues({uSampler2:1});
-        this.testShaders[1].setUniformsValues({uSampler2:1});
-        this.testShaders[2].setUniformsValues({uSampler2:1});
+        this.testShaders[0].setUniformsValues({
+            uSampler2: 1
+        });
+        this.testShaders[1].setUniformsValues({
+            uSampler2: 1
+        });
+        this.testShaders[2].setUniformsValues({
+            uSampler2: 1
+        });
         this.updateScaleFactor();
     }
 
-    updateScaleFactor(){
-        this.testShaders[0].setUniformsValues({normScale: 1});
-        this.testShaders[1].setUniformsValues({normScale: 1});
-        this.testShaders[2].setUniformsValues({normScale: 1});
+    updateScaleFactor() {
+        this.testShaders[0].setUniformsValues({
+            normScale: 1
+        });
+        this.testShaders[1].setUniformsValues({
+            normScale: 1
+        });
+        this.testShaders[2].setUniformsValues({
+            normScale: 1
+        });
     }
 
 
@@ -233,51 +234,53 @@ class XMLscene extends CGFscene {
         this.popMatrix();
         this.setActiveShader(this.defaultShader);
         // draw objects
-        for (let i =0; i<19; i++) {
+        this.displayDirectionClickables();
+        // ---- END Background, camera and axis setup
+    }
+
+    displayDirectionClickables() {
+        for (let i = 0; i < 19; i++) {
             this.pushMatrix();
-
-            this.translate(i*2+2, 0, 0);
-            this.registerForPick(i+1, this.objects[i]);
-
+            this.translate(i * 2 + 2, 0, 0);
+            this.registerForPick(i + 1, this.objects[i]);
             this.objects[i].display();
             this.popMatrix();
         }
         // ---- END Background, camera and axis setup
-        let j=0;
-    for (let i =19; i<38; i++) {
-        this.pushMatrix();
-
-        this.translate(0, 0, j*2+2);
-        this.registerForPick(i+1, this.objects[i]);
-
-        this.objects[i].display();
-        this.popMatrix();
-        j++;
+        let j = 0;
+        for (let i = 19; i < 38; i++) {
+            this.pushMatrix();
+            this.translate(0, 0, j * 2 + 2);
+            this.registerForPick(i + 1, this.objects[i]);
+            this.objects[i].display();
+            this.popMatrix();
+            j++;
+        }
+        j = 0;
+        for (let i = 38; i < 57; i++) {
+            this.pushMatrix();
+            this.translate(j * 2 + 2, 0, 40);
+            this.registerForPick(i + 1, this.objects[i]);
+            this.objects[i].display();
+            this.popMatrix();
+            j++;
+        }
+        j = 0;
+        for (let i = 57; i < 76; i++) {
+            this.pushMatrix();
+            this.translate(40, 0, j * 2 + 2);
+            this.registerForPick(i + 1, this.objects[i]);
+            this.objects[i].display();
+            this.popMatrix();
+            j++;
+        }
     }
-    j=0;
-    for (let i =38; i<57; i++) {
-        this.pushMatrix();
 
-        this.translate(j*2+2, 0, 40);
-        this.registerForPick(i+1, this.objects[i]);
+    createDirectionClickables() {
+        for (let i = 0; i < 76; i++)
+            this.registerForPick(i + 1, this.objects[i]);
 
-        this.objects[i].display();
-        this.popMatrix();
-        j++;
     }
-    j=0;
-    for (let i =57; i<76; i++) {
-        this.pushMatrix();
-
-        this.translate(40, 0, j*2+2);
-        this.registerForPick(i+1, this.objects[i]);
-
-        this.objects[i].display();
-        this.popMatrix();
-        j++;
-    }
-    // ---- END Background, camera and axis setup
-}
 
     updateLightsDisplay() {
         var i = 0;
@@ -312,14 +315,96 @@ class XMLscene extends CGFscene {
     }
 
     update(currTime) {
-        for(var node in this.graph.components) {
+        for (var node in this.graph.components) {
             this.graph.components[node].updateAnimation(currTime - this.lastTime);
         }
         this.lastTime = currTime;
         //shaders here
-        let factor = (Math.sin((currTime * 0.05)%3130*0.001)+1.0)*0.5;
-        let factor2 = (Math.sin((currTime * 0.1)%3130*0.001)+1.0)*0.5;
-        this.testShaders[0].setUniformsValues({time:factor});
-        this.testShaders[2].setUniformsValues({time:factor2});
+        let factor = (Math.sin((currTime * 0.05) % 3130 * 0.001) + 1.0) * 0.5;
+        let factor2 = (Math.sin((currTime * 0.1) % 3130 * 0.001) + 1.0) * 0.5;
+        this.testShaders[0].setUniformsValues({
+            time: factor
+        });
+        this.testShaders[2].setUniformsValues({
+            time: factor2
+        });
+    }
+    logPicking() {
+        if (this.pickMode == false) {
+            if (this.pickResults != null && this.pickResults.length > 0) {
+                for (var i = 0; i < this.pickResults.length; i++) {
+                    var obj = this.pickResults[i][0];
+                    if (obj) {
+                        var customId = this.pickResults[i][1];
+                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                    }
+                }
+                this.pickResults.splice(0, this.pickResults.length);
+            }
+        }
+    }
+    music() {
+
+    }
+
+    getPrologRequest(requestString, onSuccess, onError, port) {
+        let requestPort = port || 8081;
+        let request = new XMLHttpRequest();
+        request.scene = this;
+        request.open('GET', 'http://localhost:' + requestPort + '/' + requestString, true);
+
+        request.onload = onSuccess || function (data) {
+            console.log("Request successful. Reply: " + data.target.response);
+        };
+        request.onerror = onError || function () {
+            console.log("Error waiting for response");
+        };
+
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        request.send();
+    }
+
+    makeRequest(requestString) {
+        getPrologRequest(requestString, handleReply);
+    }
+
+    handleReply(data) {
+        console.log("Reply");
+        let regex = new RegExp("^([^-]+)(?:-([^-]+)-(.+))?$"); //Board - NextTurnPlayer - gameEnded
+        let matched = regex.exec(data.target.responseText);
+
+        this.zurero.validMove = true;
+        this.zurero.boardAfterAnimation = parseBoard(matched[1]);
+        if (matched[2] != undefined && matched[3] != undefined) {
+            this.zurero.boardList.push(this.zurero.currentBoard);
+            this.zurero.player = matched[2];
+            this.zurero.gameEnded = matched[3];
+
+            //Good response, Animate 
+            let animation = this.nextPieceAnimInfo.animation;
+            animation.setStartTime((new Date().getTime() - this.initialTime) / 1000);
+            this.animations[this.nextPieceAnimInfo.pickID] = animation;
+            this.animations.length++;
+        } else
+            this.zurero.currentBoard = this.zurero.boardAfterAnimation;
+    }
+
+    parseBoard(string) {
+        let board = new Array();
+        let regex = /\[(?:\[)?([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^\]]*)\](?:\])?(?:,|\])/y;
+
+        for (let i = 0; i < BOARD_SIZE; i++) {
+            board[i] = new Array();
+            let matched = regex.exec(string);
+            for (let j = 1; j < matched.length; j++) {
+                board[i].push(matched[j]);
+            }
+        }
+        return board;
+    }
+
+    moveRequest(direction, line)
+    {
+        makeRequest("moveRequest(" + direction + "," + line + ")");
     }
 };
