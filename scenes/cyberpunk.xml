@@ -282,10 +282,10 @@
             <Dome slices="50" stacks="50"/>
         </primitive>
         <primitive id="trunk">
-            <model fileVerts="trunk.vert" fileFaces="trunk.faces" scale='1'/>
+            <model fileVerts="bedframe.vert" fileFaces="bedframe.faces" scale='1'/>
         </primitive>
         <primitive id="leaf">
-            <model fileVerts="leafe.vert" fileFaces="leafe.faces" scale='1'/>
+            <model fileVerts="robot.vert" fileFaces="robot.faces" scale='1'/>
         </primitive>
     </primitives >
     <components>
@@ -416,7 +416,7 @@
                 <material id="materialID" />
                 <material id="change" />
             </materials>
-            <texture id="none"/>
+            <texture id="mariogreen"/>
             <children>
                 <componentref id="bed" />
             </children>
