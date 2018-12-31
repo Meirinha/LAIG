@@ -281,8 +281,11 @@
         <primitive id="petalinterior">
             <Dome slices="50" stacks="50"/>
         </primitive>
-        <primitive id="bed">
-            <model fileVerts="bed.vert" fileFaces="bed.faces" scale='1'/>
+        <primitive id="trunk">
+            <model fileVerts="trunk.vert" fileFaces="trunk.faces" scale='1'/>
+        </primitive>
+        <primitive id="leaf">
+            <model fileVerts="leafe.vert" fileFaces="leafe.faces" scale='1'/>
         </primitive>
     </primitives >
     <components>
@@ -385,7 +388,8 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="bed" />
+                <primitiveref id="trunk" />
+                <primitiveref id="leaf" />
             </children>
         </component>
 
@@ -412,7 +416,7 @@
                 <material id="materialID" />
                 <material id="change" />
             </materials>
-            <texture id="golden" length_s="1.0" length_t="1.0" />
+            <texture id="none"/>
             <children>
                 <componentref id="bed" />
             </children>
