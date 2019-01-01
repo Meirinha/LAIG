@@ -1115,6 +1115,12 @@ class MySceneGraph {
             else if(currGrandchild.nodeName == "vehicle"){
               this.primitives[currChild.getAttribute("id")] = new OVNI(this.scene);
             }
+            else if(currGrandchild.nodeName == "model"){
+              let fileVerts = currGrandchild.getAttribute("fileVerts");
+              let fileFaces = currGrandchild.getAttribute("fileFaces");
+              let scale = parseInt(currGrandchild.getAttribute("scale"));
+              this.primitives[currChild.getAttribute("id")] = new MyModel(this.scene, fileVerts, fileFaces, scale);
+            }
             else this.onXMLError("Unknown node name " + currGrandchild.nodeName);
             i++;
         }
