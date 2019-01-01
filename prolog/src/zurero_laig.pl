@@ -12,6 +12,13 @@ board(Board) :- create_board(Board).
 
 current_player(white).
 
+reset:-
+	create_board(Board),
+	retract((board(_Board):-_Body)),
+	assertz(board(Board)),
+	retract(current_player(_Player)),
+	assert(current_player(white)).
+
 zurero_laig(Direction, Number, NewBoard):-
 	board(Board),
 	current_player(Player),

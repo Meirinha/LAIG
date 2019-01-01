@@ -71,8 +71,6 @@ class XMLscene extends CGFscene {
 
     initGameVariables() {
         this.board = new Array(BOARD_SIZE);
-
-
     }
 
     initShaders() {
@@ -109,8 +107,6 @@ class XMLscene extends CGFscene {
             normScale: 1
         });
     }
-
-
 
     /**
      * Initializes the scene cameras.
@@ -188,7 +184,6 @@ class XMLscene extends CGFscene {
         this.interface.addMusicGroup();
 
         this.sceneInited = true;
-
     }
 
 
@@ -276,12 +271,6 @@ class XMLscene extends CGFscene {
         }
     }
 
-    createDirectionClickables() {
-        for (let i = 0; i < 76; i++)
-            this.registerForPick(i + 1, this.objects[i]);
-
-    }
-
     updateLightsDisplay() {
         var i = 0;
         for (var key in this.lightValues) {
@@ -337,6 +326,8 @@ class XMLscene extends CGFscene {
                     if (obj) {
                         var customId = this.pickResults[i][1];
                         console.log("Picked object: " + obj + ", with pick id " + customId);
+
+                        this.getDirectionandLine(customId);
                     }
                 }
                 this.pickResults.splice(0, this.pickResults.length);
@@ -345,6 +336,36 @@ class XMLscene extends CGFscene {
     }
     music() {
 
+    }
+
+    getDirectionandLine(ID) {
+        let n = Math.floor((ID - 1) / 19);
+        let line = (ID - 1) % 19 + 1;
+        let direction;
+
+        switch (n) {
+            case 0:
+                {
+                    direction = "down";
+                    break;
+                }
+            case 1:
+                {
+                    direction = "right";
+                    break;
+                }
+            case 2:
+                {
+                    direction = "up";
+                    break;
+                }
+            default:
+                {
+                    direction = "left";
+                }
+        }
+        this.moveRequest(direction, line);
+        console.log("Dir: " + direction + " LINE: " + line);
     }
 
     getPrologRequest(requestString, onSuccess, onError, port) {
@@ -365,7 +386,7 @@ class XMLscene extends CGFscene {
     }
 
     makeRequest(requestString) {
-        getPrologRequest(requestString, handleReply);
+        this.getPrologRequest(requestString, this.handleReply);
     }
 
     handleReply(data) {
@@ -403,8 +424,7 @@ class XMLscene extends CGFscene {
         return board;
     }
 
-    moveRequest(direction, line)
-    {
-        makeRequest("moveRequest(" + direction + "," + line + ")");
+    moveRequest(direction, line) {
+        this.makeRequest("move(" + direction + "," + line + ")");
     }
 };
