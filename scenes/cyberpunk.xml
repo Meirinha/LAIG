@@ -132,6 +132,9 @@
         <transformation id="transID">
             <translate x="0.0" y="0.0" z="0.0" />
         </transformation>
+        <transformation id="rotation">
+            <rotate axis="x" angle="-90.0" />
+        </transformation>
 
         <transformation id="cube">
             <translate x="4" y="0.0" z="4" />
@@ -281,11 +284,14 @@
         <primitive id="petalinterior">
             <Dome slices="50" stacks="50"/>
         </primitive>
-        <primitive id="trunk">
+        <primitive id="bedframe">
             <model fileVerts="bedframe.vert" fileFaces="bedframe.faces" scale='1'/>
         </primitive>
-        <primitive id="leaf">
-            <model fileVerts="robot.vert" fileFaces="robot.faces" scale='1'/>
+        <primitive id="mattress">
+            <model fileVerts="mattress.vert" fileFaces="mattress.faces" scale='1'/>
+        </primitive>
+        <primitive id="wall">
+            <model fileVerts="wall.vert" fileFaces="wall.faces" scale='1'/>
         </primitive>
     </primitives >
     <components>
@@ -381,15 +387,16 @@
 
         <component id="bed">
             <transformation>
-                <transformationref id="transID" />
+                <transformationref id="rotation" />
             </transformation>
             <materials>
                 <material id="inherit" />
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="trunk" />
-                <primitiveref id="leaf" />
+                <primitiveref id="bedframe" />
+                <primitiveref id="mattress" />
+                <primitiveref id="wall" />
             </children>
         </component>
 
@@ -416,7 +423,7 @@
                 <material id="materialID" />
                 <material id="change" />
             </materials>
-            <texture id="mariogreen"/>
+            <texture id="none"/>
             <children>
                 <componentref id="bed" />
             </children>
