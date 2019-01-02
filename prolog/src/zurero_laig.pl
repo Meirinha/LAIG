@@ -28,6 +28,16 @@ zurero_laig(Direction, Number, NewBoard):-
 	assert_change_player(Player),
 	print_board(NewBoard).
 
+zurero_bot(Diff, NewBoard):-
+	board(Board),
+	current_player(Player),
+	player_piece(Player, Piece),
+	choose_move(Diff, Piece, Board, Direction, Line),
+	move(Direction, Line, Piece, Board, NewBoard),
+	assert_new_board(NewBoard),
+	assert_change_player(Player),
+	print_board(NewBoard).
+
 % Assert New Board - Save the board for the next call 
 assert_new_board(NewBoard):-
 	retract((board(_Board):-_Body)),

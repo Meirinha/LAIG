@@ -72,6 +72,9 @@ class XMLscene extends CGFscene {
 
     initGameVariables() {
         this.board = new Array(BOARD_SIZE);
+
+        this.vsBot = true; //TODO
+        this.botDiff = 2;
     }
 
     initShaders() {
@@ -366,7 +369,6 @@ class XMLscene extends CGFscene {
                 }
         }
         this.moveRequest(direction, line);
-        console.log("Dir: " + direction + " LINE: " + line);
     };
 
     getPrologRequest(requestString, onSuccess, onError, port) {
@@ -397,7 +399,7 @@ class XMLscene extends CGFscene {
         console.log("Reply");
         let regex = new RegExp("^([^-]+)(?:-([^-]+)-(.+))?$"); //Board - NextTurnPlayer - gameEnded
         let matched = regex.exec(data.target.responseText);
-        
+
         this.validMove = true;
 
         let board = new Array();
@@ -428,6 +430,11 @@ class XMLscene extends CGFscene {
     };
 
     moveRequest(direction, line) {
+        console.log("Direction: " + direction + "Line: " + line);
         this.makeRequest("move(" + direction + "," + line + ")");
+        if(this.vsBot)
+        {
+            this.makeRequest("botMove(" + this.botDiff + ")");
+        }
     };
 };
