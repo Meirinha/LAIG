@@ -1,10 +1,46 @@
 <yas>
     <scene root="rootScene" axis_length="5.0" />
-    <views default="topDown" >
-      <perspective id="topDown" near="0.1" far="900" angle="90.0">
+    <views default="default" >
+      <perspective id="default" near="0.1" far="900" angle="90.0">
           <from x="5" y="5" z="5" />
-          <to x="20" y="0" z="20" />
+          <to x="0" y="0" z="0" />
       </perspective>
+        <perspective id="moogle" near="0.1" far="900" angle="90.0">
+            <from x="0" y="145" z="20" />
+            <to x="0" y="137" z="0" />
+        </perspective>
+        <perspective id="veigar_hand" near="0.1" far="900" angle="90.0">
+            <from x="-9" y="144.5" z="-9" />
+            <to x="-14.5" y="143.5" z="-11.5" />
+        </perspective>
+        <perspective id="gramophone" near="0.1" far="900" angle="90.0">
+            <from x="4.0" y="144" z="-19" />
+            <to x="0.0" y="141" z="-24" />
+        </perspective>
+        <perspective id="piranha_plant" near="0.1" far="900" angle="90.0">
+            <from x="9" y="144.5" z="-9" />
+            <to x="16.5" y="143.5" z="-12" />
+        </perspective>
+        <perspective id="cactuar" near="0.1" far="900" angle="90.0">
+            <from x="9.0" y="144" z="9" />
+            <to x="14.5" y="141" z="12.5" />
+        </perspective>
+        <perspective id="cake" near="0.1" far="900" angle="90.0">
+            <from x="-9.0" y="144" z="9" />
+            <to x="-14.5" y="141" z="12.5" />
+        </perspective>
+        <perspective id="house" near="0.1" far="900" angle="90.0">
+            <from x="4.0" y="144" z="19" />
+            <to x="2.0" y="141" z="24" />
+        </perspective>
+        <ortho id="orth" near="0.1" far="500" left="-50" right="50" top="30" bottom="-30" >
+            <from x="30" y="160" z="30" />
+            <to x="0" y="135" z="0" />
+        </ortho>
+        <perspective id="world" near="0.1" far="900" angle="90.0">
+            <from x="0" y="130" z="100" />
+            <to x="0" y="137" z="0" />
+        </perspective>
     </views>
     <ambient>
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
@@ -237,11 +273,11 @@
         <primitive id="DomeBot">
             <SemiSphere slices="50" stacks="50"/>
         </primitive>
-        <primitive id="bedframe">
-            <model fileVerts="bedframe.vert" fileFaces="bedframe.faces" scale='1'/>
+        <primitive id="trunk">
+            <model fileVerts="trunk.vert" fileFaces="trunk.faces" scale='1'/>
         </primitive>
-        <primitive id="mattress">
-            <model fileVerts="mattress.vert" fileFaces="mattress.faces" scale='1'/>
+        <primitive id="leaf">
+            <model fileVerts="leafe.vert" fileFaces="leafe.faces" scale='1'/>
         </primitive>
         <primitive id="wall">
             <model fileVerts="wall.vert" fileFaces="wall.faces" scale='1'/>
@@ -338,7 +374,7 @@
             </children>
         </component>
 
-        <component id="bed">
+        <component id="tree">
             <transformation>
                 <transformationref id="rotation" />
             </transformation>
@@ -347,8 +383,8 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="bedframe" />
-                <primitiveref id="mattress" />
+                <primitiveref id="trunk" />
+                <primitiveref id="leaf" />
             </children>
         </component>
 
@@ -375,98 +411,10 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <componentref id="wallfront" />
-                <componentref id="wallleft" />
-                <componentref id="wallright" />
-                <componentref id="wallback" />
+                <componentref id="tree" />
             </children>
         </component>
-        <component id="wallfront">
-            <transformation>
-                <transformationref id="transID" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <componentref id="wall" />
-                <componentref id="windowwall" />
-                <componentref id="window" />
-            </children>
-        </component>
-        <component id="wallleft">
-            <transformation>
-                <transformationref id="wallleft" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <componentref id="cube" />
-            </children>
-        </component>
-        <component id="wallback">
-            <transformation>
-                <transformationref id="wallback" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <componentref id="cube" />
-            </children>
-        </component>
-        <component id="wallright">
-            <transformation>
-                <transformationref id="wallright" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <componentref id="cube" />
-            </children>
-        </component>
-        <component id="wall">
-            <transformation>
-                <transformationref id="wallscaling" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <componentref id="cube" />
-            </children>
-        </component>
-        <component id="windowwall">
-            <transformation>
-                <transformationref id="rotationwall" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <primitiveref id="wall" />
-            </children>
-        </component>
-        <component id="window">
-            <transformation>
-                <transformationref id="window" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <primitiveref id="cake" />
-            </children>
-        </component>
+
 
 
         <component id="rootScene">
@@ -479,7 +427,7 @@
             </materials>
             <texture id="none"/>
             <children>
-                <componentref id="bed" />
+                <componentref id="tree" />
                 <componentref id="ambient" />
             </children>
         </component>
