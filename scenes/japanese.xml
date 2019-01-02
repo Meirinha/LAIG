@@ -273,11 +273,11 @@
         <primitive id="DomeBot">
             <SemiSphere slices="50" stacks="50"/>
         </primitive>
-        <primitive id="bedframe">
-            <model fileVerts="bedframe.vert" fileFaces="bedframe.faces" scale='1'/>
+        <primitive id="trunk">
+            <model fileVerts="trunk.vert" fileFaces="trunk.faces" scale='1'/>
         </primitive>
-        <primitive id="mattress">
-            <model fileVerts="mattress.vert" fileFaces="mattress.faces" scale='1'/>
+        <primitive id="leaf">
+            <model fileVerts="leafe.vert" fileFaces="leafe.faces" scale='1'/>
         </primitive>
         <primitive id="wall">
             <model fileVerts="wall.vert" fileFaces="wall.faces" scale='1'/>
@@ -374,7 +374,7 @@
             </children>
         </component>
 
-        <component id="bed">
+        <component id="tree">
             <transformation>
                 <transformationref id="rotation" />
             </transformation>
@@ -383,8 +383,8 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="bedframe" />
-                <primitiveref id="mattress" />
+                <primitiveref id="trunk" />
+                <primitiveref id="leaf" />
             </children>
         </component>
 
@@ -411,98 +411,10 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <componentref id="wallfront" />
-                <componentref id="wallleft" />
-                <componentref id="wallright" />
-                <componentref id="wallback" />
+                <componentref id="tree" />
             </children>
         </component>
-        <component id="wallfront">
-            <transformation>
-                <transformationref id="transID" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <componentref id="wall" />
-                <componentref id="windowwall" />
-                <componentref id="window" />
-            </children>
-        </component>
-        <component id="wallleft">
-            <transformation>
-                <transformationref id="wallleft" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <componentref id="cube" />
-            </children>
-        </component>
-        <component id="wallback">
-            <transformation>
-                <transformationref id="wallback" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <componentref id="cube" />
-            </children>
-        </component>
-        <component id="wallright">
-            <transformation>
-                <transformationref id="wallright" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <componentref id="cube" />
-            </children>
-        </component>
-        <component id="wall">
-            <transformation>
-                <transformationref id="wallscaling" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <componentref id="cube" />
-            </children>
-        </component>
-        <component id="windowwall">
-            <transformation>
-                <transformationref id="rotationwall" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <primitiveref id="wall" />
-            </children>
-        </component>
-        <component id="window">
-            <transformation>
-                <transformationref id="window" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <primitiveref id="cake" />
-            </children>
-        </component>
+
 
 
         <component id="rootScene">
@@ -515,7 +427,7 @@
             </materials>
             <texture id="none"/>
             <children>
-                <componentref id="bed" />
+                <componentref id="tree" />
                 <componentref id="ambient" />
             </children>
         </component>
