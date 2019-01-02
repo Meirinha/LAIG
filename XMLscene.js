@@ -19,6 +19,7 @@ class XMLscene extends CGFscene {
         this.lightValues = {};
 
         this.lastTime = 0;
+
     }
 
     /**
@@ -366,7 +367,7 @@ class XMLscene extends CGFscene {
         }
         this.moveRequest(direction, line);
         console.log("Dir: " + direction + " LINE: " + line);
-    }
+    };
 
     getPrologRequest(requestString, onSuccess, onError, port) {
         let requestPort = port || 8081;
@@ -383,23 +384,38 @@ class XMLscene extends CGFscene {
 
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         request.send();
-    }
+    };
 
     makeRequest(requestString) {
         this.getPrologRequest(requestString, this.handleReply);
-    }
+        // console.log("this.handleReply");
+        // console.log(this.handleReply);
+
+    };
 
     handleReply(data) {
         console.log("Reply");
         let regex = new RegExp("^([^-]+)(?:-([^-]+)-(.+))?$"); //Board - NextTurnPlayer - gameEnded
         let matched = regex.exec(data.target.responseText);
+        
+        this.validMove = true;
 
-        this.zurero.validMove = true;
-        this.zurero.boardAfterAnimation = parseBoard(matched[1]);
+        let board = new Array();
+        regex = /\[(?:\[)?([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^\]]*)\](?:\])?(?:,|\])/y;
+        for (let i = 0; i < BOARD_SIZE; i++) {
+            board[i] = new Array();
+            let matchedsequel = regex.exec(matched[1]);
+            for (let j = 1; j < matchedsequel.length; j++) {
+                board[i].push(matchedsequel[j]);
+            }
+        }
+
+        this.boardAfterAnimation = board;
+
         if (matched[2] != undefined && matched[3] != undefined) {
-            this.zurero.boardList.push(this.zurero.currentBoard);
-            this.zurero.player = matched[2];
-            this.zurero.gameEnded = matched[3];
+            this.boardList.push(this.currentBoard);
+            this.player = matched[2];
+            this.gameEnded = matched[3];
 
             //Good response, Animate 
             let animation = this.nextPieceAnimInfo.animation;
@@ -407,24 +423,11 @@ class XMLscene extends CGFscene {
             this.animations[this.nextPieceAnimInfo.pickID] = animation;
             this.animations.length++;
         } else
-            this.zurero.currentBoard = this.zurero.boardAfterAnimation;
-    }
-
-    parseBoard(string) {
-        let board = new Array();
-        let regex = /\[(?:\[)?([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^\]]*)\](?:\])?(?:,|\])/y;
-
-        for (let i = 0; i < BOARD_SIZE; i++) {
-            board[i] = new Array();
-            let matched = regex.exec(string);
-            for (let j = 1; j < matched.length; j++) {
-                board[i].push(matched[j]);
-            }
-        }
-        return board;
-    }
+            this.currentBoard = this.boardAfterAnimation;
+            console.log("Hello There");
+    };
 
     moveRequest(direction, line) {
         this.makeRequest("move(" + direction + "," + line + ")");
-    }
+    };
 };
