@@ -34,26 +34,33 @@
     </lights>
     <textures>
         <texture id="golden" file="golden.png" />
+        <texture id="mattress" file="mattress.jpg" />
+        <texture id="floor" file="floor.jpg" />
+        <texture id="wall" file="wall.jpg" />
+        <texture id="glass" file="glass.png" />
+        <texture id="outside" file="outside.jpg" />
+        <texture id="pillow" file="pillow.jpg" />
+        <texture id="blue" file="blue.jpg" />
     </textures>
     <materials>
-        <material id="halo" shininess = "1.0" >
-            <emission r="0.5" g="0.5" b="0.5" a="1.0" />
-            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
-            <diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
-            <specular r="0.8" g="0.8" b="0.8" a="1.0" />
+        <material id="metal" shininess = "0.7" >
+            <emission r="0.2" g="0.2" b="0.2" a="1.0" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
+            <specular r="0.4" g="0.4" b="0.4" a="1.0" />
         </material>
 
-        <material id="change" shininess = "0.8" >
-            <emission r="0.3" g="0.0" b="0.0" a="1.0" />
-            <ambient r="0.3" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="0.3" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.3" g="0.0" b="0.0" a="1.0" />
+        <material id="wall" shininess = "0.3" >
+            <emission r="0.3" g="0.3" b="0.3" a="1.0" />
+            <ambient r="0.3" g="0.3" b="0.3" a="1.0" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
+            <specular r="0.1" g="0.1" b="0.1" a="1.0" />
         </material>
-        <material id="cherry" shininess = "0.8" >
-            <emission r="0.3" g="0.1" b="0.1" a="1.0" />
-            <ambient r="0.3" g="0.1" b="0.1" a="1.0" />
-            <diffuse r="0.3" g="0.1" b="0.1" a="1.0" />
-            <specular r="0.3" g="0.1" b="0.1" a="1.0" />
+        <material id="glass" shininess = "0.8" >
+            <emission r="0.9" g="0.9" b="0.9" a="1.0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </material>
         <material id="mariogreen" shininess = "0.5" >
             <emission r="0.1" g="0.2" b="0.1" a="1.0" />
@@ -95,6 +102,16 @@
     <transformations>
         <transformation id="transID">
             <translate x="0.0" y="0.0" z="0.0" />
+        </transformation>
+        <transformation id="pillow">
+          <rotate axis="x" angle="34.0" />
+            <translate x="20.0" y="7.0" z="-1.0" />
+            <scale x="12.0" y="1.0" z="5.0" />
+        </transformation>
+        <transformation id="outside">
+
+            <translate x="-25.0" y="0.0" z="17.0" />
+            <scale x="15.0" y="8.0" z="15.0" />
         </transformation>
         <transformation id="floor">
             <translate x="-2.0" y="-59.0" z="-3.0" />
@@ -198,7 +215,7 @@
     <primitives>
 
         <primitive id="terrain">
-            <terrain idtexture="terrain" idheightmap="terrainheight" parts="15" heightscale="90.0"/>
+            <terrain idtexture="blue" idheightmap="pillow" parts="10" heightscale="0.8"/>
         </primitive>
         <primitive id="water">
             <water idtexture="watertexture" idwavemap="wavemap" parts="100" heightscale="13.0" texscale="0.5"/>
@@ -344,14 +361,51 @@
 
         <component id="bed">
             <transformation>
-                <transformationref id="rotation" />
+                <transformationref id="transID" />
             </transformation>
             <materials>
                 <material id="inherit" />
             </materials>
             <texture id="inherit" />
             <children>
+                <componentref id="bedframe" />
+                <componentref id="mattress" />
+                <componentref id="pillow" />
+            </children>
+        </component>
+        <component id="pillow">
+            <transformation>
+                <transformationref id="pillow" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="terrain" />
+            </children>
+        </component>
+        <component id="bedframe">
+            <transformation>
+                <transformationref id="rotation" />
+            </transformation>
+            <materials>
+                <material id="metal" />
+            </materials>
+            <texture id="none" />
+            <children>
                 <primitiveref id="bedframe" />
+            </children>
+        </component>
+        <component id="mattress">
+            <transformation>
+                <transformationref id="rotation" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="mattress" length_s="1.0" length_t="1.0" />
+            <children>
                 <primitiveref id="mattress" />
             </children>
         </component>
@@ -375,14 +429,27 @@
                 <transformationref id="transID" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="wall" />
             </materials>
             <texture id="inherit" />
             <children>
-                <componentref id="wallfront" />
+              <componentref id="outside" />
                 <componentref id="wallleft" />
                 <componentref id="wallright" />
                 <componentref id="wallback" />
+                <componentref id="wallfront" />
+            </children>
+        </component>
+        <component id="outside">
+            <transformation>
+                <transformationref id="outside" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="outside" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="quad1" />
             </children>
         </component>
         <component id="wallfront">
@@ -395,9 +462,9 @@
             <texture id="inherit" />
             <children>
                 <componentref id="wall" />
-                <componentref id="windowwall" />
                 <componentref id="window" />
                 <componentref id="floor" />
+                <componentref id="windowwall" />
             </children>
         </component>
         <component id="floor">
@@ -407,7 +474,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="floor" length_s="0.3" length_t="0.3" />
             <children>
                 <componentref id="quad4" />
             </children>
@@ -419,7 +486,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="wall" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="cube" />
             </children>
@@ -431,7 +498,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="wall" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="cube" />
             </children>
@@ -443,7 +510,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="wall" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="cube" />
             </children>
@@ -455,7 +522,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="wall" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="cube" />
             </children>
@@ -465,7 +532,7 @@
                 <transformationref id="rotationwall" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="metal" />
             </materials>
             <texture id="inherit" />
             <children>
@@ -477,9 +544,9 @@
                 <transformationref id="window" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="glass" />
             </materials>
-            <texture id="inherit" />
+            <texture id="glass" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="cake" />
             </children>
