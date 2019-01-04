@@ -96,6 +96,10 @@
         <transformation id="transID">
             <translate x="0.0" y="0.0" z="0.0" />
         </transformation>
+        <transformation id="floor">
+            <translate x="-2.0" y="-59.0" z="-3.0" />
+            <scale x="30.0" y="30.0" z="30.0" />
+        </transformation>
         <transformation id="window">
             <translate x="0.3" y="8.0" z="30.0" />
             <scale x="0.5" y="1.0" z="1.4" />
@@ -393,6 +397,19 @@
                 <componentref id="wall" />
                 <componentref id="windowwall" />
                 <componentref id="window" />
+                <componentref id="floor" />
+            </children>
+        </component>
+        <component id="floor">
+            <transformation>
+                <transformationref id="floor" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="quad4" />
             </children>
         </component>
         <component id="wallleft">
