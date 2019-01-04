@@ -12,7 +12,7 @@ board(Board) :- create_board(Board).
 
 current_player(white).
 
-reset:-
+reset(Board):-
 	create_board(Board),
 	retract((board(_Board):-_Body)),
 	assertz(board(Board)),
