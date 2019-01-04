@@ -94,7 +94,7 @@ check_end_of_header(end_of_file) :- !,fail.
 check_end_of_header(_).
 
 % Function to Output Request Lines (uncomment the line bellow to see more information on received HTTP Requests)
-% print_header_line(LineCodes) :- catch((atom_codes(Line,LineCodes),write(Line),nl),_,fail), !.
+print_header_line(LineCodes) :- catch((atom_codes(Line,LineCodes),write(Line),nl),_,fail), !.
 print_header_line(_).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -109,7 +109,7 @@ parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
 
 /** Actual game*/
-parse_input(reset, reset):- reset.
+parse_input(reset, Board):- reset(Board).
 parse_input(move(Direction, N), Board) :- zurero_laig(Direction, N, Board).
 
 parse_input(botMove(Diff), Board) :- zurero_bot(Diff, Board).

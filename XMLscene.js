@@ -71,10 +71,14 @@ class XMLscene extends CGFscene {
     }
 
     initGameVariables() {
-        this.board = new Array(BOARD_SIZE);
+        this.board;
+        this.resetRequest();
 
         this.vsBot = true; //TODO
         this.botDiff = 2;
+
+        this.whitePiece = new MyCylinder(this, 1, 1, 1, 1, 4, 4);
+        this.blackPiece = new MyDome(this, 1, 10, 10);
     }
 
     initShaders() {
@@ -196,6 +200,8 @@ class XMLscene extends CGFscene {
      */
     display() {
 
+        // console.log(this.board);
+
         this.logPicking();
         this.clearPickRegistration();
         // ---- BEGIN Background, camera and axis setup
@@ -222,7 +228,10 @@ class XMLscene extends CGFscene {
             this.setCameraUsed();
             // Displays the scene (MySceneGraph function).
 
-            this.graph.displayScene();
+            // this.graph.displayScene();
+            if (typeof this.board !== 'undefined') { //Wait for prolog board
+                this.displayBoardPieces();
+            }
 
         } else {
             // Draw axis
@@ -235,6 +244,25 @@ class XMLscene extends CGFscene {
         // draw objects
         this.displayDirectionClickables();
         // ---- END Background, camera and axis setup
+    }
+
+    displayBoardPieces() {
+        let piece;
+        for (let i = 0; i < BOARD_SIZE; i++) {
+            for (let j = 0; j < BOARD_SIZE; j++) {
+                // console.log(this.board);
+                piece = this.board[j][i];
+                if (piece != "e") {
+                    this.pushMatrix();
+                    this.translate(i * 2 + 2, 0, j * 2 + 2);
+                    if (piece == "O")
+                        this.whitePiece.display();
+                    else if (piece == "X")
+                        this.blackPiece.display();
+                    this.popMatrix();
+                }
+            }
+        }
     }
 
     displayDirectionClickables() {
@@ -368,8 +396,28 @@ class XMLscene extends CGFscene {
                     direction = "left";
                 }
         }
-        this.moveRequest(direction, line);
+        if (this.validMove(direction, line))
+            this.moveRequest(direction, line);
     };
+
+    validMove(direction, line) {
+        switch (direction) {
+            case "down":
+            case "up":
+                {
+                    for (let i = 0; i < BOARD_SIZE; i++)
+                        if (this.board[i][line-1] != "e")
+                            return true;
+                    break;
+                }
+            default:
+                    for (let i = 0; i < BOARD_SIZE; i++)
+                        if (this.board[line-1][i] != "e")
+                            return true;
+        }
+        console.log("NOT Valid");
+        return false;
+    }
 
     getPrologRequest(requestString, onSuccess, onError, port) {
         let requestPort = port || 8081;
@@ -390,9 +438,6 @@ class XMLscene extends CGFscene {
 
     makeRequest(requestString) {
         this.getPrologRequest(requestString, this.handleReply);
-        // console.log("this.handleReply");
-        // console.log(this.handleReply);
-
     };
 
     handleReply(data) {
@@ -412,7 +457,8 @@ class XMLscene extends CGFscene {
             }
         }
 
-        this.boardAfterAnimation = board;
+        this.scene.board = board;
+        console.log(board);
 
         if (matched[2] != undefined && matched[3] != undefined) {
             this.boardList.push(this.currentBoard);
@@ -426,15 +472,19 @@ class XMLscene extends CGFscene {
             this.animations.length++;
         } else
             this.currentBoard = this.boardAfterAnimation;
-            console.log("Hello There");
+        console.log("Hello There");
     };
 
     moveRequest(direction, line) {
         console.log("Direction: " + direction + "Line: " + line);
         this.makeRequest("move(" + direction + "," + line + ")");
-        if(this.vsBot)
-        {
+        if (this.vsBot) {
             this.makeRequest("botMove(" + this.botDiff + ")");
         }
     };
+
+    resetRequest() {
+        console.log("Reset Board");
+        this.makeRequest("reset");
+    }
 };
