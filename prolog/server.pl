@@ -110,6 +110,7 @@ parse_input(quit, goodbye).
 
 /** Actual game*/
 parse_input(reset, Board):- reset(Board).
+parse_input(undo, Board):- undo(Board).
 parse_input(move(Direction, N), Board) :- zurero_laig(Direction, N, Board).
 
 parse_input(botMove(Diff), Board) :- zurero_bot(Diff, Board).

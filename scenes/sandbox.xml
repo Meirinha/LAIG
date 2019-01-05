@@ -1,9 +1,13 @@
 <yas>
     <scene root="rootScene" axis_length="1.0" />
     <views default="default" >
-        <perspective id="default" near="0.1" far="900" angle="90.0">
+        <perspective id="top" near="0.1" far="900" angle="90.0">
             <from x="20" y="30" z="20.1" />
             <to x="20" y="0" z="20" />
+        </perspective>
+        <perspective id="default" near="0.1" far="900" angle="90.0">
+            <from x="5" y="5" z="5" />
+            <to x="0" y="0" z="0" />
         </perspective>
     </views>
     <ambient>
@@ -106,7 +110,7 @@
         </component> -->
         <component id="cake">
             <transformation>
-                <transformationref id="transID" />
+                <translate x="-10" y="-10" z="-10" />
             </transformation>
             <animations>
                 <!-- <animationref id="circular"/> -->

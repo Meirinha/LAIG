@@ -57,11 +57,12 @@ class XMLscene extends CGFscene {
         this.appearance.setTexture(this.texture);
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
+        this.initAppearances();
+
 
         this.surfaces = [];
         this.objects = [];
 
-        this.currentMusic = 0;
         for (let i = 0; i < 76; i++)
             this.objects.push(new CGFplane(this));
 
@@ -74,11 +75,71 @@ class XMLscene extends CGFscene {
         this.board;
         this.resetRequest();
 
+        this.previousBoard = [];
+        this.moveSequences = [];
+
         this.vsBot = true; //TODO
         this.botDiff = 2;
 
-        this.whitePiece = new MyCylinder(this, 1, 1, 1, 1, 4, 4);
-        this.blackPiece = new MyDome(this, 1, 10, 10);
+        this.whitePiece = new CyberPiece(this, this.robotWhite, this.ballWhite);
+        this.blackPiece = new CyberPiece(this, this.robotBlack, this.ballBlack);
+
+        this.menu1 = new MyPlane(this, 1, 1);
+        this.menu2 = new MyPlane(this, 1, 1);
+        this.menu3 = new MyPlane(this, 1, 1);
+
+        this.boardQuad = new MyRectangle(this, 1, [0, 0, 1, 1]);
+    }
+
+    initAppearances() {
+
+        this.appearance = new CGFappearance(this);
+        this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
+        this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
+        this.appearance.setShininess(120);
+        this.appearance.setTexture(this.texture);
+        this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.menu1app = new CGFappearance(this);
+
+        this.menu1app.setAmbient(0.3, 0.3, 0.3, 1);
+        this.menu1app.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.menu1app.setSpecular(0.0, 0.0, 0.0, 1);
+        this.menu1app.setShininess(120);
+        this.menu1app.loadTexture('../scenes/images/pp.png');
+
+        // White Pieces
+        this.robotWhite = new CGFappearance(this);
+        this.robotWhite.setEmission(0.3, 0.2, 0.1, 1.0);
+        this.robotWhite.setAmbient(0.2, 0.2, 0.2, 1);
+        this.robotWhite.setDiffuse(0.8, 0.6, 0.1, 1);
+        this.robotWhite.setSpecular(0.85, 0.64, 0.12, 1);
+        this.robotWhite.setShininess(1);
+
+        this.ballWhite = new CGFappearance(this);
+        this.ballWhite.setEmission(0.0, 0.2, 0.1, 1.0);
+        this.ballWhite.setAmbient(0.2, 0.2, 0.2, 1);
+        this.ballWhite.setDiffuse(0.2, 0.5, 0.3, 1);
+        this.ballWhite.setSpecular(0.3, 0.7, 0.4, 1);
+        this.ballWhite.setShininess(0.7);
+
+        this.robotBlack = new CGFappearance(this);
+        this.robotBlack.setEmission(0.1, 0.2, 0.4, 1.0);
+        this.robotBlack.setAmbient(0.2, 0.2, 0.2, 1);
+        this.robotBlack.setDiffuse(0.1, 0.3, 0.5, 1);
+        this.robotBlack.setSpecular(0.27, 0.5, 0.7, 1);
+        this.robotBlack.setShininess(0.7);
+
+        this.ballBlack = new CGFappearance(this);
+        this.ballBlack.setEmission(0.3, 0.3, 0.3, 1.0);
+        this.ballBlack.setAmbient(0.2, 0.2, 0.2, 1);
+        this.ballBlack.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.ballBlack.setSpecular(0.75, 0.75, 0.75, 1);
+        this.ballBlack.setShininess(1);
+
+        this.boardAppearance = new CGFappearance(this);
+        this.boardAppearance.loadTexture('../scenes/images/board.jpg');
     }
 
     initShaders() {
@@ -189,7 +250,6 @@ class XMLscene extends CGFscene {
         this.interface.addAxis();
         this.interface.addLightsGroup(this.graph.lights);
         this.interface.addViewsGroup(this.graph.views);
-        this.interface.addMusicGroup();
 
         this.sceneInited = true;
     }
@@ -199,9 +259,6 @@ class XMLscene extends CGFscene {
      * Displays the scene.
      */
     display() {
-
-        // console.log(this.board);
-
         this.logPicking();
         this.clearPickRegistration();
         // ---- BEGIN Background, camera and axis setup
@@ -219,7 +276,6 @@ class XMLscene extends CGFscene {
         this.setActiveShader(this.defaultShader);
         this.pushMatrix();
 
-
         if (this.sceneInited) {
             // Draw axis
             if (this.displayAxis)
@@ -228,9 +284,16 @@ class XMLscene extends CGFscene {
             this.setCameraUsed();
             // Displays the scene (MySceneGraph function).
 
-            // this.graph.displayScene();
+            this.graph.displayScene();
             if (typeof this.board !== 'undefined') { //Wait for prolog board
+                this.displayDirectionClickables();
                 this.displayBoardPieces();
+
+                // this.pushMatrix();
+                // this.menu1app.apply();
+                // this.translate(1,1,0);
+                // this.menu1.display();
+                // this.popMatrix();
             }
 
         } else {
@@ -242,7 +305,6 @@ class XMLscene extends CGFscene {
         this.popMatrix();
         this.setActiveShader(this.defaultShader);
         // draw objects
-        this.displayDirectionClickables();
         // ---- END Background, camera and axis setup
     }
 
@@ -263,6 +325,13 @@ class XMLscene extends CGFscene {
                 }
             }
         }
+        this.pushMatrix();
+        this.translate(0.5, -0.1, 39.5);
+        this.rotate(-90 * DEGREE_TO_RAD, 1, 0, 0);
+        this.scale(39, 39, 1);
+        this.boardAppearance.apply();
+        this.boardQuad.display();
+        this.popMatrix();
     }
 
     displayDirectionClickables() {
@@ -366,9 +435,6 @@ class XMLscene extends CGFscene {
             }
         }
     }
-    music() {
-
-    }
 
     getDirectionandLine(ID) {
         let n = Math.floor((ID - 1) / 19);
@@ -406,17 +472,21 @@ class XMLscene extends CGFscene {
             case "up":
                 {
                     for (let i = 0; i < BOARD_SIZE; i++)
-                        if (this.board[i][line-1] != "e")
+                        if (this.board[i][line - 1] != "e")
                             return true;
                     break;
                 }
             default:
-                    for (let i = 0; i < BOARD_SIZE; i++)
-                        if (this.board[line-1][i] != "e")
-                            return true;
+                for (let i = 0; i < BOARD_SIZE; i++)
+                    if (this.board[line - 1][i] != "e")
+                        return true;
         }
         console.log("NOT Valid");
         return false;
+    }
+
+    undoMove() {
+        this.board = this.previousBoard;
     }
 
     getPrologRequest(requestString, onSuccess, onError, port) {
@@ -461,7 +531,6 @@ class XMLscene extends CGFscene {
         console.log(board);
 
         if (matched[2] != undefined && matched[3] != undefined) {
-            this.boardList.push(this.currentBoard);
             this.player = matched[2];
             this.gameEnded = matched[3];
 
@@ -477,6 +546,7 @@ class XMLscene extends CGFscene {
 
     moveRequest(direction, line) {
         console.log("Direction: " + direction + "Line: " + line);
+        this.previousBoard = this.board;
         this.makeRequest("move(" + direction + "," + line + ")");
         if (this.vsBot) {
             this.makeRequest("botMove(" + this.botDiff + ")");

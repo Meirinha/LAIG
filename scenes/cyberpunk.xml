@@ -103,6 +103,12 @@
         <transformation id="transID">
             <translate x="0.0" y="0.0" z="0.0" />
         </transformation>
+
+        <transformation id="rootScale">
+            <scale x="5.0" y="5.0" z="5.0" />
+            <translate x="-15.5" y="-7" z="-10.0" />
+        </transformation>
+
         <transformation id="pillow">
           <rotate axis="x" angle="34.0" />
             <translate x="20.0" y="7.0" z="-1.0" />
@@ -555,11 +561,10 @@
 
         <component id="rootScene">
             <transformation>
-                <transformationref id="transID" />
+                <transformationref id="rootScale" />
             </transformation>
             <materials>
                 <material id="materialID" />
-                <material id="change" />
             </materials>
             <texture id="none"/>
             <children>
