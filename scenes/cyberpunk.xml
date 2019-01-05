@@ -62,11 +62,11 @@
             <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />
             <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </material>
-        <material id="mariogreen" shininess = "0.5" >
-            <emission r="0.1" g="0.2" b="0.1" a="1.0" />
-            <ambient r="0.1" g="0.3" b="0.1" a="1.0" />
-            <diffuse r="0.0" g="0.3" b="0.0" a="1.0" />
-            <specular r="0.2" g="0.5" b="0.2" a="1.0" />
+        <material id="leds" shininess = "1.0" >
+            <emission r="0.0" g="0.4" b="0.9" a="1.0" />
+            <ambient r="0.0" g="0.3" b="0.5" a="1.0" />
+            <diffuse r="0.0" g="0.3" b="0.5" a="1.0" />
+            <specular r="0.0" g="0.1" b="0.3" a="1.0" />
         </material>
         <material id="ball" shininess = "1.0" >
             <emission r="0.5" g="0.5" b="0.2" a="1.0" />
@@ -104,6 +104,21 @@
             <translate x="0.0" y="0.0" z="0.0" />
         </transformation>
 
+        <transformation id="rightled">
+            <rotate axis="x" angle="51.0" />
+            <scale x="0.03" y="0.03" z="5.2" />
+            <translate x="375.0" y="188.0" z="-1.34" />
+        </transformation>
+        <transformation id="leftled">
+            <rotate axis="x" angle="51.0" />
+            <scale x="0.03" y="0.03" z="5.2" />
+            <translate x="955.0" y="188.0" z="-1.34" />
+        </transformation>
+        <transformation id="centerled">
+            <rotate axis="y" angle="90.0" />
+            <scale x="0.03" y="0.03" z="17.8" />
+            <translate x="1.8" y="301.0" z="0.62" />
+        </transformation>
         <transformation id="rootScale">
             <scale x="5.0" y="5.0" z="5.0" />
             <translate x="-15.5" y="-7" z="-10.0" />
@@ -115,7 +130,6 @@
             <scale x="12.0" y="1.0" z="5.0" />
         </transformation>
         <transformation id="outside">
-
             <translate x="-25.0" y="0.0" z="17.0" />
             <scale x="15.0" y="8.0" z="15.0" />
         </transformation>
@@ -377,8 +391,60 @@
                 <componentref id="bedframe" />
                 <componentref id="mattress" />
                 <componentref id="pillow" />
+                <componentref id="leds" />
             </children>
         </component>
+        <component id="leds">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="leds" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="rightled" />
+                <componentref id="centerled" />
+                <componentref id="leftled" />
+            </children>
+        </component>
+        <component id="rightled">
+            <transformation>
+                <transformationref id="rightled" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="centerled">
+            <transformation>
+                <transformationref id="centerled" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="leftled">
+            <transformation>
+                <transformationref id="leftled" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+
         <component id="pillow">
             <transformation>
                 <transformationref id="pillow" />

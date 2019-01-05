@@ -73,7 +73,9 @@ class XMLscene extends CGFscene {
 
     initGameVariables() {
         this.board;
-        //this.resetRequest();
+        this.resetRequest();
+        this.direction;
+        this.line;
 
         this.previousBoard = [];
         this.moveSequences = [];
@@ -452,32 +454,31 @@ class XMLscene extends CGFscene {
 
     getDirectionandLine(ID) {
         let n = Math.floor((ID - 1) / 19);
-        let line = (ID - 1) % 19 + 1;
-        let direction;
+        this.line = (ID - 1) % 19 + 1;
 
         switch (n) {
             case 0:
                 {
-                    direction = "down";
+                    this.direction = "down";
                     break;
                 }
             case 1:
                 {
-                    direction = "right";
+                    this.direction = "right";
                     break;
                 }
             case 2:
                 {
-                    direction = "up";
+                    this.direction = "up";
                     break;
                 }
             default:
                 {
-                    direction = "left";
+                    this.direction = "left";
                 }
         }
-        if (this.validMove(direction, line))
-            this.moveRequest(direction, line);
+        if (this.validMove(this.direction, this.line))
+            this.moveRequest(this.direction, this.line);
     };
 
     validMove(direction, line) {
@@ -541,7 +542,9 @@ class XMLscene extends CGFscene {
             }
         }
 
-        this.scene.board = board;
+        //this.scene.board = board;
+        this.scene.nextboard = board;
+
         console.log(board);
 
         if (matched[2] != undefined && matched[3] != undefined) {
