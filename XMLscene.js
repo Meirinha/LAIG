@@ -73,7 +73,7 @@ class XMLscene extends CGFscene {
 
     initGameVariables() {
         this.board;
-        this.resetRequest();
+        //this.resetRequest();
 
         this.previousBoard = [];
         this.moveSequences = [];
@@ -83,6 +83,8 @@ class XMLscene extends CGFscene {
 
         this.whitePiece = new CyberPiece(this, this.robotWhite, this.ballWhite);
         this.blackPiece = new CyberPiece(this, this.robotBlack, this.ballBlack);
+
+        this.teleporter = new Teleporter(this);
 
         this.menu1 = new MyPlane(this, 1, 1);
         this.menu2 = new MyPlane(this, 1, 1);
@@ -295,6 +297,18 @@ class XMLscene extends CGFscene {
                 // this.menu1.display();
                 // this.popMatrix();
             }
+            this.pushMatrix();
+            this.translate(0.5, -0.1, 39.5);
+            this.rotate(-90 * DEGREE_TO_RAD, 1, 0, 0);
+            this.scale(39, 39, 1);
+            this.boardAppearance.apply();
+            this.boardQuad.display();
+            this.popMatrix();
+
+            this.pushMatrix();
+            this.boardAppearance.apply();
+            this.teleporter.display();
+            this.popMatrix();
 
         } else {
             // Draw axis
@@ -534,7 +548,7 @@ class XMLscene extends CGFscene {
             this.player = matched[2];
             this.gameEnded = matched[3];
 
-            //Good response, Animate 
+            //Good response, Animate
             let animation = this.nextPieceAnimInfo.animation;
             animation.setStartTime((new Date().getTime() - this.initialTime) / 1000);
             this.animations[this.nextPieceAnimInfo.pickID] = animation;
