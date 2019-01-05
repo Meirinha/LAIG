@@ -1,6 +1,6 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 
-let CELL_WIDTH = 1.0;
+let CELL_WIDTH = 2.0;
 let BOARD_SIZE = 19;
 
 
@@ -73,6 +73,7 @@ class XMLscene extends CGFscene {
 
     initGameVariables() {
         this.board;
+        this.nextBoard;
         this.resetRequest();
         this.direction;
         this.line;
@@ -309,7 +310,13 @@ class XMLscene extends CGFscene {
 
             this.pushMatrix();
             this.boardAppearance.apply();
-            this.teleporter.display();
+            // this.teleporter.display();
+            this.popMatrix();
+
+            this.pushMatrix();
+            this.translate(20, 0, 40);
+            this.whitePiece.display();
+
             this.popMatrix();
 
         } else {
@@ -541,9 +548,10 @@ class XMLscene extends CGFscene {
                 board[i].push(matchedsequel[j]);
             }
         }
+        this.scene.nextBoard = board;
 
-        //this.scene.board = board;
-        this.scene.nextboard = board;
+        this.scene.firstAppearance();
+        this.scene.board = board;
 
         console.log(board);
 
@@ -573,5 +581,94 @@ class XMLscene extends CGFscene {
     resetRequest() {
         console.log("Reset Board");
         this.makeRequest("reset");
+    }
+
+    firstAppearance() { // Detect where to stop animation Piece 
+        let n;
+        switch (this.direction) {
+            case "down":
+                {
+                    for (let i = 0; i < BOARD_SIZE; i++) {
+                        if (this.nextBoard[i][this.line - 1] != "e") {
+                            n = i;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            case "up":
+                {
+                    for (let i = BOARD_SIZE - 1; i <= 0; i--) {
+                        if (this.nextBoard[i][this.line - 1] != "e") {
+                            n = i;
+                            break;
+                        }
+                    }
+                    break;
+                }
+
+            case "right":
+                {
+                    for (let i = 0; i < BOARD_SIZE; i++) {
+                        if (this.nextBoard[this.line - 1][i] != "e") {
+                            n = i;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            case "left":
+            default:
+                {
+                    for (let i = BOARD_SIZE - 1; i <= 0; i--) {
+                        if (this.nextBoard[this.line - 1][i] != "e") {
+                            n = i;
+                            break;
+                        }
+                    }
+                    break;
+                }
+        }
+        this.animationDirection = this.direction;
+        this.animationLine = this.line;
+        this.animationStop = n;
+    }
+
+    pieceSidePlacement(piece) {
+        switch (this.animationDirection) {
+            case "down":
+                {
+                    this.pushMatrix();
+                    this.translate(this.animationLine * CELL_WIDTH, 0, 0);
+                    piece.display();
+                    this.popMatrix();
+                    break;
+                }
+            case "up":
+                {
+                    this.pushMatrix();
+                    this.translate(this.animationLine * CELL_WIDTH, 0, 20 * CELL_WIDTH);
+                    piece.display();
+                    this.popMatrix();
+                    break;
+                }
+            case "right":
+                {
+                    this.pushMatrix();
+                    this.translate(0, 0, this.animationLine * CELL_WIDTH);
+                    piece.display();
+                    this.popMatrix();
+                    break;
+                }
+            case "left":
+            default:
+                {
+                    this.pushMatrix();
+                    this.translate(20 * CELL_WIDTH, 0, this.animationLine * CELL_WIDTH);
+                    piece.display();
+                    this.popMatrix();
+                    break;
+                }
+        }
     }
 };

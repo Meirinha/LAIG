@@ -13,7 +13,7 @@ class CyberPiece extends CGFobject{
 
 	display() {
 		this.scene.pushMatrix();
-		this.scene.translate(0,-3,0);
+		this.scene.translate(0,-3,-0.4);
 		this.scene.rotate(-90*DEGREE_TO_RAD, 1, 0, 0);
 		this.robotAppearance.apply();
 		this.robot.display();
@@ -23,7 +23,3 @@ class CyberPiece extends CGFobject{
 		this.scene.popMatrix();
 	}
 }
-
-		
-		
-		//BLUE
