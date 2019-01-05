@@ -69,15 +69,10 @@
         </spot>
     </lights>
     <textures>
-        <texture id="golden" file="golden.png" />
+        <texture id="trunk" file="trunk.jpg" />
     </textures>
     <materials>
-        <material id="halo" shininess = "1.0" >
-            <emission r="0.5" g="0.5" b="0.5" a="1.0" />
-            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
-            <diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
-            <specular r="0.8" g="0.8" b="0.8" a="1.0" />
-        </material>
+
 
         <material id="change" shininess = "0.8" >
             <emission r="0.3" g="0.0" b="0.0" a="1.0" />
@@ -85,30 +80,13 @@
             <diffuse r="0.3" g="0.0" b="0.0" a="1.0" />
             <specular r="0.3" g="0.0" b="0.0" a="1.0" />
         </material>
-        <material id="cherry" shininess = "0.8" >
+        <material id="leaf" shininess = "0.3" >
             <emission r="0.3" g="0.1" b="0.1" a="1.0" />
-            <ambient r="0.3" g="0.1" b="0.1" a="1.0" />
+            <ambient r="0.1" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.3" g="0.1" b="0.1" a="1.0" />
-            <specular r="0.3" g="0.1" b="0.1" a="1.0" />
+            <specular r="0.1" g="0.0" b="0.0" a="1.0" />
         </material>
-        <material id="mariogreen" shininess = "0.5" >
-            <emission r="0.1" g="0.2" b="0.1" a="1.0" />
-            <ambient r="0.1" g="0.3" b="0.1" a="1.0" />
-            <diffuse r="0.0" g="0.3" b="0.0" a="1.0" />
-            <specular r="0.2" g="0.5" b="0.2" a="1.0" />
-        </material>
-        <material id="ball" shininess = "1.0" >
-            <emission r="0.5" g="0.5" b="0.2" a="1.0" />
-            <ambient r="0.5" g="0.5" b="0.2" a="1.0" />
-            <diffuse r="0.7" g="0.7" b="0.2" a="1.0" />
-            <specular r="0.7" g="0.7" b="0.2" a="1.0" />
-        </material>
-        <material id="nose" shininess = "0.8" >
-            <emission r="0.8" g="0.3" b="0.3" a="1.0" />
-            <ambient r="0.8" g="0.3" b="0.3" a="1.0" />
-            <diffuse r="0.8" g="0.3" b="0.3" a="1.0" />
-            <specular r="0.8" g="0.3" b="0.3" a="1.0" />
-        </material>
+
         <material id="materialID" shininess = "1.0" >
             <emission r="0.4" g="0.4" b="0.4" a="1.0" />
             <ambient r="0.3" g="0.3" b="0.3" a="1.0" />
@@ -132,44 +110,27 @@
         <transformation id="transID">
             <translate x="0.0" y="0.0" z="0.0" />
         </transformation>
-        <transformation id="window">
-            <translate x="0.3" y="8.0" z="30.0" />
-            <scale x="0.5" y="1.0" z="1.4" />
-            <rotate axis="x" angle="30.0" />
-            <rotate axis="y" angle="-90.0" />
+        <transformation id="tabletop">
+            <translate x="-18.0" y="-7.0" z="-7.0" />
+            <scale x="48.0" y="3.0" z="35.0" />
+        </transformation>
+        <transformation id="rightleg">
+            <translate x="-18.0" y="-28.0" z="0.0" />
+            <rotate axis="z" angle="-25.0" />
+            <scale x="3.0" y="13.0" z="25.0" />
+        </transformation>
+        <transformation id="leftleg">
+          <translate x="50.0" y="-28.0" z="0.0" />
+          <rotate axis="z" angle="25.0" />
+          <scale x="3.0" y="13.0" z="25.0" />
         </transformation>
         <transformation id="rotation">
-            <translate x="20.0" y="0.0" z="13.0" />
+            <translate x="-50.0" y="0.0" z="43.0" />
+            <rotate axis="y" angle="-90.0" />
             <rotate axis="x" angle="-90.0" />
             <scale x="2.5" y="2.5" z="2.5" />
         </transformation>
-        <transformation id="rotationwall">
-            <translate x="0.0" y="0.0" z="30.0" />
-            <rotate axis="x" angle="-90.0" />
-            <scale x="2.0" y="2.0" z="2.0" />
-        </transformation>
-        <transformation id="wallscaling">
-            <translate x="-3.3" y="1.0" z="-57.0" />
-            <scale x="0.7" y="7.0" z="14.0" />
-        </transformation>
-        <transformation id="wallleft">
-            <translate x="153.5" y="1.0" z="-4.6" />
-            <rotate axis="y" angle="-90.0" />
-            <scale x="0.7" y="7.0" z="28.0" />
-        </transformation>
-        <transformation id="wallright">
-            <translate x="153.5" y="1.0" z="37.0" />
-            <rotate axis="y" angle="-90.0" />
-            <scale x="0.7" y="7.0" z="28.0" />
-        </transformation>
-        <transformation id="wallback">
-            <translate x="37.7" y="1.0" z="-113.5" />
-            <scale x="0.7" y="7.0" z="28.0" />
-        </transformation>
 
-        <transformation id="cube">
-            <translate x="4" y="0.0" z="4" />
-        </transformation>
         <transformation id="quad1">
             <translate x="1.5" y="0.0" z="1.5" />
             <rotate axis="y" angle="90.0" />
@@ -358,7 +319,7 @@
         </component>
         <component id="cube">
             <transformation>
-                <transformationref id="cube" />
+                <transformationref id="transID" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -383,24 +344,35 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="trunk" />
+                <componentref id="trunk" />
+                <componentref id="leaf" />
+            </children>
+        </component>
+        <component id="leaf">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="leaf" />
+            </materials>
+            <texture id="inherit" />
+            <children>
                 <primitiveref id="leaf" />
             </children>
         </component>
-
-        <component id="frame">
+        <component id="trunk">
             <transformation>
                 <transformationref id="transID" />
             </transformation>
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="trunk" />
             <children>
-                <componentref id="cube" />
-                <componentref id="quad1" />
+                <primitiveref id="trunk" />
             </children>
         </component>
+
 
         <component id="ambient">
             <transformation>
@@ -412,6 +384,57 @@
             <texture id="inherit" />
             <children>
                 <componentref id="tree" />
+                <componentref id="table" />
+            </children>
+        </component>
+        <component id="table">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="leftleg" />
+                <componentref id="rightleg" />
+                <componentref id="tabletop" />
+            </children>
+        </component>
+        <component id="leftleg">
+            <transformation>
+                <transformationref id="leftleg" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="rightleg">
+            <transformation>
+                <transformationref id="rightleg" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="tabletop">
+            <transformation>
+                <transformationref id="tabletop" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
             </children>
         </component>
 
