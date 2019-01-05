@@ -240,9 +240,6 @@
         <primitive id="leaf">
             <model fileVerts="leafe.vert" fileFaces="leafe.faces" scale='1'/>
         </primitive>
-        <primitive id="wall">
-            <model fileVerts="wall.vert" fileFaces="wall.faces" scale='1'/>
-        </primitive>
     </primitives >
     <components>
         <component id="quad1">
