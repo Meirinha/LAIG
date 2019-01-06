@@ -78,6 +78,8 @@
         <texture id="fan2" file="fan2.png" />
         <texture id="woodfan" file="floor.png" />
         <texture id="woodfan2" file="black.png" />
+        <texture id="sushi" file="sushi.png" />
+        <texture id="nori" file="nori.png" />
     </textures>
     <materials>
 
@@ -117,6 +119,40 @@
     <transformations>
         <transformation id="transID">
             <translate x="0.0" y="0.0" z="0.0" />
+        </transformation>
+        <transformation id="sushis">
+            <translate x="45.0" y="0.0" z="31.0" />
+            <scale x="1.1" y="1.1" z="1.1" />
+        </transformation>
+        <transformation id="sushi2">
+            <translate x="3.0" y="0.0" z="0.0" />
+        </transformation>
+        <transformation id="sushi3">
+            <translate x="3.0" y="0.0" z="3.0" />
+        </transformation>
+        <transformation id="sushi4">
+            <translate x="0.0" y="0.0" z="3.0" />
+        </transformation>
+        <transformation id="sushi5">
+            <translate x="3.0" y="0.0" z="6.0" />
+        </transformation>
+        <transformation id="sushi6">
+            <translate x="0.0" y="0.0" z="6.0" />
+        </transformation>
+        <transformation id="plate">
+            <translate x="43.0" y="-0.5" z="29.0" />
+            <scale x="5.0" y="0.3" z="7.0" />
+        </transformation>
+        <transformation id="rotate">
+            <rotate axis="x" angle="-90.0" />
+        </transformation>
+        <transformation id="nori">
+            <translate x="0.0" y="0.0" z="0.0" />
+            <scale x="1.05" y="1.0" z="1.5" />
+        </transformation>
+        <transformation id="rice">
+            <translate x="0.0" y="0.0" z="1.3" />
+            <scale x="1.05" y="1.05" z="0.2" />
         </transformation>
         <transformation id="table">
             <translate x="0.0" y="0.5" z="0.0" />
@@ -248,6 +284,9 @@
         <primitive id="cake">
             <cylinder base="6.5" top="6.5" height="1" slices="6" stacks="5"/>
         </primitive>
+        <primitive id="nori">
+            <cylinder2 base="2.0" top="2.0" height="1" slices="10" stacks="5"/>
+        </primitive>
         <primitive id="cherry">
             <sphere radius="0.2" slices="50" stacks="50"/>
         </primitive>
@@ -268,9 +307,6 @@
         </primitive>
         <primitive id="leaf">
             <model fileVerts="leafe.vert" fileFaces="leafe.faces" scale='1'/>
-        </primitive>
-        <primitive id="kokeshi">
-            <model fileVerts="kokeshi.vert" fileFaces="kokeshi.faces" scale='1'/>
         </primitive>
     </primitives >
     <components>
@@ -456,8 +492,154 @@
                 <componentref id="tabletop" />
                 <componentref id="fan2" />
                 <componentref id="fan1" />
+                <componentref id="sushis" />
+                <componentref id="plate" />
             </children>
         </component>
+
+        <component id="sushis">
+            <transformation>
+                <transformationref id="sushis" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="sushi1" />
+                <componentref id="sushi2" />
+                <componentref id="sushi3" />
+                <componentref id="sushi4" />
+                <componentref id="sushi5" />
+                <componentref id="sushi6" />
+            </children>
+        </component>
+
+        <component id="sushi1">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="sushi" />
+            </children>
+        </component>
+        <component id="sushi2">
+            <transformation>
+                <transformationref id="sushi2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="sushi" />
+            </children>
+        </component>
+        <component id="sushi3">
+            <transformation>
+                <transformationref id="sushi3" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="sushi" />
+            </children>
+        </component>
+        <component id="sushi4">
+            <transformation>
+                <transformationref id="sushi4" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="sushi" />
+            </children>
+        </component>
+        <component id="sushi5">
+            <transformation>
+                <transformationref id="sushi5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="sushi" />
+            </children>
+        </component>
+        <component id="sushi6">
+            <transformation>
+                <transformationref id="sushi6" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="sushi" />
+            </children>
+        </component>
+
+        <component id="plate">
+            <transformation>
+                <transformationref id="plate" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="woodfan" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="sushi">
+            <transformation>
+                <transformationref id="rotate" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="nori" />
+                <componentref id="rice" />
+            </children>
+        </component>
+        <component id="nori">
+            <transformation>
+                <transformationref id="nori" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="nori" />
+            <children>
+                <primitiveref id="nori" />
+            </children>
+        </component>
+        <component id="rice">
+            <transformation>
+                <transformationref id="rice" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="sushi" />
+            <children>
+                <primitiveref id="fan" />
+            </children>
+        </component>
+
+
         <component id="fan2">
             <transformation>
                 <transformationref id="fan2" />
@@ -495,6 +677,7 @@
                 <primitiveref id="cake" />
             </children>
         </component>
+
         <component id="fan1">
             <transformation>
                 <transformationref id="transID" />
@@ -532,6 +715,8 @@
                 <primitiveref id="cake" />
             </children>
         </component>
+
+
         <component id="leftleg">
             <transformation>
                 <transformationref id="leftleg" />
