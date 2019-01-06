@@ -373,16 +373,20 @@ class XMLscene extends CGFscene {
                 }
             case 1: //left
                 {
+                  this.camera.orbit(CGFcameraAxisID.X, 50 * DEGREE_TO_RAD * (this.cameraTimerDelta/MOVE_CAMERA_TIME));
                     break;
                 }
             case 2: // second Top
                 {
+                  this.camera.rotate(CGFcameraAxisID.Y, 180 * DEGREE_TO_RAD * (this.cameraTimerDelta/MOVE_CAMERA_TIME));
+                  this.camera.orbit(CGFcameraAxisID.X, 50 * DEGREE_TO_RAD * (this.cameraTimerDelta/MOVE_CAMERA_TIME));
                     break;
                 }
             case 3:
             default: // right
                 {
-
+                  this.camera.orbit(CGFcameraAxisID.X, -50 * DEGREE_TO_RAD * (this.cameraTimerDelta/MOVE_CAMERA_TIME));
+                  this.camera.rotate(CGFcameraAxisID.Y, 180 * DEGREE_TO_RAD * (this.cameraTimerDelta/MOVE_CAMERA_TIME));
                 }
         }
 
@@ -762,7 +766,7 @@ class XMLscene extends CGFscene {
         this.makeRequest("undo");
     }
 
-    firstAppearance() { // Detect where to stop animation Piece 
+    firstAppearance() { // Detect where to stop animation Piece
         this.animationBegin = this.lastTime;
         let n;
         console.log(this.nextBoard);
