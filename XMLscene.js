@@ -387,6 +387,7 @@ class XMLscene extends CGFscene {
                 {
                   this.camera.orbit(CGFcameraAxisID.X, -50 * DEGREE_TO_RAD * (this.cameraTimerDelta/MOVE_CAMERA_TIME));
                   this.camera.rotate(CGFcameraAxisID.Y, 180 * DEGREE_TO_RAD * (this.cameraTimerDelta/MOVE_CAMERA_TIME));
+                  break;
                 }
         }
 
