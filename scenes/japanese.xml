@@ -73,6 +73,7 @@
         <texture id="sky" file="dometop.jpg" />
         <texture id="terrainheight" file="terrainmap.jpg" />
         <texture id="terrain" file="marioplant.png" />
+        <texture id="table" file="wood.png" />
     </textures>
     <materials>
 
@@ -115,7 +116,7 @@
         </transformation>
         <transformation id="sky">
             <translate x="-80.0" y="-35.0" z="110.0" />
-            <scale x="400.0" y="400.0" z="400.0" />
+            <scale x="400.0" y="500.0" z="400.0" />
             <rotate axis="x" angle="-90.0" />
         </transformation>
         <transformation id="terrain">
@@ -137,10 +138,10 @@
           <scale x="3.0" y="13.0" z="25.0" />
         </transformation>
         <transformation id="rotation">
-            <translate x="-250.0" y="-20.0" z="-90.0" />
+            <translate x="-250.0" y="-23.0" z="-90.0" />
             <rotate axis="y" angle="-90.0" />
             <rotate axis="x" angle="-90.0" />
-            <scale x="7.0" y="7.0" z="6.0" />
+            <scale x="7.0" y="7.0" z="7.0" />
         </transformation>
 
         <transformation id="quad1">
@@ -203,7 +204,7 @@
     <primitives>
 
         <primitive id="terrain">
-            <terrain idtexture="terrain" idheightmap="terrainheight" parts="150" heightscale="5.0"/>
+            <terrain idtexture="terrain" idheightmap="terrainheight" parts="200" heightscale="9.0"/>
         </primitive>
 
 
@@ -426,7 +427,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="table" />
             <children>
                 <componentref id="leftleg" />
                 <componentref id="rightleg" />
