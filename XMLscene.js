@@ -892,6 +892,7 @@ class XMLscene extends CGFscene {
     getDirectionandLine(ID) {
         let n = Math.floor((ID - 1) / 19);
         this.line = (ID - 1) % 19 + 1;
+        
 
         switch (n) {
             case 0:
