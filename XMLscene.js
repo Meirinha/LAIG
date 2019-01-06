@@ -2,7 +2,7 @@ var DEGREE_TO_RAD = Math.PI / 180;
 
 let CELL_WIDTH = 2.0;
 let BOARD_SIZE = 19;
-let THROW_ANIMATION_TIME = 5000;
+let THROW_ANIMATION_TIME = 2000;
 
 
 /**
@@ -79,6 +79,8 @@ class XMLscene extends CGFscene {
         this.line = 10;
         this.gameOver = false;
         this.gameState = "menu";
+
+        this.playTimer = 15;
 
         this.animationPiece;
         this.throwAnimationOccurring = false;
@@ -281,6 +283,7 @@ class XMLscene extends CGFscene {
         this.interface.addAxis();
         this.interface.addLightsGroup(this.graph.lights);
         this.interface.addViewsGroup(this.graph.views);
+        this.interface.addGameGroup();
 
         this.sceneInited = true;
     }
@@ -506,8 +509,7 @@ class XMLscene extends CGFscene {
                 this.throwAnimationOccurring = false;
                 this.board = this.nextBoard;
             }
-            if(this.gameWinner != "no")
-            {
+            if (this.gameWinner != "no") {
                 this.gameState = "menu";
                 console.log(this.gameWinner + ' is the Winner');
             }
@@ -549,7 +551,7 @@ class XMLscene extends CGFscene {
                     if (obj) {
                         var customId = this.pickResults[i][1];
                         console.log("Picked object with pick id " + customId);
-                        if (customId < BOARD_SIZE * 4 + 1 && this.gameState != "menu")
+                        if (customId < BOARD_SIZE * 4 + 1 && (this.gameState != "pp" || this.gameState != "pc" || this.gameState != "cc"))
                             this.getDirectionandLine(customId);
                         else if (this.gameState == "menu")
                             this.menuInitGame(customId - BOARD_SIZE * 4);
@@ -638,7 +640,7 @@ class XMLscene extends CGFscene {
     }
 
     undoMove() {
-        this.board = this.previousBoard;
+        this.undoRequest();
     }
 
     getPrologRequest(requestString, onSuccess, onError, port) {
@@ -702,6 +704,10 @@ class XMLscene extends CGFscene {
         console.log("Reset Board");
         this.makeRequest("reset");
     }
+    undoRequest() {
+        console.log("Undo Play");
+        this.makeRequest("undo");
+    }
 
     firstAppearance() { // Detect where to stop animation Piece 
         this.animationBegin = this.lastTime;
@@ -761,7 +767,7 @@ class XMLscene extends CGFscene {
                 {
                     let start = this.animationLine * CELL_WIDTH;
                     let stop = this.animationStop * CELL_WIDTH;
-                    this.animationPiece = new LinearAnimation(this, 1, 5, [
+                    this.animationPiece = new LinearAnimation(this, 1, THROW_ANIMATION_TIME/1000, [
                         [start, 0, 0],
                         [start, 0, stop]
                     ]);
@@ -772,7 +778,7 @@ class XMLscene extends CGFscene {
                     let start = this.animationLine * CELL_WIDTH;
                     let stop = this.animationStop * CELL_WIDTH;
                     let border = 20 * CELL_WIDTH;
-                    this.animationPiece = new LinearAnimation(this, 1, 5, [
+                    this.animationPiece = new LinearAnimation(this, 1, THROW_ANIMATION_TIME/1000, [
                         [start, 0, border],
                         [start, 0, border - stop]
                     ]);
@@ -782,7 +788,7 @@ class XMLscene extends CGFscene {
                 {
                     let start = this.animationLine * CELL_WIDTH;
                     let stop = this.animationStop * CELL_WIDTH;
-                    this.animationPiece = new LinearAnimation(this, 1, 5, [
+                    this.animationPiece = new LinearAnimation(this, 1, THROW_ANIMATION_TIME/1000, [
                         [0, 0, start],
                         [stop, 0, start]
                     ]);
@@ -794,7 +800,7 @@ class XMLscene extends CGFscene {
                     let start = this.animationLine * CELL_WIDTH;
                     let stop = this.animationStop * CELL_WIDTH;
                     let border = 20 * CELL_WIDTH;
-                    this.animationPiece = new LinearAnimation(this, 1, 5, [
+                    this.animationPiece = new LinearAnimation(this, 1, THROW_ANIMATION_TIME/1000, [
                         [border, 0, start],
                         [border - stop, 0, start]
                     ]);

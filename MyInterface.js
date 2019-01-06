@@ -62,6 +62,16 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'changeCamera', this.cameraArray).name("Active Camera");
     }
 
+    addGameGroup()
+    {
+        var group = this.gui.addFolder("Game");
+        group.close();
+
+        group.add(this.scene, 'playTimer').name("Play Timer");
+        group.add(this.scene, 'botDiff', [1,2,3]).name("Bot Difficulty");
+        // group.add(this.scene, )
+    }
+
     processKeyUp(event) {
         let graph = this.scene.graph;
         if (event.code == "KeyM") {
