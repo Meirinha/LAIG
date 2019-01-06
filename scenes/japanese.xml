@@ -1,45 +1,13 @@
 <yas>
     <scene root="rootScene" axis_length="5.0" />
-    <views default="default" >
-      <perspective id="default" near="0.1" far="900" angle="90.0">
-          <from x="5" y="5" z="5" />
-          <to x="0" y="0" z="0" />
-      </perspective>
-        <perspective id="moogle" near="0.1" far="900" angle="90.0">
-            <from x="0" y="145" z="20" />
-            <to x="0" y="137" z="0" />
+    <views default="top" >
+        <perspective id="top" near="0.1" far="900" angle="90.0">
+            <from x="20" y="30" z="20.1" />
+            <to x="20" y="0" z="20" />
         </perspective>
-        <perspective id="veigar_hand" near="0.1" far="900" angle="90.0">
-            <from x="-9" y="144.5" z="-9" />
-            <to x="-14.5" y="143.5" z="-11.5" />
-        </perspective>
-        <perspective id="gramophone" near="0.1" far="900" angle="90.0">
-            <from x="4.0" y="144" z="-19" />
-            <to x="0.0" y="141" z="-24" />
-        </perspective>
-        <perspective id="piranha_plant" near="0.1" far="900" angle="90.0">
-            <from x="9" y="144.5" z="-9" />
-            <to x="16.5" y="143.5" z="-12" />
-        </perspective>
-        <perspective id="cactuar" near="0.1" far="900" angle="90.0">
-            <from x="9.0" y="144" z="9" />
-            <to x="14.5" y="141" z="12.5" />
-        </perspective>
-        <perspective id="cake" near="0.1" far="900" angle="90.0">
-            <from x="-9.0" y="144" z="9" />
-            <to x="-14.5" y="141" z="12.5" />
-        </perspective>
-        <perspective id="house" near="0.1" far="900" angle="90.0">
-            <from x="4.0" y="144" z="19" />
-            <to x="2.0" y="141" z="24" />
-        </perspective>
-        <ortho id="orth" near="0.1" far="500" left="-50" right="50" top="30" bottom="-30" >
-            <from x="30" y="160" z="30" />
-            <to x="0" y="135" z="0" />
-        </ortho>
-        <perspective id="world" near="0.1" far="900" angle="90.0">
-            <from x="0" y="130" z="100" />
-            <to x="0" y="137" z="0" />
+        <perspective id="default" near="0.1" far="900" angle="90.0">
+            <from x="5" y="5" z="5" />
+            <to x="0" y="0" z="0" />
         </perspective>
     </views>
     <ambient>

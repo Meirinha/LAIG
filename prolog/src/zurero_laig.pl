@@ -26,9 +26,10 @@ zurero_laig(Direction, Number, NewBoard, Player):-
 	move(Direction, Number, Piece, Board, NewBoard),
 	assert_new_board(NewBoard),
 	assert_change_player(Player),
+	detect_endgame(Player),
 	print_board(NewBoard).
 
-zurero_bot(Diff, NewBoard, Player, Direction, Line):-
+zurero_bot(Diff, NewBoard, Player, Direction, Line, WinningPlayer):-
 	board(Board),
 	current_player(Player),
 	player_piece(Player, Piece),
@@ -36,7 +37,21 @@ zurero_bot(Diff, NewBoard, Player, Direction, Line):-
 	move(Direction, Line, Piece, Board, NewBoard),
 	assert_new_board(NewBoard),
 	assert_change_player(Player),
+	detect_endgame(Player),
 	print_board(NewBoard).
+
+detect_endgame(LastPlayer, WinningPlayer):-
+	board(Board),
+	game_over(LastPlayer, Board, WinningPlayer).
+
+game_over(Player, Board, Player):-
+	check_win(Player, Board),
+	print_board(Board).
+game_over(Player, Board, Opponent):-
+	change_player(Player, Opponent),
+	check_win(Opponent, Board),
+	print_board(Board).
+game_over(_, _, no).
 
 % Assert New Board - Save the board for the next call 
 assert_new_board(NewBoard):-
