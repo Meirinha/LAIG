@@ -74,6 +74,10 @@
         <texture id="terrainheight" file="terrainmap.jpg" />
         <texture id="terrain" file="marioplant.png" />
         <texture id="table" file="wood.png" />
+        <texture id="fan1" file="fan1.png" />
+        <texture id="fan2" file="fan2.png" />
+        <texture id="woodfan" file="floor.png" />
+        <texture id="woodfan2" file="black.png" />
     </textures>
     <materials>
 
@@ -113,6 +117,24 @@
     <transformations>
         <transformation id="transID">
             <translate x="0.0" y="0.0" z="0.0" />
+        </transformation>
+        <transformation id="table">
+            <translate x="0.0" y="0.5" z="0.0" />
+        </transformation>
+        <transformation id="fan2">
+            <translate x="-1.0" y="-0.3" z="-8.0" />
+            <rotate axis="y" angle="40.0" />
+        </transformation>
+        <transformation id="fan1">
+            <translate x="-11.0" y="-0.7" z="5.0" />
+            <scale x="4.0" y="0.4" z="4.0" />
+            <rotate axis="y" angle="160.0" />
+            <rotate axis="x" angle="-90.0" />
+        </transformation>
+        <transformation id="woodfan">
+            <translate x="-9.73" y="-0.6" z="1.5" />
+            <rotate axis="y" angle="160.0" />
+            <scale x="0.03" y="0.01" z="3.5" />
         </transformation>
         <transformation id="sky">
             <translate x="-80.0" y="-35.0" z="110.0" />
@@ -238,8 +260,8 @@
         <primitive id="sky">
             <Dome slices="80" stacks="80"/>
         </primitive>
-        <primitive id="DomeBot">
-            <SemiSphere slices="50" stacks="50"/>
+        <primitive id="fan">
+            <SemiSphere slices="30" stacks="30"/>
         </primitive>
         <primitive id="trunk">
             <model fileVerts="trunk.vert" fileFaces="trunk.faces" scale='1'/>
@@ -422,7 +444,7 @@
         </component>
         <component id="table">
             <transformation>
-                <transformationref id="transID" />
+                <transformationref id="table" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -432,6 +454,82 @@
                 <componentref id="leftleg" />
                 <componentref id="rightleg" />
                 <componentref id="tabletop" />
+                <componentref id="fan2" />
+                <componentref id="fan1" />
+            </children>
+        </component>
+        <component id="fan2">
+            <transformation>
+                <transformationref id="fan2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="topfan2" />
+                <componentref id="woodfan2" />
+            </children>
+        </component>
+        <component id="topfan2">
+            <transformation>
+                <transformationref id="fan1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="fan2" />
+            <children>
+                <primitiveref id="fan" />
+            </children>
+        </component>
+        <component id="woodfan2">
+            <transformation>
+                <transformationref id="woodfan" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="woodfan2" />
+            <children>
+                <primitiveref id="cake" />
+            </children>
+        </component>
+        <component id="fan1">
+            <transformation>
+                <transformationref id="transID" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="topfan" />
+                <componentref id="woodfan" />
+            </children>
+        </component>
+        <component id="topfan">
+            <transformation>
+                <transformationref id="fan1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="fan1" />
+            <children>
+                <primitiveref id="fan" />
+            </children>
+        </component>
+        <component id="woodfan">
+            <transformation>
+                <transformationref id="woodfan" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="woodfan" />
+            <children>
+                <primitiveref id="cake" />
             </children>
         </component>
         <component id="leftleg">
