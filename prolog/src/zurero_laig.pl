@@ -19,7 +19,7 @@ reset(Board):-
 	retract(current_player(_Player)),
 	assert(current_player(white)).
 
-zurero_laig(Direction, Number, NewBoard):-
+zurero_laig(Direction, Number, NewBoard, Player):-
 	board(Board),
 	current_player(Player),
 	player_piece(Player, Piece),
@@ -28,7 +28,7 @@ zurero_laig(Direction, Number, NewBoard):-
 	assert_change_player(Player),
 	print_board(NewBoard).
 
-zurero_bot(Diff, NewBoard):-
+zurero_bot(Diff, NewBoard, Player, Direction, Line):-
 	board(Board),
 	current_player(Player),
 	player_piece(Player, Piece),
