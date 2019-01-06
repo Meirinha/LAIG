@@ -96,21 +96,39 @@ class XMLscene extends CGFscene {
         this.botDiff = 2;
         this.botColor = "black";
 
-        this.whitePiece = new CyberPiece(this, this.robotWhite, this.ballWhite);
-        this.blackPiece = new CyberPiece(this, this.robotBlack, this.ballBlack);
+        this.whitePieceC = new CyberPiece(this, this.robotWhite, this.ballWhite);
+        this.blackPieceC = new CyberPiece(this, this.robotBlack, this.ballBlack);
 
-        this.teleporter = new Teleporter(this);
+        this.whitePieceJ = new JapanesePiece(this, this.robotWhite);
+        this.blackPieceJ = new JapanesePiece(this, this.ballBlack);
+
+        this.teleporterC = new Teleporter(this, this.teleporterTopAppearanceC, this.teleporterMidAppearanceC);
+        this.teleporterJ = new Teleporter(this, this.teleporterTopAppearanceJ, this.teleporterMidAppearanceJ);
 
         this.menu1 = new MyPlane(this, 1, 1);
         this.menu2 = new MyPlane(this, 1, 1);
         this.menu3 = new MyPlane(this, 1, 1);
 
         this.boardQuad = new MyRectangle(this, 1, [0, 0, 1, 1]);
+        this.TimerUnits = new MyPlane(this, 1, 1);
+        this.TimerTenths = new MyPlane(this, 1, 1);
 
         this.cameraTimerDelta = 0.0;
         this.moveCameraTimer = MOVE_CAMERA_TIME;
         this.isMovingCamera = false;
         this.cameraPositionIndex = 0;
+
+        this.winnerBanner = new MyPlane(this,1,1);
+
+        this.whiteWinnerC = new CGFappearance(this);
+        this.whiteWinnerC.loadTexture('../scenes/images/WwinsC.png');
+        this.blackWinnerC = new CGFappearance(this);
+        this.blackWinnerC.loadTexture('../scenes/images/BwinsC.png');
+
+        this.whiteWinnerJ = new CGFappearance(this);
+        this.whiteWinnerJ.loadTexture('../scenes/images/WwinsJ.png');
+        this.blackWinnerJ = new CGFappearance(this);
+        this.blackWinnerJ.loadTexture('../scenes/images/BwinsJ.png');
 
         this.resetRequest();
     }
@@ -156,8 +174,69 @@ class XMLscene extends CGFscene {
         this.ballBlack.setSpecular(0.75, 0.75, 0.75, 1);
         this.ballBlack.setShininess(1);
 
-        this.boardAppearance = new CGFappearance(this);
-        this.boardAppearance.loadTexture('../scenes/images/board.jpg');
+        this.boardAppearanceC = new CGFappearance(this);
+        this.boardAppearanceC.loadTexture('../scenes/images/board.jpg');
+
+        this.boardAppearanceJ = new CGFappearance(this);
+        this.boardAppearanceJ.loadTexture('../scenes/images/japaneseboard.jpg');
+
+        this.teleporterTopAppearanceC = new CGFappearance(this);
+        this.teleporterTopAppearanceC.loadTexture('../scenes/images/black.png');
+        this.teleporterMidAppearanceC = new CGFappearance(this);
+        this.teleporterMidAppearanceC.loadTexture('../scenes/images/bedframe.jpg');
+
+        this.teleporterTopAppearanceJ = this.teleporterTopAppearanceC;
+        this.teleporterMidAppearanceJ = new CGFappearance(this);
+        this.teleporterMidAppearanceJ.loadTexture('../scenes/images/lanterna.png');
+
+        this.initTimerApperance();
+    }
+
+    initTimerApperance() {
+
+        this.zeroAppearanceC = new CGFappearance(this);
+        this.zeroAppearanceC.loadTexture('../scenes/images/cnumbers/0.jpg');
+        this.oneAppearanceC = new CGFappearance(this);
+        this.oneAppearanceC.loadTexture('../scenes/images/cnumbers/1.jpg');
+        this.twoAppearanceC = new CGFappearance(this);
+        this.twoAppearanceC.loadTexture('../scenes/images/cnumbers/2.jpg');
+        this.threeAppearanceC = new CGFappearance(this);
+        this.threeAppearanceC.loadTexture('../scenes/images/cnumbers/3.jpg');
+        this.fourAppearanceC = new CGFappearance(this);
+        this.fourAppearanceC.loadTexture('../scenes/images/cnumbers/4.jpg');
+        this.fiveAppearanceC = new CGFappearance(this);
+        this.fiveAppearanceC.loadTexture('../scenes/images/cnumbers/5.jpg');
+        this.sixAppearanceC = new CGFappearance(this);
+        this.sixAppearanceC.loadTexture('../scenes/images/cnumbers/6.jpg');
+        this.sevenAppearanceC = new CGFappearance(this);
+        this.sevenAppearanceC.loadTexture('../scenes/images/cnumbers/7.jpg');
+        this.eightAppearanceC = new CGFappearance(this);
+        this.eightAppearanceC.loadTexture('../scenes/images/cnumbers/8.jpg');
+        this.nineAppearanceC = new CGFappearance(this);
+        this.nineAppearanceC.loadTexture('../scenes/images/cnumbers/9.jpg');
+
+        this.zeroAppearanceJ = new CGFappearance(this);
+        this.zeroAppearanceJ.loadTexture('../scenes/images/jnumbers/0.jpg');
+        this.oneAppearanceJ = new CGFappearance(this);
+        this.oneAppearanceJ.loadTexture('../scenes/images/jnumbers/1.jpg');
+        this.twoAppearanceJ = new CGFappearance(this);
+        this.twoAppearanceJ.loadTexture('../scenes/images/jnumbers/2.jpg');
+        this.threeAppearanceJ = new CGFappearance(this);
+        this.threeAppearanceJ.loadTexture('../scenes/images/jnumbers/3.jpg');
+        this.fourAppearanceJ = new CGFappearance(this);
+        this.fourAppearanceJ.loadTexture('../scenes/images/jnumbers/4.jpg');
+        this.fiveAppearanceJ = new CGFappearance(this);
+        this.fiveAppearanceJ.loadTexture('../scenes/images/jnumbers/5.jpg');
+        this.sixAppearanceJ = new CGFappearance(this);
+        this.sixAppearanceJ.loadTexture('../scenes/images/jnumbers/6.jpg');
+        this.sevenAppearanceJ = new CGFappearance(this);
+        this.sevenAppearanceJ.loadTexture('../scenes/images/jnumbers/7.jpg');
+        this.eightAppearanceJ = new CGFappearance(this);
+        this.eightAppearanceJ.loadTexture('../scenes/images/jnumbers/8.jpg');
+        this.nineAppearanceJ = new CGFappearance(this);
+        this.nineAppearanceJ.loadTexture('../scenes/images/jnumbers/9.jpg');
+
+
     }
 
     initMenuAppearances() {
@@ -293,9 +372,10 @@ class XMLscene extends CGFscene {
         //     this.interface.addLightsGroupCyberpunk(this.gameGraphs[this.currentEnvironment].lights);
         // else
         //     this.interface.addLightsGroupJapanese(this.gameGraphs[this.currentEnvironment].lights);
-        this.interface.addViewsGroup(this.gameGraphs[this.currentEnvironment].views);
-        if (!this.sceneInited)
+        if (!this.sceneInited) {
             this.interface.addGameGroup(this.gameEnvironments);
+            this.interface.addViewsGroup(this.gameGraphs[this.currentEnvironment].views);
+        }
 
         this.sceneInited = true;
     }
@@ -307,6 +387,7 @@ class XMLscene extends CGFscene {
         if (!this.throwAnimationOccurring) {
             this.logPicking();
         }
+        console.log(this.gameState);
         this.clearPickRegistration();
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
@@ -324,6 +405,8 @@ class XMLscene extends CGFscene {
         this.pushMatrix();
 
         if (this.sceneInited) {
+            this.differentPieces();
+
             // Draw axis
             if (this.displayAxis)
                 this.axis.display();
@@ -338,14 +421,13 @@ class XMLscene extends CGFscene {
                 this.displayThrowAnimation();
             }
 
+            this.displayTimers();
+            
+            if(this.gameState == "video" && this.showWinnerTimer > 0.0)
+                this.displayWinner();
+
             if (this.gameState == "menu")
                 this.displayMenu();
-
-
-            this.pushMatrix();
-            this.boardAppearance.apply();
-            this.teleporter.display();
-            this.popMatrix();
 
 
         } else {
@@ -360,6 +442,137 @@ class XMLscene extends CGFscene {
         this.setActiveShader(this.defaultShader);
         // draw objects
         // ---- END Background, camera and axis setup
+    }
+
+    displayWinner()
+    {
+        if(this.currentEnvironment == "cyberpunk.xml")
+        {
+            if(this.gameWinner == "white")
+                this.whiteWinnerC.apply();
+            else
+                this.blackWinnerC.apply();
+        }
+        else 
+        {
+            if(this.gameWinner == "white")
+                this.whiteWinnerJ.apply();
+            else
+                this.blackWinnerJ.apply();
+        }
+        this.pushMatrix();
+        this.translate(10 * CELL_WIDTH, 36, 10 * CELL_WIDTH);
+        this.rotate(90 * DEGREE_TO_RAD, 0, 1, 0);
+        this.scale(2, 1, 4);
+        this.winnerBanner.display();
+        this.popMatrix();
+    }
+
+    displayTimers() {
+        let tenths = this.moveTimer / 10;
+        tenths = Math.floor(tenths);
+
+        let tenthsApp = this.getTimerAppearance(tenths);
+
+        let units = this.moveTimer % 10;
+        units = Math.floor(units);
+        let unitsApp = this.getTimerAppearance(units);
+
+        this.pushMatrix();
+        tenthsApp.apply();
+        this.translate(18, 0, -6);
+        this.scale(5, 1, 5);
+        this.rotate(90 * DEGREE_TO_RAD, 0, 1, 0);
+        this.TimerTenths.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        unitsApp.apply();
+        this.translate(23, 0, -6);
+        this.scale(5, 1, 5);
+        this.rotate(90 * DEGREE_TO_RAD, 0, 1, 0);
+        this.TimerUnits.display();
+        this.popMatrix();
+    }
+
+    getTimerAppearance(value) {
+        switch (value) {
+            case 0:
+                {
+                    if (this.currentEnvironment == "cyberpunk.xml")
+                        return this.zeroAppearanceC;
+                    else return this.zeroAppearanceJ;
+                }
+            case 1:
+                {
+                    if (this.currentEnvironment == "cyberpunk.xml")
+                        return this.oneAppearanceC;
+                    else return this.oneAppearanceJ;
+                }
+            case 2:
+                {
+                    if (this.currentEnvironment == "cyberpunk.xml")
+                        return this.twoAppearanceC;
+                    else return this.twoAppearanceJ;
+                }
+            case 3:
+                {
+                    if (this.currentEnvironment == "cyberpunk.xml")
+                        return this.threeAppearanceC;
+                    else return this.threeAppearanceJ;
+                }
+            case 4:
+                {
+                    if (this.currentEnvironment == "cyberpunk.xml")
+                        return this.fourAppearanceC;
+                    else return this.fourAppearanceJ;
+                }
+            case 5:
+                {
+                    if (this.currentEnvironment == "cyberpunk.xml")
+                        return this.fiveAppearanceC;
+                    else return this.fiveAppearanceJ;
+                }
+            case 6:
+                {
+                    if (this.currentEnvironment == "cyberpunk.xml")
+                        return this.sixAppearanceC;
+                    else return this.sixAppearanceJ;
+                }
+            case 7:
+                {
+                    if (this.currentEnvironment == "cyberpunk.xml")
+                        return this.sevenAppearanceC;
+                    else return this.sevenAppearanceJ;
+                }
+            case 8:
+                {
+                    if (this.currentEnvironment == "cyberpunk.xml")
+                        return this.eightAppearanceC;
+                    else return this.eightAppearanceJ;
+                }
+            case 9:
+            default:
+                {
+                    if (this.currentEnvironment == "cyberpunk.xml")
+                        return this.nineAppearanceC;
+                    else return this.nineAppearanceJ;
+                }
+        }
+    }
+
+    differentPieces() {
+        if (this.currentEnvironment == "cyberpunk.xml") {
+            this.whitePiece = this.whitePieceC;
+            this.blackPiece = this.blackPieceC;
+            this.boardAppearance = this.boardAppearanceC;
+            this.teleporter = this.teleporterC;
+        } else {
+            this.whitePiece = this.whitePieceJ;
+            this.blackPiece = this.blackPieceJ;
+            this.boardAppearance = this.boardAppearanceJ;
+            this.teleporter = this.teleporterJ;
+        }
     }
 
     updateCameraRotation() {
@@ -459,6 +672,7 @@ class XMLscene extends CGFscene {
             this.pushMatrix();
             this.translate(i * 2 + 2, 0, 0);
             this.registerForPick(i + 1, this.objects[i]);
+            this.teleporter.display();
             this.objects[i].display();
             this.popMatrix();
         }
@@ -468,6 +682,7 @@ class XMLscene extends CGFscene {
             this.pushMatrix();
             this.translate(0, 0, j * 2 + 2);
             this.registerForPick(i + 1, this.objects[i]);
+            this.teleporter.display();
             this.objects[i].display();
             this.popMatrix();
             j++;
@@ -477,6 +692,7 @@ class XMLscene extends CGFscene {
             this.pushMatrix();
             this.translate(j * 2 + 2, 0, 40);
             this.registerForPick(i + 1, this.objects[i]);
+            this.teleporter.display();
             this.objects[i].display();
             this.popMatrix();
             j++;
@@ -486,6 +702,7 @@ class XMLscene extends CGFscene {
             this.pushMatrix();
             this.translate(40, 0, j * 2 + 2);
             this.registerForPick(i + 1, this.objects[i]);
+            this.teleporter.display();
             this.objects[i].display();
             this.popMatrix();
             j++;
@@ -525,11 +742,13 @@ class XMLscene extends CGFscene {
     }
 
     update(currTime) {
+
+        let delta = currTime - this.lastTime;
         if (this.animationBegin == undefined) {
             this.animationBegin = currTime;
         }
         for (var node in this.gameGraphs[this.currentEnvironment].components) {
-            this.gameGraphs[this.currentEnvironment].components[node].updateAnimation(currTime - this.lastTime);
+            this.gameGraphs[this.currentEnvironment].components[node].updateAnimation(delta);
         }
         if (this.animationBegin + THROW_ANIMATION_TIME > currTime && typeof this.animationPiece != 'undefined') {
             this.setPickEnabled(false);
@@ -541,30 +760,56 @@ class XMLscene extends CGFscene {
                 this.throwAnimationOccurring = false;
                 this.board = this.nextBoard;
             }
-            if (this.gameWinner != "no") {
-                this.gameState = "menu";
+            if (this.gameWinner != "no" && (this.gameState == "pp" || this.gameState == "pc" || this.gameState == "cc")) {
+                this.gameState = "video";
+                // this.gameWinner = "no";
+                this.videoIndex = 0;
+                this.videoMoveTimer = 4.0;
+                this.showWinnerTimer = 2.0;
+                this.resetRequest();
                 console.log(this.gameWinner + ' is the Winner');
             }
             this.setPickEnabled(true);
         }
 
         if (this.moveCameraTimer < MOVE_CAMERA_TIME) {
-            this.cameraTimerDelta = currTime - this.lastTime;
-            this.moveCameraTimer += currTime - this.lastTime;
+            this.cameraTimerDelta = delta;
+            this.moveCameraTimer += delta;
             this.cameraJustFinished = true;
         } else if (this.cameraJustFinished) {
             this.isMovingCamera = false;
             this.cameraPositionIndex++;
-            if(this.cameraPositionIndex == 2)
-            
+            if (this.cameraPositionIndex == 2)
                 this.cameraPositionIndex = 0;
-            
             this.cameraJustFinished = false;
             this.cameraTimerDelta = 0;
         }
 
+        this.moveTimer += delta / 1000;
+        if (this.moveTimer > this.playTimer) {
+            //TODO Lose
+        }
 
+        if(this.showWinnerTimer > 0)
+            this.showWinnerTimer -= delta/1000;
 
+        if(this.gameState == "video")
+        {
+            if(this.videoMoveTimer < 0)
+            {
+                this.moveRequest(this.directions[this.videoIndex], this.lines[this.videoIndex]);
+                this.videoIndex++;
+                this.videoMoveTimer = 4.0;
+                if(this.videoIndex >= this.directions.length)
+                {
+                    this.gameState = "menu";
+                }
+            }
+            else
+            {
+                this.videoMoveTimer -= delta/1000;
+            }
+        }
 
         this.lastTime = currTime;
         //shaders here
@@ -640,6 +885,8 @@ class XMLscene extends CGFscene {
                     this.gameWinner = "no";
                 }
         }
+        this.directions = [];
+        this.lines = [];
     }
 
     getDirectionandLine(ID) {
@@ -667,8 +914,11 @@ class XMLscene extends CGFscene {
                     this.direction = "left";
                 }
         }
-        if (this.validMove(this.direction, this.line))
+        if (this.validMove(this.direction, this.line)) {
             this.moveRequest(this.direction, this.line);
+            this.directions.push(this.direction);
+            this.lines.push(this.line);
+        }
     };
 
     validMove(direction, line) {
@@ -691,7 +941,10 @@ class XMLscene extends CGFscene {
     }
 
     undoMove() {
-        this.undoRequest();
+        if (!this.didUndo) {
+            this.didUndo = true;
+            this.undoRequest();
+        }
     }
 
     getPrologRequest(requestString, onSuccess, onError, port) {
@@ -717,7 +970,7 @@ class XMLscene extends CGFscene {
 
     handleReply(data) {
         console.log("Reply");
-        let regex = new RegExp("^([^-]+)-(white|black)-(down|right|left|up)-([0-9]+)-(white|black|no)$"); //Board - NextTurnPlayer - gameEnded
+        let regex = new RegExp("^([^-]+)-(white|black)-(down|right|left|up)-([0-9]+)-(white|black|no)-(undo|dont)$"); //Board - NextTurnPlayer - gameEnded
         let matched = regex.exec(data.target.responseText);
         this.validMove = true;
 
@@ -737,17 +990,20 @@ class XMLscene extends CGFscene {
         console.log(matched[5]);
         this.scene.gameWinner = matched[5];
 
+        this.scene.wasUndo = matched[6];
+
         this.scene.nextBoard = board;
-
-        this.scene.firstAppearance();
-        this.scene.initThrowAnimation();
-
+        if (this.scene.wasUndo != "undo") {
+            this.scene.firstAppearance();
+            this.scene.initThrowAnimation();
+            this.scene.didUndo = false;
+        }
         console.log(board);
     };
 
     moveRequest(direction, line) {
         console.log("Direction: " + direction + "Line: " + line);
-        this.previousBoard = this.board;
+        this.moveTimer = 0.0;
         this.makeRequest("move(" + direction + "," + line + ")");
     };
 
