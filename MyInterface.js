@@ -32,9 +32,25 @@ class MyInterface extends CGFinterface {
      * Adds a folder containing the IDs of the lights passed as parameter.
      * @param {array} lights
      */
-    addLightsGroup(lights) {
+    addLightsGroupCyberpunk(lights) {
 
-        var group = this.gui.addFolder("Lights");
+        let group = this.gui.addFolder("Lights_Cyber");
+        group.close();
+
+        // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
+        // e.g. this.option1=true; this.option2=false;
+
+        for (var key in lights) {
+            if (lights.hasOwnProperty(key)) {
+
+                this.scene.lightValues[key] = lights[key][0];
+                group.add(this.scene.lightValues, key);
+            }
+        }
+    }
+        addLightsGroupJapanese(lights) {
+
+        let group = this.gui.addFolder("Lights_Japan");
         group.close();
 
         // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
@@ -62,14 +78,14 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'changeCamera', this.cameraArray).name("Active Camera");
     }
 
-    addGameGroup()
+    addGameGroup(gameGraphs)
     {
         var group = this.gui.addFolder("Game");
         group.close();
 
         group.add(this.scene, 'playTimer').name("Play Timer");
         group.add(this.scene, 'botDiff', [1,2,3]).name("Bot Difficulty");
-        // group.add(this.scene, )
+        group.add(this.scene, 'currentEnvironment', gameGraphs).name("Environment");
     }
 
     processKeyUp(event) {
@@ -80,6 +96,11 @@ class MyInterface extends CGFinterface {
         } else if(event.code == "KeyZ") {
             console.log("Pressed Z");
             this.scene.undoMove();
+        } else if(event.code == "KeyC")
+        {
+            console.log("Pressed C");
+            this.scene.moveCamera = true;
+            this.scene.cameraTimer = 0.0;
         }
     }
 }

@@ -43,9 +43,9 @@ function getUrlVars() {
 }
 //Include additional files here
 serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'MyRectangle.js', 'MyTriangle.js', 'MyCylinder.js', 'MyNode.js',
-                                'MyBase.js', 'MyDome.js', 'MySemiSphere.js', 'MySphere.js', 'Torus.js', 'Animation.js', 'CircularAnimation.js', 'LinearAnimation.js',
-                                'MyPatch.js', 'MyPlane.js','PatchMyCylinder.js', 'MyTerrain.js','MyWater.js','OVNI.js', 'Diamond.js', 'MyModel.js',
-                                'CyberPiece.js','Teleporter.js', 'JapanesePiece.js',
+    'MyBase.js', 'MyDome.js', 'MySemiSphere.js', 'MySphere.js', 'Torus.js', 'Animation.js', 'CircularAnimation.js', 'LinearAnimation.js',
+    'MyPatch.js', 'MyPlane.js', 'PatchMyCylinder.js', 'MyTerrain.js', 'MyWater.js', 'OVNI.js', 'Diamond.js', 'MyModel.js',
+    'CyberPiece.js', 'Teleporter.js', 'JapanesePiece.js',
 
     main = function () {
         // Standard application, scene and interface setup
@@ -63,11 +63,33 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.j
         // get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
         // or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
 
-        var filename = getUrlVars()['file'] || "demo.xml";
+        // var filename = getUrlVars()['file'] || "demo.xml";
 
         // create and load graph, and associate it to scene.
         // Check console for loading errors
-        var myGraph =new MySceneGraph(filename, myScene);
+        // var myGraph = new MySceneGraph(filename, myScene);
+
+
+
+
+
+        filename = getUrlVars()['file'] || "cyberpunk.xml";
+        myScene.gameGraphs[filename] = new MySceneGraph(filename, myScene);
+        myScene.gameGraphs.length++;
+
+        myScene.gameEnvironments.push(filename);
+        myScene.currentEnvironment = filename;
+
+        var filename = getUrlVars()['file'] || "japanese.xml";
+
+        myScene.gameGraphs[filename] = new MySceneGraph(filename, myScene);
+        myScene.gameGraphs.length++;
+
+        myScene.gameEnvironments.push(filename);
+
+
+
+
 
         // start
         app.run();

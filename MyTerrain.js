@@ -8,7 +8,7 @@ class MyTerrain extends CGFobject {
         this.heightScale = heightscale;
 
         this.plane = new MyPlane(this.scene, this.parts, this.parts);
-        this.graph = this.scene.graph;
+        this.graph = this.scene.gameGraphs[this.scene.currentEnvironment];
     };
 
     display()
