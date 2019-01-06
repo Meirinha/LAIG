@@ -79,6 +79,3 @@ MyModel.prototype.initBuffers = function () {
 MyModel.prototype.updateTexCoords = function(sFactor, tFactor) {
 
 };
-MyModel.prototype.setTexScale = function (X,Y) {
-
-}
