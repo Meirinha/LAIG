@@ -75,17 +75,20 @@ class XMLscene extends CGFscene {
     initGameVariables() {
         this.board;
         this.nextBoard;
-        this.direction;
+        this.direction = "down";
         this.line = 10;
+        this.gameOver = false;
 
         this.animationPiece;
         this.throwAnimationOccurring = false;
+        this.animationJustFinished = false;
 
         this.previousBoard = [];
         this.moveSequences = [];
 
         this.vsBot = true; //TODO
         this.botDiff = 2;
+        this.botColor = "black";
 
         this.whitePiece = new CyberPiece(this, this.robotWhite, this.ballWhite);
         this.blackPiece = new CyberPiece(this, this.robotBlack, this.ballBlack);
@@ -269,7 +272,9 @@ class XMLscene extends CGFscene {
      * Displays the scene.
      */
     display() {
-        this.logPicking();
+        if (!this.throwAnimationOccurring) {
+            this.logPicking();
+        }
         this.clearPickRegistration();
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
@@ -298,20 +303,17 @@ class XMLscene extends CGFscene {
             if (typeof this.board !== 'undefined') { //Wait for prolog board
                 this.displayDirectionClickables();
                 this.displayBoardPieces();
-
-                // this.pushMatrix();
-                // this.menu1app.apply();
-                // this.translate(1,1,0);
-                // this.menu1.display();
-                // this.popMatrix();
+                this.displayThrowAnimation();
             }
+
+            this.displayMenu();
+
 
             this.pushMatrix();
             this.boardAppearance.apply();
             this.teleporter.display();
             this.popMatrix();
 
-            this.displayThrowAnimation();
 
         } else {
             // Draw axis
@@ -325,17 +327,48 @@ class XMLscene extends CGFscene {
         // ---- END Background, camera and axis setup
     }
 
+    displayMenu() {
+        this.pushMatrix();
+        this.menu1app.apply();
+        this.translate(10 * CELL_WIDTH, 26, 9 * CELL_WIDTH);
+        this.rotate(90 * DEGREE_TO_RAD, 0, 1, 0);
+        this.scale(2, 1, 4);
+        this.menu1.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.menu1app.apply();
+        this.translate(10 * CELL_WIDTH, 26, 10 * CELL_WIDTH);
+        this.rotate(90 * DEGREE_TO_RAD, 0, 1, 0);
+        this.scale(2, 1, 4);
+        this.menu1.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.menu1app.apply();
+        this.translate(10 * CELL_WIDTH, 26, 11 * CELL_WIDTH);
+        this.rotate(90 * DEGREE_TO_RAD, 0, 1, 0);
+        this.scale(2, 1, 4);
+        this.menu1.display();
+        this.popMatrix();
+    }
+
     displayThrowAnimation() {
         if (this.throwAnimationOccurring && typeof this.animationPiece.matrix != 'undefined') {
 
             this.pushMatrix();
             this.multMatrix(this.animationPiece.matrix);
-            if (this.AnimationColor == "white")
+            if (this.animationColor == "white")
                 this.whitePiece.display();
             else
                 this.blackPiece.display();
             this.popMatrix();
-            //             if(this.animationBegin )
+        }
+        if (this.animationJustFinished && this.vsBot && this.botColor != this.animationColor) {
+            this.animationJustFinished = false;
+            this.makeRequest("botMove(" + this.botDiff + ")");
+        } else if (this.animationJustFinished) {
+            this.board = this.nextBoard;
         }
     }
 
@@ -408,7 +441,7 @@ class XMLscene extends CGFscene {
         for (var key in this.lightValues) {
             if (this.lightValues.hasOwnProperty(key)) {
                 if (this.lightValues[key]) {
-                    this.lights[i].setVisible(true);
+                    this.lights[i].setVisible(false); //Invisible light
                     this.lights[i].enable();
                 } else {
                     this.lights[i].setVisible(false);
@@ -439,16 +472,17 @@ class XMLscene extends CGFscene {
         if (this.animationBegin == undefined) {
             this.animationBegin = currTime;
         }
-        // console.log(this.animationBegin);
         for (var node in this.graph.components) {
             this.graph.components[node].updateAnimation(currTime - this.lastTime);
         }
-        if (this.animationBegin + THROW_ANIMATION_TIME > currTime && typeof this.animationPiece != 'undefined')
+        if (this.animationBegin + THROW_ANIMATION_TIME > currTime && typeof this.animationPiece != 'undefined') {
             this.animationPiece.matrix = this.animationPiece.getTransformationMatrix((currTime - this.animationBegin) / 1000);
-        else
-        {
-           this.throwAnimationOccurring = false;
-           this.board = this.nextBoard;   
+            this.animationJustFinished = false;
+        } else {
+            if (this.throwAnimationOccurring)
+                this.animationJustFinished = true;
+            this.throwAnimationOccurring = false;
+            this.board = this.nextBoard;
         }
         this.lastTime = currTime;
         //shaders here
@@ -485,8 +519,7 @@ class XMLscene extends CGFscene {
                     var obj = this.pickResults[i][0];
                     if (obj) {
                         var customId = this.pickResults[i][1];
-                        console.log("Picked object: " + obj + ", with pick id " + customId);
-
+                        console.log("Picked object with pick id " + customId);
                         this.getDirectionandLine(customId);
                     }
                 }
@@ -584,14 +617,14 @@ class XMLscene extends CGFscene {
                 board[i].push(matchedsequel[j]);
             }
         }
-        this.scene.AnimationColor = matched[2];
+        this.scene.animationColor = matched[2];
 
         this.scene.direction = matched[3];
         this.scene.line = matched[4];
+        if (matched[5] != "no")
+            this.scene.gameOver = true;
 
         this.scene.nextBoard = board;
-
-        this.scene.board = board; //TODO remove this
 
         this.scene.firstAppearance();
         this.scene.initThrowAnimation();
@@ -603,9 +636,6 @@ class XMLscene extends CGFscene {
         console.log("Direction: " + direction + "Line: " + line);
         this.previousBoard = this.board;
         this.makeRequest("move(" + direction + "," + line + ")");
-        if (this.vsBot) {
-            this.makeRequest("botMove(" + this.botDiff + ")");
-        }
     };
 
     resetRequest() {
