@@ -556,9 +556,9 @@ class XMLscene extends CGFscene {
             this.isMovingCamera = false;
             this.cameraPositionIndex++;
             if(this.cameraPositionIndex == 2)
-            
+
                 this.cameraPositionIndex = 0;
-            
+
             this.cameraJustFinished = false;
             this.cameraTimerDelta = 0;
         }
@@ -645,6 +645,7 @@ class XMLscene extends CGFscene {
     getDirectionandLine(ID) {
         let n = Math.floor((ID - 1) / 19);
         this.line = (ID - 1) % 19 + 1;
+        
 
         switch (n) {
             case 0:
@@ -667,8 +668,10 @@ class XMLscene extends CGFscene {
                     this.direction = "left";
                 }
         }
-        if (this.validMove(this.direction, this.line))
+        if (this.validMove(this.direction, this.line)){
             this.moveRequest(this.direction, this.line);
+            this.directions[]
+          }
     };
 
     validMove(direction, line) {

@@ -88,6 +88,19 @@ class MyInterface extends CGFinterface {
         group.add(this.scene, 'currentEnvironment', gameGraphs).name("Environment");
     }
 
+    addMusicGroup() {
+        this.audio = new Array();
+
+        this.audio.push(new Audio('scenes/songs/cyberpunk.mp3'));
+        this.audio.push(new Audio('scenes/songs/japanese.mp3'));
+
+        let arrayMusic = [0,1];
+
+        this.gui.add(this.scene, 'currentMusic', arrayMusic).name("Music");
+        this.gui.add(this.scene, 'music').name('Press P to play');
+        this.gui.add(this.scene, 'music').name('Press S to pause');
+    }
+
     processKeyUp(event) {
         let graph = this.scene.graph;
         if (event.code == "KeyM") {
