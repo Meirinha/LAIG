@@ -124,8 +124,9 @@
             <translate x="1.8" y="301.0" z="0.62" />
         </transformation>
         <transformation id="rootScale">
+          <rotate axis="y" angle="-90.0" />
             <scale x="5.0" y="5.0" z="5.0" />
-            <translate x="-15.5" y="-7" z="-10.0" />
+            <translate x="-15.5" y="-7" z="-17.0" />
         </transformation>
 
         <transformation id="pillow">
