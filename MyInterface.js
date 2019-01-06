@@ -20,7 +20,7 @@ class MyInterface extends CGFinterface {
 
         this.gui = new dat.GUI();
 
-        this.gui.open();
+        this.gui.close();
         return true;
     }
 
@@ -35,7 +35,7 @@ class MyInterface extends CGFinterface {
     addLightsGroup(lights) {
 
         var group = this.gui.addFolder("Lights");
-        group.open();
+        group.close();
 
         // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
         // e.g. this.option1=true; this.option2=false;

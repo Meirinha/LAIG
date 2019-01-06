@@ -2,6 +2,7 @@ var DEGREE_TO_RAD = Math.PI / 180;
 
 let CELL_WIDTH = 2.0;
 let BOARD_SIZE = 19;
+let THROW_ANIMATION_TIME = 5000;
 
 
 /**
@@ -74,9 +75,11 @@ class XMLscene extends CGFscene {
     initGameVariables() {
         this.board;
         this.nextBoard;
-        this.resetRequest();
         this.direction;
-        this.line;
+        this.line = 10;
+
+        this.animationPiece;
+        this.throwAnimationOccurring = false;
 
         this.previousBoard = [];
         this.moveSequences = [];
@@ -94,6 +97,8 @@ class XMLscene extends CGFscene {
         this.menu3 = new MyPlane(this, 1, 1);
 
         this.boardQuad = new MyRectangle(this, 1, [0, 0, 1, 1]);
+
+        this.resetRequest();
     }
 
     initAppearances() {
@@ -300,24 +305,13 @@ class XMLscene extends CGFscene {
                 // this.menu1.display();
                 // this.popMatrix();
             }
-            this.pushMatrix();
-            this.translate(0.5, -0.1, 39.5);
-            this.rotate(-90 * DEGREE_TO_RAD, 1, 0, 0);
-            this.scale(39, 39, 1);
-            this.boardAppearance.apply();
-            this.boardQuad.display();
-            this.popMatrix();
 
             this.pushMatrix();
             this.boardAppearance.apply();
-            // this.teleporter.display();
+            this.teleporter.display();
             this.popMatrix();
 
-            this.pushMatrix();
-            this.translate(20, 0, 40);
-            this.whitePiece.display();
-
-            this.popMatrix();
+            this.displayThrowAnimation();
 
         } else {
             // Draw axis
@@ -329,6 +323,20 @@ class XMLscene extends CGFscene {
         this.setActiveShader(this.defaultShader);
         // draw objects
         // ---- END Background, camera and axis setup
+    }
+
+    displayThrowAnimation() {
+        if (this.throwAnimationOccurring && typeof this.animationPiece.matrix != 'undefined') {
+
+            this.pushMatrix();
+            this.multMatrix(this.animationPiece.matrix);
+            if (this.AnimationColor == "white")
+                this.whitePiece.display();
+            else
+                this.blackPiece.display();
+            this.popMatrix();
+            //             if(this.animationBegin )
+        }
     }
 
     displayBoardPieces() {
@@ -428,8 +436,19 @@ class XMLscene extends CGFscene {
     }
 
     update(currTime) {
+        if (this.animationBegin == undefined) {
+            this.animationBegin = currTime;
+        }
+        // console.log(this.animationBegin);
         for (var node in this.graph.components) {
             this.graph.components[node].updateAnimation(currTime - this.lastTime);
+        }
+        if (this.animationBegin + THROW_ANIMATION_TIME > currTime && typeof this.animationPiece != 'undefined')
+            this.animationPiece.matrix = this.animationPiece.getTransformationMatrix((currTime - this.animationBegin) / 1000);
+        else
+        {
+           this.throwAnimationOccurring = false;
+           this.board = this.nextBoard;   
         }
         this.lastTime = currTime;
         //shaders here
@@ -442,6 +461,23 @@ class XMLscene extends CGFscene {
             time: factor2
         });
     }
+    updateAnimation(deltaT) {
+        this.time += deltaT / 1000;
+        if (this.currentAnimationIndex < this.animations.length) {
+            if (this.time >= this.graph.scene.animations[this.currentAnimation].duration) {
+                this.time = 0;
+                this.currentAnimationIndex++;
+                this.currentAnimation = this.animations[this.currentAnimationIndex];
+                if (this.currentAnimationIndex >= this.animations.length) {
+                    this.currentAnimationIndex = 0;
+                    this.currentAnimation = this.animations[this.currentAnimationIndex];
+                }
+            }
+            this.animationMatrix = this.graph.scene.animations[this.currentAnimation].getTransformationMatrix(this.time);
+        }
+    }
+
+
     logPicking() {
         if (this.pickMode == false) {
             if (this.pickResults != null && this.pickResults.length > 0) {
@@ -503,7 +539,7 @@ class XMLscene extends CGFscene {
                     if (this.board[line - 1][i] != "e")
                         return true;
         }
-        console.log("NOT Valid");
+        console.log("Invalid move");
         return false;
     }
 
@@ -530,13 +566,13 @@ class XMLscene extends CGFscene {
 
     makeRequest(requestString) {
         this.getPrologRequest(requestString, this.handleReply);
+
     };
 
     handleReply(data) {
         console.log("Reply");
-        let regex = new RegExp("^([^-]+)(?:-([^-]+)-(.+))?$"); //Board - NextTurnPlayer - gameEnded
+        let regex = new RegExp("^([^-]+)-(white|black)-(down|right|left|up)-([0-9]+)$"); //Board - NextTurnPlayer - gameEnded
         let matched = regex.exec(data.target.responseText);
-
         this.validMove = true;
 
         let board = new Array();
@@ -548,25 +584,19 @@ class XMLscene extends CGFscene {
                 board[i].push(matchedsequel[j]);
             }
         }
+        this.scene.AnimationColor = matched[2];
+
+        this.scene.direction = matched[3];
+        this.scene.line = matched[4];
+
         this.scene.nextBoard = board;
 
+        this.scene.board = board; //TODO remove this
+
         this.scene.firstAppearance();
-        this.scene.board = board;
+        this.scene.initThrowAnimation();
 
         console.log(board);
-
-        if (matched[2] != undefined && matched[3] != undefined) {
-            this.player = matched[2];
-            this.gameEnded = matched[3];
-
-            //Good response, Animate
-            let animation = this.nextPieceAnimInfo.animation;
-            animation.setStartTime((new Date().getTime() - this.initialTime) / 1000);
-            this.animations[this.nextPieceAnimInfo.pickID] = animation;
-            this.animations.length++;
-        } else
-            this.currentBoard = this.boardAfterAnimation;
-        console.log("Hello There");
     };
 
     moveRequest(direction, line) {
@@ -584,13 +614,15 @@ class XMLscene extends CGFscene {
     }
 
     firstAppearance() { // Detect where to stop animation Piece 
+        this.animationBegin = this.lastTime;
         let n;
+        console.log(this.nextBoard);
         switch (this.direction) {
             case "down":
                 {
                     for (let i = 0; i < BOARD_SIZE; i++) {
                         if (this.nextBoard[i][this.line - 1] != "e") {
-                            n = i;
+                            n = i + 1;
                             break;
                         }
                     }
@@ -598,20 +630,19 @@ class XMLscene extends CGFscene {
                 }
             case "up":
                 {
-                    for (let i = BOARD_SIZE - 1; i <= 0; i--) {
-                        if (this.nextBoard[i][this.line - 1] != "e") {
-                            n = i;
+                    for (let i = 0; i < BOARD_SIZE; i++) {
+                        if (this.nextBoard[BOARD_SIZE - i - 1][this.line - 1] != "e") {
+                            n = i + 1;
                             break;
                         }
                     }
                     break;
                 }
-
             case "right":
                 {
                     for (let i = 0; i < BOARD_SIZE; i++) {
                         if (this.nextBoard[this.line - 1][i] != "e") {
-                            n = i;
+                            n = i + 1;
                             break;
                         }
                     }
@@ -620,9 +651,9 @@ class XMLscene extends CGFscene {
             case "left":
             default:
                 {
-                    for (let i = BOARD_SIZE - 1; i <= 0; i--) {
-                        if (this.nextBoard[this.line - 1][i] != "e") {
-                            n = i;
+                    for (let i = 0; i < BOARD_SIZE; i++) {
+                        if (this.nextBoard[this.line - 1][BOARD_SIZE - i - 1] != "e") {
+                            n = i + 1;
                             break;
                         }
                     }
@@ -634,41 +665,54 @@ class XMLscene extends CGFscene {
         this.animationStop = n;
     }
 
-    pieceSidePlacement(piece) {
+    initThrowAnimation() {
         switch (this.animationDirection) {
             case "down":
                 {
-                    this.pushMatrix();
-                    this.translate(this.animationLine * CELL_WIDTH, 0, 0);
-                    piece.display();
-                    this.popMatrix();
+                    let start = this.animationLine * CELL_WIDTH;
+                    let stop = this.animationStop * CELL_WIDTH;
+                    this.animationPiece = new LinearAnimation(this, 1, 5, [
+                        [start, 0, 0],
+                        [start, 0, stop]
+                    ]);
                     break;
                 }
             case "up":
                 {
-                    this.pushMatrix();
-                    this.translate(this.animationLine * CELL_WIDTH, 0, 20 * CELL_WIDTH);
-                    piece.display();
-                    this.popMatrix();
+                    let start = this.animationLine * CELL_WIDTH;
+                    let stop = this.animationStop * CELL_WIDTH;
+                    let border = 20 * CELL_WIDTH;
+                    this.animationPiece = new LinearAnimation(this, 1, 5, [
+                        [start, 0, border],
+                        [start, 0, border - stop]
+                    ]);
                     break;
                 }
             case "right":
                 {
-                    this.pushMatrix();
-                    this.translate(0, 0, this.animationLine * CELL_WIDTH);
-                    piece.display();
-                    this.popMatrix();
+                    let start = this.animationLine * CELL_WIDTH;
+                    let stop = this.animationStop * CELL_WIDTH;
+                    this.animationPiece = new LinearAnimation(this, 1, 5, [
+                        [0, 0, start],
+                        [stop, 0, start]
+                    ]);
                     break;
                 }
             case "left":
             default:
                 {
-                    this.pushMatrix();
-                    this.translate(20 * CELL_WIDTH, 0, this.animationLine * CELL_WIDTH);
-                    piece.display();
-                    this.popMatrix();
+                    let start = this.animationLine * CELL_WIDTH;
+                    let stop = this.animationStop * CELL_WIDTH;
+                    let border = 20 * CELL_WIDTH;
+                    this.animationPiece = new LinearAnimation(this, 1, 5, [
+                        [border, 0, start],
+                        [border - stop, 0, start]
+                    ]);
                     break;
                 }
         }
+        this.throwAnimationOccurring = true;
+        this.animationBegin = this.lastTime;
+        console.log(this.animationPiece);
     }
 };
