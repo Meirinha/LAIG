@@ -99,6 +99,7 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'currentMusic', arrayMusic).name("Music");
         this.gui.add(this.scene, 'music').name('Press P to play');
         this.gui.add(this.scene, 'music').name('Press S to pause');
+        this.gui.add(this.scene, 'music').name('Press Z to undo');
     }
 
     processKeyUp(event) {
