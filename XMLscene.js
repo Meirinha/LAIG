@@ -110,6 +110,7 @@ class XMLscene extends CGFscene {
         this.cameraTimerDelta = 0.0;
         this.moveCameraTimer = MOVE_CAMERA_TIME;
         this.isMovingCamera = false;
+        this.cameraPositionIndex = 0;
 
         this.resetRequest();
     }
@@ -362,32 +363,18 @@ class XMLscene extends CGFscene {
     }
 
     updateCameraRotation() {
-        // this.isMovingCamera = false;
-        this.cameraPositionIndex = 0;
+        //         this.cameraPositionIndex = 0;
         switch (this.cameraPositionIndex) {
             case 0: //top
                 {
-
-                    this.camera.orbit(CGFcameraAxisID.X, -50 * DEGREE_TO_RAD * (this.cameraTimerDelta/MOVE_CAMERA_TIME));
+                    this.camera.orbit(CGFcameraAxisID.X, -50 * DEGREE_TO_RAD * (this.cameraTimerDelta / MOVE_CAMERA_TIME));
                     break;
                 }
             case 1: //left
+            default:
                 {
-                  this.camera.orbit(CGFcameraAxisID.X, 50 * DEGREE_TO_RAD * (this.cameraTimerDelta/MOVE_CAMERA_TIME));
+                    this.camera.orbit(CGFcameraAxisID.X, 50 * DEGREE_TO_RAD * (this.cameraTimerDelta / MOVE_CAMERA_TIME));
                     break;
-                }
-            case 2: // second Top
-                {
-                  this.camera.rotate(CGFcameraAxisID.Y, 180 * DEGREE_TO_RAD * (this.cameraTimerDelta/MOVE_CAMERA_TIME));
-                  this.camera.orbit(CGFcameraAxisID.X, 50 * DEGREE_TO_RAD * (this.cameraTimerDelta/MOVE_CAMERA_TIME));
-                    break;
-                }
-            case 3:
-            default: // right
-                {
-                  this.camera.orbit(CGFcameraAxisID.X, -50 * DEGREE_TO_RAD * (this.cameraTimerDelta/MOVE_CAMERA_TIME));
-                  this.camera.rotate(CGFcameraAxisID.Y, 180 * DEGREE_TO_RAD * (this.cameraTimerDelta/MOVE_CAMERA_TIME));
-                  break;
                 }
         }
 
@@ -561,15 +548,21 @@ class XMLscene extends CGFscene {
             this.setPickEnabled(true);
         }
 
-        if(this.moveCameraTimer < MOVE_CAMERA_TIME)
-        {
+        if (this.moveCameraTimer < MOVE_CAMERA_TIME) {
             this.cameraTimerDelta = currTime - this.lastTime;
             this.moveCameraTimer += currTime - this.lastTime;
-        }
-        else{
-            this.cameraTimerDelta = 0;
+            this.cameraJustFinished = true;
+        } else if (this.cameraJustFinished) {
+            this.isMovingCamera = false;
             this.cameraPositionIndex++;
+            if(this.cameraPositionIndex == 2)
+            
+                this.cameraPositionIndex = 0;
+            
+            this.cameraJustFinished = false;
+            this.cameraTimerDelta = 0;
         }
+
 
 
 
