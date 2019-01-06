@@ -109,11 +109,11 @@ parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
 
 /** Actual game*/
-parse_input(reset, Board-black-down-10):- reset(Board).
+parse_input(reset, Board-black-down-10-no):- reset(Board).
 parse_input(undo, Board):- undo(Board).
-parse_input(move(Direction, N), Board-Player-Direction-N) :- zurero_laig(Direction, N, Board, Player).
+parse_input(move(Direction, N), Board-Player-Direction-N-Winner) :- zurero_laig(Direction, N, Board, Player, Winner).
 
-parse_input(botMove(Diff), Board-Player-Direction-Line) :- zurero_bot(Diff, Board, Player, Direction, Line).
+parse_input(botMove(Diff), Board-Player-Direction-Line-Winner) :- zurero_bot(Diff, Board, Player, Direction, Line, Winner).
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

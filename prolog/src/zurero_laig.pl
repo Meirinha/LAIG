@@ -19,14 +19,14 @@ reset(Board):-
 	retract(current_player(_Player)),
 	assert(current_player(white)).
 
-zurero_laig(Direction, Number, NewBoard, Player):-
+zurero_laig(Direction, Number, NewBoard, Player, WinningPlayer):-
 	board(Board),
 	current_player(Player),
 	player_piece(Player, Piece),
 	move(Direction, Number, Piece, Board, NewBoard),
 	assert_new_board(NewBoard),
 	assert_change_player(Player),
-	detect_endgame(Player),
+	detect_endgame(Player, WinningPlayer),
 	print_board(NewBoard).
 
 zurero_bot(Diff, NewBoard, Player, Direction, Line, WinningPlayer):-
@@ -37,7 +37,7 @@ zurero_bot(Diff, NewBoard, Player, Direction, Line, WinningPlayer):-
 	move(Direction, Line, Piece, Board, NewBoard),
 	assert_new_board(NewBoard),
 	assert_change_player(Player),
-	detect_endgame(Player),
+	detect_endgame(Player, WinningPlayer),
 	print_board(NewBoard).
 
 detect_endgame(LastPlayer, WinningPlayer):-

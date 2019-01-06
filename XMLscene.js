@@ -78,6 +78,7 @@ class XMLscene extends CGFscene {
         this.direction = "down";
         this.line = 10;
         this.gameOver = false;
+        this.gameState = "menu";
 
         this.animationPiece;
         this.throwAnimationOccurring = false;
@@ -86,7 +87,7 @@ class XMLscene extends CGFscene {
         this.previousBoard = [];
         this.moveSequences = [];
 
-        this.vsBot = true; //TODO
+        this.vsBot = false; //TODO
         this.botDiff = 2;
         this.botColor = "black";
 
@@ -114,13 +115,7 @@ class XMLscene extends CGFscene {
         this.appearance.setTexture(this.texture);
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-        this.menu1app = new CGFappearance(this);
-
-        this.menu1app.setAmbient(0.3, 0.3, 0.3, 1);
-        this.menu1app.setDiffuse(0.7, 0.7, 0.7, 1);
-        this.menu1app.setSpecular(0.0, 0.0, 0.0, 1);
-        this.menu1app.setShininess(120);
-        this.menu1app.loadTexture('../scenes/images/pp.png');
+        this.initMenuAppearances();
 
         // White Pieces
         this.robotWhite = new CGFappearance(this);
@@ -153,6 +148,29 @@ class XMLscene extends CGFscene {
 
         this.boardAppearance = new CGFappearance(this);
         this.boardAppearance.loadTexture('../scenes/images/board.jpg');
+    }
+
+    initMenuAppearances() {
+        this.menu1app = new CGFappearance(this);
+        this.menu1app.setAmbient(0.3, 0.3, 0.3, 1);
+        this.menu1app.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.menu1app.setSpecular(0.0, 0.0, 0.0, 1);
+        this.menu1app.setShininess(120);
+        this.menu1app.loadTexture('../scenes/images/pp.png');
+
+        this.menu2app = new CGFappearance(this);
+        this.menu2app.setAmbient(0.3, 0.3, 0.3, 1);
+        this.menu2app.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.menu2app.setSpecular(0.0, 0.0, 0.0, 1);
+        this.menu2app.setShininess(120);
+        this.menu2app.loadTexture('../scenes/images/pc.png');
+
+        this.menu3app = new CGFappearance(this);
+        this.menu3app.setAmbient(0.3, 0.3, 0.3, 1);
+        this.menu3app.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.menu3app.setSpecular(0.0, 0.0, 0.0, 1);
+        this.menu3app.setShininess(120);
+        this.menu3app.loadTexture('../scenes/images/cc.png');
     }
 
     initShaders() {
@@ -267,7 +285,6 @@ class XMLscene extends CGFscene {
         this.sceneInited = true;
     }
 
-
     /**
      * Displays the scene.
      */
@@ -306,7 +323,8 @@ class XMLscene extends CGFscene {
                 this.displayThrowAnimation();
             }
 
-            this.displayMenu();
+            if (this.gameState == "menu")
+                this.displayMenu();
 
 
             this.pushMatrix();
@@ -330,26 +348,29 @@ class XMLscene extends CGFscene {
     displayMenu() {
         this.pushMatrix();
         this.menu1app.apply();
-        this.translate(10 * CELL_WIDTH, 26, 9 * CELL_WIDTH);
+        this.translate(10 * CELL_WIDTH, 36, 9 * CELL_WIDTH);
         this.rotate(90 * DEGREE_TO_RAD, 0, 1, 0);
         this.scale(2, 1, 4);
+        this.registerForPick(BOARD_SIZE * 4 + 1, this.menu1);
         this.menu1.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.menu1app.apply();
-        this.translate(10 * CELL_WIDTH, 26, 10 * CELL_WIDTH);
+        this.menu2app.apply();
+        this.translate(10 * CELL_WIDTH, 36, 10 * CELL_WIDTH);
         this.rotate(90 * DEGREE_TO_RAD, 0, 1, 0);
         this.scale(2, 1, 4);
-        this.menu1.display();
+        this.registerForPick(BOARD_SIZE * 4 + 2, this.menu2);
+        this.menu2.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.menu1app.apply();
-        this.translate(10 * CELL_WIDTH, 26, 11 * CELL_WIDTH);
+        this.menu3app.apply();
+        this.translate(10 * CELL_WIDTH, 36, 11 * CELL_WIDTH);
         this.rotate(90 * DEGREE_TO_RAD, 0, 1, 0);
         this.scale(2, 1, 4);
-        this.menu1.display();
+        this.registerForPick(BOARD_SIZE * 4 + 3, this.menu3);
+        this.menu3.display();
         this.popMatrix();
     }
 
@@ -364,7 +385,7 @@ class XMLscene extends CGFscene {
                 this.blackPiece.display();
             this.popMatrix();
         }
-        if (this.animationJustFinished && this.vsBot && this.botColor != this.animationColor) {
+        if (this.animationJustFinished && ((this.vsBot && this.botColor != this.animationColor) || this.vsBot == 2)) {
             this.animationJustFinished = false;
             this.makeRequest("botMove(" + this.botDiff + ")");
         } else if (this.animationJustFinished) {
@@ -476,13 +497,21 @@ class XMLscene extends CGFscene {
             this.graph.components[node].updateAnimation(currTime - this.lastTime);
         }
         if (this.animationBegin + THROW_ANIMATION_TIME > currTime && typeof this.animationPiece != 'undefined') {
+            this.setPickEnabled(false);
             this.animationPiece.matrix = this.animationPiece.getTransformationMatrix((currTime - this.animationBegin) / 1000);
             this.animationJustFinished = false;
         } else {
-            if (this.throwAnimationOccurring)
+            if (this.throwAnimationOccurring) {
                 this.animationJustFinished = true;
-            this.throwAnimationOccurring = false;
-            this.board = this.nextBoard;
+                this.throwAnimationOccurring = false;
+                this.board = this.nextBoard;
+            }
+            if(this.gameWinner != "no")
+            {
+                this.gameState = "menu";
+                console.log(this.gameWinner + ' is the Winner');
+            }
+            this.setPickEnabled(true);
         }
         this.lastTime = currTime;
         //shaders here
@@ -520,11 +549,43 @@ class XMLscene extends CGFscene {
                     if (obj) {
                         var customId = this.pickResults[i][1];
                         console.log("Picked object with pick id " + customId);
-                        this.getDirectionandLine(customId);
+                        if (customId < BOARD_SIZE * 4 + 1 && this.gameState != "menu")
+                            this.getDirectionandLine(customId);
+                        else if (this.gameState == "menu")
+                            this.menuInitGame(customId - BOARD_SIZE * 4);
                     }
                 }
                 this.pickResults.splice(0, this.pickResults.length);
             }
+        }
+    }
+
+    menuInitGame(option) {
+        switch (option) {
+            case 1:
+                {
+                    console.log('Starting PvP');
+                    this.gameState = "pp";
+                    this.vsBot = false;
+                    this.gameWinner = "no";
+                    break;
+                }
+            case 2:
+                {
+                    console.log('Starting PvC');
+                    this.gameState = "pc";
+                    this.vsBot = true;
+                    this.gameWinner = "no";
+                    break;
+                }
+            case 3:
+            default:
+                {
+                    console.log('Starting CvC');
+                    this.gameState = "cc";
+                    this.vsBot = 2;
+                    this.gameWinner = "no";
+                }
         }
     }
 
@@ -599,12 +660,11 @@ class XMLscene extends CGFscene {
 
     makeRequest(requestString) {
         this.getPrologRequest(requestString, this.handleReply);
-
     };
 
     handleReply(data) {
         console.log("Reply");
-        let regex = new RegExp("^([^-]+)-(white|black)-(down|right|left|up)-([0-9]+)$"); //Board - NextTurnPlayer - gameEnded
+        let regex = new RegExp("^([^-]+)-(white|black)-(down|right|left|up)-([0-9]+)-(white|black|no)$"); //Board - NextTurnPlayer - gameEnded
         let matched = regex.exec(data.target.responseText);
         this.validMove = true;
 
@@ -621,8 +681,8 @@ class XMLscene extends CGFscene {
 
         this.scene.direction = matched[3];
         this.scene.line = matched[4];
-        if (matched[5] != "no")
-            this.scene.gameOver = true;
+        console.log(matched[5]);
+        this.scene.gameWinner = matched[5];
 
         this.scene.nextBoard = board;
 
