@@ -45,6 +45,8 @@
         <texture id="outside" file="outside.jpg" />
         <texture id="pillow" file="pillow.jpg" />
         <texture id="blue" file="blue.jpg" />
+        <texture id="terrainheight" file="terrainmap.jpg" />
+        <texture id="terrain" file="marioplant.png" />
     </textures>
     <materials>
         <material id="metal" shininess = "0.7" >

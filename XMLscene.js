@@ -3,6 +3,7 @@ var DEGREE_TO_RAD = Math.PI / 180;
 let CELL_WIDTH = 2.0;
 let BOARD_SIZE = 19;
 let THROW_ANIMATION_TIME = 2000;
+let MOVE_CAMERA_TIME = 2000;
 
 
 /**
@@ -60,6 +61,8 @@ class XMLscene extends CGFscene {
 
         this.initAppearances();
 
+        this.gameGraphs = new Array();
+        this.gameEnvironments = new Array();
 
         this.surfaces = [];
         this.objects = [];
@@ -224,13 +227,13 @@ class XMLscene extends CGFscene {
         var i = 0;
         // Lights index.
 
-        // Reads the lights from the scene graph.
-        for (var key in this.graph.lights) {
+        // Reads the lights from the scene gameGraphs[this.currentEnvironment].
+        for (var key in this.gameGraphs[this.currentEnvironment].lights) {
             if (i >= 8)
                 break; // Only eight lights allowed by WebGL.
 
-            if (this.graph.lights.hasOwnProperty(key)) {
-                var light = this.graph.lights[key];
+            if (this.gameGraphs[this.currentEnvironment].lights.hasOwnProperty(key)) {
+                var light = this.gameGraphs[this.currentEnvironment].lights[key];
 
                 //lights are predefined in cgfscene
                 this.lights[i].setPosition(light[1][0], light[1][1], light[1][2], light[1][3]);
@@ -261,29 +264,33 @@ class XMLscene extends CGFscene {
     }
 
 
-    /* Handler called when the graph is finally loaded.
+    /* Handler called when the gameGraphs[this.currentEnvironment] is finally loaded.
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
 
-        this.camera = this.graph.views[this.graph.defaultView];
+        this.camera = this.gameGraphs[this.currentEnvironment].views[this.gameGraphs[this.currentEnvironment].defaultView];
         this.interface.setActiveCamera(this.camera);
-        this.currCamera = this.graph.defaultView;
+        this.currCamera = this.gameGraphs[this.currentEnvironment].defaultView;
         this.changeCamera = this.currCamera;
 
-        this.axis = new CGFaxis(this, this.graph.referenceLength);
+        this.axis = new CGFaxis(this, this.gameGraphs[this.currentEnvironment].referenceLength);
 
-        this.setGlobalAmbientLight(this.graph.ambient["r"], this.graph.ambient["g"], this.graph.ambient["b"], this.graph.ambient["a"]);
+        this.setGlobalAmbientLight(this.gameGraphs[this.currentEnvironment].ambient["r"], this.gameGraphs[this.currentEnvironment].ambient["g"], this.gameGraphs[this.currentEnvironment].ambient["b"], this.gameGraphs[this.currentEnvironment].ambient["a"]);
 
-        this.gl.clearColor(this.graph.background["r"], this.graph.background["g"], this.graph.background["b"], this.graph.background["a"]);
+        this.gl.clearColor(this.gameGraphs[this.currentEnvironment].background["r"], this.gameGraphs[this.currentEnvironment].background["g"], this.gameGraphs[this.currentEnvironment].background["b"], this.gameGraphs[this.currentEnvironment].background["a"]);
 
         this.initLights();
 
         // Adds lights group.
         this.interface.addAxis();
-        this.interface.addLightsGroup(this.graph.lights);
-        this.interface.addViewsGroup(this.graph.views);
-        this.interface.addGameGroup();
+        // if (this.currentEnvironment == 'cyberpunk.xml')
+        //     this.interface.addLightsGroupCyberpunk(this.gameGraphs[this.currentEnvironment].lights);
+        // else
+        //     this.interface.addLightsGroupJapanese(this.gameGraphs[this.currentEnvironment].lights);
+        this.interface.addViewsGroup(this.gameGraphs[this.currentEnvironment].views);
+        if (!this.sceneInited)
+            this.interface.addGameGroup(this.gameEnvironments);
 
         this.sceneInited = true;
     }
@@ -319,7 +326,7 @@ class XMLscene extends CGFscene {
             this.setCameraUsed();
             // Displays the scene (MySceneGraph function).
 
-            this.graph.displayScene();
+            this.gameGraphs[this.currentEnvironment].displayScene();
             if (typeof this.board !== 'undefined') { //Wait for prolog board
                 this.displayDirectionClickables();
                 this.displayBoardPieces();
@@ -343,9 +350,37 @@ class XMLscene extends CGFscene {
         }
 
         this.popMatrix();
+        if (this.moveCamera)
+            this.updateCameraRotation();
         this.setActiveShader(this.defaultShader);
         // draw objects
         // ---- END Background, camera and axis setup
+    }
+
+    updateCameraRotation() {
+        this.moveCamera = false;
+        switch (this.cameraPosition) {
+            case 0: //top
+                {
+
+                    // this.camera.orbit(CGFcameraAxisID.X, -50 * DEGREE_TO_RAD);
+                    break;
+                }
+            case 1: //left
+                {
+                    break;
+                }
+            case 2: // second Top
+                {
+                    break;
+                }
+            case 3:
+            default: // right
+                {
+
+                }
+        }
+
     }
 
     displayMenu() {
@@ -388,7 +423,7 @@ class XMLscene extends CGFscene {
                 this.blackPiece.display();
             this.popMatrix();
         }
-        if (this.animationJustFinished && ((this.vsBot && this.botColor != this.animationColor) || this.vsBot == 2)) {
+        if (this.animationJustFinished && ((this.vsBot && this.botColor != this.animationColor) || this.vsBot == 2) && this.gameWinner == "no") {
             this.animationJustFinished = false;
             this.makeRequest("botMove(" + this.botDiff + ")");
         } else if (this.animationJustFinished) {
@@ -479,7 +514,7 @@ class XMLscene extends CGFscene {
 
     setCameraUsed() {
         if (this.currCamera != this.changeCamera) {
-            this.camera = this.graph.views[this.changeCamera];
+            this.camera = this.gameGraphs[this.currentEnvironment].views[this.changeCamera];
             this.currCamera = this.changeCamera;
             this.interface.setActiveCamera(this.camera);
         }
@@ -496,8 +531,8 @@ class XMLscene extends CGFscene {
         if (this.animationBegin == undefined) {
             this.animationBegin = currTime;
         }
-        for (var node in this.graph.components) {
-            this.graph.components[node].updateAnimation(currTime - this.lastTime);
+        for (var node in this.gameGraphs[this.currentEnvironment].components) {
+            this.gameGraphs[this.currentEnvironment].components[node].updateAnimation(currTime - this.lastTime);
         }
         if (this.animationBegin + THROW_ANIMATION_TIME > currTime && typeof this.animationPiece != 'undefined') {
             this.setPickEnabled(false);
@@ -529,7 +564,7 @@ class XMLscene extends CGFscene {
     updateAnimation(deltaT) {
         this.time += deltaT / 1000;
         if (this.currentAnimationIndex < this.animations.length) {
-            if (this.time >= this.graph.scene.animations[this.currentAnimation].duration) {
+            if (this.time >= this.gameGraphs[this.currentEnvironment].scene.animations[this.currentAnimation].duration) {
                 this.time = 0;
                 this.currentAnimationIndex++;
                 this.currentAnimation = this.animations[this.currentAnimationIndex];
@@ -538,7 +573,7 @@ class XMLscene extends CGFscene {
                     this.currentAnimation = this.animations[this.currentAnimationIndex];
                 }
             }
-            this.animationMatrix = this.graph.scene.animations[this.currentAnimation].getTransformationMatrix(this.time);
+            this.animationMatrix = this.gameGraphs[this.currentEnvironment].scene.animations[this.currentAnimation].getTransformationMatrix(this.time);
         }
     }
 
@@ -767,7 +802,7 @@ class XMLscene extends CGFscene {
                 {
                     let start = this.animationLine * CELL_WIDTH;
                     let stop = this.animationStop * CELL_WIDTH;
-                    this.animationPiece = new LinearAnimation(this, 1, THROW_ANIMATION_TIME/1000, [
+                    this.animationPiece = new LinearAnimation(this, 1, THROW_ANIMATION_TIME / 1000, [
                         [start, 0, 0],
                         [start, 0, stop]
                     ]);
@@ -778,7 +813,7 @@ class XMLscene extends CGFscene {
                     let start = this.animationLine * CELL_WIDTH;
                     let stop = this.animationStop * CELL_WIDTH;
                     let border = 20 * CELL_WIDTH;
-                    this.animationPiece = new LinearAnimation(this, 1, THROW_ANIMATION_TIME/1000, [
+                    this.animationPiece = new LinearAnimation(this, 1, THROW_ANIMATION_TIME / 1000, [
                         [start, 0, border],
                         [start, 0, border - stop]
                     ]);
@@ -788,7 +823,7 @@ class XMLscene extends CGFscene {
                 {
                     let start = this.animationLine * CELL_WIDTH;
                     let stop = this.animationStop * CELL_WIDTH;
-                    this.animationPiece = new LinearAnimation(this, 1, THROW_ANIMATION_TIME/1000, [
+                    this.animationPiece = new LinearAnimation(this, 1, THROW_ANIMATION_TIME / 1000, [
                         [0, 0, start],
                         [stop, 0, start]
                     ]);
@@ -800,7 +835,7 @@ class XMLscene extends CGFscene {
                     let start = this.animationLine * CELL_WIDTH;
                     let stop = this.animationStop * CELL_WIDTH;
                     let border = 20 * CELL_WIDTH;
-                    this.animationPiece = new LinearAnimation(this, 1, THROW_ANIMATION_TIME/1000, [
+                    this.animationPiece = new LinearAnimation(this, 1, THROW_ANIMATION_TIME / 1000, [
                         [border, 0, start],
                         [border - stop, 0, start]
                     ]);
