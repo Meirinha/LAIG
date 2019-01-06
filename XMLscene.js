@@ -107,6 +107,10 @@ class XMLscene extends CGFscene {
 
         this.boardQuad = new MyRectangle(this, 1, [0, 0, 1, 1]);
 
+        this.cameraTimerDelta = 0.0;
+        this.moveCameraTimer = MOVE_CAMERA_TIME;
+        this.isMovingCamera = false;
+
         this.resetRequest();
     }
 
@@ -350,7 +354,7 @@ class XMLscene extends CGFscene {
         }
 
         this.popMatrix();
-        if (this.moveCamera)
+        if (this.isMovingCamera)
             this.updateCameraRotation();
         this.setActiveShader(this.defaultShader);
         // draw objects
@@ -358,12 +362,13 @@ class XMLscene extends CGFscene {
     }
 
     updateCameraRotation() {
-        this.moveCamera = false;
-        switch (this.cameraPosition) {
+        // this.isMovingCamera = false;
+        this.cameraPositionIndex = 0;
+        switch (this.cameraPositionIndex) {
             case 0: //top
                 {
 
-                    // this.camera.orbit(CGFcameraAxisID.X, -50 * DEGREE_TO_RAD);
+                    this.camera.orbit(CGFcameraAxisID.X, -50 * DEGREE_TO_RAD * (this.cameraTimerDelta/MOVE_CAMERA_TIME));
                     break;
                 }
             case 1: //left
@@ -550,6 +555,19 @@ class XMLscene extends CGFscene {
             }
             this.setPickEnabled(true);
         }
+
+        if(this.moveCameraTimer < MOVE_CAMERA_TIME)
+        {
+            this.cameraTimerDelta = currTime - this.lastTime;
+            this.moveCameraTimer += currTime - this.lastTime;
+        }
+        else{
+            this.cameraTimerDelta = 0;
+            this.cameraPositionIndex++;
+        }
+
+
+
         this.lastTime = currTime;
         //shaders here
         let factor = (Math.sin((currTime * 0.05) % 3130 * 0.001) + 1.0) * 0.5;

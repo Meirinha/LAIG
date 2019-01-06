@@ -99,8 +99,8 @@ class MyInterface extends CGFinterface {
         } else if(event.code == "KeyC")
         {
             console.log("Pressed C");
-            this.scene.moveCamera = true;
-            this.scene.cameraTimer = 0.0;
+            this.scene.isMovingCamera = true;
+            this.scene.moveCameraTimer = 0.0;
         }
     }
 }
